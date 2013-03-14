@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-03-14, 00:49:17 -->
+<!-- Saved: 2013-03-14, 13:42:28 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -20,8 +20,6 @@
     <Source>GaInOsStudio.py</Source>
     <Source>ArxmlParser.py</Source>
     <Source>GaInOsCfg.py</Source>
-    <Source>GaInOsStudio123.py</Source>
-    <Source>GaInOsStudi112o.py</Source>
   </Sources>
   <Forms>
     <Form>DlgStart.ui</Form>
