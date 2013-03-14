@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tasks SYSTEM "Tasks-4.2.dtd">
+<!-- eric4 tasks file for project GaInOS Studio -->
+<!-- Saved: 2013-03-14, 00:49:17 -->
+<Tasks version="4.2">
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-12, 21:59:24</Created>
+    <Resource>
+      <Filename>DlgStart.py</Filename>
+      <Linenumber>39</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-12, 21:59:24</Created>
+    <Resource>
+      <Filename>DlgStart.py</Filename>
+      <Linenumber>47</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>28</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>36</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>44</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>52</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>60</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>68</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>76</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>84</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>92</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>100</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>108</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>116</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>124</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>132</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>140</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>148</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-13, 23:10:23</Created>
+    <Resource>
+      <Filename>GaInOsStudio123.py</Filename>
+      <Linenumber>156</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>28</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>36</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>44</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>52</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>60</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:26:17</Created>
+    <Resource>
+      <Filename>GaInOsStudi112o.py</Filename>
+      <Linenumber>68</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>437</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>445</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>453</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>461</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>469</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>477</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>485</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>493</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>501</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-03-14, 00:48:28</Created>
+    <Resource>
+      <Filename>GaInOsStudio.py</Filename>
+      <Linenumber>509</Linenumber>
+    </Resource>
+  </Task>
+</Tasks>
