@@ -65,7 +65,7 @@ class Alarm():
     def __init__(self, name):
         self.name=name;
         #callback,task,event
-        self.type='task'; 
+        self.type='callback'; 
         self.task='';
         self.event='';
 

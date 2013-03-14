@@ -56,6 +56,7 @@ from DlgStart import  DlgStart
 
 from GaInOsCfg import *
 from ArxmlParser import *
+from ArxmlSaver import *
 class wMainClass(QMainWindow, Ui_wMainClass):
     """
     Class documentation goes here.
@@ -102,6 +103,33 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.spbxResCeilPrio.setRange(1, 140);
         self.spbxTskPrio.setRange(1, 140);
         self.spbxTskStkSize.setRange(32, 1024*10);
+    
+    def reloadTaskGui(self):
+        tree=self.trGaInOsCfgList.topLevelItem(0);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for obj in self.cfg.taskList:
+            item=QTreeWidgetItem(tree,QStringList(obj.name));
+            tree.addChild(item);
+            for ent in obj.eventList:
+                item2=QTreeWidgetItem(item,QStringList(ent.name));
+                item.addChild(item2);
+
+    def reloadTreeGui(self, trindex, list):
+        tree=self.trGaInOsCfgList.topLevelItem(trindex);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for obj in list:
+            item=QTreeWidgetItem(tree,QStringList(obj.name));
+            tree.addChild(item);
+
+    def reloadGui(self):
+        self.reloadTaskGui();
+        self.reloadTreeGui(1, self.cfg.resourceList);
+        self.reloadTreeGui(2, self.cfg.alarmList);
+        self.fileSavedIndicate();
 
     def initGui(self):
         self.leFileOpened.setText(self.arxml);
@@ -111,6 +139,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.initTab();
         self.disableAllTab();
         self.initSpbxRange();
+        self.reloadGui();
 
     def getProject(self, root):
         """返回选择的工程的绝对路径"""
@@ -262,7 +291,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.leEventName.setText(self.curobj.name);
         self.leEventMask.setText(self.curobj.mask);
         self.enableTab(4);
-
+ 
     def refreshTab(self):
         if(self.curtree.parent() == None):
             self.disableAllTab();
@@ -325,6 +354,14 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.curobj.eventList.append(obj);
         self.curtree.setExpanded(True);
 
+    def fileChangedIndicate(self):
+       self.btnFileSave.setText('Save**');
+       self.setWindowTitle('GaInOS Studio(parai@foxmail.com)       (unsaved)');
+
+    def fileSavedIndicate(self):
+        self.btnFileSave.setText('Save');
+        self.setWindowTitle('GaInOS Studio(parai@foxmail.com)');
+
     @pyqtSignature("")
     def on_btnAdd_clicked(self):
         text=self.btnAdd.text();
@@ -336,6 +373,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
             self.addAlarm();
         elif(text=='Add Event'):
             self.addEvent();
+        self.fileChangedIndicate();
 
     def delObj(self, list):
         list.remove(self.curobj);
@@ -364,79 +402,105 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         else:
             parent.setSelected(True);
             self.on_trGaInOsCfgList_itemClicked(parent, 0);
+        self.fileChangedIndicate();
 
    
     @pyqtSignature("QString")
     def on_cmbxAlarmType_activated(self, p0):
         if(self.curobj!=None):
-            self.curobj.type=p0;
-            self.refreshAlarmTabCmbx();
+            if(self.curobj.type!=p0):
+                self.curobj.type=p0;
+                self.refreshAlarmTabCmbx();
+                self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_cmbxAlarmTask_activated(self, p0):
         if(self.curobj!=None):
-            self.curobj.task=p0;
-            self.refreshAlarmTabCmbx();
+            if(self.curobj.task!=p0):
+                self.curobj.task=p0;
+                self.refreshAlarmTabCmbx();
+                self.fileChangedIndicate();
 
     @pyqtSignature("QString")
     def on_cmbxAlarmEvent_activated(self, p0):
         if(self.curobj!=None):
-            self.curobj.event=p0;
+            if(self.curobj.event!=p0):
+                self.curobj.event=p0;
+                self.fileChangedIndicate();
     
     @pyqtSignature("int")
     def on_spbxResCeilPrio_valueChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.ceilprio=p0;
+            if(self.curobj.ceilprio!=p0):
+                self.curobj.ceilprio=p0;
+                self.fileChangedIndicate();
     
     @pyqtSignature("int")
     def on_spbxTskStkSize_valueChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.stksz=p0;
+            if(self.curobj.stksz!=p0):
+                self.curobj.stksz=p0;
+                self.fileChangedIndicate();
     
     @pyqtSignature("int")
     def on_spbxTskPrio_valueChanged(self, p0):
         if(self.curobj!=None):  
-            self.curobj.prio=p0
+            if(self.curobj.prio!=p0):
+                self.curobj.prio=p0
+                self.fileChangedIndicate();
     
     @pyqtSignature("bool")
     def on_cbxTskAutoStart_clicked(self, checked):
         if(self.curobj!=None):
-            self.curobj.autostart=checked;
+            if(self.curobj.autostart!=checked):
+                self.curobj.autostart=checked;
+                self.fileChangedIndicate();
  
     @pyqtSignature("QString")
     def on_leEventName_textChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.name=p0;
-            self.curtree.setText(0, p0);
+            if(self.curobj.name!=p0):
+                self.curobj.name=p0;
+                self.curtree.setText(0, p0);
+                self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_leEventMask_textChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.mask=p0;
+            if(self.curobj.mask!=p0):
+                self.curobj.mask=p0;
+                self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_leAlarmName_textChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.name=p0;
-            self.curtree.setText(0, p0);
+            if(self.curobj.name!=p0):
+                self.curobj.name=p0;
+                self.curtree.setText(0, p0);
+                self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_leCntName_textChanged(self, p0):
         if(self.curobj!=None):
             self.curobj.name=p0;
             self.curtree.setText(0, p0);
+            self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_leResName_textChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.name=p0;
-            self.curtree.setText(0, p0);
+            if(self.curobj.name!=p0):
+                self.curobj.name=p0;
+                self.curtree.setText(0, p0);
+                self.fileChangedIndicate();
     
     @pyqtSignature("QString")
     def on_leTskName_textChanged(self, p0):
         if(self.curobj!=None):
-            self.curobj.name=p0;
-            self.curtree.setText(0, p0);
+            if(self.curobj.name!=p0):
+                self.curobj.name=p0;
+                self.curtree.setText(0, p0);
+                self.fileChangedIndicate();
  
     @pyqtSignature("")
     def on_btnCheck_clicked(self):
@@ -448,11 +512,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     
     @pyqtSignature("")
     def on_btnFileSave_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        ArxmlSaver(self.cfg, self.arxml);
+        self.fileSavedIndicate();
     
     @pyqtSignature("")
     def on_btnGen_clicked(self):
