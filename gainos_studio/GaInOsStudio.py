@@ -57,6 +57,7 @@ from DlgStart import  DlgStart
 from GaInOsCfg import *
 from ArxmlParser import *
 from ArxmlSaver import *
+from CodeGen import *
 class wMainClass(QMainWindow, Ui_wMainClass):
     """
     Class documentation goes here.
@@ -67,8 +68,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         """
         QMainWindow.__init__(self, parent)
         self.setupUi(self);
-        self.arxmlpath ='NULL';
-        self.arxml='NULL';
+        self.arxml='';
         self.cfg=GaInOsCfg();
         #curtree 对应Gui树目录控件中被选中项
         self.curtree=None;
@@ -131,12 +131,20 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.reloadTreeGui(2, self.cfg.alarmList);
         self.fileSavedIndicate();
 
+    def initMenu(self):
+        """关联快捷键"""
+        self.actionOpen.setShortcut('Ctrl+O');
+        self.actionSave.setShortcut('Ctrl+S');
+        self.actionSave_As.setShortcut('Ctrl+Shift+S');
+        self.actionNew.setShortcut('Ctrl+N');
+        
     def initGui(self):
         self.leFileOpened.setText(self.arxml);
         self.leFileOpened.setDisabled(True);
         self.setWindowTitle('GaInOS Studio(parai@foxmail.com)');
         self.initButton();
         self.initTab();
+        self.initMenu();
         self.disableAllTab();
         self.initSpbxRange();
         self.reloadGui();
@@ -154,11 +162,9 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     def getCfgArxml(self, dir):
         """如果存在gainoscfg.arxml配置文件，则返回之，
         否则，将新建一个空的文件"""
-        arxmlpath = dir+'/kernel/osek/src/config'
-        arxml = arxmlpath+'/gainoscfg.arxml'
+        arxml = dir+'/kernel/osek/src/config'+'/gainoscfg.arxml'
         if(False == os.path.isfile(arxml)):
             gnewArxml(arxml);
-        self.arxmlpath=arxmlpath;
         self.arxml=arxml;
 
     def refreshButton(self):
@@ -510,26 +516,40 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         # TODO: not implemented yet
         raise NotImplementedError
     
-    @pyqtSignature("")
-    def on_btnFileSave_clicked(self):
+    def saveArxml(self):
+        if(self.arxml==''):
+            self.arxml=QFileDialog.getSaveFileName(self, 'Save GaInOS Configure File.', 
+                '%s/%s'%('','gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
+            if(self.arxml!=''):
+                self.leFileOpened.setText(self.arxml);
         ArxmlSaver(self.cfg, self.arxml);
         self.fileSavedIndicate();
     
     @pyqtSignature("")
-    def on_btnGen_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+    def on_btnFileSave_clicked(self):
+        self.saveArxml();
     
     @pyqtSignature("")
+    def on_btnGen_clicked(self):
+        self.saveArxml();
+        CodeGen(self.cfg, os.path.dirname(self.arxml.toUtf8()))
+
+    def openArxml(self):
+        """加载配置文件"""
+        arxml=QFileDialog.getOpenFileName(self, 'Open GaInOS Configure File.', 
+                '%s/%s'%('','gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
+        if(arxml!=''):
+            self.arxml=arxml;
+            self.leFileOpened.setText(arxml);
+            LoadArxml(self.cfg,self.arxml);
+            self.initGui();
+            QMessageBox(QMessageBox.Information, 'GaInOS Info', 
+                'Load Configure File <%s> Done!'%(arxml)).exec_();
+
+    @pyqtSignature("")
     def on_btnFileOpen_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        self.openArxml();
+        self.fileSavedIndicate();
     
     @pyqtSignature("")
     def on_actionNew_triggered(self):
@@ -541,11 +561,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     
     @pyqtSignature("")
     def on_actionOpen_triggered(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        self.openArxml();
     
     @pyqtSignature("")
     def on_actionOpen_Recent_Files_triggered(self):
@@ -557,11 +573,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     
     @pyqtSignature("")
     def on_actionSave_triggered(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        self.saveArxml();
     
     @pyqtSignature("")
     def on_actionSave_As_triggered(self):
