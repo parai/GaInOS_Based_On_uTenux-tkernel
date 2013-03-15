@@ -77,4 +77,8 @@
 #  include <sys/sysdepend/app_sim3/sysinfo_depend.h>
 #endif
 
+#ifdef _APP_MC9S12_
+#  include <sys/sysdepend/app_mc9s12/sysinfo_depend.h>
+#endif
+
 #endif /* __SYS_SYSINFO_COMMON_H__ */

@@ -37,7 +37,6 @@ typedef __size_t	size_t;
 typedef __wchar_t	wchar_t;
 #undef	__wchar_t
 #endif
-
 #define NULL		0
 
 extern void* memset( void *s, int c, size_t n );

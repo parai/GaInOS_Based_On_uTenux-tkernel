@@ -45,9 +45,10 @@
 #ifdef __cplusplus
 #define Inline		inline
 #else
-#define Inline		static __inline__
+#define Inline		static   __inline__ 
 #endif
 #endif
+
 
 #ifndef Asm
 #ifdef __GNUC__
@@ -79,5 +80,12 @@
 #define Noinit(decl)	decl
 #endif
 
+#ifdef _APP_MC9S12_
+#undef Inline
+#define Inline static
+
+#undef Noinit
+#define Noinit(decl)	decl
+#endif
 
 #endif /* __MACHINE_H__ */

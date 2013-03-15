@@ -12,7 +12,7 @@ unsigned long tm_strlen(const char *s)
 	return sc - s;
 }
 
-inline long divide(long *n, long base)
+long divide(long *n, long base)
 {
 	long res;
 
@@ -31,7 +31,7 @@ inline long divide(long *n, long base)
 	return res;
 }
 
-inline int skip_atoi(const char **s)
+int skip_atoi(const char **s)
 {
 	register int i=0;
 	while (isdigit(**s))

@@ -137,7 +137,7 @@
 #define USE_DBGSPT		    (0)
 
 /* Use object name (Add object name to each control block) */
-#define USE_OBJECT_NAME		(1)	/* 0: Do not use object name */
+#define USE_OBJECT_NAME		(0)	/* 0: Do not use object name */
 					            /* 1: Use object name */
 #define OBJECT_NAME_LENGTH	(8)	/* Object name length in each control block */
 
@@ -146,7 +146,7 @@
  *   0: Do not output message
  *   1: Output message
  */
-#define USE_KERNEL_MESSAGE	(1)
+#define USE_KERNEL_MESSAGE	(0)
 
 
 #endif /* _CONFIG_ */

@@ -29,7 +29,7 @@
 #	 Description    : bin Makefile for gmake.
 #-------------------------------------------------------------------------------
 #your source base dir
-BD=D:/eclipse/runtime-EclipseApplication/uTenux
+BD=F:/parai@foxmail.com/github/GaInOS_Based_On_uTenux-tkernel/gainos/uTenux
 export BD;
 #CHIP selected
 CHIP=AT91SAM3S4C

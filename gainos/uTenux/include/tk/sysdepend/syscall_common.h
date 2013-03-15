@@ -91,4 +91,9 @@
 #  include <tk/sysdepend/app_sim3/cpudef.h>
 #endif
 
+#ifdef _APP_MC9S12_
+#  include <tk/sysdepend/app_mc9s12/cpuattr.h>
+#  include <tk/sysdepend/app_mc9s12/cpudef.h>
+#endif
+
 #endif /* __TK_SYSCALL_COMMON_H__ */

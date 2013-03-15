@@ -38,8 +38,9 @@ typedef __size_t	size_t;
 typedef __wchar_t	wchar_t;
 #undef	__wchar_t
 #endif
-
+#ifndef NULL
 #define NULL		0
+#endif
 
 extern void knl_tstdlib_bitclr( VP base, W offset );
 extern void knl_tstdlib_bitset( VP base, W offset );

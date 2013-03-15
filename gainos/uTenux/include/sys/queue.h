@@ -34,7 +34,6 @@ typedef struct queue {
 	struct queue	*next;
 	struct queue	*prev;
 } QUEUE;
-
 /*
  * Queue initialization 
  */
@@ -97,7 +96,6 @@ Inline QUEUE* QueRemoveNext( QUEUE *que )
 
 	return entry;
 }
-
 #ifdef __cplusplus
 }
 #endif

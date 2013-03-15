@@ -80,4 +80,8 @@
 #  include <tk/sysdepend/app_sim3/dbgspt_depend.h>
 #endif
 
+#ifdef _APP_MC9S12_
+#  include <tk/sysdepend/app_mc9s12/dbgspt_depend.h>
+#endif
+
 #endif /* __TK_DBGSPT_COMMON_H__ */
