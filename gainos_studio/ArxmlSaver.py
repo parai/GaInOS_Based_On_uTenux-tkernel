@@ -51,66 +51,38 @@ from PyQt4.QtCore import QStringList,QString
 import sys
 from GaInOsCfg import *
 
-def bool(s):
-    if(s=='True'):
-        return True;
-    else:
-        return False;
+class ArxmlSaver():
+    def __init__(self, cfg, arxml):
+        fp=open(arxml, 'w');
+        fp.write('<?xml version="1.0" encoding="utf-8"?>\n\n');
+        fp.write('<GaInOsCfg>\n');
+        self.saveTask(fp, cfg.taskList);
+        self.saveResource(fp, cfg.resourceList);
+        self.saveAlarm(fp, cfg.alarmList);
+        fp.write('</GaInOsCfg>\n');
+        fp.close();
 
-def gnewArxml(arxml):
-    """Global Function:new an arxml"""
-    fp = open(arxml, 'w');
-    fp.write('<?xml version="1.0" encoding="utf-8"?>\n\n');
-    fp.write('<GaInOsCfg></GaInOsCfg>\n\n');
-    fp.close();
-    
-class LoadArxml():
-    def __init__(self,cfg,arxml):
-        root = self.tryOpen(arxml);
-        self.doParse(cfg, root);
+    def saveTask(self, fp, list):
+        fp.write('<TaskList>\n');
+        for obj in list:
+            fp.write('<Task name=\'%s\' prio=\'%s\' stksz=\'%s\' autostart=\'%s\'>\n'%(
+                    obj.name, obj.prio, obj.stksz, obj.autostart));
+            fp.write('<EventList>\n');
+            for ent in obj.eventList:
+                fp.write('<Event name=\'%s\' mask=\'%s\'></Event>\n'%(ent.name, ent.mask));
+            fp.write('</EventList>\n');
+            fp.write('</Task>\n');
+        fp.write('</TaskList>\n');
 
-    def tryOpen(self, arxml):
-        """try open arxml,if failed create a new one."""
-        try:  
-            root = ET.parse(arxml).getroot();
-        except Exception, e: 
-            QMessageBox(QMessageBox.Information, 'GaInOS Info', 
-                'Invalid Configure File,Will Generate a new one!').exec_();
-            gnewArxml(arxml);
-            root = self.arxml= ET.parse(arxml).getroot();
-        return root;
+    def saveAlarm(self, fp, list):
+        fp.write('<AlarmList>\n');
+        for obj in list:
+            fp.write('<Alarm name=\'%s\' type=\'%s\' task=\'%s\' event=\'%s\'></Alarm>\n'%(
+                    obj.name, obj.type, obj.task, obj.event));
+        fp.write('</AlarmList>\n');
 
-    def doParse(self, cfg, root):
-        self.doParseTask(cfg, root.find('TaskList'));
-        self.doParseResource(cfg, root.find('ResourceList'));
-        self.doParseAlarm(cfg, root.find('AlarmList'));
-
-    def doParseTask(self, cfg, list):
-        del cfg.taskList;
-        cfg.taskList=[];
-        for node in list:
-            obj=Task(node.attrib['name'],   \
-                    int(node.attrib['prio']),   \
-                    int(node.attrib['stksz']));
-            obj.autostart=bool(node.attrib['autostart']);
-            for nd in node.find('EventList'):
-                ent=Event(nd.attrib['name'], nd.attrib['mask']);
-                obj.eventList.append(ent);
-            cfg.taskList.append(obj);
-
-    def doParseResource(self, cfg, list):
-        del cfg.resourceList;
-        cfg.resourceList=[];
-        for node in list:
-            obj=Resource(node.attrib['name'],int(node.attrib['ceilprio']));
-            cfg.resourceList.append(obj);
-
-    def doParseAlarm(self, cfg, list):
-        del cfg.alarmList;
-        cfg.alarmList=[];
-        for node in list:
-            obj=Alarm(node.attrib['name']);
-            obj.type=node.attrib['type'];
-            obj.task=node.attrib['task'];
-            obj.event=node.attrib['event'];
-            cfg.alarmList.append(obj);
+    def saveResource(self, fp, list):
+        fp.write('<ResourceList>\n');
+        for obj in list:
+            fp.write('<Resource name=\'%s\' ceilprio=\'%s\'></Resource>\n'%(obj.name, obj.ceilprio));
+        fp.write('</ResourceList>\n');
