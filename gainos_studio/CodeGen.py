@@ -59,6 +59,7 @@ class CodeGen():
     """C 代码生成器"""
     def __init__(self, cfg, path):
         self.genOsekCfgC(cfg, '%s/osek_cfg.c'%(path));
+        self.genOsekCfgH(cfg, '%s/osek_cfg.h'%(path));
     
     def backup(self, file):
         tm=localtime(time());
@@ -101,15 +102,66 @@ class CodeGen():
             fp.write('ID OsekAlarmIdTable[cfgOSEK_ALARM_NUM];\n');
             fp.write('UB OsekAlarmTypeTable[cfgOSEK_ALARM_NUM];\n');
             for obj in cfg.alarmList:
-                alm='\tAlarmCallBackEntry(%s),\n'%(obj.name);
+                alm+='\tAlarmCallBackEntry(%s),\n'%(obj.name);
                 acode+='ALARMCALLBACK(%s)\n{\n'%(obj.name);
                 if(obj.type=='callback'):
                     acode+='\ttm_putstring((UB*)"%s cbk is running.\\r\\n");\n'%(obj.name);
                 elif(obj.type=='task'):
-                    acode+='\t(void)tk_sta_tsk(%s,%s);\n'%(obj.task, obj.task);
+                    acode+='\t(void)tk_sta_tsk(ID_%s,ID_%s);\n'%(obj.task, obj.task);
                 elif(obj.type=='event'):
-                    acode+='\t(void)SetEvent(%s,%s);\n'%(obj.task, obj.event);
+                    acode+='\t(void)SetEvent(ID_%s,%s);\n'%(obj.task, obj.event);
                 acode+='}\n\n'
-            fp.write('const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=\n{\n%s}\n'%(alm));
+            fp.write('const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=\n{\n%s};\n'%(alm));
             fp.write(acode);
         fp.close();
+
+    def genOsekCfgH(self, cfg, file):
+        if os.path.isfile(file):
+            self.backup(file);
+        fp=open(file, 'w');
+        fp.write('#ifndef _OSEK_CFG_H_\n');
+        fp.write('#define _OSEK_CFG_H_\n');
+        fp.write('#include "osek_os.h"\n\n'); 
+        fp.write('/* #####################  TASK  ########################## */\n');
+        fp.write('#define cfgOSEK_TASK_NUM %s\n'%(len(cfg.taskList)));
+        fp.write('extern const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM];\n');
+        fp.write('extern const BOOL   OsekTaskAuotStartable[cfgOSEK_TASK_NUM];\n');
+        idtsk=ecd=ident='';
+        id=entcnt=0;
+        for obj in cfg.taskList:
+            idtsk+='#define ID_%s\t\t (MIN_TSKID+%s)\n'%(obj.name,id);
+            id+=1;
+            ecd+='extern TASK(%s);\n'%(obj.name);
+            if(len(obj.eventList)>0):
+                ident+='#define ID_%sEvent\t\t(MIN_FLGID+%s)\n'%(obj.name,entcnt);
+                entcnt+=1;
+                for ent in obj.eventList:
+                    ident+='#define %s\t\t %s\n'%(ent.name,ent.mask);
+        fp.write(idtsk);
+        fp.write(ecd);
+        fp.write('/* #####################  EVENT ########################## */\n');
+        fp.write('#define cfgOSEK_EVENTFLAG_NUM %s\n'%(entcnt));
+        fp.write(ident);
+        fp.write('/* #####################  ALARM ########################## */\n');
+        fp.write('#define cfgOSEK_ALARM_NUM %s\n'%(len(cfg.alarmList)));
+        if(len(cfg.alarmList)>0):
+            fp.write('extern ID OsekAlarmIdTable[cfgOSEK_ALARM_NUM];\n');
+            fp.write('extern UB OsekAlarmTypeTable[cfgOSEK_ALARM_NUM];\n');
+            fp.write('extern const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM];\n');
+        ident=ecd='';
+        id=0;
+        for obj in cfg.alarmList:
+            ident+='#define ID_%s\t\t(%s)\n'%(obj.name,id);
+            id+=1;
+            ecd+='extern ALARMCALLBACK(%s);\n'%(obj.name);
+        fp.write(ident);
+        fp.write(ecd);
+        fp.write('/*  ####################  RESOURCE ####################### */\n');
+        fp.write('#define cfgOSEK_RESOURCE_NUM %s\n'%(len(cfg.resourceList)));
+        if(len(cfg.resourceList)>0):
+            fp.write('extern const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM];\n');
+        id=0;
+        for obj in cfg.resourceList:
+            fp.write('#define ID_%s\t\t (MIN_MTXID+%s)\n'%(obj.name,id));
+            id+=1;                  
+        fp.write('#endif /* _OSEK_CFG_H_ */\n\n');

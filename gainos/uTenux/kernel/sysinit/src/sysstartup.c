@@ -40,9 +40,9 @@ EXPORT void knl_init_system( void )
 	if ( ercd < E_OK ) {
 		goto err_ret;
 	}
-
 	/* Initialize Imalloc */
 #if USE_IMALLOC
+
 	ercd = knl_init_Imalloc();
 
 	if ( ercd < E_OK ) {

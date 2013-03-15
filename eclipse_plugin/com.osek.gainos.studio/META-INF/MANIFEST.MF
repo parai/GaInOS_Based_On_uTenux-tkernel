@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Studio
+Bundle-SymbolicName: com.osek.gainos.studio; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.osek.gainos.studio.Activator
+Bundle-Vendor: OSEK
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

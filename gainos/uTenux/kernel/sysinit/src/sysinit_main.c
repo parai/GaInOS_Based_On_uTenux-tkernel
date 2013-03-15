@@ -104,7 +104,6 @@ EXPORT void knl_init_task(void)
  * Initial task creation parameter
  */
 IMPORT const T_CTSK knl_c_init_task;
-
 /*
  * Entry for starting Kernel
  */

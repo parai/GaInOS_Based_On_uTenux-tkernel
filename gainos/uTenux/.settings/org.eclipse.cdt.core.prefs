@@ -4,10 +4,10 @@ environment/project/0.1844658895=<?xml version\="1.0" encoding\="UTF-8" standalo
 environment/project/0.67394175=
 environment/project/0.67394175/BD/delimiter=;
 environment/project/0.67394175/BD/operation=replace
-environment/project/0.67394175/BD/value=D\:/uLoong/uTenux
+environment/project/0.67394175/BD/value=D\:/sdk/uTenux
 environment/project/0.67394175/CHIP/delimiter=;
 environment/project/0.67394175/CHIP/operation=replace
-environment/project/0.67394175/CHIP/value=STM32F103ZE
+environment/project/0.67394175/CHIP/value=AT91SAM3S4C
 environment/project/0.67394175/GCC_EXEC_PREFIX/delimiter=;
 environment/project/0.67394175/GCC_EXEC_PREFIX/operation=replace
 environment/project/0.67394175/GCC_EXEC_PREFIX/value=c\:/uLoong/uT-Studio/v200/gcc/libexec/gcc/

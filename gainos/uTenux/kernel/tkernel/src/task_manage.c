@@ -78,6 +78,7 @@ SYSCALL ID tk_cre_tsk_impl P1( T_CTSK *pk_ctsk )
 #else
 	/* Size of User buffer must be multiples of 8 */
 	if ( sstksz != pk_ctsk->stksz ) {
+		tm_putstring("Stk Problem.\r\n");
 		return E_PAR;
 	}
 	/* Use user buffer */

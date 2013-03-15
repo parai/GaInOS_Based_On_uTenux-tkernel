@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="GaInOS Studio Action Set"
+            visible="true"
+            id="com.osek.gainos.studio.actionSet">
+         <menu
+               label="GaInOS &amp;"
+               id="GaInOsMenu">
+            <separator
+                  name="GaInOsGrpCfg">
+            </separator>
+            <separator
+                  name="AboutGaInOsGrp">
+            </separator>
+         </menu>
+         <action
+               label="&amp;GaInOS Configure"
+               icon="icons/sample.gif"
+               class="com.osek.gainos.studio.actions.GaInOsStudioAction"
+               menubarPath="GaInOsMenu/GaInOsGrpCfg"
+               id="com.osek.gainos.studio.actions.GaInOsStudioAction">
+         </action>
+         <action
+               label="&amp;About GaInOS"
+               icon="icons/sample.gif"
+               class="com.osek.gainos.studio.actions.AboutGaInOsAction"
+               menubarPath="GaInOsMenu/AboutGaInOsGrp"
+               id="com.osek.gainos.studio.actions.AboutGaInOsAction">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>

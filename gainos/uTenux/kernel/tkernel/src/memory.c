@@ -16,6 +16,7 @@
 #include "kernel.h"
 #include <sys/imalloc.h>
 #include "memory.h"
+#include <tm/tmonitor.h>
 /** [END Common Definitions] */
 
 
@@ -95,7 +96,18 @@ EXPORT void knl_appendFreeArea( IMACB *imacb, QUEUE *aq )
 		(aq + 2)->next = (fq + 1)->next;
 		(fq + 1)->next = aq + 2;
 		(aq + 2)->prev = fq + 1;
+#if 0
+		/* Debug Code Start */
+		if(NULL==((aq + 2)->next))
+		{
+			tm_putstring((UB*)"Shit!Bug in Imalloc.\r\n");
+		}
+		/* Debug Code  End */
+#endif
+		if(NULL!=((aq + 2)->next))
+		{
 		(aq + 2)->next->prev = aq + 2;
+		}
 		(aq + 1)->next = NULL;
 	} else {
 		QueInsert(aq + 1, fq);
@@ -318,7 +330,6 @@ IMPORT	VP	knl_lowmem_top, knl_lowmem_limit;
 	setAreaFlag(&knl_imacb->areaque, AREA_USE);
 
 	knl_appendFreeArea(knl_imacb, top);
-
 	return E_OK;
 }
 #endif /* USE_FUNC_INIT_IMALLOC */

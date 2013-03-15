@@ -43,15 +43,15 @@
 #define CFN_TIMER_PERIOD	10
 #define CFN_MAX_TSKID		10
 #define CFN_MAX_SEMID		4
-#define CFN_MAX_FLGID		4
+#define CFN_MAX_FLGID		10
 #define CFN_MAX_MBXID		2
-#define CFN_MAX_MTXID		2
+#define CFN_MAX_MTXID		10
 #define CFN_MAX_MBFID		2
 #define CFN_MAX_PORID		2
 #define CFN_MAX_MPLID		2
 #define CFN_MAX_MPFID		2
-#define CFN_MAX_CYCID		2
-#define CFN_MAX_ALMID		2
+#define CFN_MAX_CYCID		10
+#define CFN_MAX_ALMID		10
 
 #define CFN_VER_MAKER		0
 #define CFN_VER_PRID		0

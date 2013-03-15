@@ -47,7 +47,7 @@ K_OBJ	+=	icrt0.o patch.o sysinit.o sysmain.o
 STDLIB = -lgcc
 
 # additional library
-LDSYSLIBS += -ltm -ltstd -ltk  -lcpu -ldevice -ltkernel -lsvc -lusermain -lstr 
+LDSYSLIBS += -ltm -ltstd -ltk  -lcpu -ldevice -ltkernel -lsvc -lusermain -lstr -losek
 LDLIBS += $(LDSYSLIBS) $(LDUSRLIBS) $(LDSYSLIBS) $(LDUSRLIBS)
 
 
@@ -63,13 +63,15 @@ CPPFLAGS +=
 
 # ----------------------------------------------------------------------------
 
-.PHONY: all clean install 
+.PHONY: all clean clean2 install 
 
 ALL  = $(TARGET_RAM) $(TARGET_RAM:%.sys=%.map) $(TARGET_RAM:%.sys=%.mot)
 ALL += $(TARGET_ROM) $(TARGET_ROM:%.rom=%.map) $(TARGET_ROM:%.rom=%.mot)
 
-all: lib kernel appli $(ALL)
+all: clean2 lib kernel appli $(ALL)
 
+clean2:
+	$(RM) $(ALL)
 # objects for RAM
 $(TARGET_RAM): 
 	$(CC) $(TARGET_ARCH) $(LDFLAGS) $(addprefix $(LIB_APPLI_PATH)/,$(A_OBJ)) $(addprefix $(LIB_KERNEL_PATH)/,$(K_OBJ)) $(LDLIBS) $(STDLIB) $(OUTPUT_OPTION)

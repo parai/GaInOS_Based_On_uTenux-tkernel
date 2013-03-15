@@ -21,6 +21,7 @@
 #include "timer.h"
 #include "task.h"
 #include <tm/tmonitor.h>
+#include "osek_os.h"
 
 /*
  * Start initial task
@@ -142,11 +143,14 @@ EXPORT void knl_t_kernel_main( T_CTSK *inittask )
 
 	InitModule(timer);
 
+#if(cfgOSEK == 0)
 	/*
 	 * Create/start initial task
 	 */
 	knl_init_task_startup(inittask);
-
+#else
+	StartOS(0);
+#endif /* cfgOSEK */
 	knl_force_dispatch();
 	/* No return */
 }

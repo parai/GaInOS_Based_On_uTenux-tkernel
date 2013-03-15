@@ -33,6 +33,7 @@ HEADER += $(S) $(S)/sysdepend/$(TETYPE)_$(MACHINE)
 
 # source files
 SRC +=	tm_monitor.c
+SRC +=	tm_printf.c
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 

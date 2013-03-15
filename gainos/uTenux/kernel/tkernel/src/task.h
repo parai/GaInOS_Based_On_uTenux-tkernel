@@ -47,7 +47,7 @@ typedef enum {
 	TS_WAIT		= 2,	/* WAIT state */
 	TS_SUSPEND	= 4,	/* SUSPEND state */
 	TS_WAITSUS	= 6,	/* Both WAIT and SUSPEND state */
-	TS_DORMANT	= 8	/* DORMANT state */
+	TS_DORMANT	= 8	    /* DORMANT state */
 } TSTAT;
 
 /*

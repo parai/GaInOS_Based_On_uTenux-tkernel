@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<GaInOsCfg>
+<TaskList>
+<Task name='vTask0' prio='1' stksz='512' autostart='True'>
+<EventList>
+</EventList>
+</Task>
+<Task name='vTask1' prio='2' stksz='512' autostart='True'>
+<EventList>
+<Event name='vTask1Event0' mask='0x1'></Event>
+<Event name='vTask1Event1' mask='0x2'></Event>
+</EventList>
+</Task>
+<Task name='vTask2' prio='3' stksz='512' autostart='True'>
+<EventList>
+<Event name='vTask2Event0' mask='0x1'></Event>
+<Event name='vTask2Event1' mask='0x2'></Event>
+</EventList>
+</Task>
+<Task name='vTask3' prio='4' stksz='512' autostart='True'>
+<EventList>
+</EventList>
+</Task>
+</TaskList>
+<ResourceList>
+<Resource name='vRes0' ceilprio='7'></Resource>
+<Resource name='vRes1' ceilprio='8'></Resource>
+<Resource name='vResSerial' ceilprio='4'></Resource>
+</ResourceList>
+<AlarmList>
+<Alarm name='vAlarm0' type='callback' task='' event=''></Alarm>
+<Alarm name='vAlarm1' type='task' task='vTask0' event=''></Alarm>
+<Alarm name='vAlarm2' type='event' task='vTask2' event='vTask2Event0'></Alarm>
+</AlarmList>
+</GaInOsCfg>

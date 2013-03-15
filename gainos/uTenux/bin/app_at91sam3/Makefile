@@ -28,6 +28,20 @@
 #	 Author	        : WangShb
 #	 Description    : bin Makefile for gmake.
 #-------------------------------------------------------------------------------
+#your source base dir
+BD=D:/eclipse/runtime-EclipseApplication/uTenux
+export BD;
+#CHIP selected
+CHIP=AT91SAM3S4C
+export CHIP;
+GCC_EXEC_PREFIX=c:/uLoong/uT-Studio/v200/gcc/libexec/gcc/
+export GCC_EXEC_PREFIX;
+GNUARM=c:/uLoong/uT-Studio/v200/gcc/arm-none-eabi
+export GNUARM;
+GNU_BD=c:/uLoong/uT-Studio/v200/gcc
+export GNU_BD;
+MODE=debug
+export MODE;
 
 # Tenux Target Type
 MACHINE = at91sam3

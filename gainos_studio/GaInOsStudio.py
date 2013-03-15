@@ -532,7 +532,10 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     @pyqtSignature("")
     def on_btnGen_clicked(self):
         self.saveArxml();
-        CodeGen(self.cfg, os.path.dirname(self.arxml.toUtf8()))
+        CodeGen(self.cfg, os.path.dirname(self.arxml.toUtf8()));
+        QMessageBox(QMessageBox.Information, 'GaInOS Info', 
+                'Gen C Code Successfully at <%s>!'%(
+                os.path.dirname(self.arxml.toUtf8()))).exec_();
 
     def openArxml(self):
         """加载配置文件"""

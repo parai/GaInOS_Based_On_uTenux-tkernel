@@ -20,6 +20,7 @@
 #include <basic.h>
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
+#include <tm/tm_printf.h>
 
 /*
  * Entry routine for the user application.
@@ -35,8 +36,6 @@
  */
 EXPORT	INT	usermain( void )
 {
-
-    tm_putstring((UB*)"Push any key to shutdown the micro Tenux.\n");
     tm_getchar(-1);
 
     return 0;

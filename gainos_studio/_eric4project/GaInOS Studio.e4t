@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-4.2.dtd">
 <!-- eric4 tasks file for project GaInOS Studio -->
-<!-- Saved: 2013-03-15, 00:44:24 -->
+<!-- Saved: 2013-03-15, 20:55:00 -->
 <Tasks version="4.2">
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
@@ -231,46 +231,46 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-14, 23:46:23</Created>
+    <Created>2013-03-15, 20:53:01</Created>
     <Resource>
       <Filename>GaInOsStudio.py</Filename>
-      <Linenumber>511</Linenumber>
+      <Linenumber>516</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-14, 23:46:23</Created>
+    <Created>2013-03-15, 20:53:01</Created>
     <Resource>
       <Filename>GaInOsStudio.py</Filename>
-      <Linenumber>541</Linenumber>
+      <Linenumber>562</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-14, 23:46:23</Created>
+    <Created>2013-03-15, 20:53:01</Created>
     <Resource>
       <Filename>GaInOsStudio.py</Filename>
-      <Linenumber>553</Linenumber>
+      <Linenumber>574</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-14, 23:46:23</Created>
+    <Created>2013-03-15, 20:53:01</Created>
     <Resource>
       <Filename>GaInOsStudio.py</Filename>
-      <Linenumber>565</Linenumber>
+      <Linenumber>586</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-14, 23:46:23</Created>
+    <Created>2013-03-15, 20:53:01</Created>
     <Resource>
       <Filename>GaInOsStudio.py</Filename>
-      <Linenumber>573</Linenumber>
+      <Linenumber>594</Linenumber>
     </Resource>
   </Task>
 </Tasks>

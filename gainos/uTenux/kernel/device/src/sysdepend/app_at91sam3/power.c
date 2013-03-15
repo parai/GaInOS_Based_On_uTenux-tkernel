@@ -39,6 +39,12 @@
  */
 EXPORT void knl_low_pow( void )
 {
+	static int flag = 0;
+	if(flag == 0)
+	{
+		tm_putstring((UB*)"in knl_low_pow().So no tasks in ready state.\r\n");
+		flag = 1;
+	}
 }
 
 /*

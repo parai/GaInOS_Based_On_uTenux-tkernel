@@ -21,6 +21,7 @@
 #define _READY_QUEUE_
 
 #include <libstr.h>
+#include <tm/tmonitor.h>
 #include "bitop.h"
 
 /*
