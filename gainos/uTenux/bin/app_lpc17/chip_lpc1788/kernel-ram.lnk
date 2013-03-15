@@ -1,0 +1,75 @@
+/*
+ *------------------------------------------------------------------------------
+ *    Bin
+ *
+ *    Copyright (C) 2008-2013 by Dalian uLoong Co.,Ltd. All rights reserved.
+ *    
+ *    This program is open source software; developer can redistribute it and/or 
+ *    modify it under the terms of the U-License as published by the T-Engine China 
+ *    Open Source Society; either version 1 of the License, or (at developer option) 
+ *    any later Version.
+ *    
+ *    This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+ *    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+ *    A PARTICULAR PURPOSE.  See the U-License for more details.
+ *    
+ *    Developer should have received a copy of the U-License along with this program; 
+ *    if not, download from www.tecoss.org(the web page of the T-Engine China Open 
+ *    Source Society).
+ *
+ *    CPU:        CORTEX M3
+ *    RTOS:       uT-Kernel
+ *    Version:    1.4.00
+ *    Released by T-Engine China Open Source Society
+ *                  (http://www.tecoss.org).
+ *
+ *	 File Name      : kernel-ram.lnk
+ *	 Create Date    : 2012/09/23-2012/09/23
+ *	 Author	        : wangxd-wangxd
+ *	 Description    : linker script (RAM,LPC1788).
+ *-------------------------------------------------------------------------------
+ */
+
+OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm", "elf32-littlearm")
+OUTPUT_ARCH(arm)
+
+SECTIONS
+{
+	.init 0x20080000 : {
+		*(.vector)
+		*(.ftext)
+		*(.ftext.*)
+	}
+
+	.text 0x20000000 : {
+		*(.text)
+		*(.rodata)
+	} =0
+	
+    __exidx_start = .;
+    .ARM.exidx :
+    {
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+    } = 0
+    __exidx_end = .;
+	
+	__data_org = . ;
+	.data : {
+		__data_start = . ;
+		*(.data)
+		__data_end = .;
+	}
+	.bss : {
+		__bss_start = .;
+		PROVIDE (__noinit_start = .);
+		*(.noinit)
+		PROVIDE (__noinit_end = .);
+		*(.bss)
+		*(COMMON)
+		__bss_end = .;
+	}
+
+	/DISCARD/ : {
+		*(.romtext.*)
+	}
+}

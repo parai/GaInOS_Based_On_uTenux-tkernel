@@ -1,0 +1,77 @@
+#
+# ----------------------------------------------------------------------
+#     micro T-Kernel
+#
+#     Copyright (C) 2006-2008 by Ken Sakamura. All rights reserved.
+#     micro T-Kernel is distributed under the micro T-License.
+# ----------------------------------------------------------------------
+#
+#     Version:   1.01.00
+#     Released by T-Engine Forum(http://www.t-engine.org) at 2008/02/25.
+#
+# ----------------------------------------------------------------------
+#
+
+#
+#	Makefile for gmake
+#	libsvc - System call interface library (common description)
+#
+
+# source file dependencies (generated automatically)
+DEPS = Dependencies
+DEPENDENCIES_OUTPUT := $(DEPS)
+
+# ----------------------------------------------------------------------------
+
+# target files
+TARGET.a  = libsvc.a
+
+# source file path
+S	= ../../src
+I	= $(S)/sysdepend/include $(BD)/include/sys/svc
+IFSRC	= $(S)/sysdepend/$(CPU_ARCH)
+
+VPATH := $(VPATH):$(IFSRC):$(S)
+SRC = $(SRC_TK) $(wildcard $(IFSRC)/*.S)
+HEADER += $(I)
+
+OBJ = $(addsuffix .o, $(basename $(notdir $(SRC))))
+
+HEADER   += $(IFSRC)/include
+CPPFLAGS += 
+CFLAGS   += $(CFLAGS_WARNING)
+
+# config file path (kernel settings)
+HEADER  += ../../../../config
+
+# ----------------------------------------------------------------------------
+
+.PHONY: all clean install
+
+ALL = $(TARGET.a)
+
+all: $(ALL)
+
+$(TARGET.a): $(OBJ)
+	$(AR) $(ARFLAGS) $@ $?
+  ifdef RANLIB
+	$(RANLIB) $@
+  endif
+
+clean:
+#	$(RM) *.o $(ALL)
+#	$(RM) $(DEPS)
+	$(RM)  $(OBJ)  $(ALL)  $(DEPS)
+
+install: $(addprefix $(LIB_INSTALLDIR)/, $(ALL))
+ifeq ($(LIBTYPE), so)
+install: $(addprefix $(EXE_INSTALLDIR)/, $(ALL))
+endif
+
+# generate dependencies
+ifdef DEPENDENCIES_OUTPUT
+  $(DEPS): ; touch $(DEPS)
+else
+  $(DEPS): $(SRC) ; $(MAKEDEPS) $@ $?
+endif
+-include $(DEPS)

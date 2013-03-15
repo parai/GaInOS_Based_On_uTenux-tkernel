@@ -1,0 +1,77 @@
+/*
+ *------------------------------------------------------------------------------
+ *    Bin
+ *
+ *    Copyright (C) 2008-2013 by Dalian uLoong Co.,Ltd. All rights reserved.
+ *    
+ *    This program is open source software; developer can redistribute it and/or 
+ *    modify it under the terms of the U-License as published by the T-Engine China 
+ *    Open Source Society; either version 1 of the License, or (at developer option) 
+ *    any later Version.
+ *    
+ *    This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+ *    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+ *    A PARTICULAR PURPOSE.  See the U-License for more details.
+ *    
+ *    Developer should have received a copy of the U-License along with this program; 
+ *    if not, download from www.tecoss.org(the web page of the T-Engine China Open 
+ *    Source Society).
+ *
+ *    CPU:        CORTEX M3
+ *    RTOS:       uT-Kernel
+ *    Version:    1.4.00
+ *    Released by T-Engine China Open Source Society
+ *                  (http://www.tecoss.org).
+ *
+ *	 File Name      : kernel-rom.lnk
+ *	 Create Date    : 2012/7/9-2012/9/16
+ *	 Author	        : WangShb-wangshb
+ *	 Description    : linker script (ROM,STM32F103ZE).
+ *-------------------------------------------------------------------------------
+ */
+
+OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm", "elf32-littlearm")
+OUTPUT_ARCH(arm)
+
+SECTIONS {
+	.text 0x00000000 : AT(0x00000000) {
+		*(.vector)
+		*(.ftext)
+		*(.ftext.1)
+		*(.romtext.1)
+		*(.ftext.2)
+		*(.romtext.2)
+		*(.ftext.3)
+        *(.rodata.str1.4)
+		*(.text)
+		*(.rodata)
+	} = 0
+	
+    __exidx_start = .;
+    .ARM.exidx :
+    {
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+    } = 0
+    __exidx_end = .;
+    		
+	__data_org = .;
+	.data 0x20000000 : AT(__data_org) {
+		__data_start = .;
+		*(.data)
+		__data_end = .;
+	}
+	.bss : {
+		__bss_start = .;
+		PROVIDE (__noinit_start = .);
+		*(.noinit)
+		PROVIDE (__noinit_end = .);
+		*(.bss)
+		*(COMMON)
+		__bss_end = .;
+		__end = .;
+	}
+    /DISCARD/ :
+    {
+        *(.eh_*)
+    }
+}

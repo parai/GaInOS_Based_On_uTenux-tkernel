@@ -1,0 +1,73 @@
+#
+# ----------------------------------------------------------------------
+#     micro T-Kernel
+#
+#     Copyright (C) 2006-2008 by Ken Sakamura. All rights reserved.
+#     micro T-Kernel is distributed under the micro T-License.
+# ----------------------------------------------------------------------
+#
+#     Version:   1.01.00
+#     Released by T-Engine Forum(http://www.t-engine.org) at 2008/02/25.
+#
+# ----------------------------------------------------------------------
+#
+
+#
+#	Makefile for gmake
+#	kernel main (common description)
+#
+
+KERNEL_SYSDEP_TARGET = libdevice libsysinit libsysmain libtkernel libtstd
+KERNEL_CPUDEP_TARGET = libcpu 
+
+KERNEL_ARCHIVE_OBJ = $(filter lib%, $(KERNEL_SYSDEP_TARGET) $(KERNEL_CPUDEP_TARGET) )
+
+# ----------------------------------------------------------------------------
+
+all: $(KERNEL_SYSDEP_TARGET) $(KERNEL_CPUDEP_TARGET)
+
+$(KERNEL_SYSDEP_TARGET):
+	cd ../../$(subst lib,,$@)/build/$(TETYPE)_$(MACHINE) ; \
+	make ; \
+	makei install
+
+$(KERNEL_CPUDEP_TARGET):
+	cd ../../$(subst lib,,$@)/build/$(MACHINE) ; \
+	make ; \
+	makei install
+
+clean:
+	@(cd ../.. ; \
+	for dir in $(subst lib,,$(KERNEL_SYSDEP_TARGET)); do \
+		( cd $$dir/build/$(TETYPE)_$(MACHINE) ; makei clean;) ; \
+	done ; \
+	for dir in $(subst lib,,$(KERNEL_CPUDEP_TARGET)); do \
+		( cd $$dir/build/$(MACHINE) ; makei clean;) ; \
+	done ; ) ;
+
+	
+	rm -rf $(addsuffix .a, $(KERNEL_ARCHIVE_OBJ)) *.o \#*.o.* \#*.a.*
+
+clean_device:
+	@(cd ../.. ; \
+	for dir in $(subst lib,,libdevice); do \
+		( cd $$dir/build/$(TETYPE)_$(MACHINE) ; makei clean;) ; \
+	done ;);
+	rm -rf $(addsuffix .a,libdevice) icrt0.o patch.o
+	
+all_device:
+	cd ../../$(subst all_,,$@)/build/$(TETYPE)_$(MACHINE) ; \
+	make ; \
+	makei install
+
+clean_cpu:
+	@(cd ../.. ; \
+	for dir in $(subst lib,,libcpu); do \
+		( cd $$dir/build/$(MACHINE) ; makei clean;) ; \
+	done ;);
+	rm -rf $(addsuffix .a,libcpu)
+	
+all_cpu:
+	cd ../../$(subst all_,,$@)/build/$(MACHINE) ; \
+	make ; \
+	makei install

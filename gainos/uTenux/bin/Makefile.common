@@ -1,0 +1,126 @@
+#
+# ----------------------------------------------------------------------
+#     micro T-Kernel
+#
+#     Copyright (C) 2006-2008 by Ken Sakamura. All rights reserved.
+#     micro T-Kernel is distributed under the micro T-License.
+# ----------------------------------------------------------------------
+#
+#     Version:   1.01.00
+#     Released by T-Engine Forum(http://www.t-engine.org) at 2008/02/25.
+#
+# ----------------------------------------------------------------------
+#
+
+#
+#	Makefile for gmake
+#	bin main (common description)
+#
+
+# source file dependencies (generated automatically)
+DEPS = Dependencies
+DEPENDENCIES_OUTPUT := $(DEPS)
+
+# ----------------------------------------------------------------------------
+
+# t-kernel binary install path
+BIN_INSTALLDIR	= $(BD)/bin/$(TETYPE)_$(MACHINE)
+
+# t-kernel modules path
+LIB_APPLI_PATH	= $(BD)/app/build/$(TETYPE)_$(MACHINE)
+LIB_KERNEL_PATH	= $(BD)/kernel/build/$(TETYPE)_$(MACHINE)
+LIB_COMMON_PATH	= $(BD)/lib/build/$(TETYPE)_$(MACHINE)
+# ----------------------------------------------------------------------------
+
+# target objects
+TARGET_RAM	= kernel-ram.sys
+TARGET_ROM	= kernel-rom.rom
+
+
+# Application modules
+A_OBJ	= inittask_def.o 
+
+# T-Kernel modules
+K_OBJ	+=	icrt0.o patch.o sysinit.o sysmain.o 
+
+# gcc standard library
+STDLIB = -lgcc
+
+# additional library
+LDSYSLIBS += -ltm -ltstd -ltk  -lcpu -ldevice -ltkernel -lsvc -lusermain -lstr 
+LDLIBS += $(LDSYSLIBS) $(LDUSRLIBS) $(LDSYSLIBS) $(LDUSRLIBS)
+
+
+
+# linker options
+LDFLAGS += -static -nostdlib -T $(LINKSCRIPT) -L$(LIB_APPLI_PATH) -L$(LIB_KERNEL_PATH) -L$(LIB_COMMON_PATH) -L./
+LINKSCRIPT = chip_$(CHIP)/kernel-ram$(_GCCVER).lnk
+$(TARGET_ROM): LINKSCRIPT = chip_$(CHIP)/kernel-rom$(_GCCVER).lnk
+
+# compiler options
+CFLAGS += $(CFLAGS_WARNING)
+CPPFLAGS +=
+
+# ----------------------------------------------------------------------------
+
+.PHONY: all clean install 
+
+ALL  = $(TARGET_RAM) $(TARGET_RAM:%.sys=%.map) $(TARGET_RAM:%.sys=%.mot)
+ALL += $(TARGET_ROM) $(TARGET_ROM:%.rom=%.map) $(TARGET_ROM:%.rom=%.mot)
+
+all: lib kernel appli $(ALL)
+
+# objects for RAM
+$(TARGET_RAM): 
+	$(CC) $(TARGET_ARCH) $(LDFLAGS) $(addprefix $(LIB_APPLI_PATH)/,$(A_OBJ)) $(addprefix $(LIB_KERNEL_PATH)/,$(K_OBJ)) $(LDLIBS) $(STDLIB) $(OUTPUT_OPTION)
+
+$(TARGET_RAM:%.sys=%.map): $(TARGET_RAM)
+	$(NM) $(NMFLAGS) $< >$@
+#	$(NM) $(NMFLAGS) $<
+	
+$(TARGET_RAM:%.sys=%.mot): $(TARGET_RAM)
+	$(OBJCOPY) $(OUTPUT_SREC) $< $@
+
+# objects for ROM
+$(TARGET_ROM): 
+	$(CC) $(TARGET_ARCH) $(LDFLAGS) $(addprefix $(LIB_APPLI_PATH)/,$(A_OBJ)) $(addprefix $(LIB_KERNEL_PATH)/,$(K_OBJ)) $(LDLIBS) $(STDLIB) $(OUTPUT_OPTION)
+
+$(TARGET_ROM:%.rom=%.map): $(TARGET_ROM)
+	$(NM) $(NMFLAGS) $< >$@
+#	$(NM) $(NMFLAGS) $< 
+
+$(TARGET_ROM:%.rom=%.mot): $(TARGET_ROM)
+	$(OBJCOPY) $(OUTPUT_SREC) $< $@
+
+appli:
+	( cd $(LIB_APPLI_PATH) ; make)
+	
+kernel:
+ifndef KIT
+	( cd $(LIB_KERNEL_PATH) ; make)
+else
+	( cd $(LIB_KERNEL_PATH) ; )
+endif
+
+lib:
+ifndef KIT
+	(cd $(LIB_COMMON_PATH); make)
+else
+	(cd $(LIB_COMMON_PATH); )
+endif
+
+clean: 
+	( cd $(LIB_APPLI_PATH)  ; makei clean )
+ifndef KIT
+	( cd $(LIB_COMMON_PATH) ; makei clean )
+	( cd $(LIB_KERNEL_PATH) ; makei clean )
+endif
+	$(RM) $(OBJ) $(TARGET_CRT0) $(ALL) $(DEPS)
+    
+install: $(addprefix $(EXE_INSTALLDIR)/, $(ALL))
+
+$(addprefix $(EXE_INSTALLDIR)/, $(TARGET)): $(EXE_INSTALLDIR)/%: %
+
+# generate dependencies
+$(DEPS): ; touch $(DEPS)
+-include $(DEPS)

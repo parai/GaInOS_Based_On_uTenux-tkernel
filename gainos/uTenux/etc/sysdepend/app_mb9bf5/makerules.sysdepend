@@ -1,0 +1,272 @@
+#
+#------------------------------------------------------------------------------
+#    Etc
+#
+#    Copyright (C) 2008-2013 by Dalian uLoong Co.,Ltd. All rights reserved.
+#    
+#    This program is open source software; developer can redistribute it and/or 
+#    modify it under the terms of the U-License as published by the T-Engine China 
+#    Open Source Society; either version 1 of the License, or (at developer option) 
+#    any later Version.
+#    
+#    This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+#    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+#    A PARTICULAR PURPOSE.  See the U-License for more details.
+#    
+#    Developer should have received a copy of the U-License along with this program; 
+#    if not, download from www.tecoss.org(the web page of the T-Engine China Open 
+#    Source Society).
+#
+#    CPU:        MB9BF5
+#    RTOS:       uT-Kernel
+#    Version:    1.4.00
+#    Released by T-Engine China Open Source Society
+#                  (http://www.tecoss.org).
+#
+#	 File Name      : makerules.sysdepend
+#	 Create Date    : 2012/7/19-2012/9/24
+#	 Author	        : WangShb-Zhangzl
+#	 Description    : Makefile for gmake.
+#-------------------------------------------------------------------------------
+
+#
+#	makerules
+#		for GNU make
+#
+#	    default rules - system-dependent (mb9bf5)
+#
+#	MACHINE	target CPU
+#		mb9bf5  	: MB9BF5 (ARM CORTEX M3)
+#
+#	TETYPE	Tenux Maker Type
+#		app	: Tenux general appliance
+#
+#   CHIP target MCU MODEL
+#       MB9BF506R   : normal model of MB9BF5 serial MCU
+#
+#	GNUarm	GNU development tool for ARM
+#
+
+
+# ===== default settings ======================================================
+### add environments ###
+ifndef GNUs
+  # default closs development environment tool directory
+  GNUs := $(GNU_BD)/tools
+endif
+ifndef GNUarm
+  # default GNU development tool for ARM directory
+  GNUarm := $(GNU_BD)/arm-none-eabi
+endif
+ifndef CHIP
+  # default MB9BF5 MCU model
+  CHIP := MB9BF506R
+endif
+
+# command path
+#PATH = .
+PATH += .
+
+ifneq ($(filter "$(origin GNUarm)", $(TOOL_ORIGIN)), )
+  PATH := $(PATH):$(GNUarm)/bin
+endif
+ifneq ($(filter "$(origin GNUs)", $(TOOL_ORIGIN)), )
+  PATH := $(PATH):$(GNUs)/bin
+endif
+ifneq ($(filter Linux-%, $(CROSS_ARCH)), )
+  PATH := $(PATH):$(GNU_BD)/bin
+endif
+
+# ----- uTenux Appliance MB9BF5 (ARM CORTEX M3) --------------------------
+
+# GCC environment
+TARGET_ARCH =
+
+# target type
+_CPUTYPE_FLAGS    = -mcpu=cortex-m3  -mthumb -mfpu=vfp
+_CPUTYPE_FLAGS_AS = -mcpu=cortex-m3  -mthumb -mfpu=vfp
+_TE_SYSTEM_NAME_ = _APP_MB9BF5_
+
+# code set
+_CODESET_FLAGS = -mthumb-interwork
+
+### build option ###
+CFLAGS +=
+CPPFLAGS +=
+ASFLAGS +=
+LDFLAGS +=
+
+### C  ###
+# CC := $(GNUarm)/bin/gccarm
+CC := $(GNUarm)/bin/gcc -B ${GNU_BD}/lib/gcc/ -B $(GNUarm)/
+
+OUTPUT_OPTION = -o $@
+ifeq ($(mode), debug)
+  CFLAGS += -g
+  CPPFLAGS += $(HEADER:%=-I%) -D$(_TE_SYSTEM_NAME_) -D_CHIP_$(CHIP)_ -DDEBUG
+else
+  CFLAGS += -O2
+  CPPFLAGS += $(HEADER:%=-I%) -D$(_TE_SYSTEM_NAME_) -D_CHIP_$(CHIP)_
+endif
+
+CFLAGS += $(_CPUTYPE_FLAGS) $(_CODESET_FLAGS) -mstructure-size-boundary=8 -ffreestanding
+
+CFLAGS_WARNING      = -Wall
+CFLAGS_WARNING_FULL = -pedantic -W -Wall
+
+COMPILE.c = $(CC) $(TARGET_ARCH) $(CFLAGS) $(CPPFLAGS) -c
+LINK.c = $(CC) $(TARGET_ARCH) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
+
+%.o: %.c
+	$(COMPILE.c) $< $(OUTPUT_OPTION)
+
+%.s: %.c
+	$(CC) $(TARGET_ARCH) $(CFLAGS) $(CPPFLAGS) -S $<
+
+%.i: %.c
+	$(CC) $(TARGET_ARCH) $(CFLAGS) $(CPPFLAGS) -E $< $(OUTPUT_OPTION)
+
+### C++ ###
+# CXX := $(GNUarm)/bin/gccarm
+CXX := $(GNUarm)/bin/gcc -B ${GNU_BD}/lib/gcc/ -B $(GNUarm)/
+
+CXXFLAGS = $(CFLAGS)
+
+COMPILE.cc = $(CXX) $(TARGET_ARCH) $(CXXFLAGS) $(CPPFLAGS) -c
+LINK.cc = $(CXX) $(TARGET_ARCH) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+
+%.o: %.cc
+	$(COMPILE.cc) $< $(OUTPUT_OPTION)
+
+%.s: %.cc
+	$(CXX) $(TARGET_ARCH) $(CXXFLAGS) $(CPPFLAGS) -S $<
+
+%.i: %.cc
+	$(CXX) $(TARGET_ARCH) $(CXXFLAGS) $(CPPFLAGS) -E $< $(OUTPUT_OPTION)
+
+### asm ###
+AS = $(GNUarm)/bin/as
+ifeq ($(mode), debug)
+  ASFLAGS += -g
+else
+  ASFLAGS +=
+endif
+
+ASFLAGS += $(_CPUTYPE_FLAGS) $(_CODESET_FLAGS)
+ASFLAGS.s = $(_CPUTYPE_FLAGS_AS) $(_CODESET_FLAGS)
+
+COMPILE.S = $(CC) $(TARGET_ARCH) $(ASFLAGS) $(CPPFLAGS) -c
+COMPILE.s = $(AS) $(ASFLAGS.s)
+
+%.o: %.S
+	$(COMPILE.S) $< $(OUTPUT_OPTION)
+
+%.o: %.s
+	$(COMPILE.s) $< $(OUTPUT_OPTION)
+
+%.i: %.S
+	$(CC) $(TARGET_ARCH) $(ASFLAGS) $(CPPFLAGS) -E $< $(OUTPUT_OPTION)
+
+### linker ###
+LD = $(GNUarm)/bin/ld
+ifeq ($(mode), debug)
+  LDFLAGS += $(LIBDIR:%=-L%)
+else
+  LDFLAGS += $(LIBDIR:%=-L%)
+endif
+
+LDFLAGS += $(_CPUTYPE_FLAGS) $(_CODESET_FLAGS)
+
+LIBDIR = $(COMMONLIB)
+LOADLIBES =
+LDOBJS =
+LDLIBS =
+
+# additional linker option
+ifneq ($(filter sl, $(options)), )
+  LDFLAGS2 = -static
+else
+  # no effect
+  LDFLAGS2 = -static
+endif
+LDFLAGS3 = -static -T $(COMMONLIB)/static.lnk
+START_ADR =
+
+# create executable
+LINK.o = $(CC) $(TARGET_ARCH) $(LDFLAGS) $(LDFLAGS2) $(START_ADR) 
+
+# link objects
+LINK_R.o = $(CC) $(TARGET_ARCH) $(LDFLAGS) -r -nostdlib
+
+# link objects and libraries
+LINK_A.o = $(CC) $(TARGET_ARCH) $(LDFLAGS) -r
+
+# create executable (location only)
+LOCATE.o = $(CC) $(TARGET_ARCH) $(LDFLAGS) -nostdlib $(LDFLAGS3) $(START_ADR)
+
+%: %.o
+	$(LINK.o) $(LDOBJS) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION)
+
+%.out: %.o
+	$(LINK.o) $(LDOBJS) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION)
+
+%.abs: %.o
+	$(LINK_A.o) $(LDOBJS) $^ $(LOADLIBES) $(LDLIBS) -o _$@
+	$(LOCATE.o) _$@ $(OUTPUT_OPTION)
+	$(RM) _$@
+
+### library ###
+AR = $(GNUarm)/bin/ar
+ARFLAGS = rv
+RANLIB = $(GNUarm)/bin/ranlib
+
+(%): %
+	$(AR) $(ARFLAGS) $@ $%
+
+### create name list ###
+NM = $(GNUarm)/bin/nm
+NMFLAGS = -n
+
+%.map: %
+	$(NM) $(NMFLAGS) $< > $@
+
+%.map: %.out
+	$(NM) $(NMFLAGS) $< > $@
+
+%.map: %.abs
+	$(NM) $(NMFLAGS) $< > $@
+
+%.map: %.dll
+	$(NM) $(NMFLAGS) $< > $@
+
+### data box ###
+DBCPPFLAGS = -D$(_TE_SYSTEM_NAME_)
+DB_CPP = $(CPP) -nostdinc -traditional -P $(DATABOX_HEADER:%=-I%) $(DBCPPFLAGS)
+DB = $(ETCBIN)/databox
+DBFLAGS =
+DBSRCFLAGS = -s
+DATABOX = $(DB) $(DBFLAGS)
+
+%.dbx: %.d
+	$(DB_CPP) $< $@.tmp
+	$(DATABOX) $@.tmp $@
+	$(RM) $@.tmp
+
+%.fsn: %.f
+	$(DB_CPP) $< $@.tmp
+	$(DATABOX) -n $@.tmp $@
+	$(RM) $@.tmp
+
+%.c: %.d
+	$(DB_CPP) $< $@.tmp
+	$(DATABOX) -n $(DBSRCFLAGS) $@.tmp $@
+	$(RM) $@.tmp
+
+### other ###
+ifndef CPP
+  CPP = $(GNU_BD)/bin/arm-none-eabi-cpp
+endif
+STRIP = $(GNUarm)/bin/strip --strip-unneeded
+
+OBJCOPY = $(GNU_BD)/bin/arm-none-eabi-objcopy
+OUTPUT_SREC = -O srec --srec-forceS3 --srec-len 32

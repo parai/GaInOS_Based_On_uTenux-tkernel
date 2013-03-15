@@ -1,0 +1,27 @@
+eclipse.preferences.version=1
+environment/project/0.1322948602=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<environment append\="true" appendContributed\="true">\r\n<variable delimiter\=";" name\="GCC_EXEC_PREFIX" operation\="append" value\="c\:/yagarto-tx/v100/libexec/gcc/"/>\r\n<variable delimiter\=";" name\="GNU_BD" operation\="append" value\="c\:/yagarto-tx/v100"/>\r\n<variable delimiter\=";" name\="GNUs" operation\="append" value\="c\:/yagarto-tx/v100/tools"/>\r\n<variable delimiter\=";" name\="CHIP" operation\="append" value\="MK60N512VMD100"/>\r\n<variable delimiter\=";" name\="BD" operation\="append" value\="D\:/Documents/uLoong/Project/PRD20120900D/2.ProjectProduction/7.Coding/uTenux"/>\r\n<variable delimiter\=";" name\="mode" operation\="append" value\="debug"/>\r\n<variable delimiter\=";" name\="GNUarm" operation\="append" value\="c\:/yagarto-tx/v100/arm-elf"/>\r\n<variable delimiter\=";" name\="trap" operation\="replace" value\="on"/>\r\n</environment>\r\n
+environment/project/0.1844658895=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<environment append\="true" appendContributed\="true">\r\n<variable delimiter\=";" name\="GCC_EXEC_PREFIX" operation\="append" value\="c\:/yagarto-tx/v100/libexec/gcc/"/>\r\n<variable delimiter\=";" name\="GNU_BD" operation\="append" value\="c\:/yagarto-tx/v100"/>\r\n<variable delimiter\=";" name\="GNUs" operation\="append" value\="c\:/yagarto-tx/v100/tools"/>\r\n<variable delimiter\=";" name\="CHIP" operation\="append" value\="MK60N512VMD100"/>\r\n<variable delimiter\=";" name\="mode" operation\="append" value\="debug"/>\r\n<variable delimiter\=";" name\="GNUarm" operation\="append" value\="c\:/yagarto-tx/v100/arm-elf"/>\r\n<variable delimiter\=";" name\="trap" operation\="append" value\="on"/>\r\n<variable delimiter\=";" name\="D\:/Documents/uLoong/Project/PRD20120900D/2.ProjectProduction/7.Coding/uTenux" operation\="append" value\="BD"/>\r\n</environment>\r\n
+environment/project/0.67394175=
+environment/project/0.67394175/BD/delimiter=;
+environment/project/0.67394175/BD/operation=replace
+environment/project/0.67394175/BD/value=D\:/uLoong/uTenux
+environment/project/0.67394175/CHIP/delimiter=;
+environment/project/0.67394175/CHIP/operation=replace
+environment/project/0.67394175/CHIP/value=STM32F103ZE
+environment/project/0.67394175/GCC_EXEC_PREFIX/delimiter=;
+environment/project/0.67394175/GCC_EXEC_PREFIX/operation=replace
+environment/project/0.67394175/GCC_EXEC_PREFIX/value=c\:/uLoong/uT-Studio/v200/gcc/libexec/gcc/
+environment/project/0.67394175/GNUARM/delimiter=;
+environment/project/0.67394175/GNUARM/operation=replace
+environment/project/0.67394175/GNUARM/value=c\:/uLoong/uT-Studio/v200/gcc/arm-none-eabi
+environment/project/0.67394175/GNUS/delimiter=;
+environment/project/0.67394175/GNUS/operation=replace
+environment/project/0.67394175/GNUS/value=c\:/uLoong/uT-Studio/v200/msys
+environment/project/0.67394175/GNU_BD/delimiter=;
+environment/project/0.67394175/GNU_BD/operation=replace
+environment/project/0.67394175/GNU_BD/value=c\:/uLoong/uT-Studio/v200/gcc
+environment/project/0.67394175/MODE/delimiter=;
+environment/project/0.67394175/MODE/operation=append
+environment/project/0.67394175/MODE/value=debug
+environment/project/0.67394175/append=true
+environment/project/0.67394175/appendContributed=true

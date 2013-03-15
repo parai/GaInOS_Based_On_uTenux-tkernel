@@ -1,0 +1,25 @@
+#! /bin/sh -e
+#	platform
+#
+#	check closs platform
+#
+#	"Linux-i686"	    : Linux x86
+#	"windows32"	        : Windows32 x86
+#	"unknown"	        : unknown platform
+#
+usage='usage: platform'
+
+#PATH=/bin
+
+os=`uname -s`
+
+case $os in
+  Linux)	    platform=$os-`uname -m` ;;
+  windows32)	platform=$os ;;
+  *)		platform=unknown ;;
+esac
+
+
+echo $platform
+
+exit 0

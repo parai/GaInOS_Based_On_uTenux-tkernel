@@ -1,0 +1,39 @@
+#
+# ----------------------------------------------------------------------
+#     micro T-Kernel
+#
+#     Copyright (C) 2006-2008 by Ken Sakamura. All rights reserved.
+#     micro T-Kernel is distributed under the micro T-License.
+# ----------------------------------------------------------------------
+#
+#     Version:   1.01.00
+#     Released by T-Engine Forum(http://www.t-engine.org) at 2008/02/25.
+#
+# ----------------------------------------------------------------------
+#
+
+#
+#	Makefile for gmake
+#	application main (common description)
+#
+
+APP_SYSDEP_TARGET = libusermain
+
+APP_ARCHIVE_OBJ = $(filter lib%, $(APP_SYSDEP_TARGET) $(APP_CPUDEP_TARGET))
+
+# ----------------------------------------------------------------------------
+
+all: $(APP_SYSDEP_TARGET) 
+
+$(APP_SYSDEP_TARGET):
+	cd ../../$(subst lib,,$@)/build/$(TETYPE)_$(MACHINE) ; \
+	make ; \
+	makei install 
+
+clean:
+	@(cd ../.. ; \
+	for dir in $(subst lib,,$(APP_SYSDEP_TARGET)); do \
+		( cd $$dir/build/$(TETYPE)_$(MACHINE) ; makei clean;) ; \
+	done ; ) ;
+	
+	rm -rf $(addsuffix .a, $(APP_ARCHIVE_OBJ)) *.o \#*.o.* \#*.a.*
