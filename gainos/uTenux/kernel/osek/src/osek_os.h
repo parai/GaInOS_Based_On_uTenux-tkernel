@@ -73,7 +73,7 @@ typedef UB OSServiceIdType;
 
 /* #############################  TASK  ############################## */
 #define DeclareTask(TaskName)  TaskType TaskName
-#define TASK(TaskName) void TaskMain##TaskName(W stacd,VP exinf)
+#define TASK(TaskName) void TaskMain##TaskName(INT stacd,VP exinf)
 #define GenTaskStack(TaskName,stksz)  static VP TaskStack##TaskName[stksz/sizeof(VP)]
 #define GenTaskCreInfo(TaskName,Priority,flgid)         \
     {                                                   \

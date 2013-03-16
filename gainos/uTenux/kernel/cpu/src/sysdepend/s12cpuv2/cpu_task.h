@@ -42,11 +42,13 @@ typedef struct {
     VB ppage;
     VW taskmode;
     VB ccr;
-    VH d;
+    VB b;   /* exinfL */
+    VB a;   /* exinfH */
     VH x;
     VH y;
     VH pc;
-    VP exinf;
+    VB rtn[3];  /* dummy return address with ppage */
+    VH stacd;
 } SStackFrame;
 
 /*
@@ -85,8 +87,9 @@ Inline void knl_setup_stacd( TCB *tcb, INT stacd )
 {
 	SStackFrame	*ssp = tcb->tskctxb.ssp;
 
-	ssp->d = stacd;
-	ssp->exinf = tcb->exinf;
+	ssp->stacd = stacd;
+	ssp->b = (VB)(tcb->exinf);
+	ssp->a = (VB)((VH)(tcb->exinf)>>8);
 }
 
 /*

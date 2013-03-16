@@ -60,6 +60,8 @@ unsigned char disint()
  */
  void enaint(unsigned char mask)
  {
+    asm andb  #0x10;    
     asm tba;
     asm tap;
  }
+

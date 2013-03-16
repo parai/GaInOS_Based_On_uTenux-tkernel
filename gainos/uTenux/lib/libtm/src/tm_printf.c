@@ -517,6 +517,7 @@ int main(int argc,char* argv[])
  *
  * @param fmt the format
  */
+ #include <stdio.h>
 void tm_printf(const char *fmt, ...)
 {
 	va_list args;
@@ -526,7 +527,11 @@ void tm_printf(const char *fmt, ...)
 
 	DI(imask);
 	va_start(args, fmt);
+	#ifdef _APP_MC9S12_
+	length = vsprintf((char*)tm_log_buf,(char *)fmt,args);
+	#else
 	length = tm_vsnprintf(tm_log_buf, sizeof(tm_log_buf), fmt, args);
+	#endif
 #ifdef TM_TEST_ON_PC	
 	printf(tm_log_buf);
 #else
