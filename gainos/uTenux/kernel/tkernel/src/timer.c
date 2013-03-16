@@ -33,7 +33,7 @@
  *	Therefore 'current_time' does not affect with time change
  *	and it increases simply.
  */
-Noinit(EXPORT LSYSTIM	knl_current_time);	/* System operation time */
+Noinit(EXPORT volatile LSYSTIM	knl_current_time);	/* System operation time */
 Noinit(EXPORT LSYSTIM	knl_real_time_ofs);	/* Actual time - System operation time */
 
 /* 

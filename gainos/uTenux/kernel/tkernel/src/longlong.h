@@ -24,8 +24,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#ifdef __GNUC__
+//#ifdef __GNUC__
+#if   (defined __GNUC__)  || (defined _APP_MC9S12_ )
 
 typedef long long	longlong;
 
@@ -56,10 +56,10 @@ typedef long long	longlong;
 				  (l) = (unsigned long)(ll) )
 
 #else /* __GNUC__ */
-
+#include "typedef.h"
 typedef struct {
-	long		hi;
-	unsigned long	lo;
+	volatile long		hi;
+	volatile unsigned long	lo;
 } longlong;
 
 extern longlong	ltoll( long a );			/* (longlong)a */

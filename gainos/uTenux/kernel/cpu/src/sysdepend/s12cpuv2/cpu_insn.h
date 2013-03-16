@@ -35,12 +35,6 @@
 
 #include <sys/sysinfo.h>
 
-/* ------------------------------------------------------------------------ */
-/*
- *	Control register operation
- */
-IMPORT UB disint(void);
-IMPORT void enaint(UB mask);
 /*
  * Get PRIMASK
  */

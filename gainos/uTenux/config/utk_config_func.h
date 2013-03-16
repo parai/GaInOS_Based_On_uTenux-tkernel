@@ -305,10 +305,11 @@
 #define USE_FUNC_GCB_TOP_OF_WAIT_QUEUE
 
 /*  */
-#define USE_FUNC_SET_REG
-#define USE_FUNC_GET_REG
+//#define USE_FUNC_SET_REG
+//#define USE_FUNC_GET_REG
 
 /* memory concerning */
+/*
 #define USE_FUNC_APPENDFREEAREABOUND
 #define USE_FUNC_GET_BLK
 #define USE_FUNC_REL_BLK
@@ -317,6 +318,7 @@
 #define USE_FUNC_REMOVEFREEQUE
 #define USE_FUNC_INSERTAREAQUE
 #define USE_FUNC_REMOVEAREAQUE
+*/
 #if USE_IMALLOC
 #define USE_FUNC_IMACB
 #define USE_FUNC_IMALLOC

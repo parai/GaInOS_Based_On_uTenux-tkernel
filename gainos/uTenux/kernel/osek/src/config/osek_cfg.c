@@ -28,14 +28,10 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 	TRUE,	/* vTask2 */
 	TRUE,	/* vTask3 */
 };
- void tt()
- {
-    TaskMainvTask0(1234,(VP)4321);
- }
 TASK(vTask0)
 {
 	tm_putstring((UB*)"vTask0 is running.\r\n");
-	tm_printf((UB*)"stacd = 0x%x,exinf = %d.\r\n",0xDEAD,(int)exinf);
+//	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	ActivateTask(ID_vTask2);
 	(void)TerminateTask();
 }
@@ -43,7 +39,7 @@ TASK(vTask0)
 TASK(vTask1)
 {
 	tm_putstring((UB*)"vTask1 is running.\r\n");
-	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
+//	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
 	tm_putstring((UB*)"SetRelAlarm().\r\n");
 	SetRelAlarm(ID_vAlarm0, 500,3000);
 	SetRelAlarm(ID_vAlarm1,1000,3000);
@@ -54,7 +50,7 @@ TASK(vTask1)
 TASK(vTask2)
 {
 	tm_putstring((UB*)"vTask2 is running.\r\n");
-	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
+//	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	WaitEvent(vTask2Event0);
 	ClearEvent(vTask2Event0);
 	(void)TerminateTask();
@@ -63,7 +59,7 @@ TASK(vTask2)
 TASK(vTask3)
 {
 	tm_putstring((UB*)"vTask3 is running.\r\n");
-	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
+//	tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	(void)SetEvent(ID_vTask2,vTask2Event0);
 	(void)TerminateTask();
 }

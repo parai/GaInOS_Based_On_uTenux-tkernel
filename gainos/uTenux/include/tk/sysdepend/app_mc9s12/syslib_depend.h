@@ -48,8 +48,8 @@ extern "C" {
  *		  for PRIMASK
  *		  Return the original PRIMASK to the return value.
  */
-IMPORT UINT disint( void );
-IMPORT UINT enaint( UINT intsts );
+IMPORT UB disint( void );
+IMPORT void enaint( UB intsts );
 #define DI(intsts)	    ( (intsts) = disint() )
 #define EI(intsts)	    ( enaint(intsts) )
 #define isDI(intsts)	( ((intsts) & PMK_D) != 0 )

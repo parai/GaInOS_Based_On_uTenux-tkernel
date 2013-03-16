@@ -44,7 +44,7 @@
 #define CFN_MAX_TSKID		10
 #define CFN_MAX_SEMID		0
 #define CFN_MAX_FLGID		10
-#define CFN_MAX_MBXID		2
+#define CFN_MAX_MBXID		0
 #define CFN_MAX_MTXID		10
 #define CFN_MAX_MBFID		0
 #define CFN_MAX_PORID		0
