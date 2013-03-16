@@ -36,7 +36,7 @@
 #include <tk/syslib.h>
 #include <sys/sysinfo.h>
 #include "tkdev_conf.h"
-
+#include "mc9s12dp512.h"
 /*
  * Settable interval range (millisecond)
  */
@@ -56,25 +56,13 @@ IMPORT UW	knl_TimerClkDiv;	/* Dividing rate of timer clock */
  */
 Inline void knl_start_hw_timer( void )
 {
-	UW	   n;
-	UINT   imask;
-	UW     channel =SYSTICK_BASE;
-
-	/* Set dividing rate to 1,because systick is 24bit*/
-	knl_TimerClkDiv =  1;
-
+    UB imask;
 	DI(imask);
 
-	/* Stop systick/Set systick source*/
-	out_w(channel | SYSTICK_CTRL, SYSTICK_CLKSOURCE);
-
-	/* Set systick counter */
-	n = (UW)(CFN_TIMER_PERIOD * (TMCLK * 1000) / knl_TimerClkDiv - 1);
-	out_w(channel | SYSTICK_LOAD, n);
-
-	/* Set systick interrupt/Start systick count */
-	out_w(channel | SYSTICK_CTRL, SYSTICK_CLKSOURCE | SYSTICK_TICKINT | SYSTICK_ENABLE);
-
+    CRGINT_RTIE=1;       //使能实时中断
+    RTICTL = 0x70;       //设置实时中断的时间间隔为4.096ms
+    /*????*/
+    //中断周期=1/16 x 10E-6 x （0+1）x 2E（7+9）=0.004096s=4.096ms 
 	EI(imask);
 }
 
@@ -94,6 +82,7 @@ Inline void knl_start_hw_timer( void )
  */
 Inline void knl_clear_hw_timer_interrupt( void )
 {
+    	
 }
 
 /*
@@ -125,10 +114,6 @@ Inline void knl_end_of_hw_timer_interrupt( void )
  */
 Inline void knl_terminate_hw_timer( void )
 {
-	UW     channel =SYSTICK_BASE;
-
-	/* Systick disable */
-    out_w(channel | SYSTICK_CTRL, SYSTICK_CLKSOURCE);
 }
 
 /*
@@ -145,24 +130,6 @@ Inline void knl_terminate_hw_timer( void )
  */
 Inline UW knl_get_hw_timer_nsec( void )
 {
-	UW	ofs, max, unf;
-	UINT	imask;
-
-	DI(imask);
-
-    max = (in_w(SYSTICK_BASE | SYSTICK_LOAD) & 0xffffff) + 1;
-	do {
-		/* get COUNTFLAG bit */
-		unf = in_w(SYSTICK_BASE | SYSTICK_CTRL) & SYSTICK_COUNTFLAG;
-		ofs = in_w(SYSTICK_BASE | SYSTICK_VAL) & 0xffffff;
-    } while ( unf != (in_w(SYSTICK_BASE | SYSTICK_CTRL) & SYSTICK_COUNTFLAG) );
-	if ( unf != 0 ) {
-		ofs += max;
-	}
-
-	EI(imask);
-
-    return ofs * (1000 * knl_TimerClkDiv) / TMCLK;
 }
 
 #endif /* _TKDEV_TIMER_ */

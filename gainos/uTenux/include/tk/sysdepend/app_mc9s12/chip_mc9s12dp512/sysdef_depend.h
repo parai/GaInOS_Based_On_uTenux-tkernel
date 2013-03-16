@@ -45,8 +45,8 @@
 /*
  * Interrupt  mask register (Primask)
  */
-#define PMK_D		0x1      	/* Interrupt disable */
-#define PMK_E		0x0     	/* Interrupt enable */
+#define PMK_D		0x10      	/* Interrupt disable */
+#define PMK_E		0x00     	/* Interrupt enable */
 
 /*
  * Except  mask register (Faultmask)

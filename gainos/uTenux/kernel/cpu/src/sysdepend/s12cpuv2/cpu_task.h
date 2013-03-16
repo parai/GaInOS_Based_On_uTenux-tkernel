@@ -39,23 +39,14 @@
  * System stack configuration at task startup
  */
 typedef struct {
-        VW      r4;           /* R4        */
-        VW      r5;           /* R5        */
-        VW      r6;           /* R6        */
-        VW      r7;           /* R7        */
-        VW      r8;           /* R8        */
-        VW      r9;           /* R9        */
-        VW      r10;          /* R10       */
-        VW      r11;          /* R11       */
-        UW      taskmode;     /* used for saving knl_taskmode */
-        VW      r0;           /* R0        */
-        VW      r1;           /* R1        */
-        VW      r2;           /* R2        */
-        VW      r3;           /* R3        */
-        UW      r12;          /* R12       */
-        VP      lr;           /* LR        */
-        VP      pc;           /* PC        */
-        VW      xpsr;         /* PSR       */
+    VB ppage;
+    VW taskmode;
+    VB ccr;
+    VH d;
+    VH x;
+    VH y;
+    VH pc;
+    VP exinf;
 } SStackFrame;
 
 /*
@@ -72,18 +63,17 @@ typedef struct {
 Inline void knl_setup_context( TCB *tcb )
 {
     SStackFrame     *ssp;
-    UW              pc, xpsr;
+    UW pc;
 
     ssp = tcb->isstack;
     ssp--;
-
-	pc = (UW)tcb->task;
-	xpsr = PSR_T;                   /* Thumb mode */
+    pc = (UW)tcb->task;
 
     /* CPU context initialization */
+    ssp->ppage =(VB)pc;
     ssp->taskmode  = 0;             /* Initial taskmode */
-    ssp->xpsr = xpsr;               /* Initial SR */
-    ssp->pc = (VP)pc;               /* Task startup address */
+    ssp->ccr = (0xC0);              /* CCR Register (Disable STOP instruction and XIRQ)       */
+    ssp->pc = (VH)(pc>>8);          /* Task startup address */
     tcb->tskctxb.ssp = ssp;         /* System stack */
 }
 
@@ -95,8 +85,8 @@ Inline void knl_setup_stacd( TCB *tcb, INT stacd )
 {
 	SStackFrame	*ssp = tcb->tskctxb.ssp;
 
-	ssp->r0 = stacd;
-	ssp->r1 = (VW)tcb->exinf;
+	ssp->d = stacd;
+	ssp->exinf = tcb->exinf;
 }
 
 /*

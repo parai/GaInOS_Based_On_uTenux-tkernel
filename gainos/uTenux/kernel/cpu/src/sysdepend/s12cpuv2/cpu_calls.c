@@ -41,7 +41,7 @@
 #include "cpu_insn.h"
 #include "cpu_calls.h"
 /** [END Common Definitions] */
-
+EXPORT UB l_sp_offset = (UB)&(((TCB*)0)->tskctxb);
 #ifdef USE_FUNC_TK_DIS_DSP
 /*
  * Dispatch enable/disable 
@@ -75,71 +75,6 @@ SYSCALL ER tk_ena_dsp_impl( void )
 
 /* ------------------------------------------------------------------------ */
 
-/*
- * High level programming language
- */
-
-#ifdef USE_FUNC_HLL_INTHDR
-/* High level programming language interrupt handler entry */
-Noinit(EXPORT FP knl_hll_inthdr[N_INTVEC]);
-#endif /* USE_FUNC_HLL_INTHDR */
-
-#ifdef USE_FUNC_TK_DEF_INT
-IMPORT FP knl_hll_inthdr[];
-
-/* High level programming language routine (Interrupt) */
-IMPORT void knl_inthdr_startup();
-
-/* High level programming language routine (Exception) */
-IMPORT void knl_exchdr_startup();
-
-/* Low level programming language routine (defalut Interrupt and Exception) */
-IMPORT void default_handler(void);
-
-/*
- * Interrupt handler definition
- */
-SYSCALL ER tk_def_int_impl( UINT dintno, T_DINT *pk_dint )
-{
-	FP	inthdr;
-
-	CHECK_PAR(dintno < N_INTVEC);
-#if !USE_HLL_INTHDR
-	CHECK_PAR((pk_dint->intatr & TA_HLNG) == 0);
-#endif
-
-	if ( pk_dint != NULL ) {
-		/* Set interrupt handler */
-		CHECK_RSATR(pk_dint->intatr, TA_HLNG);
-
-		inthdr = pk_dint->inthdr;
-
-		BEGIN_CRITICAL_SECTION;
-#if USE_HLL_INTHDR
-		if ( (pk_dint->intatr & TA_HLNG) != 0 ) {
-			knl_hll_inthdr[dintno] = inthdr;
-			inthdr = (dintno < 0x10U) ? knl_exchdr_startup:
-					                    knl_inthdr_startup;
-		}
-#endif
-		knl_define_inthdr(dintno, inthdr);
-		END_CRITICAL_SECTION;
-	} else {
-		/* Clear interrupt handler */
-		BEGIN_CRITICAL_SECTION;
-		knl_define_inthdr(dintno, default_handler);
-#if USE_HLL_INTHDR
-		knl_hll_inthdr[dintno] = NULL;
-#endif
-		END_CRITICAL_SECTION;
-	}
-
-	return E_OK;
-}
-#endif /* USE_FUNC_TK_DEF_INT */
-
-/* ------------------------------------------------------------------------ */
-
 #ifdef USE_FUNC_SET_REG
 /*
  * Set task register contents
@@ -155,26 +90,9 @@ EXPORT void knl_set_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	}
 
 	if ( regs != NULL ) {
-		ssp->r0         = regs->r[0];
-		ssp->r1         = regs->r[1];
-		ssp->r2         = regs->r[2];
-		ssp->r3         = regs->r[3];
-		ssp->r4         = regs->r[4];
-		ssp->r5         = regs->r[5];
-		ssp->r6         = regs->r[6];
-		ssp->r7         = regs->r[7];
-		ssp->r8         = regs->r[8];
-		ssp->r9         = regs->r[9];
-		ssp->r10        = regs->r[10];
-		ssp->r11        = regs->r[11];
-		ssp->r12        = regs->r[12];
-		ssp->lr         = regs->lr;
 	}
 
 	if ( eit != NULL ) {
-		ssp->pc         = eit->pc;
-		ssp->xpsr       = eit->psr;
-		ssp->taskmode   = eit->taskmode;
 	}
 
 	if ( cregs != NULL ) {
@@ -222,31 +140,14 @@ EXPORT void knl_get_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	ssp = tcb->tskctxb.ssp;
 
 	if ( regs != NULL ) {
-		regs->r[0]    = ssp->r0;
-		regs->r[1]	  = ssp->r1;
-		regs->r[2]	  = ssp->r2;
-		regs->r[3]	  = ssp->r3;
-		regs->r[4]	  = ssp->r4;
-		regs->r[5]	  = ssp->r5;
-		regs->r[6]	  = ssp->r6;
-		regs->r[7]	  = ssp->r7;
-		regs->r[8]	  = ssp->r8;
-		regs->r[9]	  = ssp->r9;
-		regs->r[10]	  = ssp->r10;
-		regs->r[11]	  = ssp->r11;
-		regs->r[12]   = ssp->r12;
-		regs->lr      = ssp->lr;
 	}
 
 	if ( eit != NULL ) {
 		eit->pc       = ssp->pc;
-		eit->psr      = ssp->xpsr;
 		eit->taskmode = ssp->taskmode;
 	}
 
 	if ( cregs != NULL ) {
-		cregs->ssp    = tcb->tskctxb.ssp;
-		cregs->usp    = tcb->tskctxb.ssp;
 	}
 }
 #endif /* USE_FUNC_GET_REG */

@@ -124,22 +124,15 @@
  * and forcibly dispatch to the task that should be performed next.
  *	Use at system startup and 'tk_ext_tsk, tk_exd_tsk.'
  */
-Inline void knl_force_dispatch( void )
-{
-IMPORT	void	knl_dispatch_to_schedtsk();
-
-	//Asm("bx %0":: "r"(&knl_dispatch_to_schedtsk));
-}
+IMPORT void knl_dispatch_to_schedtsk(void); 
+#define knl_force_dispatch knl_dispatch_to_schedtsk
 
 /*
  * Start task dispatcher
  */
-Inline void knl_dispatch( void )
+Inline void knl_dispatch(void)
 {
-    UW pendsvset;
-
-    pendsvset=in_w(NVIC_BASE | NVIC_ICSR) | NVIC_ICSR_PENDSVSET;
-	out_w(NVIC_BASE | NVIC_ICSR, pendsvset);
+    asm swi;
 }
 
 /* ----------------------------------------------------------------------- */

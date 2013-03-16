@@ -40,7 +40,7 @@
 #define RI_USERINIT	NULL	        /* User initialization program */
 
 /* SYSCONF */
-#define CFN_TIMER_PERIOD	10
+#define CFN_TIMER_PERIOD	4
 #define CFN_MAX_TSKID		10
 #define CFN_MAX_SEMID		0
 #define CFN_MAX_FLGID		10
@@ -102,15 +102,4 @@
  */
 #define USE_HLL_INTHDR	(0)
 
-/*
- * User defined boot message
- */
-#define USER_BOOT_MESSAGE \
-	"\n" \
-    "----------------------------------------------------\n" \
-    "        micro Tenux Version 1.4.00(build 0100)      \n" \
-    "          Supported MCU is ATMEL AT91SAM3S4C        \n" \
-	"  Copyright(c) 2008-2013 by Dalian uLoong Co.,Ltd.  \n" \
-    "----------------------------------------------------\n" \
-	"\n\0"
 

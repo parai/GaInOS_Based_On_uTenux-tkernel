@@ -35,7 +35,7 @@
 #include <tk/sysdef.h>
 #include <sys/sysinfo.h>
 #include <libstr.h>
-
+#include "mc9s12dp512.h"
 EXPORT	W	knl_taskindp = 0;
 Noinit(EXPORT	UW	knl_taskmode);
 /* ------------------------------------------------------------------------ */
@@ -43,9 +43,32 @@ Noinit(EXPORT	UW	knl_taskmode);
 /*
  * Initialization before micro T-Kernel starts
  */
+IMPORT void sio_init(void);
+#define  BUS_CLOCK		   32000000	   //总线频率
+#define  OSC_CLOCK		   16000000	   //晶振频率
+LOCAL void pll_init(void)
+{
+    CRGINT = 0;                  //关中断
+    CLKSEL_PLLSEL = 0;           //在未初始化PLL前不使用PLL的输出作为CPU时钟
+    
+  #if(BUS_CLOCK == 40000000) 
+    SYNR = 4;
+  #elif(BUS_CLOCK == 32000000)
+    SYNR = 3;     
+  #elif(BUS_CLOCK == 24000000)
+    SYNR = 2;
+  #endif 
 
+    REFDV = 1;                   //PLLCLK=2×OSCCLK×(SYNR+1)/(REFDV+1)＝64MHz ,fbus=32M
+    PLLCTL_PLLON = 1;            //开PLL
+    PLLCTL_AUTO = 1;             //选取自动模式
+    while (CRGFLG_LOCK == 0);    //等待PLL锁定频率
+    CLKSEL_PLLSEL = 1;           //选择系统时钟由PLL产生
+}
 EXPORT ER knl_init_device( void )
 {
+    pll_init();
+    sio_init();
 	return E_OK;
 }
 

@@ -83,7 +83,9 @@ EXPORT void knl_t_kernel_main( T_CTSK *inittask )
 	/*
 	 * Target-dependent initialization
 	 */
+	//knl_cpu_initialize()
 	InitModule(cpu);
+	//knl_tkdev_initialize()
 	InitModule(tkdev);
 
 	/*
@@ -140,7 +142,7 @@ EXPORT void knl_t_kernel_main( T_CTSK *inittask )
 	InitModule(alarmhandler);
 #endif
 #endif
-
+    //knl_timer_initialize()
 	InitModule(timer);
 
 #if(cfgOSEK == 0)

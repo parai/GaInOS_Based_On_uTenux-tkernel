@@ -45,9 +45,7 @@
  */
 Inline UINT knl_getPRIMASK ( void )
 {
-	UINT	primask;
-//	Asm("mrs.w %0, primask ": "=r"( primask));
-	return primask;
+	return 0;
 }
 
 
@@ -55,27 +53,6 @@ Inline UINT knl_getPRIMASK ( void )
 /*
  *	EIT-related
  */
-
-
-/*
- *    Function Name : knl_define_inthdr
- *    Create Date   : 2009/12/27-2013/1/6
- *    Author        : wangshb
- *    Description   : Set interrupt handler
- *    Param	        : UINT dintno: from 0 to 255
- *                    FP inthdr: int handler pointer
- *    Return Code   : none
- */
-Inline void knl_define_inthdr( UINT dintno, FP inthdr )
-{
-	FP * knl_intvec;
-
-	knl_intvec = (FP*)SYSTEMAREA_END;    /* RAM_VECTOR_TABLE_START */
-	if( (dintno != EI_STACK_TOP) && (dintno != EI_RESET) && (dintno != EI_SVC)
-	    && (dintno != EI_PENDSV) && (dintno != EI_SYSTICK) && (dintno < N_INTVEC)){
-		knl_intvec[dintno] = inthdr;
-	}
-}
 
 /*
  * If it is the task-independent part, TRUE

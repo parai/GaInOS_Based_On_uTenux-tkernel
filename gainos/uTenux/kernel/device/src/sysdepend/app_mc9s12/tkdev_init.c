@@ -35,16 +35,11 @@
 #include <tk/syslib.h>
 #include <tm/tmonitor.h>
 
-EXPORT	UW	knl_TimerClkDiv;	/* Dividing rate of timer clock */
-
 /*
  * Target system-dependent initialization
  */
 EXPORT ER knl_tkdev_initialize( void )
 {
-	out_w(NVIC_BASE | NVIC_ICER, 0xffffffff); /* clear enable */
-	out_w(NVIC_BASE | NVIC_ICPR, 0xffffffff); /* clear pending*/
-
 	return E_OK;
 }
 
