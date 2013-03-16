@@ -293,7 +293,12 @@ LOCAL void initIMACB( void )
 	QueInit(&(knl_imacb->areaque));
 	QueInit(&(knl_imacb->freeque));
 }
-
+#ifdef _APP_MC9S12_
+LOCAL  VP   knl_ImallocMem[1024*2]; /* 8K*/
+EXPORT VP	knl_lowmem_top=&knl_ImallocMem[0];
+EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*2-1];
+#define CFN_REALMEMEND 0x7FFFu
+#endif
 /*
  * Imalloc initial setting 
  */

@@ -38,7 +38,7 @@
 #ifdef USE_FUNC_TSTDLIB_BITCLR
 /* tstdlib_bitclr : clear specified bit */
 void
-knl_tstdlib_bitclr( VP base, W offset )
+knl_tstdlib_bitclr( VP base, INT offset )
 {
 	register UB *cp, mask;
 
@@ -58,7 +58,7 @@ knl_tstdlib_bitclr( VP base, W offset )
 #ifdef USE_FUNC_TSTDLIB_BITSET
 /* tstdlib_bitset : set specified bit */
 void
-knl_tstdlib_bitset( VP base, W offset )
+knl_tstdlib_bitset( VP base, INT offset )
 {
 	register UB *cp, mask;
 
@@ -77,11 +77,11 @@ knl_tstdlib_bitset( VP base, W offset )
 
 #ifdef USE_FUNC_TSTDLIB_BITSEARCH1
 /* tstdlib_bitsearch1 : perform 1 search on bit string */
-W
-knl_tstdlib_bitsearch1( VP base, W offset, W width )
+INT
+knl_tstdlib_bitsearch1( VP base, INT offset, INT width )
 {
 	register UB *cp, mask;
-	register W position;
+	register INT position;
 
 	if ((offset < 0) || (width < 0)) {
 		return -1;

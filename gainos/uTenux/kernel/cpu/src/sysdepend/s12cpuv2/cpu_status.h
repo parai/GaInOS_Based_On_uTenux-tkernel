@@ -40,7 +40,7 @@
 /*
  * Start/End critical section
  */
-#define BEGIN_CRITICAL_SECTION	{ UINT _primask_ = disint();
+#define BEGIN_CRITICAL_SECTION	{ UB _primask_ = disint();
 #define END_CRITICAL_SECTION	if ( !isDI(_primask_)			\
 				  && knl_ctxtsk != knl_schedtsk		        	\
 				  && !knl_isTaskIndependent()	            	\
@@ -52,7 +52,7 @@
 /*
  * Start/End interrupt disable section
  */
-#define BEGIN_DISABLE_INTERRUPT	{ UINT _primask_ = disint();
+#define BEGIN_DISABLE_INTERRUPT	{ UB _primask_ = disint();
 #define END_DISABLE_INTERRUPT	enaint(_primask_); }
 
 
@@ -60,13 +60,13 @@
  * Interrupt enable/disable
  */
 #define ENABLE_INTERRUPT	{ enaint(0); }
-#define DISABLE_INTERRUPT	{ disint(); }
+#define DISABLE_INTERRUPT	{ (void)disint(); }
 
 /*
  * Enable interrupt nesting
  *	Enable the interrupt that has a higher priority than 'level.'
  */
-#define ENABLE_INTERRUPT_UPTO(level)	{ enaint(0); }
+#define ENABLE_INTERRUPT_UPTO(level)	{ (void)enaint(0); }
 
 /*
  * Move to/Restore task independent part

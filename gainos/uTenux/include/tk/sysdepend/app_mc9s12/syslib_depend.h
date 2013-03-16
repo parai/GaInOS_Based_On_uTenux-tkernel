@@ -51,49 +51,9 @@ extern "C" {
 IMPORT UB disint( void );
 IMPORT void enaint( UB intsts );
 #define DI(intsts)	    ( (intsts) = disint() )
-#define EI(intsts)	    ( enaint(intsts) )
+#define EI(intsts)	    ( (void)enaint(intsts) )
 #define isDI(intsts)	( ((intsts) & PMK_D) != 0 )
 
-
-/*
- * Interrupt vector
- *	The interrupt vector is the index number of the vector table.
- */
-typedef UINT	INTVEC;
-
-/* Convert interrupt vector number to interrupt definition number */
-#define DINTNO(intvec)	(intvec+0x10U)
-
-/*
- * Interrupt enable
- *	Enable the interrupt specified by 'dintno.'
- */
-IMPORT void EnableInt( UINT dintno );
-
-/*
- * Interrupt disable
- *	Disable the interrupt specified by 'dintno.'
- */
-IMPORT void DisableInt( UINT dintno );
-
-/*
- * Clear interrupt request
- *	Clear the interrupt request specified by 'dintno.'
-*/
-IMPORT void ClearInt( UINT dintno );
-
-
-/*
- * Check for existence of interrupt request
- *	Check whether there is an interrupt request specified by 'dintno.'
- *	If there is an interrupt request, return TRUE (except 0).
- */
-IMPORT BOOL CheckInt( UINT dintno );
-
-/*
- * Issue EOI(End Of Interrupt)
- */
-IMPORT void EndOfInt( UINT dintno );
 
 /* ------------------------------------------------------------------------ */
 

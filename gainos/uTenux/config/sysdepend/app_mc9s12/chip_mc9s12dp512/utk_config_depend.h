@@ -30,24 +30,15 @@
  *-------------------------------------------------------------------------------
  */
 
-/* RAMINFO */
-#define SYSTEMAREA_TOP	0x20000000	/* first SRAM system area top */
-#define SYSTEMAREA_END	0x20008000	/* first SRAM system area end */
-
-
-/* User definition */
-#define RI_USERAREA_TOP	0x20005000	/* first SRAM user area middle */
-#define RI_USERINIT	NULL	        /* User initialization program */
-
 /* SYSCONF */
 #define CFN_TIMER_PERIOD	4
-#define CFN_MAX_TSKID		10
-#define CFN_MAX_SEMID		0
+#define CFN_MAX_TSKID		32
+#define CFN_MAX_SEMID		2
 #define CFN_MAX_FLGID		10
-#define CFN_MAX_MBXID		0
+#define CFN_MAX_MBXID		2
 #define CFN_MAX_MTXID		10
-#define CFN_MAX_MBFID		0
-#define CFN_MAX_PORID		0
+#define CFN_MAX_MBFID		2
+#define CFN_MAX_PORID		2
 #define CFN_MAX_MPLID		0
 #define CFN_MAX_MPFID		0
 #define CFN_MAX_CYCID		10
@@ -62,17 +53,11 @@
 #define CFN_VER_PRNO3		0
 #define CFN_VER_PRNO4		0
 
-#define CFN_REALMEMEND		((VP) 0x20008000)
 
 /*
  * Initial task priority
  */
 #define INIT_TASK_PRI	(MAX_PRI-2)
-
-/*
- * Use zero-clear bss section
- */
-#define USE_NOINIT	(1)
 
 /*
  * Stack size for each mode
@@ -84,7 +69,7 @@
 /*
  * Use dynamic memory allocation
  */
-#define USE_IMALLOC		(0)
+#define USE_IMALLOC		(1)
 
 /*
  * Use program trace function (in debugger support)

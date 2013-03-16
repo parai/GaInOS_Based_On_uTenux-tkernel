@@ -78,7 +78,6 @@ SYSCALL ID tk_cre_tsk_impl P1( T_CTSK *pk_ctsk )
 #else
 	/* Size of User buffer must be multiples of 8 */
 	if ( sstksz != pk_ctsk->stksz ) {
-		tm_putstring("Stk Problem.\r\n");
 		return E_PAR;
 	}
 	/* Use user buffer */
@@ -462,7 +461,7 @@ SYSCALL ER tk_ref_tsk_impl( ID tskid, T_RTSK *pk_rtsk )
 
 	tcb = get_tcb_self(tskid);
 
-	memset(pk_rtsk, 0, sizeof(*pk_rtsk));
+	(void)memset(pk_rtsk, 0, sizeof(*pk_rtsk));
 
 	BEGIN_CRITICAL_SECTION;
 	state = (TSTAT)tcb->state;

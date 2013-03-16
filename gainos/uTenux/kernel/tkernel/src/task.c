@@ -171,7 +171,7 @@ EXPORT void knl_change_task_priority( TCB *tcb, INT priority )
 		 */
 		knl_ready_queue_delete(&knl_ready_queue, tcb);
 		tcb->priority = (UB)priority;
-		knl_ready_queue_insert(&knl_ready_queue, tcb);
+		(void)knl_ready_queue_insert(&knl_ready_queue, tcb);
 		knl_reschedule();
 	} else {
 		oldpri = tcb->priority;

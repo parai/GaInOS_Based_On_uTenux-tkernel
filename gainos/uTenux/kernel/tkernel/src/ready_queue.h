@@ -66,7 +66,7 @@ Inline void knl_ready_queue_initialize( RDYQUE *rq )
 	}
 	rq->null = NULL;
 	rq->klocktsk = NULL;
-	memset(rq->bitmap, 0, sizeof(rq->bitmap));
+	(void)memset(rq->bitmap, 0, sizeof(rq->bitmap));
 }
 
 /*

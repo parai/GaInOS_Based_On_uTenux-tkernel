@@ -42,10 +42,10 @@ typedef __wchar_t	wchar_t;
 #define NULL		0
 #endif
 
-extern void knl_tstdlib_bitclr( VP base, W offset );
-extern void knl_tstdlib_bitset( VP base, W offset );
+extern void knl_tstdlib_bitclr( VP base, INT offset );
+extern void knl_tstdlib_bitset( VP base, INT offset );
 
-extern W knl_tstdlib_bitsearch1( VP base, W offset, W width );
+extern INT knl_tstdlib_bitsearch1( VP base, INT offset, INT width );
 
 #ifdef __cplusplus
 }

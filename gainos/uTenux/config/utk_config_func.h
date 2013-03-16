@@ -190,9 +190,9 @@
 #endif
 #endif
 
-#define USE_FUNC_TK_SET_TIM
-#define USE_FUNC_TK_GET_TIM
-#define USE_FUNC_TK_GET_OTM
+//#define USE_FUNC_TK_SET_TIM
+//#define USE_FUNC_TK_GET_TIM
+//#define USE_FUNC_TK_GET_OTM
 #define USE_FUNC_TK_DLY_TSK
 
 #if CFN_MAX_CYCID > 0
@@ -309,7 +309,7 @@
 //#define USE_FUNC_GET_REG
 
 /* memory concerning */
-/*
+
 #define USE_FUNC_APPENDFREEAREABOUND
 #define USE_FUNC_GET_BLK
 #define USE_FUNC_REL_BLK
@@ -318,7 +318,7 @@
 #define USE_FUNC_REMOVEFREEQUE
 #define USE_FUNC_INSERTAREAQUE
 #define USE_FUNC_REMOVEAREAQUE
-*/
+
 #if USE_IMALLOC
 #define USE_FUNC_IMACB
 #define USE_FUNC_IMALLOC

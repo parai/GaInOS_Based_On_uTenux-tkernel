@@ -42,7 +42,7 @@
 #define BIGENDIAN		            0
 #define VIRTUAL_ADDRESS		        0
 #define ALLOCA_NOSPT		        0
-#define INT_BITWIDTH		        32
+#define INT_BITWIDTH		        16
 
 #ifndef _Csym
 #define _Csym			            0

@@ -119,7 +119,7 @@ StatusType WaitEvent ( EventMaskType xMask );
 /* #############################  RESOURCE  ############################## */
 #define GenResourceCreInfo(cerlpri)		\
 {										\
-	NULL,								\
+	(VP)NULL,    						\
 	TA_TPRI|TA_CEILING,					\
 	(MIN_PRI+cerlpri),					\
 	{'R','E','S','\0'}					\

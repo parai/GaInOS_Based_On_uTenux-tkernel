@@ -1,6 +1,6 @@
 #ifndef OSEK_CHECK_H_H
 #define OSEK_CHECK_H_H
-#include "osek_os.h"
+#include "osek_cfg.h"
 #if(cfgOSEK_TASK_NUM > CFN_MAX_TSKID)
 #  error "OSEK Error:cfgOSEK_TASK_NUM>CFN_MAX_TSKID,So you should config CFN_MAX_TSKID>cfgOSEK_TASK_NUM!"
 #endif

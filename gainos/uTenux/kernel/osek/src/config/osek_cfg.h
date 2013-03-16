@@ -39,5 +39,8 @@ extern const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM];
 #define ID_vRes0		 (MIN_MTXID+0)
 #define ID_vRes1		 (MIN_MTXID+1)
 #define ID_vResSerial		 (MIN_MTXID+2)
+
+#define cfgOS_START_UP_HOOK 0
+#define cfgOS_SHUT_DOWN_HOOK 0
 #endif /* _OSEK_CFG_H_ */
 
