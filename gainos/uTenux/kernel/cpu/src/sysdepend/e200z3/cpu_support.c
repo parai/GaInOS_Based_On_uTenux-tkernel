@@ -145,7 +145,7 @@ asm void knl_dispatch_to_schedtsk(void)
 {
 nofralloc
 	lis		r1,knl_tmp_stack@h			
-	lwz		r1,knl_tmp_stack@l(r1)
+	orri    r1,r1,knl_tmp_stack@l
 	addi	r1,r1,TMP_STACK_SZ	/* Set temporal stack */
 	/* as curtsk is no longer running,so no need to care about the context */
 	li     r11,1
