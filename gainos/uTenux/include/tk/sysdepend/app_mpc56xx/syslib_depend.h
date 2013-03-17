@@ -37,7 +37,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define PMK_D		(1UL << 15UL)      	/* Interrupt disable */
+#define PMK_D		(1UL << 15UL)      	/* EE Interrupt disable */
 #define PMK_E		(0x00UL)     	    /* Interrupt enable */
 /*
  * CPU interrupt control

@@ -36,14 +36,7 @@
 /*
  * Get PRIMASK
  */
-Inline UINT knl_getPRIMASK ( void )
-{
-	asm
-	{
-		mfmsr   r3
-		blr	
-	}	
-}
+IMPORT UINT knl_getPRIMASK ( void );
 
 
 /* ------------------------------------------------------------------------ */

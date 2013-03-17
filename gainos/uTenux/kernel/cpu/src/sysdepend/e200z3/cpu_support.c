@@ -51,6 +51,12 @@ IMPORT	INT  knl_taskindp;
 IMPORT 	 UB	 knl_tmp_stack[TMP_STACK_SZ];
 IMPORT   UINT l_sp_offset;
 
+EXPORT asm UINT knl_getPRIMASK ( void )
+{
+nofralloc
+	mfmsr   r3
+	blr		
+}
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
  *    Create Date   : 2009/12/27-2012/11/22
@@ -166,13 +172,15 @@ nofralloc
 }
 
 IMPORT void knl_timer_handler( void );
-asm void OSTickISR(void)
-{  	
-	stwu    r0,-4(r1);
-	lis     r0, 0x0800;   // load r4 with TSR[DIS] bit (0x08000000)
+EXPORT asm void knl_clear_hw_timer_interrupt2( UINT clr )
+{
+nofralloc
+	//lis     r0, 0x0800;   // load r0 with TSR[DIS] bit (0x08000000)
     mtspr   TSR,r0;       // clear TSR[DIS] bit
-    lwzu    r0,0(r1);	
-    
+    wrteei  1;      //enable interrupt
+}
+asm void OSTickISR(void)
+{  		
     bl knl_timer_handler;
     rfi
 }
