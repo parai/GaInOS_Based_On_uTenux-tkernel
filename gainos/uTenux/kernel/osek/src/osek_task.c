@@ -319,7 +319,7 @@ StatusType GetTaskState ( TaskType xTaskID,TaskStateRefType pxState )
 		if ( ( state == TS_READY ) && ( tcb == knl_ctxtsk ) ) {
 			*pxState = RUNNING;
 		} else {
-			*pxState = (UINT)state << 1;
+			*pxState = (UB)state << 1;
 		}
 	}
 	END_CRITICAL_SECTION;

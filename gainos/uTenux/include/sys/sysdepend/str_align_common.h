@@ -81,4 +81,8 @@
 #  include <sys/sysdepend/app_mc9s12/str_align_depend.h>
 #endif
 
+#ifdef _APP_MPC56XX_
+#  include <sys/sysdepend/app_mpc56xx/str_align_depend.h>
+#endif
+
 #endif /* __SYS_STR_ALIGN_COMMON_H__ */

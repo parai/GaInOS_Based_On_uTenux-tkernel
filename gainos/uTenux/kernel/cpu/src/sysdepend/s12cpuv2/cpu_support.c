@@ -46,9 +46,10 @@
 IMPORT INT	knl_dispatch_disabled;
 IMPORT void	*knl_ctxtsk;
 IMPORT void	*knl_schedtsk;
+IMPORT void knl_low_pow( void );
 IMPORT UINT  knl_taskmode;
 IMPORT	INT  knl_taskindp;
-IMPORT void knl_low_pow( void );
+IMPORT 	 UB	 knl_tmp_stack[TMP_STACK_SZ];
 IMPORT UB l_sp_offset;
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
@@ -101,11 +102,13 @@ static void l_dispatch0(void)
 }
 void knl_dispatch_to_schedtsk(void)
 {
+    asm  lds #knl_tmp_stack:TMP_STACK_SZ   /* Set temporal stack */
     knl_dispatch_disabled=1;    /* Dispatch disable */ 
     knl_ctxtsk=(void *)0;
     asm sei; 
     asm jmp l_dispatch0;
 }
+UB *sssp;
 interrupt 4 void knl_dispatch_entry(void)
 {
 _ret_int_dispatch:

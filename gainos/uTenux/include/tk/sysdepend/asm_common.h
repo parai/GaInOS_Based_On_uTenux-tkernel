@@ -81,4 +81,8 @@
 #  include <tk/sysdepend/app_mc9s12/asm_depend.h>
 #endif
 
+#ifdef _APP_MPC56XX_
+#  include <tk/sysdepend/app_mpc56xx/asm_depend.h>
+#endif
+
 #endif /* __TK_ASM_COMMON_H__ */

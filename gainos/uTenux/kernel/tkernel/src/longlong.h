@@ -25,7 +25,7 @@
 extern "C" {
 #endif
 //#ifdef __GNUC__
-#if   (defined __GNUC__)  || (defined _APP_MC9S12_ )
+#if   (defined __GNUC__)  || (defined _APP_MC9S12_ ) || (defined _APP_MPC56XX_)
 
 typedef long long	longlong;
 

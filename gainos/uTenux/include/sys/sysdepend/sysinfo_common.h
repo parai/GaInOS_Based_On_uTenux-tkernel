@@ -81,4 +81,7 @@
 #  include <sys/sysdepend/app_mc9s12/sysinfo_depend.h>
 #endif
 
+#ifdef _APP_MPC56XX_
+#  include <sys/sysdepend/app_mpc56xx/sysinfo_depend.h>
+#endif
 #endif /* __SYS_SYSINFO_COMMON_H__ */

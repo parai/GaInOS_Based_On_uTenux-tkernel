@@ -53,7 +53,7 @@ typedef struct {
  * Size of system stack area destroyed by 'make_dormant()'
  * In other words, the size of area required to write by 'setup_context().'
  */
-#define DORMANT_STACK_SIZE	( sizeof(VW) * 9 )	/* To 'taskmode' position */
+#define DORMANT_STACK_SIZE	( sizeof(VW) * 3 )	/* To 'PC' position */
 
 
 /*

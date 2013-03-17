@@ -82,6 +82,10 @@
 #include "sysdepend/app_mc9s12/utk_config_depend.h"
 #endif
 
+#ifdef _APP_MPC56XX_
+#include "sysdepend/app_mpc56xx/utk_config_depend.h"
+#endif
+
 #include "utk_config_func.h"
 
 #if !USE_TRAP && !(USE_DBGSPT && USE_HOOK_TRACE)

@@ -96,4 +96,9 @@
 #  include <tk/sysdepend/app_mc9s12/cpudef.h>
 #endif
 
+#ifdef _APP_MPC56XX_
+#  include <tk/sysdepend/app_mpc56xx/cpuattr.h>
+#  include <tk/sysdepend/app_mpc56xx/cpudef.h>
+#endif
+
 #endif /* __TK_SYSCALL_COMMON_H__ */

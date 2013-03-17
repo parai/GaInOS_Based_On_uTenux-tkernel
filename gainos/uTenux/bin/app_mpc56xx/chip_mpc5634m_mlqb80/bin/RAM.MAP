@@ -1,0 +1,1699 @@
+Link map of __start
+  1] __start (func,global) found in Runtime.PPCEABI.VS.UC.a __start.o
+   2] __init_registers (func,weak) found in Runtime.PPCEABI.VS.UC.a __start.o
+    3] _stack_addr found as linker generated symbol
+    3] _SDA2_BASE_ found as linker generated symbol
+    3] _SDA_BASE_ found as linker generated symbol
+   2] __init_hardware (func,global) found in __ppc_eabi_init.o 
+   2] __init_data (func,weak) found in Runtime.PPCEABI.VS.UC.a __start.o
+    3] _rom_copy_info (object,global) found in Linker Generated Symbol File 
+    3] __copy_rom_section (func,global) found in Runtime.PPCEABI.VS.UC.a __start.o
+     4] _savegpr_30 (notype,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+      5] __save_gpr (func,local) found in Runtime.PPCEABI.VS.UC.a runtime.o
+     4] memcpy (func,global) found in string.o 
+     4] >>> UNREFERENCED DUPLICATE memcpy
+     4] >>> (func,global) found in Runtime.PPCEABI.VS.UC.a __mem.o
+     4] __flush_cache (func,global) found in __ppc_eabi_init.o 
+     4] __restore_gpr_30_exit (func,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+      5] __finish_restore_frame_and_exit (notype,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+       6] __restore_gpr_31_exit (func,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+        7] __finish_restore_frame_and_exit2 (notype,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+         8] __restore_frame_and_exit (func,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+    3] _bss_init_info (object,global) found in Linker Generated Symbol File 
+    3] memset (func,global) found in string.o 
+    3] >>> UNREFERENCED DUPLICATE memset
+    3] >>> (func,global) found in Runtime.PPCEABI.VS.UC.a __mem.o
+   2] __init_user (func,global) found in __ppc_eabi_init.o 
+    3] FlashConfig (func,global) found in __ppc_eabi_init.o 
+     4] @22 (object,local) found in __ppc_eabi_init.o 
+   2] main (func,global) found in sysinit_main.o 
+    3] knl_init_system (func,global) found in sysstartup.o 
+     4] knl_init_device (func,global) found in devinit.o 
+      5] Cpu_FrequencyInit (func,global) found in sio.o 
+      5] sio_init (func,global) found in sio.o 
+     4] tm_monitor (func,global) found in tm_monitor.o 
+    3] knl_c_init_task (object,global) found in inittask_def.o 
+     4] knl_init_task (func,global) found in sysinit_main.o 
+      5] knl_start_system (func,global) found in sysstartup.o 
+       6] knl_start_device (func,global) found in devinit.o 
+      5] knl_init_task_main (func,global) found in inittask_main.o 
+       6] usermain (func,global) found in usermain.o 
+      5] disint (func,global) found in disint.o 
+    3] knl_t_kernel_main (func,global) found in tkstart.o 
+     4] knl_cpu_initialize (func,global) found in cpu_init.o 
+      5] knl_install_swi_handler (func,global) found in cpu_support.o 
+       6] knl_dispatch_entry (func,global) found in cpu_support.o 
+        7] knl_dispatch_disabled (object,global) found in task.o 
+        7] knl_taskmode (object,global) found in devinit.o 
+        7] knl_ctxtsk (object,global) found in task.o 
+        7] l_sp_offset (object,global) found in cpu_calls.o 
+        7] l_dispatch0 (func,local) found in cpu_support.o 
+         8] knl_schedtsk (object,global) found in task.o 
+         8] knl_low_pow (func,global) found in power.o 
+          9] @LOCAL@knl_low_pow__Fv@flag (object,local) found in power.o 
+          9] @144 (object,local) found in power.o 
+          9] tm_putstring (func,global) found in tm_monitor.o 
+           10] @LOCAL@tm_putstring__FPUc@CR (object,local) found in tm_monitor.o 
+           10] sio_send_frame (func,global) found in sio.o 
+           10] enaint (func,global) found in disint.o 
+     4] @647 (object,local) found in tkstart.o 
+     4] knl_init_module (func,local) found in tkstart.o 
+     4] knl_tkdev_initialize (func,global) found in tkdev_init.o 
+     4] @648 (object,local) found in tkstart.o 
+     4] knl_task_initialize (func,global) found in task.o 
+      5] knl_ready_queue (object,global) found in task.o 
+      5] knl_free_tcb (object,global) found in task.o 
+      5] knl_tcb_table (object,global) found in task.o 
+     4] @649 (object,local) found in tkstart.o 
+     4] knl_semaphore_initialize (func,global) found in semaphore.o 
+      5] knl_free_semcb (object,global) found in semaphore.o 
+      5] knl_semcb_table (object,global) found in semaphore.o 
+     4] @650 (object,local) found in tkstart.o 
+     4] knl_eventflag_initialize (func,global) found in eventflag.o 
+      5] knl_free_flgcb (object,global) found in eventflag.o 
+      5] knl_flgcb_table (object,global) found in eventflag.o 
+     4] @651 (object,local) found in tkstart.o 
+     4] knl_mailbox_initialize (func,global) found in mailbox.o 
+      5] knl_free_mbxcb (object,global) found in mailbox.o 
+      5] knl_mbxcb_table (object,global) found in mailbox.o 
+     4] @652 (object,local) found in tkstart.o 
+     4] knl_messagebuffer_initialize (func,global) found in messagebuf.o 
+      5] knl_free_mbfcb (object,global) found in messagebuf.o 
+      5] knl_mbfcb_table (object,global) found in messagebuf.o 
+     4] @653 (object,local) found in tkstart.o 
+     4] knl_rendezvous_initialize (func,global) found in rendezvous.o 
+      5] knl_free_porcb (object,global) found in rendezvous.o 
+      5] knl_porcb_table (object,global) found in rendezvous.o 
+     4] @654 (object,local) found in tkstart.o 
+     4] knl_mutex_initialize (func,global) found in mutex.o 
+      5] knl_free_mtxcb (object,global) found in mutex.o 
+      5] knl_mtxcb_table (object,global) found in mutex.o 
+     4] @655 (object,local) found in tkstart.o 
+     4] knl_cyclichandler_initialize (func,global) found in time_calls.o 
+      5] knl_free_cyccb (object,global) found in time_calls.o 
+      5] knl_cyccb_table (object,global) found in time_calls.o 
+     4] @656 (object,local) found in tkstart.o 
+     4] knl_alarmhandler_initialize (func,global) found in time_calls.o 
+      5] knl_free_almcb (object,global) found in time_calls.o 
+      5] knl_almcb_table (object,global) found in time_calls.o 
+     4] @657 (object,local) found in tkstart.o 
+     4] knl_timer_initialize (func,global) found in timer.o 
+      5] knl_real_time_ofs (object,global) found in timer.o 
+      5] knl_current_time (object,global) found in timer.o 
+      5] knl_timer_queue (object,global) found in timer.o 
+      5] TickTimer_SetFreqHz (func,global) found in sio.o 
+       6] OSTickISR (func,global) found in cpu_support.o 
+        7] knl_timer_handler (func,global) found in timer.o 
+         8] knl_taskindp (object,global) found in devinit.o 
+     4] @658 (object,local) found in tkstart.o 
+     4] StartOS (func,global) found in osek_osctrl.o 
+      5] OsekCreateTasks (func,local) found in osek_osctrl.o 
+       6] OsekTaskTable (object,global) found in osek_cfg.o 
+        7] TaskMainvTask0 (func,global) found in osek_cfg.o 
+         8] @187 (object,local) found in osek_cfg.o 
+         8] ActivateTask (func,global) found in osek_task.o 
+          9] tk_sta_tsk (func,global) found in task_manage.o 
+           10] knl_make_ready (func,global) found in task.o 
+            11] knl_tstdlib_bitset (func,global) found in bitop.o 
+         8] TerminateTask (func,global) found in osek_task.o 
+          9] tk_ext_tsk (func,global) found in task_manage.o 
+           10] knl_ter_tsk (func,global) found in task_manage.o 
+            11] knl_make_non_ready (func,global) found in task.o 
+             12] knl_tstdlib_bitclr (func,global) found in bitop.o 
+             12] knl_tstdlib_bitsearch1 (func,global) found in bitop.o 
+            11] knl_signal_all_mutex (func,global) found in mutex.o 
+             12] knl_wait_release_ok (func,global) found in wait.o 
+             12] knl_change_task_priority (func,global) found in task.o 
+           10] knl_make_dormant (func,global) found in task.o 
+           10] knl_dispatch_to_schedtsk (func,global) found in cpu_support.o 
+            11] knl_tmp_stack (object,global) found in cpu_init.o 
+        7] TaskStackvTask0 (object,local) found in osek_cfg.o 
+        7] TaskMainvTask1 (func,global) found in osek_cfg.o 
+         8] @196 (object,local) found in osek_cfg.o 
+         8] @197 (object,local) found in osek_cfg.o 
+         8] SetRelAlarm (func,global) found in osek_alarm.o 
+          9] OsekAlarmIdTable (object,global) found in osek_cfg.o 
+          9] OsekAlarmHandlerTable (object,global) found in osek_cfg.o 
+           10] AlarmCbkvAlarm0 (func,global) found in osek_cfg.o 
+            11] @222 (object,local) found in osek_cfg.o 
+           10] AlarmCbkvAlarm1 (func,global) found in osek_cfg.o 
+           10] AlarmCbkvAlarm2 (func,global) found in osek_cfg.o 
+            11] SetEvent (func,global) found in osek_event.o 
+             12] tk_set_flg (func,global) found in eventflag.o 
+          9] tk_cre_cyc (func,global) found in time_calls.o 
+           10] knl_immediate_call_cychdr (func,local) found in time_calls.o 
+            11] __div2i (func,global) found in Runtime.PPCEABI.VS.UC.a runtime.o
+            11] knl_call_cychdr (func,global) found in time_calls.o 
+             12] knl_timer_insert_abs (func,global) found in timer.o 
+              13] knl_enqueue_tmeb (func,local) found in timer.o 
+          9] OsekAlarmTypeTable (object,global) found in osek_cfg.o 
+          9] tk_cre_alm (func,global) found in time_calls.o 
+          9] tk_sta_alm (func,global) found in time_calls.o 
+           10] knl_call_almhdr (func,global) found in time_calls.o 
+           10] knl_immediate_call_almhdr (func,local) found in time_calls.o 
+          9] tk_del_alm (func,global) found in time_calls.o 
+        7] TaskStackvTask1 (object,local) found in osek_cfg.o 
+        7] TaskMainvTask2 (func,global) found in osek_cfg.o 
+         8] @206 (object,local) found in osek_cfg.o 
+         8] WaitEvent (func,global) found in osek_event.o 
+          9] tk_wai_flg (func,global) found in eventflag.o 
+           10] knl_wspec_flg_tpri (object,local) found in eventflag.o 
+            11] flg_chg_pri (func,local) found in eventflag.o 
+             12] knl_gcb_change_priority (func,global) found in wait.o 
+           10] knl_wspec_flg_tfifo (object,local) found in eventflag.o 
+           10] knl_gcb_make_wait (func,global) found in wait.o 
+            11] knl_make_wait (func,global) found in wait.o 
+             12] knl_wait_release_tmout (func,global) found in wait.o 
+             12] knl_timer_insert (func,global) found in timer.o 
+         8] ClearEvent (func,global) found in osek_event.o 
+          9] tk_clr_flg (func,global) found in eventflag.o 
+        7] TaskStackvTask2 (object,local) found in osek_cfg.o 
+        7] TaskMainvTask3 (func,global) found in osek_cfg.o 
+         8] @215 (object,local) found in osek_cfg.o 
+        7] TaskStackvTask3 (object,local) found in osek_cfg.o 
+       6] tk_cre_tsk (func,global) found in task_manage.o 
+       6] @200 (object,local) found in osek_osctrl.o 
+       6] OsekTaskAuotStartable (object,global) found in osek_cfg.o 
+       6] @201 (object,local) found in osek_osctrl.o 
+       6] @202 (object,local) found in osek_osctrl.o 
+      5] ShutdownOS (func,global) found in osek_osctrl.o 
+       6] @275 (object,local) found in osek_osctrl.o 
+       6] tm_printf (func,global) found in tm_printf.o 
+        7] @LOCAL@tm_printf__FPCce@tm_log_buf (object,local) found in tm_printf.o 
+        7] tm_vsnprintf (func,local) found in tm_printf.o 
+         8] skip_atoi (func,global) found in tm_printf.o 
+         8] __va_arg (func,global) found in Runtime.PPCEABI.VS.UC.a __va_arg.o
+         8] @265 (object,local) found in tm_printf.o 
+         8] tm_strlen (func,global) found in tm_printf.o 
+         8] print_number (func,local) found in tm_printf.o 
+          9] @LOCAL@print_number__FPcPcliii@large_digits@0 (object,local) found in tm_printf.o 
+          9] @LOCAL@print_number__FPcPcliii@small_digits (object,local) found in tm_printf.o 
+          9] divide (func,global) found in tm_printf.o 
+      5] OsekCreateEntFlgs (func,local) found in osek_osctrl.o 
+       6] @LOCAL@OsekCreateEntFlgs__Fv@cflg (object,local) found in osek_osctrl.o 
+       6] tk_cre_flg (func,global) found in eventflag.o 
+       6] @220 (object,local) found in osek_osctrl.o 
+      5] OsekInitAlarms (func,local) found in osek_osctrl.o 
+      5] OsekCreateResources (func,local) found in osek_osctrl.o 
+       6] OsekResourceTable (object,global) found in osek_cfg.o 
+       6] tk_cre_mtx (func,global) found in mutex.o 
+       6] @250 (object,local) found in osek_osctrl.o 
+   2] exit (func,weak) found in __ppc_eabi_init.o 
+    3] _ExitProcess (func,weak) found in __ppc_eabi_init.o 
+  1] INTC_INTCInterruptHandler (func,global) found in IntcInterrupts.o 
+  1] EXCEP_DefaultExceptionHandler (func,global) found in Exceptions.o 
+  1] @6 (object,local) found in Exceptions.o 
+   2] @5 (object,local) found in Exceptions.o 
+  1] @13 (object,local) found in IntcInterrupts.o 
+   2] @12 (object,local) found in IntcInterrupts.o 
+  1] @586 (object,local) found in cpu_init.o 
+   2] @585 (object,local) found in cpu_init.o 
+  1] @462 (object,local) found in devinit.o 
+   2] @461 (object,local) found in devinit.o 
+  1] @146 (object,local) found in power.o 
+   2] @145 (object,local) found in power.o 
+  1] @222 (object,local) found in osek_alarm.o 
+   2] @221 (object,local) found in osek_alarm.o 
+  1] @643 (object,local) found in osek_event.o 
+   2] @642 (object,local) found in osek_event.o 
+  1] @655 (object,local) found in osek_event.o 
+   2] @654 (object,local) found in osek_event.o 
+  1] @686 (object,local) found in osek_event.o 
+   2] @685 (object,local) found in osek_event.o 
+  1] @204 (object,local) found in osek_osctrl.o 
+   2] @203 (object,local) found in osek_osctrl.o 
+  1] @222 (object,local) found in osek_osctrl.o 
+   2] @221 (object,local) found in osek_osctrl.o 
+  1] @234 (object,local) found in osek_osctrl.o 
+   2] @233 (object,local) found in osek_osctrl.o 
+  1] @252 (object,local) found in osek_osctrl.o 
+   2] @251 (object,local) found in osek_osctrl.o 
+  1] @266 (object,local) found in osek_osctrl.o 
+   2] @265 (object,local) found in osek_osctrl.o 
+  1] @277 (object,local) found in osek_osctrl.o 
+   2] @276 (object,local) found in osek_osctrl.o 
+  1] @691 (object,local) found in osek_task.o 
+   2] @690 (object,local) found in osek_task.o 
+  1] @698 (object,local) found in osek_task.o 
+   2] @697 (object,local) found in osek_task.o 
+  1] @189 (object,local) found in osek_cfg.o 
+   2] @188 (object,local) found in osek_cfg.o 
+  1] @199 (object,local) found in osek_cfg.o 
+   2] @198 (object,local) found in osek_cfg.o 
+  1] @208 (object,local) found in osek_cfg.o 
+   2] @207 (object,local) found in osek_cfg.o 
+  1] @217 (object,local) found in osek_cfg.o 
+   2] @216 (object,local) found in osek_cfg.o 
+  1] @224 (object,local) found in osek_cfg.o 
+   2] @223 (object,local) found in osek_cfg.o 
+  1] @230 (object,local) found in osek_cfg.o 
+   2] @229 (object,local) found in osek_cfg.o 
+  1] @236 (object,local) found in osek_cfg.o 
+   2] @235 (object,local) found in osek_cfg.o 
+  1] @482 (object,local) found in sysinit_main.o 
+   2] @481 (object,local) found in sysinit_main.o 
+  1] @488 (object,local) found in sysinit_main.o 
+   2] @487 (object,local) found in sysinit_main.o 
+  1] @466 (object,local) found in sysstartup.o 
+   2] @465 (object,local) found in sysstartup.o 
+  1] @476 (object,local) found in sysstartup.o 
+   2] @475 (object,local) found in sysstartup.o 
+  1] @464 (object,local) found in inittask_main.o 
+   2] @463 (object,local) found in inittask_main.o 
+  1] @654 (object,local) found in eventflag.o 
+   2] @653 (object,local) found in eventflag.o 
+  1] @688 (object,local) found in eventflag.o 
+   2] @687 (object,local) found in eventflag.o 
+  1] @764 (object,local) found in eventflag.o 
+   2] @763 (object,local) found in eventflag.o 
+  1] @792 (object,local) found in eventflag.o 
+   2] @791 (object,local) found in eventflag.o 
+  1] @802 (object,local) found in eventflag.o 
+   2] @801 (object,local) found in eventflag.o 
+  1] @878 (object,local) found in eventflag.o 
+   2] @877 (object,local) found in eventflag.o 
+  1] @659 (object,local) found in mailbox.o 
+   2] @658 (object,local) found in mailbox.o 
+  1] @658 (object,local) found in messagebuf.o 
+   2] @657 (object,local) found in messagebuf.o 
+  1] @647 (object,local) found in mutex.o 
+   2] @646 (object,local) found in mutex.o 
+  1] @712 (object,local) found in mutex.o 
+   2] @711 (object,local) found in mutex.o 
+  1] @795 (object,local) found in mutex.o 
+   2] @794 (object,local) found in mutex.o 
+  1] @654 (object,local) found in rendezvous.o 
+   2] @653 (object,local) found in rendezvous.o 
+  1] @645 (object,local) found in semaphore.o 
+   2] @644 (object,local) found in semaphore.o 
+  1] @683 (object,local) found in task.o 
+   2] @682 (object,local) found in task.o 
+  1] @692 (object,local) found in task.o 
+   2] @691 (object,local) found in task.o 
+  1] @708 (object,local) found in task.o 
+   2] @707 (object,local) found in task.o 
+  1] @739 (object,local) found in task.o 
+   2] @738 (object,local) found in task.o 
+  1] @785 (object,local) found in task.o 
+   2] @784 (object,local) found in task.o 
+  1] @690 (object,local) found in task_manage.o 
+   2] @689 (object,local) found in task_manage.o 
+  1] @803 (object,local) found in task_manage.o 
+   2] @802 (object,local) found in task_manage.o 
+  1] @823 (object,local) found in task_manage.o 
+   2] @822 (object,local) found in task_manage.o 
+  1] @853 (object,local) found in task_manage.o 
+   2] @852 (object,local) found in task_manage.o 
+  1] @720 (object,local) found in time_calls.o 
+   2] @719 (object,local) found in time_calls.o 
+  1] @735 (object,local) found in time_calls.o 
+   2] @734 (object,local) found in time_calls.o 
+  1] @750 (object,local) found in time_calls.o 
+   2] @749 (object,local) found in time_calls.o 
+  1] @794 (object,local) found in time_calls.o 
+   2] @793 (object,local) found in time_calls.o 
+  1] @958 (object,local) found in time_calls.o 
+   2] @957 (object,local) found in time_calls.o 
+  1] @966 (object,local) found in time_calls.o 
+   2] @965 (object,local) found in time_calls.o 
+  1] @1001 (object,local) found in time_calls.o 
+   2] @1000 (object,local) found in time_calls.o 
+  1] @1032 (object,local) found in time_calls.o 
+   2] @1031 (object,local) found in time_calls.o 
+  1] @1040 (object,local) found in time_calls.o 
+   2] @1039 (object,local) found in time_calls.o 
+  1] @1076 (object,local) found in time_calls.o 
+   2] @1075 (object,local) found in time_calls.o 
+  1] @606 (object,local) found in timer.o 
+   2] @605 (object,local) found in timer.o 
+  1] @621 (object,local) found in timer.o 
+   2] @620 (object,local) found in timer.o 
+  1] @635 (object,local) found in timer.o 
+   2] @634 (object,local) found in timer.o 
+  1] @657 (object,local) found in timer.o 
+   2] @656 (object,local) found in timer.o 
+  1] @693 (object,local) found in timer.o 
+   2] @692 (object,local) found in timer.o 
+  1] @641 (object,local) found in tkstart.o 
+   2] @640 (object,local) found in tkstart.o 
+  1] @660 (object,local) found in tkstart.o 
+   2] @659 (object,local) found in tkstart.o 
+  1] @645 (object,local) found in wait.o 
+   2] @644 (object,local) found in wait.o 
+  1] @694 (object,local) found in wait.o 
+   2] @693 (object,local) found in wait.o 
+  1] @705 (object,local) found in wait.o 
+   2] @704 (object,local) found in wait.o 
+  1] @783 (object,local) found in wait.o 
+   2] @782 (object,local) found in wait.o 
+  1] @802 (object,local) found in wait.o 
+   2] @801 (object,local) found in wait.o 
+  1] @149 (object,local) found in bitop.o 
+   2] @148 (object,local) found in bitop.o 
+  1] @161 (object,local) found in bitop.o 
+   2] @160 (object,local) found in bitop.o 
+  1] @197 (object,local) found in bitop.o 
+   2] @196 (object,local) found in bitop.o 
+  1] @172 (object,local) found in string.o 
+   2] @171 (object,local) found in string.o 
+  1] @207 (object,local) found in string.o 
+   2] @206 (object,local) found in string.o 
+  1] @83 (object,local) found in tm_monitor.o 
+   2] @82 (object,local) found in tm_monitor.o 
+  1] @14 (object,local) found in tm_printf.o 
+   2] @13 (object,local) found in tm_printf.o 
+  1] @26 (object,local) found in tm_printf.o 
+   2] @25 (object,local) found in tm_printf.o 
+  1] @39 (object,local) found in tm_printf.o 
+   2] @38 (object,local) found in tm_printf.o 
+  1] @123 (object,local) found in tm_printf.o 
+   2] @122 (object,local) found in tm_printf.o 
+  1] @269 (object,local) found in tm_printf.o 
+   2] @268 (object,local) found in tm_printf.o 
+  1] @321 (object,local) found in tm_printf.o 
+   2] @320 (object,local) found in tm_printf.o 
+  1] @8 (object,local) found in sio.o 
+   2] @7 (object,local) found in sio.o 
+  1] __init_cpp_exceptions_reference (object,global) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+   2] __init_cpp_exceptions (func,global) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+    3] fragmentID (object,local) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+    3] __exception_info_constants (func,weak) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+     4] _eti_init_info (object,global) found in Linker Generated Symbol File 
+    3] __register_fragment (func,global) found in Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+     4] fragmentinfo (object,local) found in Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  1] __fini_cpp_exceptions_reference (object,global) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+   2] __fini_cpp_exceptions (func,global) found in Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+    3] __unregister_fragment (func,global) found in Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  1] _ctors (notype,global) found in Linker Generated Symbol File 
+  1] _ctors$99 (object,global) found in Linker Generated Symbol File 
+  1] _dtors (notype,global) found in Linker Generated Symbol File 
+  1] _dtors$99 (object,global) found in Linker Generated Symbol File 
+    3] .text (section,local) found in usermain.o 
+    3] .text.156 (notype,local) found in usermain.o 
+    3] .text (section,local) found in cpu_calls.o 
+    3] .text.697 (notype,local) found in cpu_calls.o 
+    3] .text (section,local) found in cpu_init.o 
+    3] .text.592 (notype,local) found in cpu_init.o 
+    3] .text (section,local) found in cpu_support.o 
+    3] .text.26 (notype,local) found in cpu_support.o 
+    3] .text (section,local) found in devinit.o 
+    3] .text.471 (notype,local) found in devinit.o 
+    3] .text (section,local) found in power.o 
+    3] .text.155 (notype,local) found in power.o 
+    3] .text (section,local) found in tkdev_init.o 
+    3] .text.464 (notype,local) found in tkdev_init.o 
+    3] .text (section,local) found in osek_alarm.o 
+    3] .text.264 (notype,local) found in osek_alarm.o 
+    3] .text (section,local) found in osek_event.o 
+    3] .text.745 (notype,local) found in osek_event.o 
+    3] .text (section,local) found in osek_osctrl.o 
+    3] .text.295 (notype,local) found in osek_osctrl.o 
+    3] .text (section,local) found in osek_task.o 
+    3] .text.862 (notype,local) found in osek_task.o 
+    3] .text (section,local) found in osek_cfg.o 
+    3] .text.263 (notype,local) found in osek_cfg.o 
+    3] .text (section,local) found in sysinit_main.o 
+    3] .text.498 (notype,local) found in sysinit_main.o 
+    3] .text (section,local) found in sysstartup.o 
+    3] .text.481 (notype,local) found in sysstartup.o 
+    3] .text (section,local) found in inittask_main.o 
+    3] .text.469 (notype,local) found in inittask_main.o 
+    3] .text (section,local) found in eventflag.o 
+    3] .text.980 (notype,local) found in eventflag.o 
+    3] .text (section,local) found in mailbox.o 
+    3] .text.942 (notype,local) found in mailbox.o 
+    3] .text (section,local) found in messagebuf.o 
+    3] .text.1100 (notype,local) found in messagebuf.o 
+    3] .text (section,local) found in mutex.o 
+    3] .text.1114 (notype,local) found in mutex.o 
+    3] .text (section,local) found in rendezvous.o 
+    3] .text.1174 (notype,local) found in rendezvous.o 
+    3] .text (section,local) found in semaphore.o 
+    3] .text.948 (notype,local) found in semaphore.o 
+    3] .text (section,local) found in task.o 
+    3] .text.898 (notype,local) found in task.o 
+    3] .text (section,local) found in task_manage.o 
+    3] .text.1202 (notype,local) found in task_manage.o 
+    3] .text (section,local) found in time_calls.o 
+    3] .text.1231 (notype,local) found in time_calls.o 
+    3] .text (section,local) found in timer.o 
+    3] .text.758 (notype,local) found in timer.o 
+    3] .text (section,local) found in tkstart.o 
+    3] .text.673 (notype,local) found in tkstart.o 
+    3] .text (section,local) found in wait.o 
+    3] .text.892 (notype,local) found in wait.o 
+    3] .text (section,local) found in bitop.o 
+    3] .text.208 (notype,local) found in bitop.o 
+    3] .text (section,local) found in string.o 
+    3] .text.504 (notype,local) found in string.o 
+    3] .text (section,local) found in tm_monitor.o 
+    3] .text.92 (notype,local) found in tm_monitor.o 
+    3] .text (section,local) found in tm_printf.o 
+    3] .text.357 (notype,local) found in tm_printf.o 
+    3] .text (section,local) found in disint.o 
+    3] .text.12 (notype,local) found in disint.o 
+    3] .text (section,local) found in sio.o 
+    3] .text.60 (notype,local) found in sio.o 
+    3] .init (section,local) found in Runtime.PPCEABI.VS.UC.a __start.o
+    3] .init.130 (notype,local) found in Runtime.PPCEABI.VS.UC.a __start.o
+    3] .text (section,local) found in Runtime.PPCEABI.VS.UC.a __va_arg.o
+    3] .text.40 (notype,local) found in Runtime.PPCEABI.VS.UC.a __va_arg.o
+    3] .text (section,local) found in Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+    3] .text.1683 (notype,local) found in Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+    3] .text (section,local) found in Runtime.PPCEABI.VS.UC.a runtime.o
+    3] .text.205 (notype,local) found in Runtime.PPCEABI.VS.UC.a runtime.o
+    3] .text (section,local) found in MPC5634M_MLQB80_HWInit.o 
+    3] .text.34 (notype,local) found in MPC5634M_MLQB80_HWInit.o 
+    3] .text (section,local) found in klock.o 
+    3] .text.732 (notype,local) found in klock.o 
+
+
+.init section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 0000b4 4000f000 00000200  1 .init 	Linker Generated Symbol File 
+  00000000 00009c 4000f000 00000200  4 _rom_copy_info 	Linker Generated Symbol File 
+  0000009c 000018 4000f09c 0000029c  4 _bss_init_info 	Linker Generated Symbol File 
+
+
+.init_vle section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 00002e 4000f0b4 000002b4  1 .init 	__ppc_eabi_init.o 
+  00000000 00000c 4000f0b4 000002b4  2 __init_hardware 	__ppc_eabi_init.o 
+  0000000c 000022 4000f0c0 000002c0  2 __flush_cache 	__ppc_eabi_init.o 
+  0000002e 000002 4000f0e4 000002e4  4 *fill*
+  00000030 0000ea 4000f0e4 000002e4  1 .init 	Runtime.PPCEABI.VS.UC.a __start.o
+  00000030 000048 4000f0e4 000002e4  4 __start 	Runtime.PPCEABI.VS.UC.a __start.o
+  00000078 00002c 4000f12c 0000032c  2 __copy_rom_section 	Runtime.PPCEABI.VS.UC.a __start.o
+  UNUSED   00000e ........ ........    __init_bss_section Runtime.PPCEABI.VS.UC.a __start.o
+  000000a4 00001a 4000f158 00000358  2 __init_registers 	Runtime.PPCEABI.VS.UC.a __start.o
+  000000be 00005c 4000f172 00000372  2 __init_data 	Runtime.PPCEABI.VS.UC.a __start.o
+  0000011a 000000 4000f1ce 000003ce  1 .init.130 	Runtime.PPCEABI.VS.UC.a __start.o
+  0000011a 00000e 4000f1ce 000003ce  1 .init 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  0000011a 00000e 4000f1ce 000003ce  2 __exception_info_constants 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  UNUSED   000028 ........ ........    __find_exception_addresses Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+
+
+.__exception_handlers section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000002 40010000 000003e0  1 .__exception_handlers 	Exceptions.o 
+  00000000 000002 40010000 000003e0 16 EXCEP_DefaultExceptionHandler 	Exceptions.o 
+  00000002 00000e 40010010 000003f0 16 *fill*
+  00000010 000096 40010010 000003f0  1 .__exception_handlers 	IntcInterrupts.o 
+  00000010 000096 40010010 000003f0 16 INTC_INTCInterruptHandler 	IntcInterrupts.o 
+
+
+.text section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+
+
+.text_vle section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000064 40000000 00000490  1 .text 	__ppc_eabi_init.o 
+  00000000 00003c 40000000 00000490  2 FlashConfig 	__ppc_eabi_init.o 
+  0000003c 000012 4000003c 000004cc  2 __init_user 	__ppc_eabi_init.o 
+  0000004e 000014 4000004e 000004de  2 exit 	__ppc_eabi_init.o 
+  00000062 000002 40000062 000004f2  2 _ExitProcess 	__ppc_eabi_init.o 
+  00000064 000000 40000064 000004f4  1 .text 	MPC5634M_MLQB80_HWInit.o 
+  UNUSED   00001e ........ ........    INIT_Derivative MPC5634M_MLQB80_HWInit.o 
+  UNUSED   000012 ........ ........    INIT_ExternalBusAndMemory MPC5634M_MLQB80_HWInit.o 
+  UNUSED   00000c ........ ........    InitPCRs MPC5634M_MLQB80_HWInit.o 
+  UNUSED   000064 ........ ........    __initSIUExtBusInterface MPC5634M_MLQB80_HWInit.o 
+  UNUSED   000002 ........ ........    __initEBIChipSelects MPC5634M_MLQB80_HWInit.o 
+  UNUSED   000016 ........ ........    WriteMMUTableEntry MPC5634M_MLQB80_HWInit.o 
+  UNUSED   000006 ........ ........    __initMMUExternalMemory MPC5634M_MLQB80_HWInit.o 
+  00000064 000000 40000064 000004f4  1 .text.34 	MPC5634M_MLQB80_HWInit.o 
+  00000064 000004 40000064 000004f4  1 .text 	usermain.o 
+  00000064 000004 40000064 000004f4  2 usermain 	usermain.o 
+  00000068 000000 40000068 000004f8  1 .text.156 	usermain.o 
+  00000068 000000 40000068 000004f8  1 .text 	cpu_calls.o 
+  UNUSED   00004c ........ ........    tk_dis_dsp cpu_calls.o 
+  UNUSED   000090 ........ ........    tk_ena_dsp cpu_calls.o 
+  00000068 000000 40000068 000004f8  1 .text.697 	cpu_calls.o 
+  00000068 000016 40000068 000004f8  1 .text 	cpu_init.o 
+  00000068 000016 40000068 000004f8  2 knl_cpu_initialize 	cpu_init.o 
+  0000007e 000000 4000007e 0000050e  1 .text.592 	cpu_init.o 
+  0000007e 0001a0 4000007e 0000050e  1 .text 	cpu_support.o 
+  0000007e 0000ae 4000007e 0000050e  2 l_dispatch0 	cpu_support.o 
+  0000012c 000026 4000012c 000005bc  2 knl_dispatch_to_schedtsk 	cpu_support.o 
+  00000152 0000ac 40000152 000005e2  2 knl_dispatch_entry 	cpu_support.o 
+  000001fe 00000c 400001fe 0000068e  2 knl_install_swi_handler 	cpu_support.o 
+  0000020a 000014 4000020a 0000069a  2 OSTickISR 	cpu_support.o 
+  0000021e 000000 4000021e 000006ae  1 .text.26 	cpu_support.o 
+  0000021e 00001e 4000021e 000006ae  1 .text 	devinit.o 
+  0000021e 00001a 4000021e 000006ae  2 knl_init_device 	devinit.o 
+  00000238 000004 40000238 000006c8  2 knl_start_device 	devinit.o 
+  0000023c 000000 4000023c 000006cc  1 .text.471 	devinit.o 
+  0000023c 00002a 4000023c 000006cc  1 .text 	power.o 
+  0000023c 00002a 4000023c 000006cc  2 knl_low_pow 	power.o 
+  UNUSED   000002 ........ ........    knl_off_pow power.o 
+  00000266 000000 40000266 000006f6  1 .text.155 	power.o 
+  00000266 000004 40000266 000006f6  1 .text 	tkdev_init.o 
+  00000266 000004 40000266 000006f6  2 knl_tkdev_initialize 	tkdev_init.o 
+  0000026a 000000 4000026a 000006fa  1 .text.464 	tkdev_init.o 
+  0000026a 000100 4000026a 000006fa  1 .text 	osek_alarm.o 
+  UNUSED   000010 ........ ........    GetAlarmBase osek_alarm.o 
+  UNUSED   00001a ........ ........    GetAlarm osek_alarm.o 
+  0000026a 000100 4000026a 000006fa  2 SetRelAlarm 	osek_alarm.o 
+  UNUSED   00008c ........ ........    CancelAlarm osek_alarm.o 
+  0000036a 000000 4000036a 000007fa  1 .text.264 	osek_alarm.o 
+  0000036a 0000e2 4000036a 000007fa  1 .text 	osek_event.o 
+  0000036a 000062 4000036a 000007fa  2 SetEvent 	osek_event.o 
+  000003cc 00003e 400003cc 0000085c  2 ClearEvent 	osek_event.o 
+  UNUSED   000062 ........ ........    GetEvent osek_event.o 
+  0000040a 000042 4000040a 0000089a  2 WaitEvent 	osek_event.o 
+  0000044c 000000 4000044c 000008dc  1 .text.745 	osek_event.o 
+  0000044c 0001a6 4000044c 000008dc  1 .text 	osek_osctrl.o 
+  0000044c 000084 4000044c 000008dc  2 OsekCreateTasks 	osek_osctrl.o 
+  000004d0 000048 400004d0 00000960  2 OsekCreateEntFlgs 	osek_osctrl.o 
+  00000518 000028 40000518 000009a8  2 OsekInitAlarms 	osek_osctrl.o 
+  00000540 00004e 40000540 000009d0  2 OsekCreateResources 	osek_osctrl.o 
+  0000058e 000042 4000058e 00000a1e  2 StartOS 	osek_osctrl.o 
+  000005d0 000022 400005d0 00000a60  2 ShutdownOS 	osek_osctrl.o 
+  000005f2 000000 400005f2 00000a82  1 .text.295 	osek_osctrl.o 
+  000005f2 000046 400005f2 00000a82  1 .text 	osek_task.o 
+  000005f2 000028 400005f2 00000a82  2 ActivateTask 	osek_task.o 
+  0000061a 00001e 4000061a 00000aaa  2 TerminateTask 	osek_task.o 
+  UNUSED   0000a8 ........ ........    ChainTask osek_task.o 
+  UNUSED   000004 ........ ........    Schedule osek_task.o 
+  UNUSED   00001e ........ ........    GetTaskID osek_task.o 
+  UNUSED   0000fe ........ ........    GetTaskState osek_task.o 
+  UNUSED   000022 ........ ........    DelayTask osek_task.o 
+  UNUSED   000022 ........ ........    SleepTask osek_task.o 
+  UNUSED   000022 ........ ........    WakeUpTask osek_task.o 
+  00000638 000000 40000638 00000ac8  1 .text.862 	osek_task.o 
+  00000638 000114 40000638 00000ac8  1 .text 	osek_cfg.o 
+  00000638 000026 40000638 00000ac8  2 TaskMainvTask0 	osek_cfg.o 
+  0000065e 000056 4000065e 00000aee  2 TaskMainvTask1 	osek_cfg.o 
+  000006b4 00002c 400006b4 00000b44  2 TaskMainvTask2 	osek_cfg.o 
+  000006e0 000020 400006e0 00000b70  2 TaskMainvTask3 	osek_cfg.o 
+  00000700 00001c 40000700 00000b90  2 AlarmCbkvAlarm0 	osek_cfg.o 
+  0000071c 000018 4000071c 00000bac  2 AlarmCbkvAlarm1 	osek_cfg.o 
+  00000734 000018 40000734 00000bc4  2 AlarmCbkvAlarm2 	osek_cfg.o 
+  0000074c 000000 4000074c 00000bdc  1 .text.263 	osek_cfg.o 
+  0000074c 000046 4000074c 00000bdc  1 .text 	sysinit_main.o 
+  0000074c 000024 4000074c 00000bdc  2 knl_init_task 	sysinit_main.o 
+  00000770 000022 40000770 00000c00  2 main 	sysinit_main.o 
+  00000792 000000 40000792 00000c22  1 .text.498 	sysinit_main.o 
+  00000792 000044 40000792 00000c22  1 .text 	sysstartup.o 
+  00000792 000022 40000792 00000c22  2 knl_init_system 	sysstartup.o 
+  000007b4 000022 400007b4 00000c44  2 knl_start_system 	sysstartup.o 
+  000007d6 000000 400007d6 00000c66  1 .text.481 	sysstartup.o 
+  000007d6 000022 400007d6 00000c66  1 .text 	inittask_main.o 
+  000007d6 000022 400007d6 00000c66  2 knl_init_task_main 	inittask_main.o 
+  000007f8 000000 400007f8 00000c88  1 .text.469 	inittask_main.o 
+  000007f8 00064c 400007f8 00000c88  1 .text 	eventflag.o 
+  000007f8 000062 400007f8 00000c88  2 knl_eventflag_initialize 	eventflag.o 
+  0000085a 00011a 4000085a 00000cea  2 tk_cre_flg 	eventflag.o 
+  UNUSED   0000e2 ........ ........    tk_del_flg eventflag.o 
+  00000974 000168 40000974 00000e04  2 tk_set_flg 	eventflag.o 
+  00000adc 0000ca 40000adc 00000f6c  2 tk_clr_flg 	eventflag.o 
+  00000ba6 000038 40000ba6 00001036  2 flg_chg_pri 	eventflag.o 
+  00000bde 000266 40000bde 0000106e  2 tk_wai_flg 	eventflag.o 
+  UNUSED   0000d4 ........ ........    tk_ref_flg eventflag.o 
+  00000e44 000000 40000e44 000012d4  1 .text.980 	eventflag.o 
+  00000e44 000000 40000e44 000012d4  1 .text 	klock.o 
+  UNUSED   00025a ........ ........    knl_LockOBJ klock.o 
+  UNUSED   0001e2 ........ ........    knl_UnlockOBJ klock.o 
+  00000e44 000000 40000e44 000012d4  1 .text.732 	klock.o 
+  00000e44 000062 40000e44 000012d4  1 .text 	mailbox.o 
+  00000e44 000062 40000e44 000012d4  2 knl_mailbox_initialize 	mailbox.o 
+  UNUSED   00011c ........ ........    tk_cre_mbx mailbox.o 
+  UNUSED   0000e2 ........ ........    tk_del_mbx mailbox.o 
+  UNUSED   000198 ........ ........    tk_snd_mbx mailbox.o 
+  UNUSED   000038 ........ ........    mbx_chg_pri mailbox.o 
+  UNUSED   000178 ........ ........    tk_rcv_mbx mailbox.o 
+  UNUSED   0000d4 ........ ........    tk_ref_mbx mailbox.o 
+  00000ea6 000000 40000ea6 00001336  1 .text.942 	mailbox.o 
+  00000ea6 000064 40000ea6 00001336  1 .text 	messagebuf.o 
+  00000ea6 000064 40000ea6 00001336  2 knl_messagebuffer_initialize 	messagebuf.o 
+  UNUSED   00007e ........ ........    knl_msg_to_mbf messagebuf.o 
+  UNUSED   00005e ........ ........    knl_mbf_wakeup messagebuf.o 
+  UNUSED   000190 ........ ........    tk_cre_mbf messagebuf.o 
+  UNUSED   0000f0 ........ ........    tk_del_mbf messagebuf.o 
+  UNUSED   000048 ........ ........    knl_mbf_chg_pri messagebuf.o 
+  UNUSED   000018 ........ ........    knl_mbf_rel_wai messagebuf.o 
+  UNUSED   00029c ........ ........    tk_snd_mbf messagebuf.o 
+  UNUSED   000082 ........ ........    knl_mbf_to_msg messagebuf.o 
+  UNUSED   00022a ........ ........    tk_rcv_mbf messagebuf.o 
+  UNUSED   00013e ........ ........    tk_ref_mbf messagebuf.o 
+  00000f0a 000000 40000f0a 0000139a  1 .text.1100 	messagebuf.o 
+  00000f0a 000230 40000f0a 0000139a  1 .text 	mutex.o 
+  00000f0a 000062 40000f0a 0000139a  2 knl_mutex_initialize 	mutex.o 
+  UNUSED   00008a ........ ........    knl_release_mutex mutex.o 
+  00000f6c 000086 40000f6c 000013fc  2 knl_signal_all_mutex 	mutex.o 
+  UNUSED   0000b8 ........ ........    knl_chg_pri_mutex mutex.o 
+  00000ff2 000148 40000ff2 00001482  2 tk_cre_mtx 	mutex.o 
+  UNUSED   0000ee ........ ........    tk_del_mtx mutex.o 
+  UNUSED   000074 ........ ........    mtx_chg_pri mutex.o 
+  UNUSED   00004a ........ ........    mtx_rel_wai mutex.o 
+  UNUSED   0002d6 ........ ........    tk_loc_mtx mutex.o 
+  UNUSED   000170 ........ ........    tk_unl_mtx mutex.o 
+  UNUSED   0000da ........ ........    tk_ref_mtx mutex.o 
+  0000113a 000000 4000113a 000015ca  1 .text.1114 	mutex.o 
+  0000113a 000064 4000113a 000015ca  1 .text 	rendezvous.o 
+  0000113a 000064 4000113a 000015ca  2 knl_rendezvous_initialize 	rendezvous.o 
+  UNUSED   000038 ........ ........    cal_chg_pri rendezvous.o 
+  UNUSED   00016e ........ ........    tk_cre_por rendezvous.o 
+  UNUSED   000110 ........ ........    tk_del_por rendezvous.o 
+  UNUSED   000300 ........ ........    tk_cal_por rendezvous.o 
+  UNUSED   0002f2 ........ ........    tk_acp_por rendezvous.o 
+  UNUSED   0003d2 ........ ........    tk_fwd_por rendezvous.o 
+  UNUSED   000170 ........ ........    tk_rpl_rdv rendezvous.o 
+  UNUSED   0000e6 ........ ........    tk_ref_por rendezvous.o 
+  0000119e 000000 4000119e 0000162e  1 .text.1174 	rendezvous.o 
+  0000119e 000062 4000119e 0000162e  1 .text 	semaphore.o 
+  0000119e 000062 4000119e 0000162e  2 knl_semaphore_initialize 	semaphore.o 
+  UNUSED   000148 ........ ........    tk_cre_sem semaphore.o 
+  UNUSED   0000e2 ........ ........    tk_del_sem semaphore.o 
+  UNUSED   00015e ........ ........    tk_sig_sem semaphore.o 
+  UNUSED   000076 ........ ........    sem_chg_pri semaphore.o 
+  UNUSED   000018 ........ ........    sem_rel_wai semaphore.o 
+  UNUSED   0001ac ........ ........    tk_wai_sem semaphore.o 
+  UNUSED   0000d4 ........ ........    tk_ref_sem semaphore.o 
+  00001200 000000 40001200 00001690  1 .text.948 	semaphore.o 
+  00001200 0005a0 40001200 00001690  1 .text 	task.o 
+  00001200 000116 40001200 00001690  2 knl_task_initialize 	task.o 
+  00001316 000074 40001316 000017a6  2 knl_make_dormant 	task.o 
+  0000138a 0000be 4000138a 0000181a  2 knl_make_ready 	task.o 
+  00001448 000132 40001448 000018d8  2 knl_make_non_ready 	task.o 
+  0000157a 000226 4000157a 00001a0a  2 knl_change_task_priority 	task.o 
+  UNUSED   0000a0 ........ ........    knl_rotate_ready_queue task.o 
+  UNUSED   0000b6 ........ ........    knl_rotate_ready_queue_run task.o 
+  000017a0 000000 400017a0 00001c30  1 .text.898 	task.o 
+  000017a0 0003ea 400017a0 00001c30  1 .text 	task_manage.o 
+  000017a0 000170 400017a0 00001c30  2 tk_cre_tsk 	task_manage.o 
+  UNUSED   000024 ........ ........    knl_del_tsk task_manage.o 
+  UNUSED   000148 ........ ........    tk_del_tsk task_manage.o 
+  00001910 000162 40001910 00001da0  2 tk_sta_tsk 	task_manage.o 
+  00001a72 00008c 40001a72 00001f02  2 knl_ter_tsk 	task_manage.o 
+  00001afe 00008c 40001afe 00001f8e  2 tk_ext_tsk 	task_manage.o 
+  UNUSED   000088 ........ ........    tk_exd_tsk task_manage.o 
+  UNUSED   000186 ........ ........    tk_ter_tsk task_manage.o 
+  UNUSED   000144 ........ ........    tk_chg_pri task_manage.o 
+  UNUSED   0000d6 ........ ........    tk_rot_rdq task_manage.o 
+  UNUSED   000020 ........ ........    tk_get_tid task_manage.o 
+  UNUSED   000198 ........ ........    tk_ref_tsk task_manage.o 
+  UNUSED   00011c ........ ........    tk_rel_wai task_manage.o 
+  00001b8a 000000 40001b8a 0000201a  1 .text.1202 	task_manage.o 
+  00001b8a 00082a 40001b8a 0000201a  1 .text 	time_calls.o 
+  UNUSED   0000fe ........ ........    tk_dly_tsk time_calls.o 
+  00001b8a 000064 40001b8a 0000201a  2 knl_cyclichandler_initialize 	time_calls.o 
+  00001bee 0000e8 40001bee 0000207e  2 knl_call_cychdr 	time_calls.o 
+  00001cd6 0000fa 40001cd6 00002166  2 knl_immediate_call_cychdr 	time_calls.o 
+  00001dd0 0001a6 40001dd0 00002260  2 tk_cre_cyc 	time_calls.o 
+  UNUSED   000106 ........ ........    tk_del_cyc time_calls.o 
+  UNUSED   000242 ........ ........    tk_sta_cyc time_calls.o 
+  UNUSED   0000f4 ........ ........    tk_stp_cyc time_calls.o 
+  UNUSED   000266 ........ ........    tk_ref_cyc time_calls.o 
+  00001f76 000064 40001f76 00002406  2 knl_alarmhandler_initialize 	time_calls.o 
+  00001fda 000032 40001fda 0000246a  2 knl_call_almhdr 	time_calls.o 
+  0000200c 000132 4000200c 0000249c  2 tk_cre_alm 	time_calls.o 
+  0000213e 000106 4000213e 000025ce  2 tk_del_alm 	time_calls.o 
+  00002244 000040 40002244 000026d4  2 knl_immediate_call_almhdr 	time_calls.o 
+  00002284 000130 40002284 00002714  2 tk_sta_alm 	time_calls.o 
+  UNUSED   0000f4 ........ ........    tk_stp_alm time_calls.o 
+  UNUSED   000140 ........ ........    tk_ref_alm time_calls.o 
+  000023b4 000000 400023b4 00002844  1 .text.1231 	time_calls.o 
+  000023b4 00027a 400023b4 00002844  1 .text 	timer.o 
+  000023b4 000050 400023b4 00002844  2 knl_timer_initialize 	timer.o 
+  00002404 000058 40002404 00002894  2 knl_enqueue_tmeb 	timer.o 
+  0000245c 00005e 4000245c 000028ec  2 knl_timer_insert 	timer.o 
+  UNUSED   00004e ........ ........    knl_timer_insert_reltim timer.o 
+  000024ba 000038 400024ba 0000294a  2 knl_timer_insert_abs 	timer.o 
+  000024f2 00013c 400024f2 00002982  2 knl_timer_handler 	timer.o 
+  0000262e 000000 4000262e 00002abe  1 .text.758 	timer.o 
+  0000262e 00010c 4000262e 00002abe  1 .text 	tkstart.o 
+  UNUSED   000036 ........ ........    knl_init_task_startup tkstart.o 
+  0000262e 00002c 4000262e 00002abe  2 knl_init_module 	tkstart.o 
+  0000265a 0000e0 4000265a 00002aea  2 knl_t_kernel_main 	tkstart.o 
+  0000273a 000000 4000273a 00002bca  1 .text.673 	tkstart.o 
+  0000273a 0001fe 4000273a 00002bca  1 .text 	wait.o 
+  0000273a 000064 4000273a 00002bca  2 knl_wait_release_ok 	wait.o 
+  UNUSED   000068 ........ ........    knl_wait_release_ok_ercd wait.o 
+  UNUSED   00007e ........ ........    knl_wait_release_ng wait.o 
+  0000279e 000054 4000279e 00002c2e  2 knl_wait_release_tmout 	wait.o 
+  000027f2 00005c 400027f2 00002c82  2 knl_make_wait 	wait.o 
+  UNUSED   00005c ........ ........    knl_make_wait_reltim wait.o 
+  UNUSED   000088 ........ ........    knl_wait_delete wait.o 
+  UNUSED   00002a ........ ........    knl_wait_tskid wait.o 
+  0000284e 000096 4000284e 00002cde  2 knl_gcb_make_wait 	wait.o 
+  000028e4 000054 400028e4 00002d74  2 knl_gcb_change_priority 	wait.o 
+  UNUSED   000054 ........ ........    knl_gcb_top_of_wait_queue wait.o 
+  00002938 000000 40002938 00002dc8  1 .text.892 	wait.o 
+  00002938 0000f2 40002938 00002dc8  1 .text 	bitop.o 
+  00002938 00003a 40002938 00002dc8  2 knl_tstdlib_bitclr 	bitop.o 
+  00002972 000034 40002972 00002e02  2 knl_tstdlib_bitset 	bitop.o 
+  000029a6 000084 400029a6 00002e36  2 knl_tstdlib_bitsearch1 	bitop.o 
+  00002a2a 000000 40002a2a 00002eba  1 .text.208 	bitop.o 
+  00002a2a 0000a6 40002a2a 00002eba  1 .text 	string.o 
+  00002a2a 000082 40002a2a 00002eba  2 memset 	string.o 
+  UNUSED   00003c ........ ........    memcmp string.o 
+  00002aac 000024 40002aac 00002f3c  2 memcpy 	string.o 
+  UNUSED   00003c ........ ........    memmove string.o 
+  UNUSED   00001e ........ ........    bzero string.o 
+  UNUSED   00001a ........ ........    strlen string.o 
+  UNUSED   00003c ........ ........    strcmp string.o 
+  UNUSED   000050 ........ ........    strncmp string.o 
+  UNUSED   000020 ........ ........    strcpy string.o 
+  UNUSED   000036 ........ ........    strncpy string.o 
+  UNUSED   00002e ........ ........    strcat string.o 
+  UNUSED   000034 ........ ........    strncat string.o 
+  UNUSED   000156 ........ ........    strtol string.o 
+  UNUSED   000002 ........ ........    abort string.o 
+  00002ad0 000000 40002ad0 00002f60  1 .text.504 	string.o 
+  00002ad0 00005c 40002ad0 00002f60  1 .text 	tm_monitor.o 
+  UNUSED   000004 ........ ........    tm_command tm_monitor.o 
+  UNUSED   000004 ........ ........    tm_exit tm_monitor.o 
+  UNUSED   000030 ........ ........    tm_getchar tm_monitor.o 
+  UNUSED   00006c ........ ........    tm_getline tm_monitor.o 
+  00002ad0 000004 40002ad0 00002f60  2 tm_monitor 	tm_monitor.o 
+  UNUSED   000038 ........ ........    tm_putchar tm_monitor.o 
+  00002ad4 000058 40002ad4 00002f64  2 tm_putstring 	tm_monitor.o 
+  00002b2c 000000 40002b2c 00002fbc  1 .text.92 	tm_monitor.o 
+  00002b2c 000604 40002b2c 00002fbc  1 .text 	tm_printf.o 
+  00002b2c 00001a 40002b2c 00002fbc  2 tm_strlen 	tm_printf.o 
+  00002b46 00004a 40002b46 00002fd6  2 divide 	tm_printf.o 
+  00002b90 000034 40002b90 00003020  2 skip_atoi 	tm_printf.o 
+  00002bc4 000154 40002bc4 00003054  2 print_number 	tm_printf.o 
+  00002d18 00038c 40002d18 000031a8  2 tm_vsnprintf 	tm_printf.o 
+  UNUSED   00006a ........ ........    tm_snprintf tm_printf.o 
+  UNUSED   000022 ........ ........    tm_vsprintf tm_printf.o 
+  UNUSED   000062 ........ ........    rt_sprintf tm_printf.o 
+  000030a4 00008c 400030a4 00003534  2 tm_printf 	tm_printf.o 
+  00003130 000000 40003130 000035c0  1 .text.357 	tm_printf.o 
+  00003130 000010 40003130 000035c0  1 .text 	disint.o 
+  00003130 00000a 40003130 000035c0  2 disint 	disint.o 
+  0000313a 000006 4000313a 000035ca  2 enaint 	disint.o 
+  00003140 000000 40003140 000035d0  1 .text.12 	disint.o 
+  00003140 0000d0 40003140 000035d0  1 .text 	sio.o 
+  00003140 00004a 40003140 000035d0  2 TickTimer_SetFreqHz 	sio.o 
+  0000318a 000032 4000318a 0000361a  2 Cpu_FrequencyInit 	sio.o 
+  000031bc 00002a 400031bc 0000364c  2 sio_init 	sio.o 
+  000031e6 00002a 400031e6 00003676  2 sio_send_frame 	sio.o 
+  UNUSED   000024 ........ ........    sio_recv_frame sio.o 
+  00003210 000000 40003210 000036a0  1 .text.60 	sio.o 
+  00003210 000078 40003210 000036a0  1 .text 	Runtime.PPCEABI.VS.UC.a __va_arg.o
+  00003210 000078 40003210 000036a0  2 __va_arg 	Runtime.PPCEABI.VS.UC.a __va_arg.o
+  00003288 000000 40003288 00003718  1 .text.40 	Runtime.PPCEABI.VS.UC.a __va_arg.o
+  00003288 00003a 40003288 00003718  1 .text 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  00003288 00001e 40003288 00003718  2 __register_fragment 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  000032a6 00001c 400032a6 00003736  2 __unregister_fragment 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00005a ........ ........    ExPPC_FindExceptionFragment__FPcP12FragmentInfo Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   0000e2 ........ ........    ExPPC_FindExceptionRecord__FPcP15MWExceptionInfo Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000006 ........ ........    ExPPC_PopR31__FPcP15MWExceptionInfo Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000012 ........ ........    ExPPC_CurrentAction__FPC14ActionIterator Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000168 ........ ........    ExPPC_NextAction__FP14ActionIterator Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00004a ........ ........    ExPPC_PopStackFrame__FP12ThrowContextP15MWExceptionInfo Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000268 ........ ........    ExPPC_UnwindStack__FP12ThrowContextP15MWExceptionInfoPv Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000046 ........ ........    ExPPC_DeletePointerCond_32__FP12ThrowContextPC23ex_deletepointercond_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00004e ........ ........    ExPPC_DeletePointerCond__FP12ThrowContextPC20ex_deletepointercond Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000026 ........ ........    ExPPC_DeletePointer_32__FP12ThrowContextPC19ex_deletepointer_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00002a ........ ........    ExPPC_DeletePointer__FP12ThrowContextPC16ex_deletepointer Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000058 ........ ........    ExPPC_DestroyMemberArray_32__FP12ThrowContextPC24ex_destroymemberarray_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00005c ........ ........    ExPPC_DestroyMemberArray__FP12ThrowContextPC21ex_destroymemberarray Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00004a ........ ........    ExPPC_DestroyMemberCond_32__FP12ThrowContextPC23ex_destroymembercond_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000052 ........ ........    ExPPC_DestroyMemberCond__FP12ThrowContextPC20ex_destroymembercond Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00006e ........ ........    ExPPC_DestroyVLA__FP12ThrowContextPC13ex_destroyvla Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00004c ........ ........    ExPPC_DestroyBaseVTT__FP12ThrowContextPC17ex_destroybasevtt Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00002c ........ ........    ExPPC_DestroyMember_32__FP12ThrowContextPC19ex_destroymember_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000030 ........ ........    ExPPC_DestroyMember__FP12ThrowContextPC16ex_destroymember Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00002c ........ ........    ExPPC_DestroyBase_32__FP12ThrowContextPC19ex_destroymember_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000030 ........ ........    ExPPC_DestroyBase__FP12ThrowContextPC16ex_destroymember Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000040 ........ ........    ExPPC_DestroyLocalArray_32__FP12ThrowContextPC23ex_destroylocalarray_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000042 ........ ........    ExPPC_DestroyLocalArray__FP12ThrowContextPC20ex_destroylocalarray Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000028 ........ ........    ExPPC_DestroyLocalPointer_32__FP12ThrowContextPC25ex_destroylocalpointer_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00002c ........ ........    ExPPC_DestroyLocalPointer__FP12ThrowContextPC22ex_destroylocalpointer Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000038 ........ ........    ExPPC_DestroyLocalCond_32__FP12ThrowContextPC22ex_destroylocalcond_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00003e ........ ........    ExPPC_DestroyLocalCond__FP12ThrowContextPC19ex_destroylocalcond Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000014 ........ ........    ExPPC_DestroyLocal_32__FP12ThrowContextPC18ex_destroylocal_32 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000016 ........ ........    ExPPC_DestroyLocal__FP12ThrowContextPC15ex_destroylocal Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000044 ........ ........    ExPPC_IsInSpecification__FPcP16ex_specification Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   0000aa ........ ........    __unexpected Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000024 ........ ........    __dt__Q23std13bad_exceptionFv Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    __ct__Q23std13bad_exceptionFv Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000022 ........ ........    ExPPC_LongJump__FP12ThrowContextPvPv Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000042 ........ ........    ExPPC_HandleUnexpected__FP12ThrowContextP15MWExceptionInfoP16ex_specification Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000228 ........ ........    ExPPC_ThrowHandler__FP12ThrowContext Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000028 ........ ........    __as__15MWExceptionInfoFRC15MWExceptionInfo Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000052 ........ ........    __throw Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00001c ........ ........    __end__catch Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000086 ........ ........    __uncaught_exception_helper__FP12ThrowContext Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   000028 ........ ........    __uncaught_exception Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000a ........ ........    what__Q23std13bad_exceptionCFv Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  000032c2 000000 400032c2 00003752  1 .text.1683 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  000032c2 00016c 400032c2 00003752  1 .text 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000032c2 00004a 400032c2 00003752  2 __save_gpr 	Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_16 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_16 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_17 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_17 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_18 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_18 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_19 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_19 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_20 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_20 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_21 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_21 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_22 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_22 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_23 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_23 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_24 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_24 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_25 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_25 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_26 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_26 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_27 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_27 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
+  00003302 000000 40003302 00003792    _savegpr_30 (entry of __save_gpr) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _savegpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _save32gpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00004a ........ ........    __restore_gpr Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_16 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_16 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_17 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_17 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_18 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_18 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_19 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_19 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_20 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_20 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_21 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_21 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_22 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_22 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_23 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_23 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_24 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_24 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_25 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_25 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_26 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_26 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_27 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_27 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _restgpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    _rest32gpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
+  0000330c 000008 4000330c 0000379c  2 __restore_frame_and_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  0000330e 000000 4000330e 0000379e    __finish_restore_frame_and_exit2 (entry of __restore_frame_and_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  00003314 00000a 40003314 000037a4  2 __restore_gpr_31_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  0000331a 000000 4000331a 000037aa    __finish_restore_frame_and_exit (entry of __restore_gpr_31_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  0000331e 000008 4000331e 000037ae  2 __restore_gpr_30_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_29_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_28_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_27_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_26_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000a ........ ........    __restore_gpr_25_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_24_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_23_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_22_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_21_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_20_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_19_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_18_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_17_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_16_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_15_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000008 ........ ........    __restore_gpr_14_exit Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   000000 ........ ........    __save_lr Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_27 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_26 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_25 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_24 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_23 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_22 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_21 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_20 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_19 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_18 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_17 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_16 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00000c ........ ........    __create_frame_and_save_gpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   0000c4 ........ ........    __div2u Runtime.PPCEABI.VS.UC.a runtime.o
+  00003326 000108 40003326 000037b6  2 __div2i 	Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   0000ba ........ ........    __mod2u Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   0000e2 ........ ........    __mod2i Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00001a ........ ........    __shl2i Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00001a ........ ........    __shr2u Runtime.PPCEABI.VS.UC.a runtime.o
+  UNUSED   00001c ........ ........    __shr2i Runtime.PPCEABI.VS.UC.a runtime.o
+  0000342e 000000 4000342e 000038be  1 .text.205 	Runtime.PPCEABI.VS.UC.a runtime.o
+  0000342e 000050 4000342e 000038be  1 .text 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  0000342e 00002e 4000342e 000038be  2 __init_cpp_exceptions 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  0000345c 000022 4000345c 000038ec  2 __fini_cpp_exceptions 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+
+
+.rodata section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 00000c 40003480 00003910  1 .rodata 	__ppc_eabi_init.o 
+  00000000 00000c 40003480 00003910  4 @22 	__ppc_eabi_init.o 
+  0000000c 000004 40003490 00003920  8 *fill*
+  00000010 000020 40003490 00003920  1 .rodata 	inittask_def.o 
+  00000010 000020 40003490 00003920  8 knl_c_init_task 	inittask_def.o 
+  00000030 000014 400034b0 00003940  1 .rodata 	osek_osctrl.o 
+  00000030 000014 400034b0 00003940  4 @LOCAL@OsekCreateEntFlgs__Fv@cflg 	osek_osctrl.o 
+  00000044 000004 400034c8 00003958  8 *fill*
+  00000048 0000dc 400034c8 00003958  1 .rodata 	osek_cfg.o 
+  00000048 00003c 400034c8 00003958  4 OsekResourceTable 	osek_cfg.o 
+  00000088 000080 40003508 00003998  8 OsekTaskTable 	osek_cfg.o 
+  00000108 000010 40003588 00003a18  8 OsekTaskAuotStartable 	osek_cfg.o 
+  00000118 00000c 40003598 00003a28  4 OsekAlarmHandlerTable 	osek_cfg.o 
+  00000124 000004 400035a8 00003a38  8 *fill*
+  00000128 000025 400035a8 00003a38  1 .rodata 	tm_printf.o 
+  00000128 000011 400035a8 00003a38  4 @LOCAL@print_number__FPcPcliii@small_digits 	tm_printf.o 
+  0000013c 000011 400035bc 00003a4c  4 @LOCAL@print_number__FPcPcliii@large_digits@0 	tm_printf.o 
+
+
+.ctors section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000000 400035d0 00003a60  1 .ctors$00 	Linker Generated Symbol File 
+  00000000 000000 400035d0 00003a60  4 _ctors 	Linker Generated Symbol File 
+  00000000 000004 400035d0 00003a60  1 .ctors$10 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  00000000 000004 400035d0 00003a60  4 __init_cpp_exceptions_reference 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  00000004 000004 400035d4 00003a64  1 .ctors$99 	Linker Generated Symbol File 
+  00000004 000004 400035d4 00003a64  4 _ctors$99 	Linker Generated Symbol File 
+
+
+.dtors section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000000 400035d8 00003a68  1 .dtors$00 	Linker Generated Symbol File 
+  00000000 000000 400035d8 00003a68  4 _dtors 	Linker Generated Symbol File 
+  00000000 000004 400035d8 00003a68  1 .dtors$15 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  00000000 000004 400035d8 00003a68  4 __fini_cpp_exceptions_reference 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  00000004 000004 400035dc 00003a6c  1 .dtors$99 	Linker Generated Symbol File 
+  00000004 000004 400035dc 00003a6c  4 _dtors$99 	Linker Generated Symbol File 
+
+
+extab section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000008 400035e0 00003a70  1 extab 	Exceptions.o 
+  00000000 000008 400035e0 00003a70  4 @5 	Exceptions.o 
+  00000008 000008 400035e8 00003a78  1 extab 	IntcInterrupts.o 
+  00000008 000008 400035e8 00003a78  4 @12 	IntcInterrupts.o 
+  00000010 000008 400035f0 00003a80  1 extab 	cpu_init.o 
+  00000010 000008 400035f0 00003a80  4 @585 	cpu_init.o 
+  00000018 000008 400035f8 00003a88  1 extab 	devinit.o 
+  00000018 000008 400035f8 00003a88  4 @461 	devinit.o 
+  00000020 000008 40003600 00003a90  1 extab 	power.o 
+  00000020 000008 40003600 00003a90  4 @145 	power.o 
+  00000028 000008 40003608 00003a98  1 extab 	osek_alarm.o 
+  UNUSED   000008 ........ ........    @193 osek_alarm.o 
+  00000028 000008 40003608 00003a98  4 @221 	osek_alarm.o 
+  UNUSED   000008 ........ ........    @244 osek_alarm.o 
+  00000030 000018 40003610 00003aa0  1 extab 	osek_event.o 
+  00000030 000008 40003610 00003aa0  4 @642 	osek_event.o 
+  00000038 000008 40003618 00003aa8  4 @654 	osek_event.o 
+  UNUSED   000008 ........ ........    @672 osek_event.o 
+  00000040 000008 40003620 00003ab0  4 @685 	osek_event.o 
+  00000048 000030 40003628 00003ab8  1 extab 	osek_osctrl.o 
+  00000048 000008 40003628 00003ab8  4 @203 	osek_osctrl.o 
+  00000050 000008 40003630 00003ac0  4 @221 	osek_osctrl.o 
+  00000058 000008 40003638 00003ac8  4 @233 	osek_osctrl.o 
+  00000060 000008 40003640 00003ad0  4 @251 	osek_osctrl.o 
+  00000068 000008 40003648 00003ad8  4 @265 	osek_osctrl.o 
+  00000070 000008 40003650 00003ae0  4 @276 	osek_osctrl.o 
+  00000078 000010 40003658 00003ae8  1 extab 	osek_task.o 
+  00000078 000008 40003658 00003ae8  4 @690 	osek_task.o 
+  00000080 000008 40003660 00003af0  4 @697 	osek_task.o 
+  UNUSED   000008 ........ ........    @731 osek_task.o 
+  UNUSED   000008 ........ ........    @743 osek_task.o 
+  UNUSED   000008 ........ ........    @778 osek_task.o 
+  UNUSED   000008 ........ ........    @786 osek_task.o 
+  UNUSED   000008 ........ ........    @794 osek_task.o 
+  UNUSED   000008 ........ ........    @802 osek_task.o 
+  00000088 000038 40003668 00003af8  1 extab 	osek_cfg.o 
+  00000088 000008 40003668 00003af8  4 @188 	osek_cfg.o 
+  00000090 000008 40003670 00003b00  4 @198 	osek_cfg.o 
+  00000098 000008 40003678 00003b08  4 @207 	osek_cfg.o 
+  000000a0 000008 40003680 00003b10  4 @216 	osek_cfg.o 
+  000000a8 000008 40003688 00003b18  4 @223 	osek_cfg.o 
+  000000b0 000008 40003690 00003b20  4 @229 	osek_cfg.o 
+  000000b8 000008 40003698 00003b28  4 @235 	osek_cfg.o 
+  000000c0 000010 400036a0 00003b30  1 extab 	sysinit_main.o 
+  000000c0 000008 400036a0 00003b30  4 @481 	sysinit_main.o 
+  000000c8 000008 400036a8 00003b38  4 @487 	sysinit_main.o 
+  000000d0 000010 400036b0 00003b40  1 extab 	sysstartup.o 
+  000000d0 000008 400036b0 00003b40  4 @465 	sysstartup.o 
+  000000d8 000008 400036b8 00003b48  4 @475 	sysstartup.o 
+  000000e0 000008 400036c0 00003b50  1 extab 	inittask_main.o 
+  000000e0 000008 400036c0 00003b50  4 @463 	inittask_main.o 
+  000000e8 000030 400036c8 00003b58  1 extab 	eventflag.o 
+  000000e8 000008 400036c8 00003b58  4 @653 	eventflag.o 
+  000000f0 000008 400036d0 00003b60  4 @687 	eventflag.o 
+  UNUSED   000008 ........ ........    @714 eventflag.o 
+  000000f8 000008 400036d8 00003b68  4 @763 	eventflag.o 
+  00000100 000008 400036e0 00003b70  4 @791 	eventflag.o 
+  00000108 000008 400036e8 00003b78  4 @801 	eventflag.o 
+  00000110 000008 400036f0 00003b80  4 @877 	eventflag.o 
+  UNUSED   000008 ........ ........    @906 eventflag.o 
+  00000118 000008 400036f8 00003b88  1 extab 	mailbox.o 
+  00000118 000008 400036f8 00003b88  4 @658 	mailbox.o 
+  UNUSED   000008 ........ ........    @692 mailbox.o 
+  UNUSED   000008 ........ ........    @719 mailbox.o 
+  UNUSED   000008 ........ ........    @774 mailbox.o 
+  UNUSED   000008 ........ ........    @784 mailbox.o 
+  UNUSED   000008 ........ ........    @837 mailbox.o 
+  UNUSED   000008 ........ ........    @866 mailbox.o 
+  00000120 000008 40003700 00003b90  1 extab 	messagebuf.o 
+  00000120 000008 40003700 00003b90  4 @657 	messagebuf.o 
+  UNUSED   000008 ........ ........    @677 messagebuf.o 
+  UNUSED   000008 ........ ........    @702 messagebuf.o 
+  UNUSED   000008 ........ ........    @749 messagebuf.o 
+  UNUSED   000008 ........ ........    @777 messagebuf.o 
+  UNUSED   000008 ........ ........    @789 messagebuf.o 
+  UNUSED   000008 ........ ........    @796 messagebuf.o 
+  UNUSED   000008 ........ ........    @878 messagebuf.o 
+  UNUSED   000008 ........ ........    @899 messagebuf.o 
+  UNUSED   000008 ........ ........    @968 messagebuf.o 
+  UNUSED   000008 ........ ........    @1012 messagebuf.o 
+  00000128 000018 40003708 00003b98  1 extab 	mutex.o 
+  00000128 000008 40003708 00003b98  4 @646 	mutex.o 
+  UNUSED   000008 ........ ........    @682 mutex.o 
+  00000130 000008 40003710 00003ba0  4 @711 	mutex.o 
+  UNUSED   000008 ........ ........    @753 mutex.o 
+  00000138 000008 40003718 00003ba8  4 @794 	mutex.o 
+  UNUSED   000008 ........ ........    @823 mutex.o 
+  UNUSED   000008 ........ ........    @841 mutex.o 
+  UNUSED   000008 ........ ........    @853 mutex.o 
+  UNUSED   000008 ........ ........    @940 mutex.o 
+  UNUSED   000008 ........ ........    @992 mutex.o 
+  UNUSED   000008 ........ ........    @1025 mutex.o 
+  00000140 000008 40003720 00003bb0  1 extab 	rendezvous.o 
+  00000140 000008 40003720 00003bb0  4 @653 	rendezvous.o 
+  UNUSED   000008 ........ ........    @663 rendezvous.o 
+  UNUSED   000008 ........ ........    @710 rendezvous.o 
+  UNUSED   000008 ........ ........    @746 rendezvous.o 
+  UNUSED   000008 ........ ........    @828 rendezvous.o 
+  UNUSED   000008 ........ ........    @908 rendezvous.o 
+  UNUSED   000008 ........ ........    @1008 rendezvous.o 
+  UNUSED   000008 ........ ........    @1060 rendezvous.o 
+  UNUSED   000008 ........ ........    @1089 rendezvous.o 
+  00000148 000008 40003728 00003bb8  1 extab 	semaphore.o 
+  00000148 000008 40003728 00003bb8  4 @644 	semaphore.o 
+  UNUSED   000008 ........ ........    @684 semaphore.o 
+  UNUSED   000008 ........ ........    @711 semaphore.o 
+  UNUSED   000008 ........ ........    @756 semaphore.o 
+  UNUSED   000008 ........ ........    @779 semaphore.o 
+  UNUSED   000008 ........ ........    @786 semaphore.o 
+  UNUSED   000008 ........ ........    @844 semaphore.o 
+  UNUSED   000008 ........ ........    @873 semaphore.o 
+  00000150 000028 40003730 00003bc0  1 extab 	task.o 
+  00000150 000008 40003730 00003bc0  4 @682 	task.o 
+  00000158 000008 40003738 00003bc8  4 @691 	task.o 
+  00000160 000008 40003740 00003bd0  4 @707 	task.o 
+  00000168 000008 40003748 00003bd8  4 @738 	task.o 
+  00000170 000008 40003750 00003be0  4 @784 	task.o 
+  UNUSED   000008 ........ ........    @807 task.o 
+  UNUSED   000008 ........ ........    @834 task.o 
+  00000178 000020 40003758 00003be8  1 extab 	task_manage.o 
+  00000178 000008 40003758 00003be8  4 @689 	task_manage.o 
+  UNUSED   000008 ........ ........    @747 task_manage.o 
+  00000180 000008 40003760 00003bf0  4 @802 	task_manage.o 
+  00000188 000008 40003768 00003bf8  4 @822 	task_manage.o 
+  00000190 000008 40003770 00003c00  4 @852 	task_manage.o 
+  UNUSED   000008 ........ ........    @881 task_manage.o 
+  UNUSED   000008 ........ ........    @939 task_manage.o 
+  UNUSED   000008 ........ ........    @990 task_manage.o 
+  UNUSED   000008 ........ ........    @1026 task_manage.o 
+  UNUSED   000008 ........ ........    @1036 task_manage.o 
+  UNUSED   000008 ........ ........    @1085 task_manage.o 
+  UNUSED   000008 ........ ........    @1128 task_manage.o 
+  00000198 000050 40003778 00003c08  1 extab 	time_calls.o 
+  UNUSED   000008 ........ ........    @704 time_calls.o 
+  00000198 000008 40003778 00003c08  4 @719 	time_calls.o 
+  000001a0 000008 40003780 00003c10  4 @734 	time_calls.o 
+  000001a8 000008 40003788 00003c18  4 @749 	time_calls.o 
+  000001b0 000008 40003790 00003c20  4 @793 	time_calls.o 
+  UNUSED   000008 ........ ........    @824 time_calls.o 
+  UNUSED   000008 ........ ........    @869 time_calls.o 
+  UNUSED   000008 ........ ........    @900 time_calls.o 
+  UNUSED   000008 ........ ........    @942 time_calls.o 
+  000001b8 000008 40003798 00003c28  4 @957 	time_calls.o 
+  000001c0 000008 400037a0 00003c30  4 @965 	time_calls.o 
+  000001c8 000008 400037a8 00003c38  4 @1000 	time_calls.o 
+  000001d0 000008 400037b0 00003c40  4 @1031 	time_calls.o 
+  000001d8 000008 400037b8 00003c48  4 @1039 	time_calls.o 
+  000001e0 000008 400037c0 00003c50  4 @1075 	time_calls.o 
+  UNUSED   000008 ........ ........    @1106 time_calls.o 
+  UNUSED   000008 ........ ........    @1141 time_calls.o 
+  000001e8 000028 400037c8 00003c58  1 extab 	timer.o 
+  000001e8 000008 400037c8 00003c58  4 @605 	timer.o 
+  000001f0 000008 400037d0 00003c60  4 @620 	timer.o 
+  000001f8 000008 400037d8 00003c68  4 @634 	timer.o 
+  UNUSED   000008 ........ ........    @645 timer.o 
+  00000200 000008 400037e0 00003c70  4 @656 	timer.o 
+  00000208 000008 400037e8 00003c78  4 @692 	timer.o 
+  00000210 000010 400037f0 00003c80  1 extab 	tkstart.o 
+  UNUSED   000008 ........ ........    @629 tkstart.o 
+  00000210 000008 400037f0 00003c80  4 @640 	tkstart.o 
+  00000218 000008 400037f8 00003c88  4 @659 	tkstart.o 
+  00000220 000028 40003800 00003c90  1 extab 	wait.o 
+  00000220 000008 40003800 00003c90  4 @644 	wait.o 
+  UNUSED   000008 ........ ........    @660 wait.o 
+  UNUSED   000008 ........ ........    @678 wait.o 
+  00000228 000008 40003808 00003c98  4 @693 	wait.o 
+  00000230 000008 40003810 00003ca0  4 @704 	wait.o 
+  UNUSED   000008 ........ ........    @715 wait.o 
+  UNUSED   000008 ........ ........    @742 wait.o 
+  UNUSED   000008 ........ ........    @757 wait.o 
+  00000238 000008 40003818 00003ca8  4 @782 	wait.o 
+  00000240 000008 40003820 00003cb0  4 @801 	wait.o 
+  UNUSED   000008 ........ ........    @824 wait.o 
+  00000248 000018 40003828 00003cb8  1 extab 	bitop.o 
+  00000248 000008 40003828 00003cb8  4 @148 	bitop.o 
+  00000250 000008 40003830 00003cc0  4 @160 	bitop.o 
+  00000258 000008 40003838 00003cc8  4 @196 	bitop.o 
+  00000260 000010 40003840 00003cd0  1 extab 	string.o 
+  00000260 000008 40003840 00003cd0  4 @171 	string.o 
+  UNUSED   000008 ........ ........    @190 string.o 
+  00000268 000008 40003848 00003cd8  4 @206 	string.o 
+  UNUSED   000008 ........ ........    @230 string.o 
+  UNUSED   000008 ........ ........    @241 string.o 
+  UNUSED   000008 ........ ........    @254 string.o 
+  UNUSED   000008 ........ ........    @270 string.o 
+  UNUSED   000008 ........ ........    @292 string.o 
+  UNUSED   000008 ........ ........    @305 string.o 
+  UNUSED   000008 ........ ........    @326 string.o 
+  UNUSED   000008 ........ ........    @345 string.o 
+  UNUSED   000008 ........ ........    @367 string.o 
+  UNUSED   000008 ........ ........    @448 string.o 
+  00000270 000008 40003850 00003ce0  1 extab 	tm_monitor.o 
+  UNUSED   000008 ........ ........    @29 tm_monitor.o 
+  UNUSED   000008 ........ ........    @48 tm_monitor.o 
+  UNUSED   000008 ........ ........    @65 tm_monitor.o 
+  00000270 000008 40003850 00003ce0  4 @82 	tm_monitor.o 
+  00000278 000030 40003858 00003ce8  1 extab 	tm_printf.o 
+  00000278 000008 40003858 00003ce8  4 @13 	tm_printf.o 
+  00000280 000008 40003860 00003cf0  4 @25 	tm_printf.o 
+  00000288 000008 40003868 00003cf8  4 @38 	tm_printf.o 
+  00000290 000008 40003870 00003d00  4 @122 	tm_printf.o 
+  00000298 000008 40003878 00003d08  4 @268 	tm_printf.o 
+  UNUSED   000008 ........ ........    @280 tm_printf.o 
+  UNUSED   000008 ........ ........    @289 tm_printf.o 
+  UNUSED   000008 ........ ........    @300 tm_printf.o 
+  000002a0 000008 40003880 00003d10  4 @320 	tm_printf.o 
+  000002a8 000008 40003888 00003d18  1 extab 	sio.o 
+  000002a8 000008 40003888 00003d18  4 @7 	sio.o 
+
+
+extabindex section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+
+
+.__uninitialized_intc_handlertable section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+
+
+.data section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 00002f 40011000 00004158  1 .data 	power.o 
+  00000000 00002f 40011000 00004158  4 @144 	power.o 
+  0000002f 000001 40011030 00004188  8 *fill*
+  00000030 000094 40011030 00004188  1 .data 	osek_osctrl.o 
+  00000030 000021 40011030 00004188  4 @202 	osek_osctrl.o 
+  00000054 000023 40011054 000041ac  4 @220 	osek_osctrl.o 
+  00000078 000025 40011078 000041d0  4 @250 	osek_osctrl.o 
+  000000a0 000024 400110a0 000041f8  4 @275 	osek_osctrl.o 
+  000000c4 000004 400110c8 00004220  8 *fill*
+  000000c8 00008e 400110c8 00004220  1 .data 	osek_cfg.o 
+  000000c8 000015 400110c8 00004220  4 @187 	osek_cfg.o 
+  000000e0 000015 400110e0 00004238  4 @196 	osek_cfg.o 
+  000000f8 000011 400110f8 00004250  4 @197 	osek_cfg.o 
+  0000010c 000015 4001110c 00004264  4 @206 	osek_cfg.o 
+  00000124 000015 40011124 0000427c  4 @215 	osek_cfg.o 
+  0000013c 00001a 4001113c 00004294  4 @222 	osek_cfg.o 
+  00000156 000002 40011158 000042b0  8 *fill*
+  00000158 000018 40011158 000042b0  1 .data 	eventflag.o 
+  00000158 00000c 40011158 000042b0  4 knl_wspec_flg_tfifo 	eventflag.o 
+  00000164 00000c 40011164 000042bc  4 knl_wspec_flg_tpri 	eventflag.o 
+  00000170 000051 40011170 000042c8  1 .data 	tkstart.o 
+  00000170 00000a 40011170 000042c8  4 @650 	tkstart.o 
+  0000017c 00000a 4001117c 000042d4  4 @651 	tkstart.o 
+  00000188 00000e 40011188 000042e0  4 @653 	tkstart.o 
+  00000198 00000b 40011198 000042f0  4 @654 	tkstart.o 
+  000001a4 00000e 400111a4 000042fc  4 @656 	tkstart.o 
+  000001b4 00000d 400111b4 0000430c  4 @657 	tkstart.o 
+
+
+.sdata section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000004 400111c8 00004320  1 .sdata 	cpu_calls.o 
+  00000000 000004 400111c8 00004320  4 l_sp_offset 	cpu_calls.o 
+  00000004 000004 400111d0 00004328  8 *fill*
+  00000008 000010 400111d0 00004328  1 .sdata 	osek_osctrl.o 
+  00000008 000008 400111d0 00004328  8 @200 	osek_osctrl.o 
+  00000010 000008 400111d8 00004330  8 @201 	osek_osctrl.o 
+  00000018 00002e 400111e0 00004338  1 .sdata 	tkstart.o 
+  00000018 000004 400111e0 00004338  4 @647 	tkstart.o 
+  0000001c 000006 400111e4 0000433c  4 @648 	tkstart.o 
+  00000024 000005 400111ec 00004344  4 @649 	tkstart.o 
+  00000030 000008 400111f8 00004350  8 @652 	tkstart.o 
+  00000038 000006 40011200 00004358  4 @655 	tkstart.o 
+  00000040 000006 40011208 00004360  4 @658 	tkstart.o 
+  00000046 000002 40011210 00004368  8 *fill*
+  00000048 000007 40011210 00004368  1 .sdata 	tm_printf.o 
+  00000048 000007 40011210 00004368  4 @265 	tm_printf.o 
+  0000004f 000001 40011218 00004370  8 *fill*
+  00000050 000004 40011218 00004370  1 .sdata 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+  00000050 000004 40011218 00004370  4 fragmentID 	Runtime.PPCEABI.VS.UC.a __init_cpp_exceptions.o
+
+
+.sbss section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000008 40011220 00004378  1 .sbss 	devinit.o 
+  00000000 000004 40011220 00004378  4 knl_taskindp 	devinit.o 
+  00000004 000004 40011224 0000437c  4 knl_taskmode 	devinit.o 
+  00000008 000004 40011228 00004380  1 .sbss 	power.o 
+  00000008 000004 40011228 00004380  4 @LOCAL@knl_low_pow__Fv@flag 	power.o 
+  0000000c 000004 40011230 00004388  8 *fill*
+  00000010 000003 40011230 00004388  1 .sbss 	osek_cfg.o 
+  00000010 000003 40011230 00004388  4 OsekAlarmTypeTable 	osek_cfg.o 
+  00000013 000005 40011238 00004390  8 *fill*
+  00000018 000008 40011238 00004390  1 .sbss 	eventflag.o 
+  00000018 000008 40011238 00004390  8 knl_free_flgcb 	eventflag.o 
+  00000020 000008 40011240 00004398  1 .sbss 	mailbox.o 
+  00000020 000008 40011240 00004398  8 knl_free_mbxcb 	mailbox.o 
+  00000028 000008 40011248 000043a0  1 .sbss 	messagebuf.o 
+  00000028 000008 40011248 000043a0  8 knl_free_mbfcb 	messagebuf.o 
+  00000030 000008 40011250 000043a8  1 .sbss 	mutex.o 
+  00000030 000008 40011250 000043a8  8 knl_free_mtxcb 	mutex.o 
+  00000038 000008 40011258 000043b0  1 .sbss 	rendezvous.o 
+  00000038 000008 40011258 000043b0  8 knl_free_porcb 	rendezvous.o 
+  00000040 000008 40011260 000043b8  1 .sbss 	semaphore.o 
+  00000040 000008 40011260 000043b8  8 knl_free_semcb 	semaphore.o 
+  00000048 000014 40011268 000043c0  1 .sbss 	task.o 
+  00000048 000008 40011268 000043c0  8 knl_free_tcb 	task.o 
+  00000050 000004 40011270 000043c8  4 knl_schedtsk 	task.o 
+  00000054 000004 40011274 000043cc  4 knl_ctxtsk 	task.o 
+  00000058 000004 40011278 000043d0  4 knl_dispatch_disabled 	task.o 
+  0000005c 000004 40011280 000043d8  8 *fill*
+  00000060 000010 40011280 000043d8  1 .sbss 	time_calls.o 
+  00000060 000008 40011280 000043d8  8 knl_free_almcb 	time_calls.o 
+  00000068 000008 40011288 000043e0  8 knl_free_cyccb 	time_calls.o 
+  00000070 000018 40011290 000043e8  1 .sbss 	timer.o 
+  00000070 000008 40011290 000043e8  8 knl_timer_queue 	timer.o 
+  00000078 000008 40011298 000043f0  8 knl_real_time_ofs 	timer.o 
+  00000080 000008 400112a0 000043f8  8 knl_current_time 	timer.o 
+
+
+.sdata2 section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000001 400112a8 00004378  1 .sdata2 	tm_monitor.o 
+  00000000 000001 400112a8 00004378  1 @LOCAL@tm_putstring__FPUc@CR 	tm_monitor.o 
+  UNUSED   000001 ........ ........    @LOCAL@tm_putchar__Fi@CR tm_monitor.o 
+  UNUSED   000001 ........ ........    @LOCAL@tm_getline__FPUc@LF tm_monitor.o 
+
+
+.sbss2 section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+
+
+.bss section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 000080 400112b0 00004380  1 .bss 	cpu_init.o 
+  00000000 000080 400112b0 00004380  8 knl_tmp_stack 	cpu_init.o 
+  00000080 000810 40011330 00004400  1 .bss 	osek_cfg.o 
+  00000080 00000c 40011330 00004400  4 OsekAlarmIdTable 	osek_cfg.o 
+  00000090 000200 40011340 00004410  8 TaskStackvTask3 	osek_cfg.o 
+  00000290 000200 40011540 00004610  8 TaskStackvTask2 	osek_cfg.o 
+  00000490 000200 40011740 00004810  8 TaskStackvTask1 	osek_cfg.o 
+  00000690 000200 40011940 00004a10  8 TaskStackvTask0 	osek_cfg.o 
+  00000890 0000f0 40011b40 00004c10  1 .bss 	eventflag.o 
+  00000890 0000f0 40011b40 00004c10  8 knl_flgcb_table 	eventflag.o 
+  00000980 000038 40011c30 00004d00  1 .bss 	mailbox.o 
+  00000980 000038 40011c30 00004d00  8 knl_mbxcb_table 	mailbox.o 
+  000009b8 000068 40011c68 00004d38  1 .bss 	messagebuf.o 
+  000009b8 000068 40011c68 00004d38  8 knl_mbfcb_table 	messagebuf.o 
+  00000a20 000140 40011cd0 00004da0  1 .bss 	mutex.o 
+  00000a20 000140 40011cd0 00004da0  8 knl_mtxcb_table 	mutex.o 
+  00000b60 000048 40011e10 00004ee0  1 .bss 	rendezvous.o 
+  00000b60 000048 40011e10 00004ee0  8 knl_porcb_table 	rendezvous.o 
+  00000ba8 000038 40011e58 00004f28  1 .bss 	semaphore.o 
+  00000ba8 000038 40011e58 00004f28  8 knl_semcb_table 	semaphore.o 
+  00000be0 001010 40011e90 00004f60  1 .bss 	task.o 
+  00000be0 000f00 40011e90 00004f60  8 knl_tcb_table 	task.o 
+  00001ae0 000110 40012d90 00005e60  8 knl_ready_queue 	task.o 
+  00001bf0 000370 40012ea0 00005f70  1 .bss 	time_calls.o 
+  00001bf0 000190 40012ea0 00005f70  8 knl_almcb_table 	time_calls.o 
+  00001d80 0001e0 40013030 00006100  8 knl_cyccb_table 	time_calls.o 
+  00001f60 000080 40013210 000062e0  1 .bss 	tm_printf.o 
+  00001f60 000080 40013210 000062e0  8 @LOCAL@tm_printf__FPCce@tm_log_buf 	tm_printf.o 
+  00001fe0 00000c 40013290 00006360  1 .bss 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  00001fe0 00000c 40013290 00006360  4 fragmentinfo 	Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+
+
+extabindex section layout
+  Starting        Virtual  File
+  address  Size   address  offset
+  ---------------------------------
+  00000000 00000c 40003890 00004158  4 @6 	Exceptions.o 
+  0000000c 00000c 4000389c 00004158  4 @13 	IntcInterrupts.o 
+  00000018 00000c 400038a8 00004158  4 @586 	cpu_init.o 
+  00000024 00000c 400038b4 00004158  4 @462 	devinit.o 
+  00000030 00000c 400038c0 00004158  4 @146 	power.o 
+  0000003c 00000c 400038cc 00004158  4 @222 	osek_alarm.o 
+  00000048 00000c 400038d8 00004158  4 @643 	osek_event.o 
+  00000054 00000c 400038e4 00004158  4 @655 	osek_event.o 
+  00000060 00000c 400038f0 00004158  4 @686 	osek_event.o 
+  0000006c 00000c 400038fc 00004158  4 @204 	osek_osctrl.o 
+  00000078 00000c 40003908 00004158  4 @222 	osek_osctrl.o 
+  00000084 00000c 40003914 00004158  4 @234 	osek_osctrl.o 
+  00000090 00000c 40003920 00004158  4 @252 	osek_osctrl.o 
+  0000009c 00000c 4000392c 00004158  4 @266 	osek_osctrl.o 
+  000000a8 00000c 40003938 00004158  4 @277 	osek_osctrl.o 
+  000000b4 00000c 40003944 00004158  4 @691 	osek_task.o 
+  000000c0 00000c 40003950 00004158  4 @698 	osek_task.o 
+  000000cc 00000c 4000395c 00004158  4 @189 	osek_cfg.o 
+  000000d8 00000c 40003968 00004158  4 @199 	osek_cfg.o 
+  000000e4 00000c 40003974 00004158  4 @208 	osek_cfg.o 
+  000000f0 00000c 40003980 00004158  4 @217 	osek_cfg.o 
+  000000fc 00000c 4000398c 00004158  4 @224 	osek_cfg.o 
+  00000108 00000c 40003998 00004158  4 @230 	osek_cfg.o 
+  00000114 00000c 400039a4 00004158  4 @236 	osek_cfg.o 
+  00000120 00000c 400039b0 00004158  4 @482 	sysinit_main.o 
+  0000012c 00000c 400039bc 00004158  4 @488 	sysinit_main.o 
+  00000138 00000c 400039c8 00004158  4 @466 	sysstartup.o 
+  00000144 00000c 400039d4 00004158  4 @476 	sysstartup.o 
+  00000150 00000c 400039e0 00004158  4 @464 	inittask_main.o 
+  0000015c 00000c 400039ec 00004158  4 @654 	eventflag.o 
+  00000168 00000c 400039f8 00004158  4 @688 	eventflag.o 
+  00000174 00000c 40003a04 00004158  4 @764 	eventflag.o 
+  00000180 00000c 40003a10 00004158  4 @792 	eventflag.o 
+  0000018c 00000c 40003a1c 00004158  4 @802 	eventflag.o 
+  00000198 00000c 40003a28 00004158  4 @878 	eventflag.o 
+  000001a4 00000c 40003a34 00004158  4 @659 	mailbox.o 
+  000001b0 00000c 40003a40 00004158  4 @658 	messagebuf.o 
+  000001bc 00000c 40003a4c 00004158  4 @647 	mutex.o 
+  000001c8 00000c 40003a58 00004158  4 @712 	mutex.o 
+  000001d4 00000c 40003a64 00004158  4 @795 	mutex.o 
+  000001e0 00000c 40003a70 00004158  4 @654 	rendezvous.o 
+  000001ec 00000c 40003a7c 00004158  4 @645 	semaphore.o 
+  000001f8 00000c 40003a88 00004158  4 @683 	task.o 
+  00000204 00000c 40003a94 00004158  4 @692 	task.o 
+  00000210 00000c 40003aa0 00004158  4 @708 	task.o 
+  0000021c 00000c 40003aac 00004158  4 @739 	task.o 
+  00000228 00000c 40003ab8 00004158  4 @785 	task.o 
+  00000234 00000c 40003ac4 00004158  4 @690 	task_manage.o 
+  00000240 00000c 40003ad0 00004158  4 @803 	task_manage.o 
+  0000024c 00000c 40003adc 00004158  4 @823 	task_manage.o 
+  00000258 00000c 40003ae8 00004158  4 @853 	task_manage.o 
+  00000264 00000c 40003af4 00004158  4 @720 	time_calls.o 
+  00000270 00000c 40003b00 00004158  4 @735 	time_calls.o 
+  0000027c 00000c 40003b0c 00004158  4 @750 	time_calls.o 
+  00000288 00000c 40003b18 00004158  4 @794 	time_calls.o 
+  00000294 00000c 40003b24 00004158  4 @958 	time_calls.o 
+  000002a0 00000c 40003b30 00004158  4 @966 	time_calls.o 
+  000002ac 00000c 40003b3c 00004158  4 @1001 	time_calls.o 
+  000002b8 00000c 40003b48 00004158  4 @1032 	time_calls.o 
+  000002c4 00000c 40003b54 00004158  4 @1040 	time_calls.o 
+  000002d0 00000c 40003b60 00004158  4 @1076 	time_calls.o 
+  000002dc 00000c 40003b6c 00004158  4 @606 	timer.o 
+  000002e8 00000c 40003b78 00004158  4 @621 	timer.o 
+  000002f4 00000c 40003b84 00004158  4 @635 	timer.o 
+  00000300 00000c 40003b90 00004158  4 @657 	timer.o 
+  0000030c 00000c 40003b9c 00004158  4 @693 	timer.o 
+  00000318 00000c 40003ba8 00004158  4 @641 	tkstart.o 
+  00000324 00000c 40003bb4 00004158  4 @660 	tkstart.o 
+  00000330 00000c 40003bc0 00004158  4 @645 	wait.o 
+  0000033c 00000c 40003bcc 00004158  4 @694 	wait.o 
+  00000348 00000c 40003bd8 00004158  4 @705 	wait.o 
+  00000354 00000c 40003be4 00004158  4 @783 	wait.o 
+  00000360 00000c 40003bf0 00004158  4 @802 	wait.o 
+  0000036c 00000c 40003bfc 00004158  4 @149 	bitop.o 
+  00000378 00000c 40003c08 00004158  4 @161 	bitop.o 
+  00000384 00000c 40003c14 00004158  4 @197 	bitop.o 
+  00000390 00000c 40003c20 00004158  4 @172 	string.o 
+  0000039c 00000c 40003c2c 00004158  4 @207 	string.o 
+  000003a8 00000c 40003c38 00004158  4 @83 	tm_monitor.o 
+  000003b4 00000c 40003c44 00004158  4 @14 	tm_printf.o 
+  000003c0 00000c 40003c50 00004158  4 @26 	tm_printf.o 
+  000003cc 00000c 40003c5c 00004158  4 @39 	tm_printf.o 
+  000003d8 00000c 40003c68 00004158  4 @123 	tm_printf.o 
+  000003e4 00000c 40003c74 00004158  4 @269 	tm_printf.o 
+  000003f0 00000c 40003c80 00004158  4 @321 	tm_printf.o 
+  000003fc 00000c 40003c8c 00004158  4 @8 	sio.o 
+  00000408 000030 40003c98 00004158  4 _eti_init_info 	Linker Generated Symbol File 
+  UNUSED   00000c ........ ........    @623 cpu_calls.o 
+  UNUSED   00000c ........ ........    @644 cpu_calls.o 
+  UNUSED   00000c ........ ........    @194 osek_alarm.o 
+  UNUSED   00000c ........ ........    @245 osek_alarm.o 
+  UNUSED   00000c ........ ........    @673 osek_event.o 
+  UNUSED   00000c ........ ........    @732 osek_task.o 
+  UNUSED   00000c ........ ........    @744 osek_task.o 
+  UNUSED   00000c ........ ........    @779 osek_task.o 
+  UNUSED   00000c ........ ........    @787 osek_task.o 
+  UNUSED   00000c ........ ........    @795 osek_task.o 
+  UNUSED   00000c ........ ........    @803 osek_task.o 
+  UNUSED   00000c ........ ........    @715 eventflag.o 
+  UNUSED   00000c ........ ........    @907 eventflag.o 
+  UNUSED   00000c ........ ........    @632 klock.o 
+  UNUSED   00000c ........ ........    @672 klock.o 
+  UNUSED   00000c ........ ........    @693 mailbox.o 
+  UNUSED   00000c ........ ........    @720 mailbox.o 
+  UNUSED   00000c ........ ........    @775 mailbox.o 
+  UNUSED   00000c ........ ........    @785 mailbox.o 
+  UNUSED   00000c ........ ........    @838 mailbox.o 
+  UNUSED   00000c ........ ........    @867 mailbox.o 
+  UNUSED   00000c ........ ........    @678 messagebuf.o 
+  UNUSED   00000c ........ ........    @703 messagebuf.o 
+  UNUSED   00000c ........ ........    @750 messagebuf.o 
+  UNUSED   00000c ........ ........    @778 messagebuf.o 
+  UNUSED   00000c ........ ........    @790 messagebuf.o 
+  UNUSED   00000c ........ ........    @797 messagebuf.o 
+  UNUSED   00000c ........ ........    @879 messagebuf.o 
+  UNUSED   00000c ........ ........    @900 messagebuf.o 
+  UNUSED   00000c ........ ........    @969 messagebuf.o 
+  UNUSED   00000c ........ ........    @1013 messagebuf.o 
+  UNUSED   00000c ........ ........    @683 mutex.o 
+  UNUSED   00000c ........ ........    @754 mutex.o 
+  UNUSED   00000c ........ ........    @824 mutex.o 
+  UNUSED   00000c ........ ........    @842 mutex.o 
+  UNUSED   00000c ........ ........    @854 mutex.o 
+  UNUSED   00000c ........ ........    @941 mutex.o 
+  UNUSED   00000c ........ ........    @993 mutex.o 
+  UNUSED   00000c ........ ........    @1026 mutex.o 
+  UNUSED   00000c ........ ........    @664 rendezvous.o 
+  UNUSED   00000c ........ ........    @711 rendezvous.o 
+  UNUSED   00000c ........ ........    @747 rendezvous.o 
+  UNUSED   00000c ........ ........    @829 rendezvous.o 
+  UNUSED   00000c ........ ........    @909 rendezvous.o 
+  UNUSED   00000c ........ ........    @1009 rendezvous.o 
+  UNUSED   00000c ........ ........    @1061 rendezvous.o 
+  UNUSED   00000c ........ ........    @1090 rendezvous.o 
+  UNUSED   00000c ........ ........    @685 semaphore.o 
+  UNUSED   00000c ........ ........    @712 semaphore.o 
+  UNUSED   00000c ........ ........    @757 semaphore.o 
+  UNUSED   00000c ........ ........    @780 semaphore.o 
+  UNUSED   00000c ........ ........    @787 semaphore.o 
+  UNUSED   00000c ........ ........    @845 semaphore.o 
+  UNUSED   00000c ........ ........    @874 semaphore.o 
+  UNUSED   00000c ........ ........    @808 task.o 
+  UNUSED   00000c ........ ........    @835 task.o 
+  UNUSED   00000c ........ ........    @748 task_manage.o 
+  UNUSED   00000c ........ ........    @882 task_manage.o 
+  UNUSED   00000c ........ ........    @940 task_manage.o 
+  UNUSED   00000c ........ ........    @991 task_manage.o 
+  UNUSED   00000c ........ ........    @1027 task_manage.o 
+  UNUSED   00000c ........ ........    @1037 task_manage.o 
+  UNUSED   00000c ........ ........    @1086 task_manage.o 
+  UNUSED   00000c ........ ........    @1129 task_manage.o 
+  UNUSED   00000c ........ ........    @705 time_calls.o 
+  UNUSED   00000c ........ ........    @825 time_calls.o 
+  UNUSED   00000c ........ ........    @870 time_calls.o 
+  UNUSED   00000c ........ ........    @901 time_calls.o 
+  UNUSED   00000c ........ ........    @943 time_calls.o 
+  UNUSED   00000c ........ ........    @1107 time_calls.o 
+  UNUSED   00000c ........ ........    @1142 time_calls.o 
+  UNUSED   00000c ........ ........    @646 timer.o 
+  UNUSED   00000c ........ ........    @630 tkstart.o 
+  UNUSED   00000c ........ ........    @661 wait.o 
+  UNUSED   00000c ........ ........    @679 wait.o 
+  UNUSED   00000c ........ ........    @716 wait.o 
+  UNUSED   00000c ........ ........    @743 wait.o 
+  UNUSED   00000c ........ ........    @758 wait.o 
+  UNUSED   00000c ........ ........    @825 wait.o 
+  UNUSED   00000c ........ ........    @191 string.o 
+  UNUSED   00000c ........ ........    @231 string.o 
+  UNUSED   00000c ........ ........    @242 string.o 
+  UNUSED   00000c ........ ........    @255 string.o 
+  UNUSED   00000c ........ ........    @271 string.o 
+  UNUSED   00000c ........ ........    @293 string.o 
+  UNUSED   00000c ........ ........    @306 string.o 
+  UNUSED   00000c ........ ........    @327 string.o 
+  UNUSED   00000c ........ ........    @346 string.o 
+  UNUSED   00000c ........ ........    @368 string.o 
+  UNUSED   00000c ........ ........    @449 string.o 
+  UNUSED   00000c ........ ........    @30 tm_monitor.o 
+  UNUSED   00000c ........ ........    @49 tm_monitor.o 
+  UNUSED   00000c ........ ........    @66 tm_monitor.o 
+  UNUSED   00000c ........ ........    @281 tm_printf.o 
+  UNUSED   00000c ........ ........    @290 tm_printf.o 
+  UNUSED   00000c ........ ........    @301 tm_printf.o 
+  UNUSED   00000c ........ ........    @224 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @308 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @409 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @435 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @807 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @860 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @871 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @916 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @964 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @971 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1028 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1104 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1119 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1147 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1421 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1426 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1532 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+  UNUSED   00000c ........ ........    @1539 Runtime.PPCEABI.VS.UC.a ExceptionPPC.o
+
+
+Memory map:
+                       Starting Size     File       S-Record
+                       address           Offset     Line
+                 .init 4000f000 000000b4 00000200        782
+             .init_vle 4000f0b4 00000128 000002b4        791
+  .__exception_handlers 40010000 000000a8 000003e0        806
+                 .text 40000000 00000000 00000490          0
+             .text_vle 40000000 00003480 00000490          2
+               .rodata 40003480 00000150 00003910        674
+                .ctors 400035d0 00000008 00003a60        691
+                .dtors 400035d8 00000008 00003a68        692
+                 extab 400035e0 000002b0 00003a70        693
+            extabindex 40003890 00000438 00003d20        728
+  .__uninitialized_intc_handlertable 40011000 00000000 00004160          0
+                 .data 40011000 000001c4 00004158        815
+                .sdata 400111c8 00000054 00004320        838
+                 .sbss 40011220 00000088 00004378          0
+               .sdata2 400112a8 00000004 00004378        843
+                .sbss2 400112ac 00000000 0000437c          0
+                  .bss 400112b0 00001fec 00004380          0
+      .PPC.EMB.apuinfo 000231f0 00000000 00027570          0
+         .debug_abbrev          000001af 00004380
+           .debug_info          0000755d 0000452f
+           .debug_line          00014f55 0000ba8c
+            .debug_loc          000021b9 000209e1
+       .debug_pubnames          00000e73 00022b9a
+
+
+Linker generated symbols:
+       EXCEPTION_HANDLERS 40010000
+                  _f_init 4000f000
+              _f_init_rom 4000f000
+                  _e_init 4000f0b4
+              _f_init_vle 4000f0b4
+          _f_init_vle_rom 4000f0b4
+              _e_init_vle 4000f1dc
+  _f___exception_handlers 40010000
+_f___exception_handlers_rom 40010000
+  _e___exception_handlers 400100a8
+                  _f_text 40000000
+              _f_text_rom 40000000
+                  _e_text 40000000
+              _f_text_vle 40000000
+          _f_text_vle_rom 40000000
+              _e_text_vle 40003480
+                _f_rodata 40003480
+            _f_rodata_rom 40003480
+                _e_rodata 400035d0
+                 _f_ctors 400035d0
+             _f_ctors_rom 400035d0
+                 _e_ctors 400035d8
+                 _f_dtors 400035d8
+             _f_dtors_rom 400035d8
+                 _e_dtors 400035e0
+                  _fextab 400035e0
+              _fextab_rom 400035e0
+                  _eextab 40003890
+             _fextabindex 40003890
+         _fextabindex_rom 40003890
+             _eextabindex 40003cc8
+_f___uninitialized_intc_handlertable 40011000
+_e___uninitialized_intc_handlertable 40011000
+                  _f_data 40011000
+              _f_data_rom 40011000
+                  _e_data 400111c4
+                 _f_sdata 400111c8
+             _f_sdata_rom 400111c8
+                 _e_sdata 4001121c
+                  _f_sbss 40011220
+                  _e_sbss 400112a8
+                _f_sdata2 400112a8
+            _f_sdata2_rom 400112a8
+                _e_sdata2 400112ac
+                 _f_sbss2 400112ac
+                 _e_sbss2 400112ac
+                   _f_bss 400112b0
+                   _e_bss 4001329c
+              _stack_addr 40017800
+               _stack_end 40016800
+               _heap_addr 40015800
+                _heap_end 40016800
+             _nbfunctions 00000079
+           SIZEOF_HEADERS 00000200
+               _SDA_BASE_ 400191c8
+              _SDA2_BASE_ 400192a8
+           _ABS_SDA_BASE_ 400191c8
+          _ABS_SDA2_BASE_ 400192a8

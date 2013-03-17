@@ -63,6 +63,7 @@
 /* |------------------+------------------------------------------------------------------| */
 StatusType GetAlarmBase ( AlarmType xAlarmID, AlarmBaseRefType pxInfo )
 {
+	(void)xAlarmID;
 	/* all the alarms are connected to knl_timer_queue */
 	pxInfo->xMinCycle = CFN_TIMER_PERIOD;
 	pxInfo->xMaxAllowedValue = 0;/* It's too big so just set it to ZERO. */
@@ -94,6 +95,7 @@ StatusType GetAlarmBase ( AlarmType xAlarmID, AlarmBaseRefType pxInfo )
 /* |------------------+------------------------------------------------------------------| */
 StatusType GetAlarm ( AlarmType xAlarmID ,/* (SYSTIM*) */ TickRefType pxTick )
 {
+	(void)xAlarmID;
 	/* now OSEK alarm depend on knl_timer¡ª¡ªknl_current_time. */
 	/* so just return knl_current_time,whose type is SYSTIM. */
 	return tk_get_otm(pxTick);
