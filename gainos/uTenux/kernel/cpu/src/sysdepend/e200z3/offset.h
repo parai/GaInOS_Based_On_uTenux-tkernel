@@ -86,84 +86,84 @@
 
 #define STACK_FRAME_SIZE   XMSR+4
 
-#define OS_SAVE_R4_TO_R12()	\
-	stw     r4,  XR4(r1);	\
-	stw     r5,  XR5(r1);	\
-	stw     r6,  XR6(r1);	\
-	stw     r7,  XR7(r1);	\
-	stw     r8,  XR8(r1);	\
-	stw     r9,  XR9(r1);	\
-	stw     r10,  XR10(r1);	\
-	stw     r11,  XR11(r1);	\
+#define OS_SAVE_R4_TO_R12()                     \
+	stw     r4,  XR4(r1);                       \
+	stw     r5,  XR5(r1);                       \
+	stw     r6,  XR6(r1);                       \
+	stw     r7,  XR7(r1);                       \
+	stw     r8,  XR8(r1);                       \
+	stw     r9,  XR9(r1);                       \
+	stw     r10,  XR10(r1);                     \
+	stw     r11,  XR11(r1);                     \
 	stw     r12,  XR12(r1)
 		
 #define OS_SAVE_R14_TO_R31()  stmw  r14,XR14(r1)	
 
-#define OS_SAVE_SPFRS()	\
-	/*Store XMSR ang SPEFSCR  */ \
-	mfmsr   r0; \
-	stw     r0,  XMSR(r1); \
-	mfspr   r0,  SPEFSCR; \
-	stw     r0,  XSPEFSCR(r1); \
-	/*Store LR(SRR0)*/	\
-	mfspr   r0,  SRR0; \
-	stw     r0,  XSRR0(r1); \
-	/*Store MSR(SRR1)*/	\
-	mfspr   r0,  SRR1; \
-	stw     r0,  XSRR1(r1); \
-	/*Store USPRG0*/	\
-	mfspr   r0,  USPRG0; \
-	stw     r0,  XUSPRG(r1); \
-	/*Store LR*/  \
-	mflr    r0; \
-	stw     r0,  XLR(r1); \
-	/*Store CTR*/	\
-	mfctr   r0; \
-	stw     r0,  XCTR(r1); \
-	/*Store XER*/	\
-	mfxer   r0; \
-	stw     r0,  XXER(r1); \
-	/*Store CR*/	\
-	mfcr    r0; \
+#define OS_SAVE_SPFRS()                         \
+	/*Store XMSR ang SPEFSCR  */                \
+	mfmsr   r0;                                 \
+	stw     r0,  XMSR(r1);                      \
+	mfspr   r0,  SPEFSCR;                       \
+	stw     r0,  XSPEFSCR(r1);                  \
+	/*Store LR(SRR0)*/                          \
+	mfspr   r0,  SRR0;                          \
+	stw     r0,  XSRR0(r1);                     \
+	/*Store MSR(SRR1)*/                         \
+	mfspr   r0,  SRR1;                          \
+	stw     r0,  XSRR1(r1);                     \
+	/*Store USPRG0*/                            \
+	mfspr   r0,  USPRG0;                        \
+	stw     r0,  XUSPRG(r1);                    \
+	/*Store LR*/                                \
+	mflr    r0;                                 \
+	stw     r0,  XLR(r1);                       \
+	/*Store CTR*/                               \
+	mfctr   r0;                                 \
+	stw     r0,  XCTR(r1);                      \
+	/*Store XER*/                               \
+	mfxer   r0;                                 \
+	stw     r0,  XXER(r1);                      \
+	/*Store CR*/                                \
+	mfcr    r0;                                 \
 	stw     r0,  XCR(r1)
 
-#define OS_RESTORE_R4_TO_R12()	\
-	lwz     r4,  XR4(r1);	\
-	lwz     r5,  XR5(r1);	\
-	lwz     r6,  XR6(r1);	\
-	lwz     r7,  XR7(r1);	\
-	lwz     r8,  XR8(r1);	\
-	lwz     r9,  XR9(r1);	\
-	lwz     r10,  XR10(r1);	\
-	lwz     r11,  XR11(r1);	\
+#define OS_RESTORE_R4_TO_R12()                  \
+	lwz     r4,  XR4(r1);                       \
+	lwz     r5,  XR5(r1);                       \
+	lwz     r6,  XR6(r1);                       \
+	lwz     r7,  XR7(r1);                       \
+	lwz     r8,  XR8(r1);                       \
+	lwz     r9,  XR9(r1);                       \
+	lwz     r10,  XR10(r1);                     \
+	lwz     r11,  XR11(r1);                     \
 	lwz     r12,  XR12(r1)	
 	
 #define OS_RESTORE_R14_TO_R31()  lmw  r14,XR14(r1)
 
-#define OS_RESTORE_SPFRS()	\
-	/*restore CR*/	\
-    lwz     r0,  XCR(r1);	\
-    mtcrf   0xff,r0;	\
-	/*restore XER*/	\
-	lwz     r0,  XXER(r1);	\
-	mtxer   r0;	\
-	/*restore CTR*/	\
-	lwz     r0,  XCTR(r1);	\
-	mtctr   r0;	\
-	/*restore LR：这个寄存器必须保存，以前我错误的认为可以不用*/	\
-	lwz     r0,  XLR(r1);	\
-	mtlr    r0;	\
-	/*restore SRR1*/	\
-	lwz     r0,  XSRR1(r1);	\
-	mtspr   SRR1,r0;	\
-	/*restore SRR0*/	\
-	lwz     r0,  XSRR0(r1);	\
-	mtspr   SRR0,r0;	\
-	/*restore USPRG*/	\
-	lwz     r0,  XUSPRG(r1);	\
-	mtspr   USPRG0,r0;	\
+#define OS_RESTORE_SPFRS()                                              \
+	/*restore CR*/                                                      \
+    lwz     r0,  XCR(r1);                                               \
+    mtcrf   0xff,r0;                                                    \
+	/*restore XER*/                                                     \
+	lwz     r0,  XXER(r1);                                              \
+	mtxer   r0;                                                         \
+	/*restore CTR*/                                                     \
+	lwz     r0,  XCTR(r1);                                              \
+	mtctr   r0;                                                         \
+	/*restore LR：这个寄存器必须保存，以前我错误的认为可以不用*/        \
+	lwz     r0,  XLR(r1);                                               \
+	mtlr    r0;                                                         \
+	/*restore SRR1*/                                                    \
+	lwz     r0,  XSRR1(r1);                                             \
+	mtspr   SRR1,r0;                                                    \
+	/*restore SRR0*/                                                    \
+	lwz     r0,  XSRR0(r1);                                             \
+	mtspr   SRR0,r0;                                                    \
+	/*restore USPRG*/                                                   \
+	lwz     r0,  XUSPRG(r1);                                            \
+	mtspr   USPRG0,r0;                                                  \
 	/*restore SPEFSCR :服务于浮点运算，可以不用保存（如果不使用浮点）*/ \
-	lwz     r0,  XSPEFSCR(r1);	\
+	lwz     r0,  XSPEFSCR(r1);                                          \
 	mtspr   SPEFSCR,r0
 
 /*	TCB.wrdvno	*/
@@ -215,7 +215,7 @@
 #define	TCB_winfo	(60)		/* tskque - wercd		*/
 #define	TCB_wtmeb	_ALIGN_CPU(TCB_winfo+TCBSZ_WINFO)
 #define	TCBsz_wtmeb2isstack	(24+TCBSZ_MTX+TCBSZ_POR+TCBSZ_EXECTIME)
-					/* wtmeb - istack		*/
+/* wtmeb - istack		*/
 #define TCBSZ_GP	(0)		/* No global pointer support	*/
 
 /*----------------------------------------------------------------------*/

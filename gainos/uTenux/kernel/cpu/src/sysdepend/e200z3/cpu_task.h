@@ -75,15 +75,15 @@ typedef struct {
 #define portMACHINE_CHECK_ENABLE		( 1UL << 12UL )
 
 #if configUSE_FPU == 1
-	#define portAPU_PRESENT				( 1UL << 25UL )
-	#define portFCM_FPU_PRESENT			( 1UL << 13UL )
+#define portAPU_PRESENT				( 1UL << 25UL )
+#define portFCM_FPU_PRESENT			( 1UL << 13UL )
 #else
-	#define portAPU_PRESENT				( 0UL )
-	#define portFCM_FPU_PRESENT			( 0UL )
+#define portAPU_PRESENT				( 0UL )
+#define portFCM_FPU_PRESENT			( 0UL )
 #endif
 
 #define portINITIAL_MSR		( portCRITICAL_INTERRUPT_ENABLE | portEXTERNAL_INTERRUPT_ENABLE | \
-			portMACHINE_CHECK_ENABLE | portAPU_PRESENT | portFCM_FPU_PRESENT )
+                              portMACHINE_CHECK_ENABLE | portAPU_PRESENT | portFCM_FPU_PRESENT )
 extern const unsigned _SDA_BASE_;
 extern const unsigned _SDA2_BASE_;	
 Inline void knl_setup_context( TCB *tcb )
@@ -99,10 +99,10 @@ Inline void knl_setup_context( TCB *tcb )
     ssp->taskmode  = 0;             /* Initial taskmode */
     ssp->srr1 = portINITIAL_MSR;
     ssp->srr0 = pc;             /* Task startup address */
-   /* 
-   	 ssp->r[13-2]=(UW)&_SDA_BASE_;
-   	 ssp->r[12-2]=(UW)&_SDA2_BASE_; 
-   	 */
+    /* 
+       ssp->r[13-2]=(UW)&_SDA_BASE_;
+       ssp->r[12-2]=(UW)&_SDA2_BASE_; 
+    */
     tcb->tskctxb.ssp = ssp;         /* System stack */
 }
 

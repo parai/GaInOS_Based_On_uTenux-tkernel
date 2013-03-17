@@ -92,12 +92,14 @@ l_dispatch1:
   	 * move to the power-saving mode */
 l_dispatch2:                   /* Switch to 'schedtsk' */
 	lis  r6,knl_ctxtsk@h;
-	stw  r5,knl_ctxtsk@l(r5);  /* ctxtsk = schedtsk */
-	
+	stw  r5,knl_ctxtsk@l(r6);  /* ctxtsk = schedtsk */
+#if 0	
 	lis    r6,l_sp_offset@h;
 	ori    r6,r6,l_sp_offset@l;
 	lwzx   r1, r5,r6;     /* Restore 'ssp' from TCB */
-	
+#else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
+	lwz    r1,l_sp_offset@l(r5)
+#endif	
 	li     r11,0
 	lis    r12,knl_dispatch_disabled@h
 	stw    r11,knl_dispatch_disabled@l(r12)  /* Dispatch enable */
@@ -106,8 +108,8 @@ l_dispatch2:                   /* Switch to 'schedtsk' */
 	lis    r12,knl_taskmode@h;
 	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
 	
-  	stw   r0,XR0(r1);
-	stw   r3,XR3(r1);
+  	lwz   r0,XR0(r1);
+	lwz   r3,XR3(r1);
     OS_RESTORE_R4_TO_R12();   
 	OS_RESTORE_R14_TO_R31();   /* all GPRs saved */
 	OS_RESTORE_SPFRS();        /* all SPFRs saved */
@@ -164,7 +166,6 @@ _ret_int_dispatch:
 EXPORT __asm void knl_install_swi_handler()
 {
 nofralloc	
-   /* Set all IVOR registers to the Default Exception Handler */
     lis     r0, knl_dispatch_entry@h
     ori     r0, r0, knl_dispatch_entry@l
     /* IVOR8 System call interrupt (SPR 408) */
@@ -174,6 +175,7 @@ nofralloc
 IMPORT void knl_timer_handler( void );
 EXPORT asm void knl_clear_hw_timer_interrupt2( UINT clr )
 {
+	/* must pass clr = 0x08000000 */
 nofralloc
 	//lis     r0, 0x0800;   // load r0 with TSR[DIS] bit (0x08000000)
     mtspr   TSR,r0;       // clear TSR[DIS] bit
