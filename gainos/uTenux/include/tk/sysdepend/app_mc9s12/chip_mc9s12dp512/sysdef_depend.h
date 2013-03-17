@@ -17,16 +17,16 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        CORTEX M3
+ *    CPU:        MC9S12DP512
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
  *    Released by T-Engine China Open Source Society
  *                  (http://www.tecoss.org).
  *
  *	 File Name      : sysdef_depend.h
- *	 Create Date    : 2011/02/11-2012/11/21
- *	 Author	        : WangShb
- *	 Description    : register Definition about cpu(tk/AT91SAM3S4C).
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
+ *	 Description    : register Definition about cpu(tk/MC9S12DP512).
  *-------------------------------------------------------------------------------
  */
 

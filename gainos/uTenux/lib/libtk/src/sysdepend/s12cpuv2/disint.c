@@ -17,15 +17,15 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        ARM7&9
+ *    CPU:        MC9S12
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
  *    Released by T-Engine China Open Source Society
  *                  (http://www.tecoss.org).
  *
- *	 File Name      : disint.S
- *	 Create Date    : 2009/12/27-2012/9/24
- *	 Author	        : WangShb
+ *	 File Name      : disint.c
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
  *	 Description    : Enable/disable external interrupt.
  *-------------------------------------------------------------------------------
  */
@@ -36,23 +36,25 @@
 
 /*
  *    Function Name : disint
- *    Create Date   : 2009/12/27-2012/9/24
- *    Author        : wangshb
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
  *    Description   : Disable external interrupt,CPSR interrupt flag is in  disabled status.
  *    Param	        : none
  *    Return Code   : UINT: CPSR prior to change.
  */
 unsigned char disint()
 {
+    asm psha;
     asm tpa;
     asm tab; 
     asm sei;
+    asm pula;
 }
 
 /*
  *    Function Name : enaint
- *    Create Date   : 2009/12/27
- *    Author        : wangshb
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
  *    Description   : Enable external interrupt (restore to original state),
  *                    Updates CPSR interrupt disabled flag with the intsts interrupt flag.
  *    Param	        : UINT intsts: CPSR remains unchanged apart from the interrupt disabled flag.
@@ -60,8 +62,10 @@ unsigned char disint()
  */
  void enaint(unsigned char mask)
  {
+    asm psha;
     asm andb  #0x10;    
     asm tba;
     asm tap;
+    asm pula;
  }
 

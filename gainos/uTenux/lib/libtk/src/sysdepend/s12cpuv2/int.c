@@ -17,15 +17,15 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        ARM7&9
+ *    CPU:        MC9S12
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
  *    Released by T-Engine China Open Source Society
  *                  (http://www.tecoss.org).
  *
  *	 File Name      : int.c
- *	 Create Date    : 2009/7/27-2012/9/21
- *	 Author	        : WangShb
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
  *	 Description    : Nested Vectored Interrupt controller.
  *-------------------------------------------------------------------------------
  */

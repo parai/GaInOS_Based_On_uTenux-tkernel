@@ -46,9 +46,8 @@ TASK(vTask1)
 	(void)SetRelAlarm(ID_vAlarm2,1500,3000);
 	(void)TerminateTask();
 }
-
 TASK(vTask2)
-{
+{   
 	(void)tm_putstring((UB*)"vTask2 is running.\r\n");
 //	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	(void)WaitEvent(vTask2Event0);

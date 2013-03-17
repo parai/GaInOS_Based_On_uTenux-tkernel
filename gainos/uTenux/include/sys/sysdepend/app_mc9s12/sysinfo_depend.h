@@ -20,6 +20,8 @@
  *    CPU:        MC9S12DP512
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
  *-------------------------------------------------------------------------------
  */
 
@@ -34,8 +36,8 @@ extern "C" {
 
 #define N_INTVEC	(1)        /* Exception and Exteranl and SVC interrupt number */
 
-/* IMPORT 	W*/extern signed long	knl_taskindp;
-/* IMPORT 	W*/extern unsigned long	knl_taskmode;
+/* IMPORT 	INT*/extern signed int	knl_taskindp;
+/* IMPORT 	UINT*/extern unsigned int	knl_taskmode;
 
 #endif /* __ASSEMBLER__ */
 

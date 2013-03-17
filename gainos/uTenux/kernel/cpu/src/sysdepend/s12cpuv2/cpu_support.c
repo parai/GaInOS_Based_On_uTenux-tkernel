@@ -17,15 +17,13 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        CORTEX M3
+ *    CPU:        MC9S12
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
- *    Released by T-Engine China Open Source Society
- *                  (http://www.tecoss.org).
  *
- *	 File Name      : cpu_support.S
- *	 Create Date    : 2009/12/27-2013/1/10
- *	 Author	        : WangShb-wangshb
+ *	 File Name      : cpu_support.c
+ *   Create Date    : 2013/3/15-2013/3/17
+ *   Author         : Fan Wang(parai)
  *	 Description    : CPU-Dependent dispatcher Operation.
  *-------------------------------------------------------------------------------
  */
@@ -48,8 +46,8 @@
 IMPORT INT	knl_dispatch_disabled;
 IMPORT void	*knl_ctxtsk;
 IMPORT void	*knl_schedtsk;
-IMPORT UW  knl_taskmode;
-IMPORT	W  knl_taskindp;
+IMPORT UINT  knl_taskmode;
+IMPORT	INT  knl_taskindp;
 IMPORT void knl_low_pow( void );
 IMPORT UB l_sp_offset;
 /*
@@ -98,8 +96,6 @@ static void l_dispatch0(void)
 	asm   pula
     asm   staa	$30	      /* restore PPAGE */
     asm   puld;
-    asm   std   knl_taskmode:2
-    asm   puld;
     asm   std   knl_taskmode  /* restore knl_taskmode */
     asm   rti;   
 }
@@ -114,8 +110,6 @@ interrupt 4 void knl_dispatch_entry(void)
 {
 _ret_int_dispatch:
     knl_dispatch_disabled=1;    /* Dispatch disable */ 
-    asm   ldd   knl_taskmode:2
-    asm   pshd;
     asm   ldd   knl_taskmode  
     asm   pshd;                 /* save knl_taskmode */
     asm   ldaa	$30		        

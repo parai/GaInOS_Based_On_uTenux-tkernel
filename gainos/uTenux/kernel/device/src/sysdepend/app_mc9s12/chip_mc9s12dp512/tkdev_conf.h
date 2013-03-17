@@ -17,16 +17,16 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        CORTEX M3
+ *    CPU:        MC9S12
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
  *    Released by T-Engine China Open Source Society
  *                  (http://www.tecoss.org).
  *
  *	 File Name      : tkdev_conf.h
- *	 Create Date    : 2011/02/11-2012/10/04
- *	 Author	        : WangShb
- *	 Description    : Target System Configuration(AT91SAM3S4C).
+ *	 Create Date    : 2013/3/15-2013/3/17
+ *	 Author	        : Fan Wang(parai)
+ *	 Description    : Target System Configuration(MC9S12DP512).
  *-------------------------------------------------------------------------------
  */
 

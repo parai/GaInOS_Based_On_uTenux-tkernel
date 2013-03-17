@@ -35,8 +35,8 @@
 #define USE_FUNC_TK_ROT_RDQ
 #define USE_FUNC_TK_REL_WAI
 #define USE_FUNC_TK_GET_TID
-#define USE_FUNC_TK_GET_REG
-#define USE_FUNC_TK_SET_REG
+//#define USE_FUNC_TK_GET_REG
+//#define USE_FUNC_TK_SET_REG
 #define USE_FUNC_TK_REF_TSK
 #define USE_FUNC_TK_SUS_TSK
 #define USE_FUNC_TK_RSM_TSK

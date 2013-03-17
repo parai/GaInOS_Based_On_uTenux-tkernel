@@ -106,7 +106,7 @@ EXPORT void knl_init_task(void)
 IMPORT const T_CTSK knl_c_init_task;
 /*
  * Entry for starting Kernel
- */
+ */   
 EXPORT int main( void )
 {
 	/* Initialize sequence before T-Kernel starts */

@@ -53,7 +53,7 @@ Inline LSYSTIM knl_cyc_next_time( CYCCB *cyccb )
 	longlong	n;
 
 	tm = ll_add(cyccb->cyctmeb.time, uitoll(cyccb->cyctim));
-#ifndef _APP_MC9S12_
+
 	if ( ll_cmp(tm, knl_current_time) <= 0 ) {
 
 		/* Adjust time to be later than current time */
@@ -63,7 +63,7 @@ Inline LSYSTIM knl_cyc_next_time( CYCCB *cyccb )
 		tm = lui_mul(n, cyccb->cyctim);
 		tm = ll_add(cyccb->cyctmeb.time, tm);
 	}
-#endif
+
 	return tm;
 }
 

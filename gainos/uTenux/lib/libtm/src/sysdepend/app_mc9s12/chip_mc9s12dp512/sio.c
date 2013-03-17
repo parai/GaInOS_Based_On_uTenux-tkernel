@@ -17,15 +17,15 @@
  *    if not, download from www.tecoss.org(the web page of the T-Engine China Open
  *    Source Society).
  *
- *    CPU:        AT91SAM3S4C
+ *    CPU:        MC9S12DP512
  *    RTOS:       uT-Kernel
  *    Version:    1.4.00
  *    Released by T-Engine China Open Source Society
  *                  (http://www.tecoss.org).
  *
  *	 File Name      : sio.S
- *	 Create Date    : 2011/02/11-2012/09/23
- *	 Author	        : WangShb-wangxd
+ *   Create Date    : 2013/3/15-2013/3/17
+ *   Author         : Fan Wang(parai)
  *	 Description    : serial port communication routine.
  *-------------------------------------------------------------------------------
  */
@@ -38,8 +38,8 @@
 #define  BAUD 115200                   //´®¿Ú²¨ÌØÂÊ
 /*
  *    Function Name : sio_init
- *    Create Date   : 2011/02/11-2012/09/23
- *    Author        : wangshb-wangxd
+ *   Create Date    : 2013/3/15-2013/3/17
+ *   Author         : Fan Wang(parai)
  *    Description   : init sio as Asynchronous Mode,115200bps, 8bit, non-parity, 1 stop bit.
  *    Param	        : none
  *    Return Code   : none
@@ -52,8 +52,8 @@ void sio_init(void)
 }
 /*
  *    Function Name : sio_send_frame
- *    Create Date   : 2011/02/11-2012/09/23
- *    Author        : wangshb-wangxd
+ *   Create Date    : 2013/3/15-2013/3/17
+ *   Author         : Fan Wang(parai)
  *    Description   : send char to sio
  *    Param	        : r0: buffer address to send
  *    Return Code   : none.
@@ -69,11 +69,11 @@ void sio_send_frame( const unsigned char* buf, unsigned int size )
 } 
 /*
  *    Function Name : sio_recv_frame
- *    Create Date   : 2011/02/11-2012/09/23
- *    Author        : wangshb-wangxd
+ *   Create Date    : 2013/3/15-2013/3/17
+ *   Author         : Fan Wang(parai)
  *    Description   : receive char from sio
  *    Param	        : none.
- *    Return Code   : r0: char to receive
+ *    Return Code   : None
  */
 void sio_recv_frame( unsigned char* buf, int size )
 {    
