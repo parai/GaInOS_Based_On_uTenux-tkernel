@@ -57,6 +57,14 @@ nofralloc
 	mfmsr   r3
 	blr		
 }
+#if USE_DBGSPT & USE_HOOK_TRACE
+LOCAL void hook_stop_jmp(void)
+{
+}
+LOCAL void hook_exec_jmp(void)
+{
+}
+#endif
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
  *    Create Date   : 2009/12/27-2012/11/22
@@ -79,17 +87,26 @@ nofralloc
 asm static void l_dispatch0(void)
 {
 nofralloc
+#if USE_DBGSPT & USE_HOOK_TRACE
+	bl hook_stop_jmp		    /* Hook processing */
+ret_hook_stop:
+#endif
+
+  	lis  r5,knl_schedtsk@h;    
+  	ori  r5,r5,knl_schedtsk@l;  /* R5 = &schedtsk */
+	
 l_dispatch1:
-  	wrteei  0;		/* Interrupt disable */
-  	lis  r5,knl_schedtsk@h;
-  	ori  r5,r5,knl_schedtsk@l;
-  	cmpwi r5,0; 	
+	wrteei  0;		/* Interrupt disable */ 
+	
+  	cmpwi r5,0; 	/* Is there 'schedtsk'? */
   	bne	 l_dispatch2;
+	/* Because there is no task that should be executed,
+  	 * move to the power-saving mode */
   	bl   knl_low_pow;
+	
   	wrteei  1;		/* Interrupt enable */ 
   	b	 l_dispatch1 
-  	/* Because there is no task that should be executed,
-  	 * move to the power-saving mode */
+
 l_dispatch2:                   /* Switch to 'schedtsk' */
 	lis  r6,knl_ctxtsk@h;
 	stw  r5,knl_ctxtsk@l(r6);  /* ctxtsk = schedtsk */
@@ -98,8 +115,14 @@ l_dispatch2:                   /* Switch to 'schedtsk' */
 	ori    r6,r6,l_sp_offset@l;
 	lwzx   r1, r5,r6;     /* Restore 'ssp' from TCB */
 #else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
-	lwz    r1,l_sp_offset@l(r5)
+	lwz    r1,l_sp_offset@l(r5)    /* Restore 'ssp' from TCB */
 #endif	
+
+#if USE_DBGSPT & USE_HOOK_TRACE
+	bl hook_exec_jmp		    /* Hook processing */
+ret_hook_exec:
+#endif
+
 	li     r11,0
 	lis    r12,knl_dispatch_disabled@h
 	stw    r11,knl_dispatch_disabled@l(r12)  /* Dispatch enable */
@@ -130,6 +153,7 @@ nofralloc
 	li	   r11,0
 	lis	   r12,knl_ctxtsk@h
 	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
+	wrteei  1;		                         /* Interrupt enable */ 
 	b	   l_dispatch0  	  
 }
 asm void knl_dispatch_entry(void)
@@ -143,6 +167,7 @@ _ret_int_dispatch:
 	lis    r3,knl_dispatch_disabled@h
 	stw    r0,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
 
+	wrteei  1;		                        /* Interrupt enable */ 
 	OS_SAVE_R4_TO_R12();   
 	OS_SAVE_R14_TO_R31();   /* all GPRs saved */
 	OS_SAVE_SPFRS();        /* all SPFRs saved */
@@ -150,14 +175,17 @@ _ret_int_dispatch:
 	lis    r0,knl_taskmode@h;
 	ori    r0,r0,knl_taskmode@l;
 	stw    r0,XTMODE(r1);    /* save taskmode */
-	
-	lis  r6,knl_ctxtsk@h;
-	ori  r5,r5,knl_ctxtsk@l;	
+
+	lis  r5,knl_ctxtsk@h;
+	ori  r5,r5,knl_ctxtsk@l;
+#if 0		
 	lis    r6,l_sp_offset@h;
 	ori    r6,r6,l_sp_offset@l;
 	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */
+#else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
+	stw    r1,l_sp_offset@l(r5)
+#endif		
 	
-	wrteei  1;		/* Interrupt enable */ 
 	li	   r11,0
 	lis	   r12,knl_ctxtsk@h
 	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
@@ -177,12 +205,22 @@ EXPORT asm void knl_clear_hw_timer_interrupt2( UINT clr )
 {
 	/* must pass clr = 0x08000000 */
 nofralloc
-	//lis     r0, 0x0800;   // load r0 with TSR[DIS] bit (0x08000000)
-    mtspr   TSR,r0;       // clear TSR[DIS] bit
+	//lis     r3, 0x0800;   // load r3 with TSR[DIS] bit (0x08000000)
+    mtspr   TSR,r3;       // clear TSR[DIS] bit
     wrteei  1;      //enable interrupt
 }
 asm void OSTickISR(void)
-{  		
+{ 
+nofralloc 	
+	subi  r1,r1,8;
+	stw   r0,0(r1);
+	mflr  r0;
+	stw   r0,4(r1);
     bl knl_timer_handler;
+	lwz   r0,4(r1);
+	mtfr  r0;
+	lwz   r0,0(r1);
+	addi  r1,r1,8;
+	
     rfi
 }
