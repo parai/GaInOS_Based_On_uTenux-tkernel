@@ -108,7 +108,7 @@ void knl_dispatch_to_schedtsk(void)
     asm sei; 
     asm jmp l_dispatch0;
 }
-UB *sssp;
+
 interrupt 4 void knl_dispatch_entry(void)
 {
 _ret_int_dispatch:

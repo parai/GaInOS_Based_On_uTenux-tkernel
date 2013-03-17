@@ -98,7 +98,8 @@ ret_hook_stop:
 l_dispatch1:
 	wrteei  0;		/* Interrupt disable */ 
 	
-  	cmpwi r5,0; 	/* Is there 'schedtsk'? */
+	lwz   r8,0(r5)
+  	cmpwi r8,0; 	/* Is there 'schedtsk'? */
   	bne	 l_dispatch2;
 	/* Because there is no task that should be executed,
   	 * move to the power-saving mode */
@@ -109,13 +110,13 @@ l_dispatch1:
 
 l_dispatch2:                   /* Switch to 'schedtsk' */
 	lis  r6,knl_ctxtsk@h;
-	stw  r5,knl_ctxtsk@l(r6);  /* ctxtsk = schedtsk */
+	stw  r8,knl_ctxtsk@l(r6);  /* ctxtsk = schedtsk */
 #if 0	
 	lis    r6,l_sp_offset@h;
 	ori    r6,r6,l_sp_offset@l;
-	lwzx   r1, r5,r6;     /* Restore 'ssp' from TCB */
+	lwzx   r1, r8,r6;     /* Restore 'ssp' from TCB */
 #else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
-	lwz    r1,l_sp_offset@l(r5)    /* Restore 'ssp' from TCB */
+	lwz    r1,l_sp_offset@l(r8)    /* Restore 'ssp' from TCB */
 #endif	
 
 #if USE_DBGSPT & USE_HOOK_TRACE
@@ -144,7 +145,7 @@ asm void knl_dispatch_to_schedtsk(void)
 {
 nofralloc
 	lis		r1,knl_tmp_stack@h			
-	ori		r1,r1,knl_tmp_stack@l
+	lwz		r1,knl_tmp_stack@l(r1)
 	addi	r1,r1,TMP_STACK_SZ	/* Set temporal stack */
 	/* as curtsk is no longer running,so no need to care about the context */
 	li     r11,1
@@ -173,14 +174,14 @@ _ret_int_dispatch:
 	OS_SAVE_SPFRS();        /* all SPFRs saved */
 	
 	lis    r0,knl_taskmode@h;
-	ori    r0,r0,knl_taskmode@l;
+	lwz    r0,knl_taskmode@l(r0);
 	stw    r0,XTMODE(r1);    /* save taskmode */
 
 	lis  r5,knl_ctxtsk@h;
-	ori  r5,r5,knl_ctxtsk@l;
+	lwz  r5,knl_ctxtsk@l(r5);
 #if 0		
 	lis    r6,l_sp_offset@h;
-	ori    r6,r6,l_sp_offset@l;
+	lwz    r6,l_sp_offset@l(r6);
 	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */
 #else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
 	stw    r1,l_sp_offset@l(r5)
