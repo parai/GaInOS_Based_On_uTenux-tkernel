@@ -68,9 +68,20 @@
 #endif
 
 extern void OSTickISR(void);
+#define configRTI  0
+#define configDEC  1
+#define configTickSrc configDEC
+#include "INTCInterrupts.h"
 void TickTimer_SetFreqHz(int Freq)
 {
-#if 1
+#if (configTickSrc==configRTI)
+	PIT.PITMCR.B.MDIS_RTI=0;/*turn on PIT just for RTI*/
+	PIT.RTI.LDVAL.R=CPU_FREQUENCY*1000000/Freq-1;
+	PIT.RTI.TCTRL.B.TIE=1;	/*enable interrupt*/
+	PIT.RTI.TCTRL.B.TEN=1;/*turn on RTI*/
+	INTC_InstallINTCInterruptHandler(OSTickISR,305,1);       
+	INTC.CPR.B.PRI = 0;/* Lower INTC's current priority */
+#else	
 	int  decr=CPU_FREQUENCY*1000000/Freq;
 	asm
 	{

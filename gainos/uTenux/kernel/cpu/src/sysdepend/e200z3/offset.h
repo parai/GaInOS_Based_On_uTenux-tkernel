@@ -84,19 +84,9 @@
 #define XMSR    XPAD3+4
 
 #define STACK_FRAME_SIZE   XMSR+4
-
-#define OS_SAVE_R4_TO_R12()                     \
-	stw     r4,  XR4(r1);                       \
-	stw     r5,  XR5(r1);                       \
-	stw     r6,  XR6(r1);                       \
-	stw     r7,  XR7(r1);                       \
-	stw     r8,  XR8(r1);                       \
-	stw     r9,  XR9(r1);                       \
-	stw     r10,  XR10(r1);                     \
-	stw     r11,  XR11(r1);                     \
-	stw     r12,  XR12(r1)
 		
-#define OS_SAVE_R14_TO_R31()  stmw  r14,XR14(r1)	
+#define OS_SAVE_R2_TO_R31()  stmw  r2,XR2(r1)
+#define OS_SAVE_R3_TO_R31()  stmw  r3,XR3(r1)	
 
 #define OS_SAVE_SPFRS()                         \
 	/*Store XMSR ang SPEFSCR  */                \
@@ -125,19 +115,10 @@
 	/*Store CR*/                                \
 	mfcr    r0;                                 \
 	stw     r0,  XCR(r1)
-
-#define OS_RESTORE_R4_TO_R12()                  \
-	lwz     r4,  XR4(r1);                       \
-	lwz     r5,  XR5(r1);                       \
-	lwz     r6,  XR6(r1);                       \
-	lwz     r7,  XR7(r1);                       \
-	lwz     r8,  XR8(r1);                       \
-	lwz     r9,  XR9(r1);                       \
-	lwz     r10,  XR10(r1);                     \
-	lwz     r11,  XR11(r1);                     \
-	lwz     r12,  XR12(r1)	
 	
-#define OS_RESTORE_R14_TO_R31()  lmw  r14,XR14(r1)
+#define OS_RESTORE_R2_TO_R31()  lmw  r2,XR2(r1)
+
+#define OS_RESTORE_R3_TO_R31()  lmw  r3,XR3(r1)
 
 #define OS_RESTORE_SPFRS()                                              \
 	/*restore CR*/                                                      \

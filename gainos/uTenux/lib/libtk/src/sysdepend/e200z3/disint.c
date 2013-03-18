@@ -49,7 +49,6 @@ nofralloc
    wrteei  0
    blr
 }
-
 /*
  *    Function Name : enaint
  *	 Create Date    : 2013/3/15-2013/3/17
@@ -62,7 +61,7 @@ nofralloc
 asm void enaint(unsigned int mask)
  {
  nofralloc
-	mtmsr   r3
+	mtmsr   r3;
 	blr
  }
 

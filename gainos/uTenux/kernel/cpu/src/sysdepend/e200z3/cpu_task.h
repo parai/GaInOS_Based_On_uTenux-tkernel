@@ -95,12 +95,8 @@ Inline void knl_setup_context( TCB *tcb )
     ssp->srr1 = portINITIAL_MSR;
     ssp->srr0 = pc;             /* Task startup address */
     ssp->lr   =pc;
-    ssp->r[31] = 0xDEADBEEF; /* set R31 for DEBUG */
-    ssp->r[0] =  0xDEADBEEF;  /* set R0 for DEBUG */
-    /* 
-       ssp->r[13-2]=(UW)&_SDA_BASE_;
-       ssp->r[12-2]=(UW)&_SDA2_BASE_; 
-    */
+    ssp->r[13] = (UW)&_SDA_BASE_;
+    ssp->r[2] =  (UW)&_SDA2_BASE_;
     tcb->tskctxb.ssp = ssp;         /* System stack */
 }
 

@@ -57,6 +57,26 @@ nofralloc
 	mfmsr   r3
 	blr		
 }
+
+IMPORT void knl_dispatch_entry(void);
+EXPORT __asm void knl_install_swi_handler()
+{
+nofralloc	
+    lis     r0, knl_dispatch_entry@h
+    ori     r0, r0, knl_dispatch_entry@l
+    /* IVOR8 System call interrupt (SPR 408) */
+    mtivor8 r0	
+    blr
+}
+
+IMPORT void knl_timer_handler( void );
+#pragma section RX ".__exception_handlers"
+#pragma push /* Save the current state */
+__declspec (section ".__exception_handlers") extern long EXCEPTION_HANDLERS;  
+#pragma force_active on
+#pragma function_align 16 /* We use 16 bytes alignment for Exception handlers */
+__declspec(interrupt)
+__declspec (section ".__exception_handlers")
 #if USE_DBGSPT & USE_HOOK_TRACE
 LOCAL void hook_stop_jmp(void)
 {
@@ -65,6 +85,7 @@ LOCAL void hook_exec_jmp(void)
 {
 }
 #endif
+static void l_dispatch0(void);
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
  *    Create Date   : 2009/12/27-2012/11/22
@@ -84,6 +105,55 @@ LOCAL void hook_exec_jmp(void)
  *    Param	        : none
  *    Return Code   : none
  */
+asm void knl_dispatch_to_schedtsk(void)
+{
+nofralloc
+	wrteei  0;		/* Interrupt disable */ 
+	lis		r1,knl_tmp_stack@h			
+	ori    r1,r1,knl_tmp_stack@l
+	addi	r1,r1,TMP_STACK_SZ	/* Set temporal stack */
+	/* as curtsk is no longer running,so no need to care about the context */
+	li     r11,1
+	lis    r12,knl_dispatch_disabled@h
+	stw    r11,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
+	li	   r11,0
+	lis	   r12,knl_ctxtsk@h
+	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
+	wrteei  1;		                         /* Interrupt enable */ 
+	b	   l_dispatch0  	  
+}
+
+asm void knl_dispatch_entry(void)
+{
+nofralloc
+	subi  r1,r1,STACK_FRAME_SIZE
+	stw   r0,XR0(r1);
+	stw   r3,XR3(r1);
+_ret_int_dispatch:
+	li     r0,1
+	lis    r3,knl_dispatch_disabled@h
+	stw    r0,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
+
+	wrteei  1;		                        /* Interrupt enable */  
+	OS_SAVE_R3_TO_R31();   /* all GPRs saved */
+	OS_SAVE_SPFRS();        /* all SPFRs saved */
+	
+	lis    r0,knl_taskmode@h;
+	lwz    r0,knl_taskmode@l(r0);
+	stw    r0,XTMODE(r1);    /* save taskmode */
+
+	lis  r5,knl_ctxtsk@h;
+	lwz  r5,knl_ctxtsk@l(r5);
+			
+	lis    r6,l_sp_offset@h;
+	lwz    r6,l_sp_offset@l(r6);
+	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */	
+	
+	li	   r11,0
+	lis	   r12,knl_ctxtsk@h
+	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
+	b	   l_dispatch0  	  		    	
+}
 asm static void l_dispatch0(void)
 {
 nofralloc
@@ -128,95 +198,25 @@ ret_hook_exec:
 	lwz    r11,XTMODE(r1);
 	lis    r12,knl_taskmode@h;
 	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
-	
-  
-	lwz   r3,XR3(r1);
-    OS_RESTORE_R4_TO_R12();   
-	OS_RESTORE_R14_TO_R31();   /* all GPRs restored */
+	  
+	OS_RESTORE_R2_TO_R31();   /* all GPRs restored */
 	OS_RESTORE_SPFRS();        /* all SPFRs restored */	
 	/* restore R0 */
 	lwz   r0,XR0(r1);
     addi  r1,r1, STACK_FRAME_SIZE
   	rfi
 }
-
-asm void knl_dispatch_to_schedtsk(void)
-{
-nofralloc
-	wrteei  0;		/* Interrupt disable */ 
-	lis		r1,knl_tmp_stack@h			
-	ori    r1,r1,knl_tmp_stack@l
-	addi	r1,r1,TMP_STACK_SZ	/* Set temporal stack */
-	/* as curtsk is no longer running,so no need to care about the context */
-	li     r11,1
-	lis    r12,knl_dispatch_disabled@h
-	stw    r11,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
-	li	   r11,0
-	lis	   r12,knl_ctxtsk@h
-	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
-	wrteei  1;		                         /* Interrupt enable */ 
-	b	   l_dispatch0  	  
-}
-IMPORT void knl_dispatch_entry(void);
-EXPORT __asm void knl_install_swi_handler()
-{
-nofralloc	
-    lis     r0, knl_dispatch_entry@h
-    ori     r0, r0, knl_dispatch_entry@l
-    /* IVOR8 System call interrupt (SPR 408) */
-    mtivor8 r0	
-    blr
-}
-
-IMPORT void knl_timer_handler( void );
-#pragma section RX ".__exception_handlers"
-#pragma push /* Save the current state */
-__declspec (section ".__exception_handlers") extern long EXCEPTION_HANDLERS;  
-#pragma force_active on
-#pragma function_align 16 /* We use 16 bytes alignment for Exception handlers */
-__declspec(interrupt)
-__declspec (section ".__exception_handlers")
-asm void knl_dispatch_entry(void)
-{
-nofralloc
-	subi  r1,r1,STACK_FRAME_SIZE
-	stw   r0,XR0(r1);
-	stw   r3,XR3(r1);
-_ret_int_dispatch:
-	li     r0,1
-	lis    r3,knl_dispatch_disabled@h
-	stw    r0,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
-
-	wrteei  1;		                        /* Interrupt enable */ 
-	OS_SAVE_R4_TO_R12();   
-	OS_SAVE_R14_TO_R31();   /* all GPRs saved */
-	OS_SAVE_SPFRS();        /* all SPFRs saved */
-	
-	lis    r0,knl_taskmode@h;
-	lwz    r0,knl_taskmode@l(r0);
-	stw    r0,XTMODE(r1);    /* save taskmode */
-
-	lis  r5,knl_ctxtsk@h;
-	lwz  r5,knl_ctxtsk@l(r5);
-			
-	lis    r6,l_sp_offset@h;
-	lwz    r6,l_sp_offset@l(r6);
-	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */	
-	
-	li	   r11,0
-	lis	   r12,knl_ctxtsk@h
-	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
-	b	   l_dispatch0  	  		    	
-}
-
+#define configRTI  0
+#define configDEC  1
+#define configTickSrc configDEC
+#if (configTickSrc==configDEC)
+#if 0
 asm void OSTickISR(void)
 { 
 nofralloc 
 	subi  r1,r1,STACK_FRAME_SIZE
 	stw   r0,XR0(r1);
-	stw   r3,XR3(r1);
-	OS_SAVE_R4_TO_R12();   
-	OS_SAVE_R14_TO_R31();   /* all GPRs saved */
+	OS_SAVE_R2_TO_R31();    /* all GPRs saved */
 	OS_SAVE_SPFRS();        /* all SPFRs saved */
 	lis    r0,knl_taskmode@h;
 	lwz    r0,knl_taskmode@l(r0);
@@ -225,22 +225,116 @@ nofralloc
 	lis    r3, 0x0800;   // load r3 with TSR[DIS] bit (0x08000000)
     mtspr  TSR,r3;       // clear TSR[DIS] bit
  
-    wrteei  1;      //enable interrupt
+//    wrteei  1;      //enable interrupt
     bl knl_timer_handler;
 
 	lwz    r11,XTMODE(r1);
 	lis    r12,knl_taskmode@h;
 	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
-	
-	
-    OS_RESTORE_R4_TO_R12();   
-	OS_RESTORE_R14_TO_R31();   /* all GPRs restored */
+	  
+	OS_RESTORE_R2_TO_R31();   /* all GPRs restored */
 	OS_RESTORE_SPFRS();        /* all SPFRs restored */	
-	lwz   r3,XR3(r1);
 	lwz   r0,XR0(r1);
     addi  r1,r1, STACK_FRAME_SIZE
   	rfi
 }
+#else
+asm void OSTickISR(void)
+{
+nofralloc
+prolog:
+    stwu    r1, -0x50 (r1)    /* Create stack frame */
+    stw r0,  0x24 (r1)        /* Store r0 working register  */
+
+    /* Save SRR0 and SRR1 */
+    mfsrr1  r0                /* Store SRR1 (must be done before enabling EE) */
+    stw     r0,  0x10 (r1)
+    mfsrr0  r0                /* Store SRR0 (must be done before enabling EE) */
+    stw     r0,  0x0C (r1)
+
+    /* Clear request to processor; r3 contains the address of the ISR */
+    stw     r3,  0x28 (r1)    /* Store r3 */
+    lis    r3, 0x0800;        // load r3 with TSR[DIS] bit (0x08000000)
+    mtspr  TSR,r3;            // clear TSR[DIS] bit
+    lis     r3,knl_timer_handler@h;       /* Load INTC_IACKR, which clears request to processor   */
+    ori     r3,r3,knl_timer_handler@l;      /* Read ISR address from ISR Vector Table using pointer */
+
+    /* Enable processor recognition of interrupts */
+    wrteei  1                   /* Set MSR[EE]=1  */
+
+    /* Save rest of context required by EABI */
+    stw     r12, 0x4C (r1)      /* Store r12 */
+    stw     r11, 0x48 (r1)      /* Store r11 */
+    stw     r10, 0x44 (r1)      /* Store r10 */
+    stw     r9,  0x40 (r1)      /* Store r9 */
+    stw     r8,  0x3C (r1)      /* Store r8 */
+    stw     r7,  0x38 (r1)      /* Store r7 */
+    stw     r6,  0x34 (r1)      /* Store r6 */
+    stw     r5,  0x30 (r1)      /* Store r5 */
+    stw     r4,  0x2C (r1)      /* Store r4 */
+    mfcr    r0                  /* Store CR */
+    stw     r0,  0x20 (r1)
+    mfxer   r0                  /* Store XER */
+    stw     r0,  0x1C (r1)
+    mfctr   r0                  /* Store CTR */
+    stw     r0,  0x18 (r1)
+    mflr    r0                  /* Store LR */
+    stw     r0,  0x14 (r1)
+
+    /* Branch to ISR handler address from SW vector table */
+    mtlr    r3                  /* Store ISR address to LR to use for branching later */
+    blrl                        /* Branch to ISR, but return here */
+
+epilog:
+    /* Restore context required by EABI (except working registers) */
+    lwz     r0,  0x14 (r1)      /* Restore LR */
+    mtlr    r0
+    lwz     r0,  0x18 (r1)      /* Restore CTR */
+    mtctr   r0
+    lwz     r0,  0x1C (r1)      /* Restore XER */
+    mtxer   r0
+    lwz     r0,  0x20 (r1)      /* Restore CR */
+    mtcrf   0xff, r0
+    lwz     r5,  0x30 (r1)      /* Restore r5 */
+    lwz     r6,  0x34 (r1)      /* Restore r6 */
+    lwz     r7,  0x38 (r1)      /* Restore r7 */
+    lwz     r8,  0x3C (r1)      /* Restore r8 */
+    lwz     r9,  0x40 (r1)      /* Restore r9 */
+    lwz     r10, 0x44 (r1)      /* Restore r10 */
+    lwz     r11, 0x48 (r1)      /* Restore r11 */
+    lwz     r12, 0x4C (r1)      /* Restore r12 */
+
+    /* Disable processor recognition of interrupts */
+    wrteei  0
+
+    /* Restore Working Registers */
+    lwz     r3,  0x28 (r1)      /* Restore r3 */
+    lwz     r4,  0x2C (r1)      /* Restore r4 */
+
+    /* Retrieve SRR0 and SRR1 */
+    lwz     r0,  0x0C (r1)      /* Restore SRR0 */
+    mtsrr0  r0
+    lwz     r0,  0x10 (r1)      /* Restore SRR1 */
+    mtsrr1  r0
+
+    /* Restore Other Working Registers */
+    lwz     r0,  0x24 (r1)      /* Restore r0 */
+
+    /* Restore space on stack */
+    addi    r1, r1, 0x50
+
+    /* End of Interrupt */
+    rfi
+}
+#endif
+#else  /* configRTI */
+#include "MPC5634M_MLQB80.h"
+void OSTickISR(void)
+{
+	PIT.RTI.TFLG.B.TIF=1;			// clear the interrupt flag
+	knl_timer_handler();
+}
+#endif
 
 #pragma force_active off
 #pragma pop
