@@ -37,25 +37,6 @@
 #include <tk/sysdef.h>
 #include "cpu_insn.h"
 /*
- * Interrupt  mask register (Primask)
- */
-#define  configUSE_FPU	0
-/* Definitions to set the initial MSR of each task. */
-#define portCRITICAL_INTERRUPT_ENABLE	( 1UL << 17UL )
-#define portEXTERNAL_INTERRUPT_ENABLE	( 1UL << 15UL )
-#define portMACHINE_CHECK_ENABLE		( 1UL << 12UL )
-
-#if configUSE_FPU == 1
-#define portAPU_PRESENT				( 1UL << 25UL )
-#define portFCM_FPU_PRESENT			( 1UL << 13UL )
-#else
-#define portAPU_PRESENT				( 0UL )
-#define portFCM_FPU_PRESENT			( 0UL )
-#endif
-
-#define portINITIAL_MSR		( portCRITICAL_INTERRUPT_ENABLE | portEXTERNAL_INTERRUPT_ENABLE | \
-                              portMACHINE_CHECK_ENABLE | portAPU_PRESENT | portFCM_FPU_PRESENT )
-/*
  * Start/End critical section
  */
 #define BEGIN_CRITICAL_SECTION	{ UINT _primask_ = disint();
@@ -77,14 +58,14 @@
 /*
  * Interrupt enable/disable
  */
-#define ENABLE_INTERRUPT	{ enaint(portINITIAL_MSR); }
-#define DISABLE_INTERRUPT	{ (void)disint(); }
+#define ENABLE_INTERRUPT	{ asm("wrteei 1"); }
+#define DISABLE_INTERRUPT	{ asm("wrteei 0"); }
 
 /*
  * Enable interrupt nesting
  *	Enable the interrupt that has a higher priority than 'level.'
  */
-#define ENABLE_INTERRUPT_UPTO(level)	{ (void)enaint(portINITIAL_MSR); }
+#define ENABLE_INTERRUPT_UPTO(level)	{ asm("wrteei 1"); }
 
 /*
  * Move to/Restore task independent part

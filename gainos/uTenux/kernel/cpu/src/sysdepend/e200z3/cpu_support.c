@@ -210,35 +210,6 @@ ret_hook_exec:
 #define configDEC  1
 #define configTickSrc configDEC
 #if (configTickSrc==configDEC)
-#if 0
-asm void OSTickISR(void)
-{ 
-nofralloc 
-	subi  r1,r1,STACK_FRAME_SIZE
-	stw   r0,XR0(r1);
-	OS_SAVE_R2_TO_R31();    /* all GPRs saved */
-	OS_SAVE_SPFRS();        /* all SPFRs saved */
-	lis    r0,knl_taskmode@h;
-	lwz    r0,knl_taskmode@l(r0);
-	stw    r0,XTMODE(r1);    /* save taskmode */	
-	
-	lis    r3, 0x0800;   // load r3 with TSR[DIS] bit (0x08000000)
-    mtspr  TSR,r3;       // clear TSR[DIS] bit
- 
-//    wrteei  1;      //enable interrupt
-    bl knl_timer_handler;
-
-	lwz    r11,XTMODE(r1);
-	lis    r12,knl_taskmode@h;
-	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
-	  
-	OS_RESTORE_R2_TO_R31();   /* all GPRs restored */
-	OS_RESTORE_SPFRS();        /* all SPFRs restored */	
-	lwz   r0,XR0(r1);
-    addi  r1,r1, STACK_FRAME_SIZE
-  	rfi
-}
-#else
 asm void OSTickISR(void)
 {
 nofralloc
@@ -254,13 +225,15 @@ prolog:
 
     /* Clear request to processor; r3 contains the address of the ISR */
     stw     r3,  0x28 (r1)    /* Store r3 */
+    
     lis    r3, 0x0800;        // load r3 with TSR[DIS] bit (0x08000000)
     mtspr  TSR,r3;            // clear TSR[DIS] bit
+    
     lis     r3,knl_timer_handler@h;       /* Load INTC_IACKR, which clears request to processor   */
     ori     r3,r3,knl_timer_handler@l;      /* Read ISR address from ISR Vector Table using pointer */
 
     /* Enable processor recognition of interrupts */
-    wrteei  1                   /* Set MSR[EE]=1  */
+    //wrteei  1                   /* Set MSR[EE]=1  */
 
     /* Save rest of context required by EABI */
     stw     r12, 0x4C (r1)      /* Store r12 */
@@ -326,7 +299,6 @@ epilog:
     /* End of Interrupt */
     rfi
 }
-#endif
 #else  /* configRTI */
 #include "MPC5634M_MLQB80.h"
 void OSTickISR(void)
