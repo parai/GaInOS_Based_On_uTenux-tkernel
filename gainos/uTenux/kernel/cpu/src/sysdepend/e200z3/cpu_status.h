@@ -65,7 +65,7 @@
  * Enable interrupt nesting
  *	Enable the interrupt that has a higher priority than 'level.'
  */
-#define ENABLE_INTERRUPT_UPTO(level)	{ asm("wrteei 1"); }
+#define ENABLE_INTERRUPT_UPTO(level)  /* do nothing */
 
 /*
  * Move to/Restore task independent part

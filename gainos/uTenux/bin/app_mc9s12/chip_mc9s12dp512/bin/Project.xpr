@@ -1,2 +1,0 @@
-Data:2 < ADDXPR ONLY_ADD_IF_NEW "knl_current_time"
-Data:2 < ADDXPR ONLY_ADD_IF_NEW "knl_taskmode"

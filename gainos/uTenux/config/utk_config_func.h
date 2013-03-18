@@ -192,7 +192,7 @@
 
 //#define USE_FUNC_TK_SET_TIM
 //#define USE_FUNC_TK_GET_TIM
-//#define USE_FUNC_TK_GET_OTM
+#define USE_FUNC_TK_GET_OTM
 #define USE_FUNC_TK_DLY_TSK
 
 #if CFN_MAX_CYCID > 0

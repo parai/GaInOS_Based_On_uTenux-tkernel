@@ -32,7 +32,7 @@
 #include "task.h"
 #include "cpu_insn.h"
 #include "tkdev_conf.h"
-
+#include "INTCInterrupts.h"
 
 /* Temporal stack used when 'dispatch_to_schedtsk' is called */
 Noinit(EXPORT	UINT	knl_tmp_stack[TMP_STACK_SZ]);
@@ -40,10 +40,19 @@ Noinit(EXPORT	UINT	knl_tmp_stack[TMP_STACK_SZ]);
 /*
  * CPU-dependent initialization
  */
-IMPORT __asm void knl_install_swi_handler();
+IMPORT void knl_dispatch_entry(void);
+LOCAL __asm void knl_install_sc_handler()
+{
+nofralloc	
+    lis     r0, knl_dispatch_entry@h
+    ori     r0, r0, knl_dispatch_entry@l
+    /* IVOR8 System call interrupt (SPR 408) */
+    mtivor8 r0	
+    blr
+}
 EXPORT ER knl_cpu_initialize( void )
 {
-	knl_install_swi_handler();
+	knl_install_sc_handler();
 	return E_OK;
 }
 

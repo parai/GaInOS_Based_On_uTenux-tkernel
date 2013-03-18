@@ -31,7 +31,6 @@
 #define __SYS_MACHINE_DEPEND_H__
 
 
-
 #undef _APP_MPC56XX_
 
 #define _APP_MPC56XX_		    1
@@ -50,4 +49,37 @@
 #define _Csym			            0
 #endif
 
+#define configRTI  0
+#define configDEC  1
+#define configTickSrc configRTI
+
+#define CPU_FREQUENCY  64   /* 64 MHZ */
+
+#if(CPU_FREQUENCY==8)
+#define SYNCR_V 0x36100000
+#endif
+#if(CPU_FREQUENCY==16)
+#define SYNCR_V 0x16100000
+#endif
+#if(CPU_FREQUENCY==20)
+#define SYNCR_V 0x18100000
+#endif
+#if(CPU_FREQUENCY==32)
+#define SYNCR_V 0x16080000
+#endif
+#if(CPU_FREQUENCY==40)
+#define SYNCR_V 0x18080000
+#endif
+#if(CPU_FREQUENCY==50)
+#define SYNCR_V 0x1A880000
+#endif
+#if(CPU_FREQUENCY==60)
+#define SYNCR_V 0x15800000
+#endif
+#if(CPU_FREQUENCY==64)
+#define SYNCR_V 0x16000000	/**PREFDIV=1,MFD=12,RFD=0,->Fsys=64MHZ*/
+#endif
+#if(CPU_FREQUENCY==80) /**PREFDIV=1,MFD=16,RFD=0,->Fsys=80MHZ*/
+#define SYNCR_V 0x18000000
+#endif
 #endif /* __SYS_MACHINE_DEPEND_H__ */

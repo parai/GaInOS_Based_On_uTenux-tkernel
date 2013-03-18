@@ -34,6 +34,7 @@
 #define _TKDEV_TIMER_
 
 #include <tk/syslib.h>
+#include <machine.h>
 #include <sys/sysinfo.h>
 #include "tkdev_conf.h"
 /*
@@ -76,8 +77,11 @@ Inline void knl_start_hw_timer( void )
  *    Param	        : none
  *    Return Code   : none
  */
-#define knl_clear_hw_timer_interrupt()
-
+#if(configTickSrc == configRTI)
+IMPORT void knl_clear_hw_timer_interrupt(void);
+#else
+#   define knl_clear_hw_timer_interrupt()
+#endif
 /*
  *    Function Name : knl_end_of_hw_timer_interrupt
  *    Create Date   : 2009/12/27-2012/10/04

@@ -59,14 +59,14 @@
 /*
  * Interrupt enable/disable
  */
-#define ENABLE_INTERRUPT	{ enaint(0); }
-#define DISABLE_INTERRUPT	{ (void)disint(); }
+#define ENABLE_INTERRUPT	{ asm cli; }
+#define DISABLE_INTERRUPT	{ asm sei; }
 
 /*
  * Enable interrupt nesting
  *	Enable the interrupt that has a higher priority than 'level.'
  */
-#define ENABLE_INTERRUPT_UPTO(level)	{ (void)enaint(0); }
+#define ENABLE_INTERRUPT_UPTO(level)	/* do nothing */
 
 /*
  * Move to/Restore task independent part

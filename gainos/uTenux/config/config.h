@@ -20,7 +20,7 @@
 #ifndef _CONFIG_
 #define _CONFIG_
 #define cfgOSEK     1  /* if 1 USE OSEK API else not*/
-#define USE_TRAP    0
+
 /* Task configuration */
 #define MIN_TSKID	(1)
 #define MAX_TSKID	(CFN_MAX_TSKID)

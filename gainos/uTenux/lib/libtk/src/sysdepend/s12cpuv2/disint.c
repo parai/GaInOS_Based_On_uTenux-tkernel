@@ -62,8 +62,7 @@ unsigned char disint()
  */
  void enaint(unsigned char mask)
  {
-    asm psha;
-    asm andb  #0x10;    
+    asm psha;  
     asm tba;
     asm tap;
     asm pula;

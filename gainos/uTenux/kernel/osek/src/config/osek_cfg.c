@@ -39,17 +39,17 @@ TASK(vTask0)
 TASK(vTask1)
 {
 	(void)tm_putstring((UB*)"vTask1 is running.\r\n");
-//	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
+//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
 	(void)tm_putstring((UB*)"SetRelAlarm().\r\n");
-	(void)SetRelAlarm(ID_vAlarm0, 500,300);
-	(void)SetRelAlarm(ID_vAlarm1,1000,300);
-	(void)SetRelAlarm(ID_vAlarm2,1500,300);
+	(void)SetRelAlarm(ID_vAlarm0, 500,30);
+	(void)SetRelAlarm(ID_vAlarm1,1000,30);
+	(void)SetRelAlarm(ID_vAlarm2,1500,30);
 	(void)TerminateTask();
 }
 TASK(vTask2)
 {   
 	(void)tm_putstring((UB*)"vTask2 is running.\r\n");
-//	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
+//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	(void)WaitEvent(vTask2Event0);
 	(void)ClearEvent(vTask2Event0);
 	(void)TerminateTask();
@@ -58,8 +58,8 @@ TASK(vTask2)
 TASK(vTask3)
 {
 	(void)tm_putstring((UB*)"vTask3 is running.\r\n");
-//	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
-	(void)SetEvent(ID_vTask2,vTask2Event0);
+	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
+//	(void)SetEvent(ID_vTask2,vTask2Event0);
 	(void)TerminateTask();
 }
 
@@ -74,19 +74,19 @@ const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=
 ALARMCALLBACK(vAlarm0)
 {
 	(void)tm_putstring((UB*)"vAlarm0 cbk is running.\r\n");
-//	(void)tk_sta_tsk(ID_vTask3,ID_vTask3);
+	(void)tk_sta_tsk(ID_vTask3,ID_vTask3);
+	(void)tk_sta_tsk(ID_vTask2,ID_vTask2);
 }
 
 ALARMCALLBACK(vAlarm1)
 {
 	(void)tm_putstring((UB*)"vAlarm1 cbk is running.\r\n");
-//	(void)tk_sta_tsk(ID_vTask0,ID_vTask0);
+	(void)tk_sta_tsk(ID_vTask0,ID_vTask0);
 }
 
 ALARMCALLBACK(vAlarm2)
 {
 	(void)tm_putstring((UB*)"vAlarm2 cbk is running.\r\n");
-//	(void)SetEvent(ID_vTask2,vTask2Event0);
-//	(void)tk_sta_tsk(ID_vTask2,ID_vTask2);
+	(void)SetEvent(ID_vTask2,vTask2Event0);
 }
 

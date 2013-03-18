@@ -30,87 +30,70 @@ __declspec(interrupt)
 __declspec (section ".__exception_handlers")
 void EXCEP_CriticalInputHandler(void)
 {
-//	printk("in EXCEP_DefaultExceptionHandler()\n");
 	for(;;);
 }
 void EXCEP_MachineCheckHandler(void)
 {
-//	printk("in EXCEP_MachineCheckHandler()\n");
 	for(;;);
 }
 void EXCEP_DataStorageHandler(void)
 {
-//	printk("in EXCEP_DataStorageHandler()\n");
 	for(;;);
 }
 void EXCEP_InstructionStorageHandler(void)
 {
-//	printk("in EXCEP_InstructionStorageHandler()\n");
 	for(;;);
 }
 void EXCEP_ExternalInputHandler(void)
 {
-//	printk("in EXCEP_ExternalInputHandler()\n");
 	for(;;);
 }
 void EXCEP_AlignmentHandler(void)
 {
-//	printk("in EXCEP_AlignmentHandler()\n");
 	for(;;);
 }
 void EXCEP_ProgramHandler(void)
 {
-//	printk("in EXCEP_ProgramHandler()\n");
 	for(;;);
 }
 void EXCEP_FloatingPointUnavailableHandler(void)
 {
-//	printk("in EXCEP_FloatingPointUnavailableHandler()\n");
 	for(;;);
 }
 void EXCEP_AuxiliaryProcessorHandler(void)
 {
-//	printk("in EXCEP_AuxiliaryProcessorHandler()\n");
 	for(;;);
 }
 void EXCEP_FixedIntervalTimerHandler(void)
 {
-//	printk("in EXCEP_FixedIntervalTimerHandler()\n");
 	for(;;);
 }
 void EXCEP_WatchDogTimerHandler(void)
 {
-//	printk("in EXCEP_WatchDogTimerHandler()\n");
 	for(;;);
 }
 void EXCEP_DataTlbErrorHandler(void)
 {
-//	printk("in EXCEP_DataTlbErrorHandler()\n");
 	for(;;);
 }
 void EXCEP_InstructionTlbErrorHandler(void)
 {
-//	printk("in EXCEP_InstructionTlbErrorHandler()\n");
 	for(;;);
 }
 void EXCEP_DebugHandler(void)
 {
-//	printk("in EXCEP_DebugHandler()\n");
 	for(;;);
 }
 void EXCEP_SPE_APU_UnavailableHandler(void)
 {
-//	printk("in EXCEP_SPE_APU_UnavailableHandler()\n");
 	for(;;);
 }
 void EXCEP_SPEFloatingPointDataHandler(void)
 {
-//	printk("in EXCEP_SPEFloatingPointDataHandler()\n");
 	for(;;);
 }
 void EXCEP_SPEFloatingPointRoundHandler(void)
 {
-//	printk("in EXCEP_SPEFloatingPointRoundHandler()\n");
 	for(;;);
 }
 void EXCEP_SystemCallHandler(void)
@@ -120,10 +103,6 @@ void EXCEP_SystemCallHandler(void)
 void EXCEP_DecrementerHandler(void)
 {
 	for(;;);
-}
-void EXCEP_DefaultExceptionHandler(void)
-{
-
 }
 #pragma force_active off
 #pragma pop

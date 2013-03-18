@@ -42,10 +42,13 @@
 #include "typedef.h"
 #include "tkdev_conf.h"
 #include "offset.h"
+#include "MPC5634M_MLQB80.h"
+
 IMPORT INT	knl_dispatch_disabled;
 IMPORT void	*knl_ctxtsk;
 IMPORT void	*knl_schedtsk;
 IMPORT void  knl_low_pow( void );
+IMPORT void  knl_timer_handler( void );
 IMPORT UINT  knl_taskmode;
 IMPORT	INT  knl_taskindp;
 IMPORT 	 UINT	 knl_tmp_stack[TMP_STACK_SZ];
@@ -58,18 +61,66 @@ nofralloc
 	blr		
 }
 
-IMPORT void knl_dispatch_entry(void);
-EXPORT __asm void knl_install_swi_handler()
+/**
+ * Fref=8MHZ(CRYSTAL OSCILLATOR CLOCK)
+ * In legacy mode:Fsys=Fref*(MFD+4)/(PREFDIV+1)/(2^RFD)
+ * In enhanced mode:Fsys=Fref*(EMFD)/(EPREFDIV+1)/(2^(ERFD+1))
+ */
+void Cpu_FrequencyInit(void)
 {
-nofralloc	
-    lis     r0, knl_dispatch_entry@h
-    ori     r0, r0, knl_dispatch_entry@l
-    /* IVOR8 System call interrupt (SPR 408) */
-    mtivor8 r0	
-    blr
+	FMPLL.ESYNCR1.B.CLKCFG = 0X7;
+	FMPLL.SYNCR.R = 0x16080000;/**PREFDIV=1,MFD=12,RFD=1,->Fsys=32MHZ*/
+	while (FMPLL.SYNSR.B.LOCK != 1) {};
+	FMPLL.SYNCR.R = SYNCR_V;
 }
 
-IMPORT void knl_timer_handler( void );
+#if (configTickSrc==configRTI)
+void knl_clear_hw_timer_interrupt(void)
+{
+	PIT.RTI.TFLG.B.TIF=1;			// clear the interrupt flag
+}
+void TickTimer_SetFreqHz(int Freq)
+{
+	PIT.PITMCR.B.MDIS_RTI=0;/*turn on PIT just for RTI*/
+	PIT.RTI.LDVAL.R=CPU_FREQUENCY*1000000/Freq-1;
+	PIT.RTI.TCTRL.B.TIE=1;	/*enable interrupt*/
+	PIT.RTI.TCTRL.B.TEN=1;/*turn on RTI*/
+	INTC_InstallINTCInterruptHandler(knl_timer_handler,305,1);       
+	INTC.CPR.B.PRI = 0;/* Lower INTC's current priority */
+}
+#elif (configTickSrc==configDEC)
+extern void OSTickISR(void);
+void TickTimer_SetFreqHz(int Freq)
+{	
+	int  decr=CPU_FREQUENCY*1000000/Freq;
+	asm
+	{
+/**/
+		li		r0, 0x0000	
+		mthid0	r0
+/*Set the gap time between tick and tick*/		
+		lwz      r0,decr
+		mtdec		r0
+		mtdecar	r0			
+/*Set TCR[DIE]=1,TCR[ARE]=1,that is to enable DEC interrupt and enable auto-reload*/
+		lis		r0, 0x0440	
+		mftcr     r3
+		or        r0,r0,r3	
+		mttcr		r0		
+/*Set HID0[TBEN]=1,Time base enable*/			
+		li		r0, 0x4000		
+		mthid0	r0
+	}
+	asm
+	{
+	    lis     r0, OSTickISR@h
+	    ori     r0, r0, OSTickISR@l
+	    /* IVOR10 Decrementer interrupt (SPR 410) */
+	    mtivor10 r0
+	}		
+}
+#endif /* configTickSrc */
+
 #pragma section RX ".__exception_handlers"
 #pragma push /* Save the current state */
 __declspec (section ".__exception_handlers") extern long EXCEPTION_HANDLERS;  
@@ -85,7 +136,7 @@ LOCAL void hook_exec_jmp(void)
 {
 }
 #endif
-static void l_dispatch0(void);
+LOCAL void l_dispatch0(void);
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
  *    Create Date   : 2009/12/27-2012/11/22
@@ -105,7 +156,7 @@ static void l_dispatch0(void);
  *    Param	        : none
  *    Return Code   : none
  */
-asm void knl_dispatch_to_schedtsk(void)
+EXPORT __asm void knl_dispatch_to_schedtsk(void)
 {
 nofralloc
 	wrteei  0;		/* Interrupt disable */ 
@@ -123,7 +174,7 @@ nofralloc
 	b	   l_dispatch0  	  
 }
 
-asm void knl_dispatch_entry(void)
+EXPORT __asm void knl_dispatch_entry(void)
 {
 nofralloc
 	subi  r1,r1,STACK_FRAME_SIZE
@@ -154,7 +205,7 @@ _ret_int_dispatch:
 	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
 	b	   l_dispatch0  	  		    	
 }
-asm static void l_dispatch0(void)
+LOCAL __asm void l_dispatch0(void)
 {
 nofralloc
 #if USE_DBGSPT & USE_HOOK_TRACE
@@ -206,12 +257,9 @@ ret_hook_exec:
     addi  r1,r1, STACK_FRAME_SIZE
   	rfi
 }
-#define configRTI  0
-#define configDEC  1
-#define configTickSrc configRTI
+
 #if (configTickSrc==configDEC)
-#if 0
-asm void OSTickISR(void)
+LOCAL __asm void OSTickISR(void)
 {
 nofralloc
 	subi  r1,r1,STACK_FRAME_SIZE
@@ -226,7 +274,7 @@ nofralloc
     ori     r3,r3,knl_timer_handler@l;      /* Read ISR address from ISR Vector Table using pointer */
 
     /* Enable processor recognition of interrupts */
-    //wrteei  1                   /* Set MSR[EE]=1  */
+    wrteei  1                   /* Set MSR[EE]=1  */
 
     /* Save rest of context required by EABI */
 	OS_SAVE_R4_TO_R31();   /* all GPRs saved */
@@ -249,104 +297,6 @@ epilog:
 	addi  r1,r1, STACK_FRAME_SIZE
     /* End of Interrupt */
     rfi
-}
-#else
-asm void OSTickISR(void)
-{
-nofralloc
-prolog:
-    stwu    r1, -0x50 (r1)    /* Create stack frame */
-    stw r0,  0x24 (r1)        /* Store r0 working register  */
-
-    /* Save SRR0 and SRR1 */
-    mfsrr1  r0                /* Store SRR1 (must be done before enabling EE) */
-    stw     r0,  0x10 (r1)
-    mfsrr0  r0                /* Store SRR0 (must be done before enabling EE) */
-    stw     r0,  0x0C (r1)
-
-    /* Clear request to processor; r3 contains the address of the ISR */
-    stw     r3,  0x28 (r1)    /* Store r3 */
-    
-    lis    r3, 0x0800;        // load r3 with TSR[DIS] bit (0x08000000)
-    mtspr  TSR,r3;            // clear TSR[DIS] bit
-    
-    lis     r3,knl_timer_handler@h;       /* Load INTC_IACKR, which clears request to processor   */
-    ori     r3,r3,knl_timer_handler@l;      /* Read ISR address from ISR Vector Table using pointer */
-
-    /* Enable processor recognition of interrupts */
-    //wrteei  1                   /* Set MSR[EE]=1  */
-
-    /* Save rest of context required by EABI */
-    stw     r12, 0x4C (r1)      /* Store r12 */
-    stw     r11, 0x48 (r1)      /* Store r11 */
-    stw     r10, 0x44 (r1)      /* Store r10 */
-    stw     r9,  0x40 (r1)      /* Store r9 */
-    stw     r8,  0x3C (r1)      /* Store r8 */
-    stw     r7,  0x38 (r1)      /* Store r7 */
-    stw     r6,  0x34 (r1)      /* Store r6 */
-    stw     r5,  0x30 (r1)      /* Store r5 */
-    stw     r4,  0x2C (r1)      /* Store r4 */
-    mfcr    r0                  /* Store CR */
-    stw     r0,  0x20 (r1)
-    mfxer   r0                  /* Store XER */
-    stw     r0,  0x1C (r1)
-    mfctr   r0                  /* Store CTR */
-    stw     r0,  0x18 (r1)
-    mflr    r0                  /* Store LR */
-    stw     r0,  0x14 (r1)
-
-    /* Branch to ISR handler address from SW vector table */
-    mtlr    r3                  /* Store ISR address to LR to use for branching later */
-    blrl                        /* Branch to ISR, but return here */
-
-epilog:
-    /* Restore context required by EABI (except working registers) */
-    lwz     r0,  0x14 (r1)      /* Restore LR */
-    mtlr    r0
-    lwz     r0,  0x18 (r1)      /* Restore CTR */
-    mtctr   r0
-    lwz     r0,  0x1C (r1)      /* Restore XER */
-    mtxer   r0
-    lwz     r0,  0x20 (r1)      /* Restore CR */
-    mtcrf   0xff, r0
-    lwz     r5,  0x30 (r1)      /* Restore r5 */
-    lwz     r6,  0x34 (r1)      /* Restore r6 */
-    lwz     r7,  0x38 (r1)      /* Restore r7 */
-    lwz     r8,  0x3C (r1)      /* Restore r8 */
-    lwz     r9,  0x40 (r1)      /* Restore r9 */
-    lwz     r10, 0x44 (r1)      /* Restore r10 */
-    lwz     r11, 0x48 (r1)      /* Restore r11 */
-    lwz     r12, 0x4C (r1)      /* Restore r12 */
-
-    /* Disable processor recognition of interrupts */
-    wrteei  0
-
-    /* Restore Working Registers */
-    lwz     r3,  0x28 (r1)      /* Restore r3 */
-    lwz     r4,  0x2C (r1)      /* Restore r4 */
-
-    /* Retrieve SRR0 and SRR1 */
-    lwz     r0,  0x0C (r1)      /* Restore SRR0 */
-    mtsrr0  r0
-    lwz     r0,  0x10 (r1)      /* Restore SRR1 */
-    mtsrr1  r0
-
-    /* Restore Other Working Registers */
-    lwz     r0,  0x24 (r1)      /* Restore r0 */
-
-    /* Restore space on stack */
-    addi    r1, r1, 0x50
-
-    /* End of Interrupt */
-    rfi
-}
-#endif
-#else  /* configRTI */
-#include "MPC5634M_MLQB80.h"
-void OSTickISR(void)
-{
-	PIT.RTI.TFLG.B.TIF=1;			// clear the interrupt flag
-	knl_timer_handler();
 }
 #endif
 
