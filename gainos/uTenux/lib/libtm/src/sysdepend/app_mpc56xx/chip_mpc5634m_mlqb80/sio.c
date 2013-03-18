@@ -36,7 +36,7 @@
 
 #define CPU_FREQUENCY  80
 #define BUS_CLK (CPU_FREQUENCY*1000000)
-#define BAUDRATE 115200
+#define BAUDRATE 19600
 
 #define CPU_FREQUENCY  80
 #if(CPU_FREQUENCY==8)
@@ -70,6 +70,7 @@
 extern void OSTickISR(void);
 void TickTimer_SetFreqHz(int Freq)
 {
+#if 1
 	int  decr=CPU_FREQUENCY*1000000/Freq;
 	asm
 	{
@@ -96,6 +97,7 @@ void TickTimer_SetFreqHz(int Freq)
 	    /* IVOR10 Decrementer interrupt (SPR 410) */
 	    mtivor10 r0
 	}
+#endif		
 }
 /**
  * Fref=8MHZ(CRYSTAL OSCILLATOR CLOCK)

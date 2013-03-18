@@ -76,8 +76,7 @@ Inline void knl_start_hw_timer( void )
  *    Param	        : none
  *    Return Code   : none
  */
-IMPORT void knl_clear_hw_timer_interrupt2( UINT clrmask );
-#define knl_clear_hw_timer_interrupt() knl_clear_hw_timer_interrupt2(0x08000000)
+#define knl_clear_hw_timer_interrupt()
 
 /*
  *    Function Name : knl_end_of_hw_timer_interrupt
@@ -93,9 +92,7 @@ IMPORT void knl_clear_hw_timer_interrupt2( UINT clrmask );
  *    Param	        : none
  *    Return Code   : none
  */
-Inline void knl_end_of_hw_timer_interrupt( void )
-{
-}
+#define knl_end_of_hw_timer_interrupt()
 
 /*
  *    Function Name : knl_terminate_hw_timer

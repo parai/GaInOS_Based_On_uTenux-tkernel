@@ -37,12 +37,7 @@
  * System stack configuration at task startup
  */
 typedef struct {
-	VW r1;      /* sp */
-    VW blk;
-    /*untouch R2 and R13 because of _SDA_BASE_ _SDA2_BASE_*/
-    VW rl[10];  /* R3 ~ R12 */
-    VW rh[17];  /* R14 ~ R31 */
-    VW r0;
+    VW r[32];  /* R0 ~ R31 */
     VW taskmode;
     VW srr0;
     VW srr1;
@@ -61,7 +56,7 @@ typedef struct {
  * Size of system stack area destroyed by 'make_dormant()'
  * In other words, the size of area required to write by 'setup_context().'
  */
-#define DORMANT_STACK_SIZE	( sizeof(VW) * 12 )	/* To 'taskmode' position */
+#define DORMANT_STACK_SIZE	( sizeof(VW) * 44 )	/* To 'taskmode' position */
 
 
 /*
@@ -99,6 +94,9 @@ Inline void knl_setup_context( TCB *tcb )
     ssp->taskmode  = 0;             /* Initial taskmode */
     ssp->srr1 = portINITIAL_MSR;
     ssp->srr0 = pc;             /* Task startup address */
+    ssp->lr   =pc;
+    ssp->r[31] = 0xDEADBEEF; /* set R31 for DEBUG */
+    ssp->r[0] =  0xDEADBEEF;  /* set R0 for DEBUG */
     /* 
        ssp->r[13-2]=(UW)&_SDA_BASE_;
        ssp->r[12-2]=(UW)&_SDA2_BASE_; 
@@ -114,8 +112,8 @@ Inline void knl_setup_stacd( TCB *tcb, INT stacd )
 {
 	SStackFrame	*ssp = tcb->tskctxb.ssp;
 
-	ssp->rl[3-3] = stacd;
-	ssp->rl[4-3] = (UW)tcb->exinf;
+	ssp->r[3] = stacd;
+	ssp->r[4] = (UW)tcb->exinf;
 }
 
 /*

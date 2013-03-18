@@ -103,7 +103,7 @@ l_dispatch1:
   	bne	 l_dispatch2;
 	/* Because there is no task that should be executed,
   	 * move to the power-saving mode */
-  	bl   knl_low_pow;
+  	//bl   knl_low_pow;
 	
   	wrteei  1;		/* Interrupt enable */ 
   	b	 l_dispatch1 
@@ -111,13 +111,10 @@ l_dispatch1:
 l_dispatch2:                   /* Switch to 'schedtsk' */
 	lis  r6,knl_ctxtsk@h;
 	stw  r8,knl_ctxtsk@l(r6);  /* ctxtsk = schedtsk */
-#if 0	
+	
 	lis    r6,l_sp_offset@h;
-	ori    r6,r6,l_sp_offset@l;
-	lwzx   r1, r8,r6;     /* Restore 'ssp' from TCB */
-#else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
-	lwz    r1,l_sp_offset@l(r8)    /* Restore 'ssp' from TCB */
-#endif	
+	lwz    r6,l_sp_offset@l(r6);
+	lwzx   r1, r8,r6;     /* Restore 'ssp' from TCB */	
 
 #if USE_DBGSPT & USE_HOOK_TRACE
 	bl hook_exec_jmp		    /* Hook processing */
@@ -132,11 +129,13 @@ ret_hook_exec:
 	lis    r12,knl_taskmode@h;
 	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
 	
-  	lwz   r0,XR0(r1);
+  
 	lwz   r3,XR3(r1);
     OS_RESTORE_R4_TO_R12();   
-	OS_RESTORE_R14_TO_R31();   /* all GPRs saved */
-	OS_RESTORE_SPFRS();        /* all SPFRs saved */
+	OS_RESTORE_R14_TO_R31();   /* all GPRs restored */
+	OS_RESTORE_SPFRS();        /* all SPFRs restored */	
+	/* restore R0 */
+	lwz   r0,XR0(r1);
     addi  r1,r1, STACK_FRAME_SIZE
   	rfi
 }
@@ -144,8 +143,9 @@ ret_hook_exec:
 asm void knl_dispatch_to_schedtsk(void)
 {
 nofralloc
+	wrteei  0;		/* Interrupt disable */ 
 	lis		r1,knl_tmp_stack@h			
-	orri    r1,r1,knl_tmp_stack@l
+	ori    r1,r1,knl_tmp_stack@l
 	addi	r1,r1,TMP_STACK_SZ	/* Set temporal stack */
 	/* as curtsk is no longer running,so no need to care about the context */
 	li     r11,1
@@ -157,6 +157,25 @@ nofralloc
 	wrteei  1;		                         /* Interrupt enable */ 
 	b	   l_dispatch0  	  
 }
+IMPORT void knl_dispatch_entry(void);
+EXPORT __asm void knl_install_swi_handler()
+{
+nofralloc	
+    lis     r0, knl_dispatch_entry@h
+    ori     r0, r0, knl_dispatch_entry@l
+    /* IVOR8 System call interrupt (SPR 408) */
+    mtivor8 r0	
+    blr
+}
+
+IMPORT void knl_timer_handler( void );
+#pragma section RX ".__exception_handlers"
+#pragma push /* Save the current state */
+__declspec (section ".__exception_handlers") extern long EXCEPTION_HANDLERS;  
+#pragma force_active on
+#pragma function_align 16 /* We use 16 bytes alignment for Exception handlers */
+__declspec(interrupt)
+__declspec (section ".__exception_handlers")
 asm void knl_dispatch_entry(void)
 {
 nofralloc
@@ -179,49 +198,49 @@ _ret_int_dispatch:
 
 	lis  r5,knl_ctxtsk@h;
 	lwz  r5,knl_ctxtsk@l(r5);
-#if 0		
+			
 	lis    r6,l_sp_offset@h;
 	lwz    r6,l_sp_offset@l(r6);
-	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */
-#else   /*  l_sp_offset cann't be bigger than 0xFFFFu */
-	stw    r1,l_sp_offset@l(r5)
-#endif		
+	stwx   r1, r5,r6;     /* Save 'ssp' to TCB */	
 	
 	li	   r11,0
 	lis	   r12,knl_ctxtsk@h
 	stw    r11,knl_ctxtsk@l(r12)             /* ctxtsk = NULL */
 	b	   l_dispatch0  	  		    	
 }
-EXPORT __asm void knl_install_swi_handler()
-{
-nofralloc	
-    lis     r0, knl_dispatch_entry@h
-    ori     r0, r0, knl_dispatch_entry@l
-    /* IVOR8 System call interrupt (SPR 408) */
-    mtivor8 r0	
-}
 
-IMPORT void knl_timer_handler( void );
-EXPORT asm void knl_clear_hw_timer_interrupt2( UINT clr )
-{
-	/* must pass clr = 0x08000000 */
-nofralloc
-	//lis     r3, 0x0800;   // load r3 with TSR[DIS] bit (0x08000000)
-    mtspr   TSR,r3;       // clear TSR[DIS] bit
-    wrteei  1;      //enable interrupt
-}
 asm void OSTickISR(void)
 { 
-nofralloc 	
-	subi  r1,r1,8;
-	stw   r0,0(r1);
-	mflr  r0;
-	stw   r0,4(r1);
-    bl knl_timer_handler;
-	lwz   r0,4(r1);
-	mtfr  r0;
-	lwz   r0,0(r1);
-	addi  r1,r1,8;
+nofralloc 
+	subi  r1,r1,STACK_FRAME_SIZE
+	stw   r0,XR0(r1);
+	stw   r3,XR3(r1);
+	OS_SAVE_R4_TO_R12();   
+	OS_SAVE_R14_TO_R31();   /* all GPRs saved */
+	OS_SAVE_SPFRS();        /* all SPFRs saved */
+	lis    r0,knl_taskmode@h;
+	lwz    r0,knl_taskmode@l(r0);
+	stw    r0,XTMODE(r1);    /* save taskmode */	
 	
-    rfi
+	lis    r3, 0x0800;   // load r3 with TSR[DIS] bit (0x08000000)
+    mtspr  TSR,r3;       // clear TSR[DIS] bit
+ 
+    wrteei  1;      //enable interrupt
+    bl knl_timer_handler;
+
+	lwz    r11,XTMODE(r1);
+	lis    r12,knl_taskmode@h;
+	stw    r11,knl_taskmode@l(r12);  /* restore taskmode */  
+	
+	
+    OS_RESTORE_R4_TO_R12();   
+	OS_RESTORE_R14_TO_R31();   /* all GPRs restored */
+	OS_RESTORE_SPFRS();        /* all SPFRs restored */	
+	lwz   r3,XR3(r1);
+	lwz   r0,XR0(r1);
+    addi  r1,r1, STACK_FRAME_SIZE
+  	rfi
 }
+
+#pragma force_active off
+#pragma pop

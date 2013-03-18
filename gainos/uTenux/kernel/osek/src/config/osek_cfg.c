@@ -8,10 +8,10 @@ const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM]=
 };
 
 /* Generate Task Stack */
-GenTaskStack(vTask0,512);
-GenTaskStack(vTask1,512);
-GenTaskStack(vTask2,512);
-GenTaskStack(vTask3,512);
+GenTaskStack(vTask0,1024);
+GenTaskStack(vTask1,1024);
+GenTaskStack(vTask2,1024);
+GenTaskStack(vTask3,1024);
 /* Generate Task Create Information */
 const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM]=
 {

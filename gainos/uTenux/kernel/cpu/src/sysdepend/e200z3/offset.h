@@ -38,10 +38,10 @@
 /***************************************************************************************************
 		Regeister Map
 ***************************************************************************************************/
-#define XR1     0
-#define XBLK    XR1+4
-//#define XR2     XBLK+4  /* untouch it because of _SDA2_BASE_ */
-#define XR3     XBLK+4    
+#define XR0     0
+#define XR1     XR0+4
+#define XR2     XR1+4  /* untouch it because of _SDA2_BASE_ */
+#define XR3     XR2+4    
 #define XR4     XR3+4
 #define XR5     XR4+4
 #define XR6     XR5+4
@@ -51,8 +51,8 @@
 #define XR10    XR9+4
 #define XR11    XR10+4
 #define XR12    XR11+4
-//#define XR13    XR12+4	/* untouch it because of _SDA_BASE_ */
-#define XR14    XR12+4
+#define XR13    XR12+4	/* untouch it because of _SDA_BASE_ */
+#define XR14    XR13+4
 #define XR15    XR14+4
 #define XR16    XR15+4
 #define XR17    XR16+4
@@ -70,8 +70,7 @@
 #define XR29    XR28+4
 #define XR30    XR29+4
 #define XR31    XR30+4 
-#define XR0     XR31+4
-#define XTMODE  XR0+4
+#define XTMODE  XR31+4
 #define XSRR0   XTMODE+4
 #define XSRR1   XSRR0+4
 #define XUSPRG  XSRR1+4 
