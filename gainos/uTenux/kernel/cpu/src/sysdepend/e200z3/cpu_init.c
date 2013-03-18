@@ -35,7 +35,7 @@
 
 
 /* Temporal stack used when 'dispatch_to_schedtsk' is called */
-Noinit(EXPORT	UB	knl_tmp_stack[TMP_STACK_SZ]);
+Noinit(EXPORT	UINT	knl_tmp_stack[TMP_STACK_SZ]);
 
 /*
  * CPU-dependent initialization

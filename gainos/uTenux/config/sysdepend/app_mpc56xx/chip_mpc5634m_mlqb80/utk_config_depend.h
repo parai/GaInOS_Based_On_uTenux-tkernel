@@ -31,7 +31,7 @@
  */
 
 /* SYSCONF */
-#define CFN_TIMER_PERIOD	4
+#define CFN_TIMER_PERIOD	10
 #define CFN_MAX_TSKID		32
 #define CFN_MAX_SEMID		2
 #define CFN_MAX_FLGID		10

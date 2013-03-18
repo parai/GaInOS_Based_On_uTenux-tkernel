@@ -48,7 +48,7 @@ IMPORT void	*knl_schedtsk;
 IMPORT void  knl_low_pow( void );
 IMPORT UINT  knl_taskmode;
 IMPORT	INT  knl_taskindp;
-IMPORT 	 UB	 knl_tmp_stack[TMP_STACK_SZ];
+IMPORT 	 UINT	 knl_tmp_stack[TMP_STACK_SZ];
 IMPORT   UINT l_sp_offset;
 
 EXPORT asm UINT knl_getPRIMASK ( void )
@@ -135,7 +135,7 @@ _ret_int_dispatch:
 	stw    r0,knl_dispatch_disabled@l(r12)  /* Dispatch disable */
 
 	wrteei  1;		                        /* Interrupt enable */  
-	OS_SAVE_R3_TO_R31();   /* all GPRs saved */
+	OS_SAVE_R4_TO_R31();   /* all GPRs saved */
 	OS_SAVE_SPFRS();        /* all SPFRs saved */
 	
 	lis    r0,knl_taskmode@h;
@@ -208,8 +208,49 @@ ret_hook_exec:
 }
 #define configRTI  0
 #define configDEC  1
-#define configTickSrc configDEC
+#define configTickSrc configRTI
 #if (configTickSrc==configDEC)
+#if 0
+asm void OSTickISR(void)
+{
+nofralloc
+	subi  r1,r1,STACK_FRAME_SIZE
+	stw   r0,XR0(r1);
+	stw   r3,XR3(r1);
+	OS_SAVE_SPFRS();        /* all SPFRs saved */
+    
+    lis    r3, 0x0800;        // load r3 with TSR[DIS] bit (0x08000000)
+    mtspr  TSR,r3;            // clear TSR[DIS] bit
+    
+    lis     r3,knl_timer_handler@h;       /* Load INTC_IACKR, which clears request to processor   */
+    ori     r3,r3,knl_timer_handler@l;      /* Read ISR address from ISR Vector Table using pointer */
+
+    /* Enable processor recognition of interrupts */
+    //wrteei  1                   /* Set MSR[EE]=1  */
+
+    /* Save rest of context required by EABI */
+	OS_SAVE_R4_TO_R31();   /* all GPRs saved */
+
+    /* Branch to ISR handler address from SW vector table */
+    mtlr    r3                  /* Store ISR address to LR to use for branching later */
+    blrl                        /* Branch to ISR, but return here */
+
+epilog:
+    /* Restore context required by EABI (except working registers) */
+	OS_RESTORE_R2_TO_R31();   /* all GPRs restored */
+
+    /* Disable processor recognition of interrupts */
+    wrteei  0
+
+    /* Restore Working Registers */
+	OS_RESTORE_SPFRS();        /* all SPFRs restored */
+	/* restore R0 */
+	lwz   r0,XR0(r1);	
+	addi  r1,r1, STACK_FRAME_SIZE
+    /* End of Interrupt */
+    rfi
+}
+#else
 asm void OSTickISR(void)
 {
 nofralloc
@@ -299,6 +340,7 @@ epilog:
     /* End of Interrupt */
     rfi
 }
+#endif
 #else  /* configRTI */
 #include "MPC5634M_MLQB80.h"
 void OSTickISR(void)

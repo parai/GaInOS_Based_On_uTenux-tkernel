@@ -34,11 +34,10 @@
 #include <tk/asm.h>
 #include "MPC5634M_MLQB80.h"
 
-#define CPU_FREQUENCY  80
+#define CPU_FREQUENCY  64
 #define BUS_CLK (CPU_FREQUENCY*1000000)
 #define BAUDRATE 19600
 
-#define CPU_FREQUENCY  80
 #if(CPU_FREQUENCY==8)
 #define SYNCR_V 0x36100000
 #endif
@@ -70,7 +69,7 @@
 extern void OSTickISR(void);
 #define configRTI  0
 #define configDEC  1
-#define configTickSrc configDEC
+#define configTickSrc configRTI
 #include "INTCInterrupts.h"
 void TickTimer_SetFreqHz(int Freq)
 {
@@ -151,10 +150,9 @@ void sio_send_frame( const unsigned char* buf, unsigned int size )
 	{
 		while (ESCI_A.SR.B.TDRE == 0) {}      
 		ESCI_A.SR.R = 0x80000000;             
-		ESCI_A.DR.B.D = *buf++;	
+		ESCI_A.DR.B.D = *buf++;    
 		size--;
 	}
-  
 } 
 /*
  *    Function Name : sio_recv_frame

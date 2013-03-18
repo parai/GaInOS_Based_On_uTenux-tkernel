@@ -34,6 +34,6 @@
 #define _TKDEV_CONF_
 /* Also included from assembler source */
 
-#define	TMP_STACK_SZ	        (128)
+#define	TMP_STACK_SZ	        (4096)
 
 #endif /* _TKDEV_CONF_ */

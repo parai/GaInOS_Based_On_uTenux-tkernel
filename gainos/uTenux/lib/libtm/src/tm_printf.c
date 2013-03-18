@@ -563,7 +563,7 @@ int main(int argc,char* argv[])
  *
  * @param fmt the format
  */
-void tm_printf(const char *fmt, ...)
+void tm_printf(char *fmt, ...)
 {
 	va_list args;
 	unsigned long length;

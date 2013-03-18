@@ -8,10 +8,10 @@ const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM]=
 };
 
 /* Generate Task Stack */
-GenTaskStack(vTask0,1024);
-GenTaskStack(vTask1,1024);
-GenTaskStack(vTask2,1024);
-GenTaskStack(vTask3,1024);
+GenTaskStack(vTask0,2048);
+GenTaskStack(vTask1,2048);
+GenTaskStack(vTask2,2048);
+GenTaskStack(vTask3,2048);
 /* Generate Task Create Information */
 const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM]=
 {
@@ -31,8 +31,8 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 TASK(vTask0)
 {
 	(void)tm_putstring((UB*)"vTask0 is running.\r\n");
-//	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
-	(void)ActivateTask(ID_vTask2);
+//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(UINT)exinf);
+//	(void)ActivateTask(ID_vTask2);
 	(void)TerminateTask();
 }
 
@@ -41,9 +41,9 @@ TASK(vTask1)
 	(void)tm_putstring((UB*)"vTask1 is running.\r\n");
 //	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
 	(void)tm_putstring((UB*)"SetRelAlarm().\r\n");
-	(void)SetRelAlarm(ID_vAlarm0, 500,3000);
-	(void)SetRelAlarm(ID_vAlarm1,1000,3000);
-	(void)SetRelAlarm(ID_vAlarm2,1500,3000);
+	(void)SetRelAlarm(ID_vAlarm0, 500,300);
+	(void)SetRelAlarm(ID_vAlarm1,1000,300);
+	(void)SetRelAlarm(ID_vAlarm2,1500,300);
 	(void)TerminateTask();
 }
 TASK(vTask2)
@@ -59,7 +59,7 @@ TASK(vTask3)
 {
 	(void)tm_putstring((UB*)"vTask3 is running.\r\n");
 //	(void)tm_printf((UB*)"stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
-//	(void)SetEvent(ID_vTask2,vTask2Event0);
+	(void)SetEvent(ID_vTask2,vTask2Event0);
 	(void)TerminateTask();
 }
 
@@ -74,18 +74,19 @@ const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=
 ALARMCALLBACK(vAlarm0)
 {
 	(void)tm_putstring((UB*)"vAlarm0 cbk is running.\r\n");
+//	(void)tk_sta_tsk(ID_vTask3,ID_vTask3);
 }
 
 ALARMCALLBACK(vAlarm1)
 {
-//	(void)tm_putstring((UB*)"vAlarm1 cbk is running.\r\n");
-	(void)tk_sta_tsk(ID_vTask0,ID_vTask0);
+	(void)tm_putstring((UB*)"vAlarm1 cbk is running.\r\n");
+//	(void)tk_sta_tsk(ID_vTask0,ID_vTask0);
 }
 
 ALARMCALLBACK(vAlarm2)
 {
-//	(void)tm_putstring((UB*)"vAlarm2 cbk is running.\r\n");
-//  (void)tk_sta_tsk(ID_vTask3,ID_vTask3);
-	(void)SetEvent(ID_vTask2,vTask2Event0);
+	(void)tm_putstring((UB*)"vAlarm2 cbk is running.\r\n");
+//	(void)SetEvent(ID_vTask2,vTask2Event0);
+//	(void)tk_sta_tsk(ID_vTask2,ID_vTask2);
 }
 

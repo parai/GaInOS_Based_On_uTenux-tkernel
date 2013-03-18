@@ -54,6 +54,6 @@
 
 /* 每次最多打印127个字符 */
 #define TM_PRINTF_BUF_SIZE 128
-void tm_printf(const char *fmt, ...);
+void tm_printf(char *fmt, ...);
 
 #endif
