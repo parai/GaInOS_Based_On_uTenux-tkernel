@@ -81,9 +81,10 @@ void sio_recv_frame( unsigned char* buf, int size )
 {   
 	while(size >0)
 	{
-		while (ESCI_A.SR.B.RDRF == 0) {}                 
-		*buf++=ESCI_A.DR.B.D;
-		size--;
+	  while (ESCI_A.SR.B.RDRF == 0) {}    /* Wait for receive data reg full = 1 */
+	  ESCI_A.SR.R = 0x20000000;           /* Clear RDRF flag */
+	  *buf++ = ESCI_A.DR.B.D;            /* Read byte of Data*/
+	  size--;
 	}
 
 } 
