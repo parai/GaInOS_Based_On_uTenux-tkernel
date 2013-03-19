@@ -31,7 +31,7 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 TASK(vTask0)
 {
 	(void)tm_putstring((UB*)"vTask0 is running.\r\n");
-//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(UINT)exinf);
+	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(UINT)exinf);
 //	(void)ActivateTask(ID_vTask2);
 	(void)TerminateTask();
 }
@@ -39,7 +39,7 @@ TASK(vTask0)
 TASK(vTask1)
 {
 	(void)tm_putstring((UB*)"vTask1 is running.\r\n");
-//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
+	(void)tm_printf("stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
 	(void)tm_putstring((UB*)"SetRelAlarm().\r\n");
 	(void)SetRelAlarm(ID_vAlarm0, 500,300);
 	(void)SetRelAlarm(ID_vAlarm1,1000,300);
@@ -59,7 +59,7 @@ TASK(vTask3)
 {
 	(void)tm_putstring((UB*)"vTask3 is running.\r\n");
 	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
-	(void)SetEvent(ID_vTask2,vTask2Event0);
+//	(void)SetEvent(ID_vTask2,vTask2Event0);
 	(void)TerminateTask();
 }
 

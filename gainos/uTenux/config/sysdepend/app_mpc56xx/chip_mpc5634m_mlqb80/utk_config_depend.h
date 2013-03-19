@@ -69,7 +69,7 @@
 /*
  * Use dynamic memory allocation
  */
-#define USE_IMALLOC		(0)
+#define USE_IMALLOC		(1)
 
 /*
  * Use program trace function (in debugger support)

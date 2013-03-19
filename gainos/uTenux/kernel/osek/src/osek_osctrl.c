@@ -136,7 +136,9 @@ static ER OsekCreateResources(void)
 /* |------------------+------------------------------------------------------| */
 void StartOS ( AppModeType xAppMode )
 {
-	ER ercd=OsekCreateTasks();
+	ER ercd;
+	tm_putstring((UB*)"StartOS().\r\n");
+	ercd=OsekCreateTasks();
 	if(ercd < E_OK)
 	{
 		(void)ShutdownOS(ercd);

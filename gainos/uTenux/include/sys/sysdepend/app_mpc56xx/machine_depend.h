@@ -54,7 +54,7 @@
 #define configTickSrc configDEC
 
 #define CPU_FREQUENCY  64   /* 64 MHZ */
-
+#define OSC_FREQUENCY  8    /* Oscillator Clock 8MHZ */
 #if(CPU_FREQUENCY==8)
 #define SYNCR_V 0x36100000
 #endif
