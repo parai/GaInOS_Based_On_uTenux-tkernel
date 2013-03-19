@@ -51,7 +51,7 @@ static ER OsekCreateTasks(void)
 		ercd = tk_cre_tsk((T_CTSK*)&OsekTaskTable[i]);
 		if(ercd<E_OK)
 		{
-			tm_putstring((UB*)"At Cre.");
+			/* tm_putstring((UB*)"At Cre."); */
 			break;
 		}
 		if(OsekTaskAuotStartable[i])
@@ -59,15 +59,15 @@ static ER OsekCreateTasks(void)
 			ercd =tk_sta_tsk(ercd,ercd);
 			if(ercd<E_OK)
 			{
-				tm_putstring((UB*)"At Sta.");
+				/* tm_putstring((UB*)"At Sta."); */
 				break;
 			}
 		}
 	}
-	if(ercd < E_OK)
-	{
-		tm_putstring((UB*)"Error while OsekCreateTasks().\r\n");
-	}
+	/* if(ercd < E_OK) */
+	/* { */
+	/* 	tm_putstring((UB*)"Error while OsekCreateTasks().\r\n"); */
+	/* } */
 	return ercd;
 }
 static ER OsekCreateEntFlgs(void)
@@ -83,10 +83,10 @@ static ER OsekCreateEntFlgs(void)
 			break;
 		}
 	}
-	if(ercd < E_OK)
-	{
-		tm_putstring((UB*)"Error while OsekCreateEntFlgs().\r\n");
-	}
+	/* if(ercd < E_OK) */
+	/* { */
+	/* 	tm_putstring((UB*)"Error while OsekCreateEntFlgs().\r\n"); */
+	/* } */
 	return ercd;
 }
 static void OsekInitAlarms(void)
@@ -109,10 +109,10 @@ static ER OsekCreateResources(void)
 			break;
 		}
 	}
-	if(ercd < E_OK)
-	{
-		tm_putstring((UB*)"Error while OsekCreateResources().\r\n");
-	}
+	/* if(ercd < E_OK) */
+	/* { */
+	/* 	tm_putstring((UB*)"Error while OsekCreateResources().\r\n"); */
+	/* } */
 	return ercd;
 }
 /* |------------------+------------------------------------------------------| */
@@ -137,7 +137,7 @@ static ER OsekCreateResources(void)
 void StartOS ( AppModeType xAppMode )
 {
 	ER ercd;
-	tm_putstring((UB*)"StartOS().\r\n");
+	/* tm_putstring((UB*)"StartOS().\r\n"); */
 	ercd=OsekCreateTasks();
 	if(ercd < E_OK)
 	{
@@ -201,7 +201,7 @@ void ShutdownOS( StatusType xError )
 #endif
 /* OS425: If ShutdownOS() is called and ShutdownHook() returns then the operating
    system shall disable all interrupts and enter an endless loop. */
-	tm_printf("Shut down OS because of error %d.\r\n",xError);
+	/* tm_printf("Shut down OS because of error %d.\r\n",xError); */
 	for ( ; ; )
     {
         /* Dead lopp here */
