@@ -86,7 +86,7 @@
 #define STACK_FRAME_SIZE   XMSR+4
 		
 #define OS_SAVE_R2_TO_R31()  stmw  r2,XR2(r1)
-#define OS_SAVE_R4_TO_R31()  stmw  r3,XR3(r1)	
+#define OS_SAVE_R4_TO_R31()  stmw  r4,XR4(r1)	
 
 #define OS_SAVE_SPFRS()                         \
 	/*Store XMSR ang SPEFSCR  */                \

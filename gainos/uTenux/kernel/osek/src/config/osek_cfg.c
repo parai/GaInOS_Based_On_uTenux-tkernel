@@ -41,15 +41,15 @@ TASK(vTask1)
 	(void)tm_putstring((UB*)"vTask1 is running.\r\n");
 //	(void)tm_printf("stacd = %d,exinf = %d.\r\n",(int)stacd,(int)exinf);
 	(void)tm_putstring((UB*)"SetRelAlarm().\r\n");
-	(void)SetRelAlarm(ID_vAlarm0, 500,30);
-	(void)SetRelAlarm(ID_vAlarm1,1000,30);
-	(void)SetRelAlarm(ID_vAlarm2,1500,30);
+	(void)SetRelAlarm(ID_vAlarm0, 500,300);
+	(void)SetRelAlarm(ID_vAlarm1,1000,300);
+	(void)SetRelAlarm(ID_vAlarm2,1500,300);
 	(void)TerminateTask();
 }
 TASK(vTask2)
 {   
 	(void)tm_putstring((UB*)"vTask2 is running.\r\n");
-//	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
+	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
 	(void)WaitEvent(vTask2Event0);
 	(void)ClearEvent(vTask2Event0);
 	(void)TerminateTask();
@@ -59,7 +59,7 @@ TASK(vTask3)
 {
 	(void)tm_putstring((UB*)"vTask3 is running.\r\n");
 	(void)tm_printf("stacd = %d,exinf = %d.\r\n",stacd,(int)exinf);
-//	(void)SetEvent(ID_vTask2,vTask2Event0);
+	(void)SetEvent(ID_vTask2,vTask2Event0);
 	(void)TerminateTask();
 }
 

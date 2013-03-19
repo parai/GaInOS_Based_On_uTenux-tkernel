@@ -179,6 +179,7 @@ EXPORT __asm void knl_dispatch_entry(void)
 nofralloc
 	subi  r1,r1,STACK_FRAME_SIZE
 	stw   r0,XR0(r1);
+	stw   r2,XR2(r1);
 	stw   r3,XR3(r1);
 _ret_int_dispatch:
 	li     r0,1
@@ -264,6 +265,7 @@ LOCAL __asm void OSTickISR(void)
 nofralloc
 	subi  r1,r1,STACK_FRAME_SIZE
 	stw   r0,XR0(r1);
+	stw   r2,XR2(r1);
 	stw   r3,XR3(r1);
 	OS_SAVE_SPFRS();        /* all SPFRs saved */
     
@@ -275,10 +277,7 @@ nofralloc
 
     /* Enable processor recognition of interrupts */
     wrteei  1                   /* Set MSR[EE]=1  */
-
-    /* Save rest of context required by EABI */
-	OS_SAVE_R4_TO_R31();   /* all GPRs saved */
-
+	OS_SAVE_R2_TO_R31();   /* all GPRs saved */
     /* Branch to ISR handler address from SW vector table */
     mtlr    r3                  /* Store ISR address to LR to use for branching later */
     blrl                        /* Branch to ISR, but return here */

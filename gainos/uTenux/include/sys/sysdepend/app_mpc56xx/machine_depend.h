@@ -51,7 +51,7 @@
 
 #define configRTI  0
 #define configDEC  1
-#define configTickSrc configRTI
+#define configTickSrc configDEC
 
 #define CPU_FREQUENCY  64   /* 64 MHZ */
 
