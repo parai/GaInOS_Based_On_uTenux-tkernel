@@ -101,4 +101,9 @@
 #  include <tk/sysdepend/app_mpc56xx/cpudef.h>
 #endif
 
+#ifdef _APP_XC23XX_
+#  include <tk/sysdepend/app_xc23xx/cpuattr.h>
+#  include <tk/sysdepend/app_xc23xx/cpudef.h>
+#endif
+
 #endif /* __TK_SYSCALL_COMMON_H__ */

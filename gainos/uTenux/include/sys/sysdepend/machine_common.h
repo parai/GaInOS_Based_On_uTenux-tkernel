@@ -85,4 +85,8 @@
 #  include <sys/sysdepend/app_mpc56xx/machine_depend.h>
 #endif
 
+#ifdef _APP_XC23XX_
+#  include <sys/sysdepend/app_xc23xx/machine_depend.h>
+#endif
+
 #endif /* __SYS_MACHINE_COMMON_H__ */

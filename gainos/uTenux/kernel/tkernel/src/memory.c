@@ -302,7 +302,13 @@ EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*2-1];
 #ifdef _APP_MPC56XX_
 LOCAL  VP   knl_ImallocMem[1024*16]; /* 64K*/
 EXPORT VP	knl_lowmem_top=&knl_ImallocMem[0];
-EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*2-1];
+EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*16-1];
+#define CFN_REALMEMEND (VP)0xEFFFFFFFu
+#endif
+#ifdef _APP_XC23XX_
+LOCAL  VP   knl_ImallocMem[1024*4]; /* 16K*/
+EXPORT VP	knl_lowmem_top=&knl_ImallocMem[0];
+EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*4-1];
 #define CFN_REALMEMEND (VP)0xEFFFFFFFu
 #endif
 /*
