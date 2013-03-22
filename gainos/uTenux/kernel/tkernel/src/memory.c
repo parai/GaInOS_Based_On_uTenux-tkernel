@@ -309,7 +309,7 @@ EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*16-1];
 LOCAL  VP   knl_ImallocMem[1024*4]; /* 16K*/
 EXPORT VP	knl_lowmem_top=&knl_ImallocMem[0];
 EXPORT VP   knl_lowmem_limit=&knl_ImallocMem[1024*4-1];
-#define CFN_REALMEMEND (VP)0xEFFFFFFFu
+#define CFN_REALMEMEND 0xFFFFu
 #endif
 /*
  * Imalloc initial setting 

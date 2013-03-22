@@ -31,7 +31,7 @@
  */
 
 #ifdef _CHIP_XC2365B_40F_
-#include "chip_xc2365b_40f/tkdev_conf.h"
+#include "chip_xc2365b_40f/tkdev_conf0.h"
 #endif
 
 

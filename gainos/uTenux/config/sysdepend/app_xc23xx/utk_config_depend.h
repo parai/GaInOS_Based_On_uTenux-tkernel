@@ -31,5 +31,5 @@
  */
 
 #ifdef _CHIP_XC2365B_40F_
-#include "sysdepend/chip_xc2365b_40f/utk_config_depend.h"
+#include "sysdepend/chip_xc2365b_40f/utk_config_depend0.h"
 #endif

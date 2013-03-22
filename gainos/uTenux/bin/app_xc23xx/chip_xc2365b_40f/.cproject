@@ -18,12 +18,14 @@
 							<option id="com.tasking.c166.prodDir.1983391920" name="Product directory:" superClass="com.tasking.c166.prodDir" value="${eclipse_home}/.." valueType="string"/>
 							<option id="com.tasking.c166.cpu.500539361" name="Processor:" superClass="com.tasking.c166.cpu" value="XC2365B-40F" valueType="string"/>
 							<option id="com.tasking.c166.pluginVersion.1941360257" name="Plugin version" superClass="com.tasking.c166.pluginVersion" value="1.39.0.0" valueType="string"/>
+							<option id="com.tasking.c166.verbose.66652021" name="Verbose mode of control program" superClass="com.tasking.c166.verbose" value="true" valueType="boolean"/>
 							<targetPlatform archList="all" binaryParser="com.tasking.managedbuilder.TASKING_ELF" id="com.tasking.c166.platform.abs.debug.1816683814" name="Debug" osList="" superClass="com.tasking.c166.platform.abs.debug"/>
 							<builder buildPath="${workspace_loc:/GaInOS/Debug}" id="com.tasking.c166.builder.abs.debug.642155791" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="TASKING C166 Makefile generator" parallelBuildOn="true" parallelizationNumber="-1" superClass="com.tasking.c166.builder.abs.debug"/>
 							<tool id="com.tasking.c166.cc.abs.debug.1324063451" name="C/C++ Compiler" superClass="com.tasking.c166.cc.abs.debug">
 								<option id="com.tasking.c166.cc.pr36858.1975584594" name="workaround for PR36858" superClass="com.tasking.c166.cc.pr36858" value="true" valueType="string"/>
 								<option id="com.tasking.c166.cc.noTaskingSfr.715621353" name="Automatic inclusion of '.sfr' file" superClass="com.tasking.c166.cc.noTaskingSfr" value="false" valueType="boolean"/>
 								<option id="com.tasking.c166.cc.additionalOptions.332279750" name="Additional options:" superClass="com.tasking.c166.cc.additionalOptions" value="-D_APP_XC23XX_ -D_CHIP_XC2365B_40F_" valueType="string"/>
+								<option id="com.tasking.c166.cc.language.gcc.994218991" name="Allow GNU C extensions" superClass="com.tasking.c166.cc.language.gcc" value="false" valueType="boolean"/>
 								<inputType id="com.tasking.c166.cppInputType.1423338833" name="C++" superClass="com.tasking.c166.cppInputType"/>
 								<inputType id="com.tasking.c166.cpp.cInputType.958085197" name="C" superClass="com.tasking.c166.cpp.cInputType"/>
 								<inputType id="com.tasking.c166.cc.msInputType.951622007" name="MS" superClass="com.tasking.c166.cc.msInputType"/>
@@ -351,6 +353,7 @@
 				<toolInfo>TASKING VX-toolset for C166: C compiler v3.0r3 Build 707</toolInfo>
 				<toolInfo>TASKING VX-toolset for C166: Eclipse plugin v1.24.0.0</toolInfo>
 			</storageModule>
+			<storageModule moduleId="com.tasking.flash.settings"/>
 		</cconfiguration>
 		<cconfiguration id="com.tasking.config.c166.abs.release.601663650">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.tasking.config.c166.abs.release.601663650" moduleId="org.eclipse.cdt.core.settings" name="Release">

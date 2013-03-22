@@ -42,7 +42,7 @@
  *    Param	        : none
  *    Return Code   : UINT: CPSR prior to change.
  */
-unsigned char disint()
+unsigned int disint()
 {
 
 }
@@ -56,7 +56,7 @@ unsigned char disint()
  *    Param	        : UINT intsts: CPSR remains unchanged apart from the interrupt disabled flag.
  *    Return Code   : UINT: CPSR prior to change.
  */
- void enaint(unsigned char mask)
+ void enaint(unsigned int mask)
  {
   
  }

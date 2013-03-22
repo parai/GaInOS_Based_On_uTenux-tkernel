@@ -3,7 +3,6 @@
 #if   (defined __GNUC__)  || (defined _APP_MC9S12_ ) || (defined _APP_MPC56XX_) \
     || (defined _APP_XC23XX_)
 #else
-#else
 longlong	ltoll( long a )			/* (longlong)a */
 {
     longlong ll;

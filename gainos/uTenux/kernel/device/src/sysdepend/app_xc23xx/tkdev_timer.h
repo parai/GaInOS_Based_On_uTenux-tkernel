@@ -125,6 +125,7 @@ Inline void knl_terminate_hw_timer( void )
  */
 Inline UW knl_get_hw_timer_nsec( void )
 {
+	return 0;
 }
 
 #endif /* _TKDEV_TIMER_ */

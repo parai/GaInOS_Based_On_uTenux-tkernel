@@ -31,7 +31,7 @@
  */
 
 #ifdef _CHIP_XC2365b_40f_
-#include "chip_xc2365b_40f/hwconfig.h"
+#include "chip_xc2365b_40f/hwconfig0.h"
 #endif
 
 

@@ -22,7 +22,7 @@ cp  -f  ../../../config/tksvcproxy.h			./config
 cp  -f  ../../../config/utk_config.h			./config
 cp  -f  ../../../config/utk_config_func.h		./config
 cp  -f  ../../../config/sysdepend/app_xc23xx/utk_config_depend.h		./config/sysdepend
-cp  -f  ../../../config/sysdepend/app_xc23xx/chip_xc2365b_40f/utk_config_depend.h		./config/sysdepend/chip_xc2365b_40f
+cp  -f  ../../../config/sysdepend/app_xc23xx/chip_xc2365b_40f/utk_config_depend.h		./config/sysdepend/chip_xc2365b_40f/utk_config_depend0.h
 
 echo "Start to copy -f include"
 mkdir include
@@ -48,7 +48,7 @@ cp  -f  ../../../include/sys/svc/tdfncd.h	./include/sys/svc
 cp  -f  ../../../include/sys/svc/tdsvctbl.h	./include/sys/svc
 cp  -f  ../../../include/sys/svc/tkfncd.h		./include/sys/svc
 cp  -f  ../../../include/sys/svc/tksvctbl.h		./include/sys/svc
-cp  -f  ../../../include/sys/sysdepend/app_xc23xx/machine_depend.h		./include/sys/sysdepend/app_xc23xx
+cp  -f  ../../../include/sys/sysdepend/app_xc23xx/machine_depend.h		./include/sys/sysdepend/app_xc23xx/machine_depend0.h
 cp  -f  ../../../include/sys/sysdepend/app_xc23xx/str_align_depend.h	./include/sys/sysdepend/app_xc23xx
 cp  -f  ../../../include/sys/sysdepend/app_xc23xx/sysinfo_depend.h		./include/sys/sysdepend/app_xc23xx
 cp  -f  ../../../include/sys/sysdepend/machine_common.h	./include/sys/sysdepend
@@ -72,7 +72,7 @@ cp  -f  ../../../include/tk/errno.h	./include/tk
 cp  -f  ../../../include/tk/syscall.h	./include/tk
 cp  -f  ../../../include/tk/sysdef.h	./include/tk
 cp  -f  ../../../include/tk/sysdepend/app_xc23xx/asm_depend.h			./include/tk/sysdepend/app_xc23xx
-cp  -f  ../../../include/tk/sysdepend/app_xc23xx/chip_xc2365b_40f/sysdef_depend.h	./include/tk/sysdepend/app_xc23xx/chip_xc2365b_40f
+cp  -f  ../../../include/tk/sysdepend/app_xc23xx/chip_xc2365b_40f/sysdef_depend.h	./include/tk/sysdepend/app_xc23xx/chip_xc2365b_40f/sysdef_depend0.h
 cp  -f  ../../../include/tk/sysdepend/app_xc23xx/cpuattr.h		./include/tk/sysdepend/app_xc23xx
 cp  -f  ../../../include/tk/sysdepend/app_xc23xx/cpudef.h		./include/tk/sysdepend/app_xc23xx
 cp  -f  ../../../include/tk/sysdepend/app_xc23xx/dbgspt_depend.h		./include/tk/sysdepend/app_xc23xx
@@ -121,9 +121,9 @@ cp  -f  ../../../kernel/cpu/src/sysdepend/c166/cpu_support.c	./kernel/cpu
 cp  -f  ../../../kernel/cpu/src/sysdepend/c166/cpu_task.h		./kernel/cpu
 cp  -f  ../../../kernel/cpu/src/sysdepend/c166/offset.h		./kernel/cpu
 
-cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/chip_xc2365b_40f/hwconfig.h	./kernel/device/chip_xc2365b_40f
+cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/chip_xc2365b_40f/hwconfig.h	./kernel/device/chip_xc2365b_40f/hwconfig0.h
 cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/chip_xc2365b_40f/icrt0.c		./kernel/device/chip_xc2365b_40f
-cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/chip_xc2365b_40f/tkdev_conf.h	./kernel/device/chip_xc2365b_40f
+cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/chip_xc2365b_40f/tkdev_conf.h	./kernel/device/chip_xc2365b_40f/tkdev_conf0.h
 cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/devinit.c			./kernel/device/
 cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/hwconfig.h			./kernel/device/
 cp  -f  ../../../kernel/device/src/sysdepend/app_xc23xx/patch.c			./kernel/device/

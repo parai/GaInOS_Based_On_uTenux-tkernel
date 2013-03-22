@@ -82,7 +82,7 @@
 #endif
 
 #ifdef _APP_XC23XX_
-#  include <sys/sysdepend/app_xc23xx/machine_depend.h>
+#  include <sys/sysdepend/app_xc23xx/machine_depend0.h>
 #endif
 
 #endif /* __SYS_MACHINE_COMMON_H__ */

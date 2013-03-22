@@ -33,7 +33,7 @@
 #include <basic.h>
 #include <tk/tkernel.h>
 #include <tk/sysdef.h>
-
+#include <tm/tmonitor.h>
 /*
  * Switch to power-saving mode
  */
