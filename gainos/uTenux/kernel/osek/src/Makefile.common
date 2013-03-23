@@ -30,7 +30,7 @@ S	= ../../src
 MKFF	= $(BD)/etc/mkfuncfiles
 
 # common source files (not to be devided)
-SRC	+=	osek_alarm.c osek_event.c osek_task.c \
+SRC	+=	osek_counter.c osek_alarm.c osek_event.c osek_task.c \
 	osek_interrupt.c osek_resource.c osek_osctrl.c	\
 	config/osek_cfg.c
 
@@ -66,7 +66,8 @@ ASM_OBJ	= $(addsuffix .o, $(basename $(ASM_SRC)))
 CFLAGS += $(CFLAGS_WARNING) \
 	-I$(BD)/kernel/tkernel/src	\
 	-I$(BD)/config -I$(BD)/kernel/cpu/src/sysdepend/$(CPU_ARCH)	\
-	-I$(BD)/kernel/osek/src/config
+	-I$(BD)/kernel/osek/src/config	\
+	-I$(BD)/autosar/include
 
 # ----------------------------------------------------------------------------
 

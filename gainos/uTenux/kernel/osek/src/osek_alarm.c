@@ -93,12 +93,40 @@ StatusType GetAlarmBase ( AlarmType xAlarmID, AlarmBaseRefType pxInfo )
 /* |------------------+------------------------------------------------------------------| */
 /* | Conformance:     | BCC1, BCC2, ECC1, ECC2                                           | */
 /* |------------------+------------------------------------------------------------------| */
-StatusType GetAlarm ( AlarmType xAlarmID ,/* (SYSTIM*) */ TickRefType pxTick )
+StatusType GetAlarm ( AlarmType xAlarmID ,TickRefType pxTick )
 {
-	(void)xAlarmID;
+	StatusType ercd = E_OK;
+	if(xAlarmID >= cfgOSEK_ALARM_NUM)
+	{
+		ercd = E_OS_ID;
+		goto Error_Exit;
+	}
+	if(OsekAlarmIdTable[xAlarmID] == ALARM_NOT_IN_USE)
+	{
+		ercd = E_OS_NOFUNC;
+		goto Error_Exit;
+	}
 	/* now OSEK alarm depend on knl_timer¡ª¡ªknl_current_time. */
-	/* so just return knl_current_time,whose type is SYSTIM. */
-	return tk_get_otm(pxTick);
+	if(OsekAlarmTypeTable[xAlarmID]==ALARM_CYC)
+	{
+		T_RCYC rcyc;
+		ercd = tk_ref_cyc(OsekAlarmIdTable[xAlarmID],&rcyc);
+		if(ercd == E_OK)
+		{
+			*pxTick = rcyc.lfttim;
+		}
+	}
+	else if(OsekAlarmTypeTable[xAlarmID]==ALARM_ALM)
+	{
+		T_RALM ralm;
+		ercd = tk_ref_alm(OsekAlarmIdTable[xAlarmID],&ralm);
+		if(ercd == E_OK)
+		{
+			*pxTick = ralm.lfttim;
+		}
+	}
+    Error_Exit:
+    	return ercd;
 }
 
 /* |------------------+-----------------------------------------------------------------| */
@@ -143,6 +171,7 @@ StatusType GetAlarm ( AlarmType xAlarmID ,/* (SYSTIM*) */ TickRefType pxTick )
 /* |                  | 3.Value of <cycle> unequal to 0 and outside of the admissible   | */
 /* |                  | counter limits (less than mincycle or greater than              | */
 /* |                  | maxallowedvalue), E_OS_VALUE                                    | */
+/* |                  | 4.E_OS_LIMIT,extended by tkernel                                | */
 /* |------------------+-----------------------------------------------------------------| */
 /* | Conformance:     | BCC1, BCC2, ECC1, ECC2; Events only ECC1, ECC2                  | */
 /* |------------------+-----------------------------------------------------------------| */
@@ -168,11 +197,10 @@ StatusType SetRelAlarm ( AlarmType xAlarmID , TickType xIncrement ,TickType xCyc
 		ccyc.cycphs=xIncrement;
 		ccyc.cyctim=xCycle;
 		ercd=tk_cre_cyc(&ccyc);
-		if(ercd>E_OK) {
+		if(ercd>E_OK)
+		{
 			OsekAlarmIdTable[xAlarmID]=ercd;
 			OsekAlarmTypeTable[xAlarmID]=ALARM_CYC;
-		} else {
-			goto Error_Exit;
 		}
 	}
 	else
@@ -185,15 +213,7 @@ StatusType SetRelAlarm ( AlarmType xAlarmID , TickType xIncrement ,TickType xCyc
 		if(ercd>E_OK) {
 			OsekAlarmIdTable[xAlarmID]=ercd;
 			OsekAlarmTypeTable[xAlarmID]=ALARM_ALM;
-			if(tk_sta_alm(ercd,xIncrement)<E_OK)
-			{
-				(void)tk_del_alm(ercd);
-				ercd = E_OS_STATE;
-			}
-		}
-		else
-		{
-			ercd = E_OS_STATE;
+			(void)tk_sta_alm(ercd,xIncrement);
 		}
 	}
 Error_Exit:
@@ -290,17 +310,11 @@ StatusType CancelAlarm ( AlarmType xAlarmID )
 	}
 	if(OsekAlarmTypeTable[xAlarmID] == ALARM_CYC)
 	{
-		if(tk_del_cyc(OsekAlarmTypeTable[xAlarmID]) < E_OK)
-		{
-			ercd = E_OS_ID;
-		}
+		ercd = tk_del_cyc(OsekAlarmTypeTable[xAlarmID]);
 	}
 	else if(OsekAlarmTypeTable[xAlarmID] == ALARM_ALM)
 	{
-		if(tk_del_alm(OsekAlarmTypeTable[xAlarmID]) < E_OK)
-		{
-			ercd = E_OS_ID;
-		}
+		ercd = tk_del_alm(OsekAlarmTypeTable[xAlarmID]);
 	}
 	else
 	{

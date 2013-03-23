@@ -19,7 +19,7 @@
 
 #ifndef _CONFIG_
 #define _CONFIG_
-#define cfgOSEK     0  /* if 1 USE OSEK API else not*/
+#define cfgOSEK     1  /* if 1 USE OSEK API else not*/
 
 /* Task configuration */
 #define MIN_TSKID	(1)

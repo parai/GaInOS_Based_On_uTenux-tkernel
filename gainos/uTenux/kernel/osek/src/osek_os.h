@@ -43,7 +43,7 @@
 #ifndef _OSEK_OS_H_
 #define _OSEK_OS_H_
 /* Std include of tkernel */
-#include <basic.h>
+#include "Std_Types.h"
 #include <tk/tkernel.h>
 #include <tm/tmonitor.h>
 #include <tm/tm_printf.h>
@@ -57,15 +57,15 @@
 
 /* Values for StatusType */
 /* #define E_OK            (0u) */
-#define E_OS_ACCESS     E_NOEXS
+#define E_OS_ACCESS     E_OACV
 #define E_OS_CALLEVEL   E_CTX
 #define E_OS_ID         E_ID
 #define E_OS_LIMIT      E_LIMIT
-#define E_OS_NOFUNC     E_NOSPT
+#define E_OS_NOFUNC     E_NOEXS
 #define E_OS_VALUE      E_PAR
 #define E_OS_RESOURCE   (-101)
 #define E_OS_STATE      (-102)
-#define E_NOT_OK        (-103)
+/* #define E_NOT_OK        (-103) */
 
 #define ALARM_NOT_IN_USE   (ID)(-1)
 #define ALARM_CYC     (UB)0  /* use tkernel cyclic handler*/
@@ -82,9 +82,15 @@ typedef UB   TaskStateType; /* TSTAT */
 /* This data type points to a variable of the data type TaskStateType. */
 typedef TaskStateType* TaskStateRefType;
 /* This data type represents count values in ticks. */
-typedef RELTIM TickType; /* LSYSTIM/CFN_TIMER_PERIOD */
+/* NOTE:
+ * Problem will happened for 16 bits cpu because its longlong is 32 bits,so after
+ * <(1<<32)ms/1000s/60min/60h/24day=>49.708 days, an overflow will happened.
+ * but as seldom can a car run 49 days without a stop.so I choose to ignore this problem.
+ * Without implement struct{long hi;unsigned long lo;} longlong for 16 bits cpu.
+ */
+typedef long long TickType; /* same with knl_current_time.no support of struct longlong */
 /* This data type points to the data type TickType. */
-typedef SYSTIM* TickRefType;
+typedef TickType* TickRefType;
 /* This data type represents a structure for storage of counter characteristics.
  * The individual elements of the structure are: */
 typedef struct
@@ -137,6 +143,12 @@ StatusType GetTaskState ( TaskType xTaskID,TaskStateRefType pxState );
 StatusType SleepTask(TMO tmout);
 StatusType WakeUpTask(ID xTask);
 StatusType DelayTask(RELTIM dlytim);
+/* #############################  COUNTER  ############################## */
+extern TickType	knl_current_time;
+StatusType GetCounterValue(CounterType CounterID,TickRefType pxValue);
+StatusType GetElapsedCounterValue(CounterType CounterID,
+                                  TickRefType Value,TickRefType ElapsedValue);
+StatusType IncrementCounter(CounterType CounterID);
 /* #############################  ALARM  ############################## */
 #define ALARMCALLBACK(AlarmCallbackRoutineName) \
     void AlarmCbk##AlarmCallbackRoutineName(void)
