@@ -42,6 +42,123 @@
 /* |---------+-------------------| */
 #ifndef CAN_HW_H_
 #define CAN_HW_H_
+#include "Can_Types.h"
+typedef enum {
+	CAN_CTRL_0 = 0,
+	CAN_CTRL_1 = 1,
+	CAN_CTRL_2 = 2,
+	CAN_CTRL_3 = 3,
+	CAN_CTRL_4 = 4,
+	CAN_CONTROLLER_CNT = 5
+}CanControllerIdType;
+
+/** Start mc9s12 unique */
+typedef enum {
+  CAN_IDAM_2_32BIT,
+  CAN_IDAM_4_16BIT,
+  CAN_IDAM_8_8BIT,
+  CAN_IDAM_FILTER_CLOSED,
+} Can_IDAMType;
+
+typedef struct {
+	void (*CancelTxConfirmation)( const Can_PduType *);
+	void (*RxIndication)( uint8 ,Can_IdType ,uint8 , const uint8 * );
+	void (*ControllerBusOff)(uint8);
+	void (*TxConfirmation)(PduIdType);
+	void (*ControllerWakeup)(uint8);
+	void (*Arc_Error)(uint8,Can_Arc_ErrorType);
+} Can_CallbackType;
+typedef struct
+{
+	uint8 idmr[8]; /* Identifier Mask Register, 1 = ignore corresponding acceptance code register bit*/
+	uint8 idar[8]; /* Identifier Acceptance Register*/
+	Can_IDAMType idam;
+} Can_FilterMaskType;
+
+typedef struct Can_HardwareObjectStruct {
+	/** Specifies the type (Full-CAN or Basic-CAN) of a hardware object.*/
+	Can_HandleType CanHandleType;
+
+	/** Specifies whether the IdValue is of type - standard identifier - extended
+	identifier - mixed mode ImplementationType: Can_IdType*/
+	Can_IdTypeType CanIdType;
+
+	/**	Specifies (together with the filter mask) the identifiers range that passes
+	the hardware filter.*/
+	uint32 CanIdValue;
+
+	/**	Holds the handle ID of HRH or HTH. The value of this parameter is unique
+	in a given CAN Driver, and it should start with 0 and continue without any
+	gaps. The HRH and HTH Ids are defined under two different name-spaces.
+	Example: HRH0-0, HRH1-1, HTH0-2, HTH1-3.*/
+	uint16 CanObjectId;
+
+	/** Specifies if the HardwareObject is used as Transmit or as Receive object*/
+	Can_ObjectTypeType CanObjectType;
+
+	/** Reference to the filter mask that is used for hardware filtering togerther
+	with the CAN_ID_VALUE*/
+	Can_FilterMaskType *CanFilterMaskRef;
+
+	/** A "1" in this mask tells the driver that that HW Message Box should be
+	occupied by this Hoh. A "1" in bit 31(ppc) occupies Mb 0 in HW.*/
+	uint32 Can_Arc_MbMask;
+
+	/** End Of List. Set to TRUE is this is the last object in the list.*/
+	boolean Can_Arc_EOL;
+} Can_HardwareObjectType;
+
+typedef struct
+{
+	/** Enables / disables API Can_MainFunction_BusOff() for
+	handling busoff events in polling mode. */
+	Can_ProcessType CanBusoffProcessing;
+	/** Defines if a CAN controller is used in the configuration. */
+	boolean         CanControllerActivation;
+	/** This parameter provides the controller ID which is unique in a
+	given CAN Driver. The value for this parameter starts with 0 and
+	continue without any gaps. */
+	CanControllerIdType  CanControllerId;
+	/** Enables / disables API Can_MainFunction_Read() for
+	handling PDU reception events in polling mode. */
+	Can_ProcessType CanRxProcessing;
+	/** Enables / disables API Can_MainFunction_Write() for
+	handling PDU transmission events in polling mode.  */
+	Can_ProcessType CanTxProcessing;
+	/** Enables / disables API Can_MainFunction_Wakeup() for
+	handling wakeup events in polling mode. */
+	Can_ProcessType CanWakeupProcessing;
+	/** CAN driver support for wakeup over CAN Bus. */
+	boolean         CanWakeupSupport;
+	/**	Reference to the CPU clock configuration, which is set in the MCU driver
+	configuration.*/
+	uint32 CanCpuClockRef;
+	/** This parameter contains a reference to the Wakeup Source for this
+	ontroller as defined in the ECU State Manager. Implementation Type:
+	reference to EcuM_WakeupSourceType.*/
+	uint32/* ref to EcuMWakeupSource */ CanWakeupSourceRef;
+	/** Specifies the baudrate of the controller in kbps. */
+	UINT            CanControllerBaudRate;
+	/** Specifies propagation delay in time quantas.*/
+	uint32          CanControllerPropSeg;
+	/** Specifies phase segment 1 in time quantas.*/
+	uint32          CanControllerSeg1;
+	/** Specifies phase segment 2 in time quantas.*/
+	uint32          CanControllerSeg2;
+	/**	Specifies the synchronization jump width for the controller in
+	time quantas.*/
+	uint32          CanControllerSyncJumpWidth;
+	/** List of Hoh id's that belong to this controller */
+	const Can_HardwareObjectType  *Can_Hoh;
+}Can_ControllerConfigType;
+
+typedef struct {
+	const Can_ControllerConfigType *CanController;
+
+	/* Callbacks( Extension )*/
+	const Can_CallbackType *CanCallbacks;
+} Can_ConfigSetType;
+
 /*
 	This is  the type of the external data structure containing the overall initialization
 	data for the CAN driver and SFR settings affecting all controllers. Furthermore it
@@ -50,16 +167,10 @@
 */
 typedef struct
 {
-	const int unimplemented;
+	/** This is the multiple configuration set container for CAN Driver
+	 Multiplicity 1..*  */
+	const Can_ConfigSetType	 *CanConfigSet;
 }Can_ConfigType;
-/*
-	This is the type of the external data structure containing the bit timing related
-	initialization data for one CAN controller.  The contents of the initialization data
-	structure are CAN hardware specific.
- */
-typedef struct
-{
-	const int unimplemented;
-}Can_ControllerBaudrateConfigType;
+
 
 #endif /* CAN_HW_H_ */

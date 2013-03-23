@@ -88,5 +88,31 @@ typedef enum {
 	CAN_BUSY
 } Can_ReturnType;
 
-#include "Can_Hw.h"
+typedef enum
+{
+	CAN_PROCESS_INTERRUPT,
+	CAN_PROCESS_POLLING
+}Can_ProcessType;
+typedef enum
+{
+	/** For several L-PDUs are hadled by the hardware object*/
+	CAN_HANDLE_BASIC,
+	/** For only one L-PDU (identifier) is handled by the hardware object */
+	CAN_HANDLE_FULL
+}Can_HandleType;
+typedef enum
+{
+	/** All the CANIDs are of type extended only (29 bit).*/
+	CAN_ID_EXTENDED = 0x1,
+	/** All the CANIDs are of type standard only (11bit). */
+	CAN_ID_STANDARD = 0x2,
+	/** The type of CANIDs can be both Standard or Extended.*/
+	CAN_ID_MIXED    = 0x3
+
+}Can_IdTypeType;
+
+typedef enum {
+	CAN_OBJECT_RECEIVE,
+	CAN_OBJECT_TRANSMIT
+} Can_ObjectTypeType;
 #endif /* CAN_TYPES_H_ */

@@ -54,6 +54,7 @@
 /* ##############################  INCLUDEs  ############################## */
 #include "ComStack_Types.h"
 #include "Can_Types.h"
+#include "Can_Hw.h"
 #include "Can_Cfg.h"
 
 /* ##############################  MACROs  ############################## */

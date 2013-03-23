@@ -43,8 +43,20 @@
 #ifndef CAN_CFG_H_
 #define CAN_CFG_H_
 
+/* ################ Can General ################ */
 #define CAN_DEV_ERROR_DETECT  STD_ON
 #define CAN_VERSION_INFO_API  STD_ON
+#define CAN_HW_TRANSMIT_CANCELLATION   STD_OFF
+#define CAN_IDENTICAL_ID_CANCELLATION  STD_OFF
+#define CAN_MULTIPLEXED_TRANSMISSION   STD_OFF
+
+/* unit is ms */
+#define CanMainFunctionBusoffPeriod  10
+#define CanMainFunctionModePeriod    10
+#define CanMainFunctionReadPeriod    10
+#define CanMainFunctionWakeupPeriod  10
+#define CanMainFunctionWritePeriod   10
+#define CAN_TIMEOUT_DURATION         10
 #define cfgCAN_EXTEND         STD_OFF
 
 #endif /* CAN_CFG_H_ */
