@@ -138,16 +138,16 @@ typedef struct
 	reference to EcuM_WakeupSourceType.*/
 	uint32/* ref to EcuMWakeupSource */ CanWakeupSourceRef;
 	/** Specifies the baudrate of the controller in kbps. */
-	UINT            CanControllerBaudRate;
+	uint16          CanControllerBaudRate;
 	/** Specifies propagation delay in time quantas.*/
-	uint32          CanControllerPropSeg;
+	uint16          CanControllerPropSeg;
 	/** Specifies phase segment 1 in time quantas.*/
-	uint32          CanControllerSeg1;
+	uint16          CanControllerSeg1;
 	/** Specifies phase segment 2 in time quantas.*/
-	uint32          CanControllerSeg2;
+	uint16          CanControllerSeg2;
 	/**	Specifies the synchronization jump width for the controller in
 	time quantas.*/
-	uint32          CanControllerSyncJumpWidth;
+	uint16          CanControllerSyncJumpWidth;
 	/** List of Hoh id's that belong to this controller */
 	const Can_HardwareObjectType  *Can_Hoh;
 }Can_ControllerConfigType;
@@ -172,5 +172,49 @@ typedef struct
 	const Can_ConfigSetType	 *CanConfigSet;
 }Can_ConfigType;
 
-
+/* ####################### MSCAN Control Registers ###################### */
+#define CAN_REG_BASE	0x0140
+#define CAN_REG_OFFSET  64
+#define CAN_CTL0        0  /*   control register 0 */
+#define CAN_CTL1        1  /*   control register 1 */
+#define CAN_BTR0        2  /*   bus timing register 0 */
+#define CAN_BTR1        3  /*   bus timing register 1 */
+#define CAN_RFLG        4  /*   receiver flag register */
+#define CAN_RIER        5  /*   receiver interrupt reg */
+#define CAN_TFLG        6  /*   transmitter flag reg */
+#define CAN_TIER        7  /*   transmitter control reg */
+#define CAN_TARQ        8  /*   transmitter abort request */
+#define CAN_TAAK        9  /*   transmitter abort acknowledge */
+#define CAN_TBSEL       10 /*   transmit buffer selection */
+#define CAN_IDAC        11 /*   identifier acceptance */
+#define CAN_RESERVED1	12
+#define CAN_RESERVED2	13
+#define CAN_RXERR       14 /*   receive error counter */
+#define CAN_TXERR       15 /*   transmit error counter */
+#define CAN_IDAR0       16 /*   id acceptance reg 0 */
+#define CAN_IDAR1       17 /*   id acceptance reg 1 */
+#define CAN_IDAR2       18 /*   id acceptance reg 2 */
+#define CAN_IDAR3       19 /*   id acceptance reg 3 */
+#define CAN_IDMR0       20 /*   id mask register 0 */
+#define CAN_IDMR1       21 /*   id mask register 1 */
+#define CAN_IDMR2       22 /*   id mask register 2 */
+#define CAN_IDMR3       23 /*   id mask register 3 */
+#define CAN_IDAR4       24 /*   id acceptance reg 4 */
+#define CAN_IDAR5       25 /*   id acceptance reg 5 */
+#define CAN_IDAR6       26 /*   id acceptance reg 6 */
+#define CAN_IDAR7       27 /*   id acceptance reg 7 */
+#define CAN_IDMR4       28 /*   id mask register 4 */
+#define CAN_IDMR5       28 /*   id mask register 5 */
+#define CAN_IDMR6       30 /*   id mask register 6 */
+#define CAN_IDMR7       31 /*   id mask register 7 */
+#define CAN_RXFG        32 /*   receive buffer */
+#define CAN_TXFG        33 /*   transmit buffer */
+/* io access <tk/syslib.h:>
+ * out_w(port,data)
+ * out_h(port,data )
+ * out_b(port,data )
+ * in_w(port)
+ * in_h(port)
+ * in_b(port)
+ * */
 #endif /* CAN_HW_H_ */

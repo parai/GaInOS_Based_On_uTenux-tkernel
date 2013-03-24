@@ -46,6 +46,7 @@
 #include <sysdepend/Platform_Types.h>
 #include <basic.h>
 #include <tk/errno.h>
+#include <tk/syslib.h>
 
 #ifndef FALSE
 #define FALSE		(boolean)0

@@ -71,6 +71,7 @@ EXPORT void Can_Init(const Can_ConfigType* Config)
 		return;
 	}
 #endif
+
 }
 
 #if(CAN_VERSION_INFO_API == STD_ON )
