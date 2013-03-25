@@ -54,7 +54,7 @@ typedef enum
 /*
 Represents the Identifier of an L-PDU. For extended IDs the most significant bit is set.
  */
-typedef UINT Can_IdType;
+typedef uint32 Can_IdType;
 /*
 Range:
 	Standard  0..0x0FF
@@ -65,13 +65,13 @@ hardware units with more than 255 HW objects use extended range.
 typedef UINT Can_HwHandleType;
 
 typedef struct Can_PduType_s {
-	// the CAN ID, 29 or 11-bit
+	/* the CAN ID, 29 or 11-bit  */
 	Can_IdType 	id;
-	// Length, max 8 bytes
+	/* Length, max 8 bytes  */
 	uint8		length;
-	// data ptr
+	/* data ptr  */
 	uint8 		*sdu;
-	// private data for CanIf,just save and use for callback
+	/* private data for CanIf,just save and use for callback */
 	PduIdType   swPduHandle;
 } Can_PduType;
 

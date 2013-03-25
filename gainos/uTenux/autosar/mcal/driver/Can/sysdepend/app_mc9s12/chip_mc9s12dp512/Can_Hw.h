@@ -54,10 +54,10 @@ typedef enum {
 
 /** Start mc9s12 unique */
 typedef enum {
-  CAN_IDAM_2_32BIT,
-  CAN_IDAM_4_16BIT,
-  CAN_IDAM_8_8BIT,
-  CAN_IDAM_FILTER_CLOSED,
+  CAN_IDAM_2_32BIT = 0,
+  CAN_IDAM_4_16BIT = 1,
+  CAN_IDAM_8_8BIT  = 2,
+  CAN_IDAM_FILTER_CLOSED = 3,
 } Can_IDAMType;
 
 typedef struct {
@@ -139,13 +139,13 @@ typedef struct
 	uint32/* ref to EcuMWakeupSource */ CanWakeupSourceRef;
 	/** Specifies the baudrate of the controller in kbps. */
 	uint16          CanControllerBaudRate;
-	/** Specifies propagation delay in time quantas.*/
+	/** Specifies propagation delay in time quantas(1..8).*/
 	uint16          CanControllerPropSeg;
-	/** Specifies phase segment 1 in time quantas.*/
+	/** Specifies phase segment 1 in time quantas(1..8).*/
 	uint16          CanControllerSeg1;
-	/** Specifies phase segment 2 in time quantas.*/
+	/** Specifies phase segment 2 in time quantas(1..8).*/
 	uint16          CanControllerSeg2;
-	/**	Specifies the synchronization jump width for the controller in
+	/**	Specifies the synchronization jump width(1..4) for the controller in
 	time quantas.*/
 	uint16          CanControllerSyncJumpWidth;
 	/** List of Hoh id's that belong to this controller */
@@ -207,8 +207,27 @@ typedef struct
 #define CAN_IDMR5       28 /*   id mask register 5 */
 #define CAN_IDMR6       30 /*   id mask register 6 */
 #define CAN_IDMR7       31 /*   id mask register 7 */
-#define CAN_RXFG        32 /*   receive buffer */
-#define CAN_TXFG        33 /*   transmit buffer */
+#define CAN_RXFG        32 /*   receive buffer structure offset(16 bytes) */
+
+#define CAN_TXFG        48 /*   transmit buffer structure offset(16 bytes) */
+
+/* CAN Transmit/Receive buffer structure */
+#define CAN_IDR0		0	/* Identifier Register 0 */
+#define CAN_IDR0		1	/* Identifier Register 1 */
+#define CAN_IDR0		2	/* Identifier Register 2 */
+#define CAN_IDR0		3	/* Identifier Register 3 */
+#define CAN_DSR0		4	/* Data Segment Register 0 */
+#define CAN_DSR1		5	/* Data Segment Register 1 */
+#define CAN_DSR2		6	/* Data Segment Register 2 */
+#define CAN_DSR3		7	/* Data Segment Register 3 */
+#define CAN_DSR4		8	/* Data Segment Register 4 */
+#define CAN_DSR5		9	/* Data Segment Register 5 */
+#define CAN_DSR6		10	/* Data Segment Register 6 */
+#define CAN_DSR7		11	/* Data Segment Register 7 */
+#define CAN_DLCR		12	/* Data Length Register */
+#define CAN_TBPR		13	/* Transmit Buffer Priority Register */
+#define CAN_TSRH        14	/* Time Stamp Register (High Byte) */
+#define CAN_TSRL        15	/* Time Stamp Register (Low Byte) */
 /* io access <tk/syslib.h:>
  * out_w(port,data)
  * out_h(port,data )
