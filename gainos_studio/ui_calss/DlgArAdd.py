@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# -*- coding: utf-8 -*-
+
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -43,29 +46,54 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from PyQt4 import QtCore, QtGui
-import sys, os
 
-def gappendpath():
-    for dir in sys.path:
-        if(os.path.isfile(dir+'/main.py')
-           and os.path.isdir(dir+'/codegen')
-           and os.path.isdir(dir+'/ui_forms')):
-            break;
-    sys.path.append(dir+'/ui_forms');
-    sys.path.append(dir+'/ui_calss');
-    sys.path.append(dir+'/arxml');
-    sys.path.append(dir+'/calss');
-    sys.path.append(dir+'/codegen');
+from PyQt4.QtGui import QDialog
+from PyQt4.QtCore import pyqtSignature
+from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
+from PyQt4.QtCore import QStringList,QString
 
-def main(argc, argv):
-    from GaInOsStudio import wMainClass
-    app = QtGui.QApplication(argv);
-    wMainWin = wMainClass(argc,argv);
-    wMainWin.show()
-    sys.exit(app.exec_())
+from Ui_DlgArAdd import Ui_DlgArAdd
+ArComp=['Adc', 'Can','CanIf','CanNm', 'CanTp', 'CanSm', 'Com', 
+        'Dio', 'Eep', 'Fls', 'Gpt', 'Icu', 'Pwm', 'Port', 'Mcu', 
+        'PduR', 'Spi', 'Wdg', 'WdgIf']
+class DlgArAdd(QDialog, Ui_DlgArAdd):
+    """
+    Class documentation goes here.
+    """
+    def __init__(self, parent = None):
+        """
+        Constructor
+        """
+        QDialog.__init__(self, parent);
+        self.result=False;
+        self.comp='';
+        self.setupUi(self);
+        self.initGUI();
 
-if __name__ == "__main__":
-    gappendpath();
-    main(len(sys.argv),sys.argv);
-
+    def initGUI(self):
+        for ar in ArComp:
+            item=QTreeWidgetItem(self.trArCom,QStringList(ar));
+            self.trArCom.insertTopLevelItem(0, item);
+        self.trArCom.sortColumn();
+    
+    @pyqtSignature("QTreeWidgetItem*, int")
+    def on_trArCom_itemClicked(self, item, column):
+        self.comp=item.text(0);
+    
+    @pyqtSignature("QTreeWidgetItem*, int")
+    def on_trArCom_itemDoubleClicked(self, item, column):
+        self.comp=item.text(0);
+        self.result=True;
+        self.close();
+    
+    @pyqtSignature("")
+    def on_btnAdd_clicked(self):
+        if(self.comp != ''):
+            self.result=True;
+        else:
+            self.result=False;
+        self.close();
+    
+    @pyqtSignature("")
+    def on_btnCancel_clicked(self):
+        self.close();

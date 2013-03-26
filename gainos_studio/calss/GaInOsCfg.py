@@ -44,51 +44,33 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
+class Resource():
+    def __init__(self, name, ceilprio):
+        self.name=name;
+        self.ceilprio=ceilprio;
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import pyqtSignature
+class Event():
+    def __init__(self, name, mask):
+        self.name=name;
+        self.mask=mask;
+    
+class Task():
+    def __init__(self, name, prio, stksz):
+        self.name=name;
+        self.prio=prio;
+        self.stksz=stksz;
+        self.autostart=True;
+        self.eventList=[];
+class Alarm():
+    def __init__(self, name):
+        self.name=name;
+        #callback,task,event
+        self.type='callback'; 
+        self.task='';
+        self.event='';
 
-from Ui_DlgStart import Ui_DlgStart
-import os
-class DlgStart(QDialog, Ui_DlgStart):
-    """
-    Class documentation goes here.
-    """
-    def __init__(self, root, parent = None):
-        """
-        Constructor
-        """
-        self.proj=None;
-        self.result=False;
-        QDialog.__init__(self, parent);
-        self.setupUi(self);
-        self.listProject(root);
-    
-    def listProject(self, root):
-        """如果其是一个有效的工程，即存在kernel/osek/src目录"""
-        for dr in os.listdir(root+'/'):         
-            if os.path.isdir(root+'/'+dr):
-                if(dr != '.metadata'):
-                    if(os.path.isdir(root+'/'+dr+'/kernel/osek/src')):
-                        self.cmbxProj.addItem('%s'%(dr));
-
-    @pyqtSignature("QString")
-    def on_cmbxProj_currentIndexChanged(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        self.proj=p0;
-    
-    @pyqtSignature("")
-    def on_btnYes_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        self.result=True;
-        self.close();
-    
-    @pyqtSignature("")
-    def on_btnNo_clicked(self):
-        self.close();
+class GaInOsCfg():
+    def __init__(self):
+        self.taskList=[];
+        self.resourceList=[];
+        self.alarmList=[];

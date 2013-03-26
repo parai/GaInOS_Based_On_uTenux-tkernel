@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -43,29 +44,51 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from PyQt4 import QtCore, QtGui
-import sys, os
 
-def gappendpath():
-    for dir in sys.path:
-        if(os.path.isfile(dir+'/main.py')
-           and os.path.isdir(dir+'/codegen')
-           and os.path.isdir(dir+'/ui_forms')):
-            break;
-    sys.path.append(dir+'/ui_forms');
-    sys.path.append(dir+'/ui_calss');
-    sys.path.append(dir+'/arxml');
-    sys.path.append(dir+'/calss');
-    sys.path.append(dir+'/codegen');
+from PyQt4.QtGui import QDialog
+from PyQt4.QtCore import pyqtSignature
 
-def main(argc, argv):
-    from GaInOsStudio import wMainClass
-    app = QtGui.QApplication(argv);
-    wMainWin = wMainClass(argc,argv);
-    wMainWin.show()
-    sys.exit(app.exec_())
+from Ui_DlgStart import Ui_DlgStart
+import os
+class DlgStart(QDialog, Ui_DlgStart):
+    """
+    Class documentation goes here.
+    """
+    def __init__(self, root, parent = None):
+        """
+        Constructor
+        """
+        self.proj='';
+        self.result=False;
+        QDialog.__init__(self, parent);
+        self.setupUi(self);
+        self.listProject(root);
+    
+    def listProject(self, root):
+        """如果其是一个有效的工程，即存在kernel/osek/src目录"""
+        for dr in os.listdir(root+'/'):         
+            if os.path.isdir(root+'/'+dr):
+                if(dr != '.metadata'):
+                    if(os.path.isdir(root+'/'+dr+'/kernel/osek/src')):
+                        self.cmbxProj.addItem('%s'%(dr));
 
-if __name__ == "__main__":
-    gappendpath();
-    main(len(sys.argv),sys.argv);
-
+    @pyqtSignature("QString")
+    def on_cmbxProj_currentIndexChanged(self, p0):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        self.proj=str(p0);
+    
+    @pyqtSignature("")
+    def on_btnYes_clicked(self):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        self.result=True;
+        self.close();
+    
+    @pyqtSignature("")
+    def on_btnNo_clicked(self):
+        self.close();

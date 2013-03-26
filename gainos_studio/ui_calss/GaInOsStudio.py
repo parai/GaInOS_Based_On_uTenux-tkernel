@@ -58,6 +58,7 @@ from GaInOsCfg import *
 from ArxmlParser import *
 from ArxmlSaver import *
 from CodeGen import *
+from DlgArAdd import *
 class wMainClass(QMainWindow, Ui_wMainClass):
     """
     Class documentation goes here.
@@ -77,11 +78,14 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.curobj=None;
         if(argc == 3 and argv[1]== "--eclipse"):
             dir = self.getProject(argv[2]);
-            if(dir != None):
+            if(dir != argv[2]+'/'):
                 self.getCfgArxml(dir);
                 LoadArxml(self.cfg,self.arxml);
             else:
-                sys.exit(-1);
+                QMessageBox(QMessageBox.Information, 'GaInOS Info', 
+                    'Cann\'t locate a ture exist OSEK(uTenux) Project,you can load/new arxml by hand!').exec_();
+                self.arxml=argv[2]+'/';
+                #sys.exit(-1);
         self.initGui();
 
     def initButton(self):
@@ -157,7 +161,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         if(dlg.result == True):
             return root+'/'+dlg.proj;
         else:
-            return None;
+            return root+'/';
 
     def getCfgArxml(self, dir):
         """如果存在gainoscfg.arxml配置文件，则返回之，
@@ -183,6 +187,10 @@ class wMainClass(QMainWindow, Ui_wMainClass):
             self.btnAdd.setText('Add Alarm');
             self.btnAdd.setDisabled(False);
             self.btnDel.setDisabled(True);
+        elif(trname=='Autosar'):
+            self.btnAdd.setText('Add ...');
+            self.btnAdd.setDisabled(False);
+            self.btnDel.setDisabled(True);
         elif(self.curtree.parent().text(0)=='Task'):
             self.btnAdd.setText('Add Event');
             self.btnDel.setText('Delete Task');
@@ -203,12 +211,12 @@ class wMainClass(QMainWindow, Ui_wMainClass):
 
     def disableAllTab(self):
         """禁止所有的Tab页"""
-        for i in  range(0, 5):
+        for i in  range(0, 6):
             self.tblGaInOsCfg.setTabEnabled(i, False);
     
     def enableTab(self, index):
         """使能xIndex指向的Tab页"""
-        for i in  range(0, 5):
+        for i in  range(0, 6):
             if(i==index):
                 self.tblGaInOsCfg.setTabEnabled(i, True);
                 self.tblGaInOsCfg.setCurrentIndex(i);
@@ -368,6 +376,14 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.btnFileSave.setText('Save');
         self.setWindowTitle('GaInOS Studio(parai@foxmail.com)');
 
+    def addAutosar(self):
+        dlg=DlgArAdd();
+        dlg.exec_();
+        if(dlg.result==True):
+            item=QTreeWidgetItem(self.curtree,QStringList(dlg.comp));
+            self.curtree.addChild(item);
+            self.curtree.setExpanded(True);
+
     @pyqtSignature("")
     def on_btnAdd_clicked(self):
         text=self.btnAdd.text();
@@ -379,6 +395,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
             self.addAlarm();
         elif(text=='Add Event'):
             self.addEvent();
+        elif(text=='Add ...'):
+            self.addAutosar();
         self.fileChangedIndicate();
 
     def delObj(self, list):
@@ -517,13 +535,14 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         raise NotImplementedError
     
     def saveArxml(self):
-        if(self.arxml==''):
+        if(self.arxml.find('.arxml')==-1):
             self.arxml=QFileDialog.getSaveFileName(self, 'Save GaInOS Configure File.', 
-                '%s/%s'%('','gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
-            if(self.arxml!=''):
-                self.leFileOpened.setText(self.arxml);
-        ArxmlSaver(self.cfg, self.arxml);
-        self.fileSavedIndicate();
+                '%s/%s'%(self.arxml,'gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
+            self.arxml=str(self.arxml);
+        if(self.arxml.find('.arxml')!=-1):
+            self.leFileOpened.setText(self.arxml);
+            ArxmlSaver(self.cfg, self.arxml);
+            self.fileSavedIndicate();
     
     @pyqtSignature("")
     def on_btnFileSave_clicked(self):
@@ -532,15 +551,15 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     @pyqtSignature("")
     def on_btnGen_clicked(self):
         self.saveArxml();
-        CodeGen(self.cfg, os.path.dirname(self.arxml.toUtf8()));
+        CodeGen(self.cfg, os.path.dirname(self.arxml));
         QMessageBox(QMessageBox.Information, 'GaInOS Info', 
                 'Gen C Code Successfully at <%s>!'%(
-                os.path.dirname(self.arxml.toUtf8()))).exec_();
+                os.path.dirname(self.arxml))).exec_();
 
     def openArxml(self):
         """加载配置文件"""
         arxml=QFileDialog.getOpenFileName(self, 'Open GaInOS Configure File.', 
-                '%s/%s'%('','gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
+                '%s/%s'%(self.arxml,'gainoscfg.arxml'), 'GaInOsCfgFile(*.arxml)');
         if(arxml!=''):
             self.arxml=arxml;
             self.leFileOpened.setText(arxml);

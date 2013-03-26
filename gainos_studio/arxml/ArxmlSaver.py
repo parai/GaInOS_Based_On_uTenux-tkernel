@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -43,29 +44,45 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from PyQt4 import QtCore, QtGui
-import sys, os
 
-def gappendpath():
-    for dir in sys.path:
-        if(os.path.isfile(dir+'/main.py')
-           and os.path.isdir(dir+'/codegen')
-           and os.path.isdir(dir+'/ui_forms')):
-            break;
-    sys.path.append(dir+'/ui_forms');
-    sys.path.append(dir+'/ui_calss');
-    sys.path.append(dir+'/arxml');
-    sys.path.append(dir+'/calss');
-    sys.path.append(dir+'/codegen');
+import xml.etree.ElementTree as ET
+from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
+from PyQt4.QtCore import QStringList,QString
+import sys
+from GaInOsCfg import *
 
-def main(argc, argv):
-    from GaInOsStudio import wMainClass
-    app = QtGui.QApplication(argv);
-    wMainWin = wMainClass(argc,argv);
-    wMainWin.show()
-    sys.exit(app.exec_())
+class ArxmlSaver():
+    def __init__(self, cfg, arxml):
+        fp=open(arxml, 'w');
+        fp.write('<?xml version="1.0" encoding="utf-8"?>\n\n');
+        fp.write('<GaInOsCfg>\n');
+        self.saveTask(fp, cfg.taskList);
+        self.saveResource(fp, cfg.resourceList);
+        self.saveAlarm(fp, cfg.alarmList);
+        fp.write('</GaInOsCfg>\n');
+        fp.close();
 
-if __name__ == "__main__":
-    gappendpath();
-    main(len(sys.argv),sys.argv);
+    def saveTask(self, fp, list):
+        fp.write('<TaskList>\n');
+        for obj in list:
+            fp.write('<Task name=\'%s\' prio=\'%s\' stksz=\'%s\' autostart=\'%s\'>\n'%(
+                    obj.name, obj.prio, obj.stksz, obj.autostart));
+            fp.write('<EventList>\n');
+            for ent in obj.eventList:
+                fp.write('<Event name=\'%s\' mask=\'%s\'></Event>\n'%(ent.name, ent.mask));
+            fp.write('</EventList>\n');
+            fp.write('</Task>\n');
+        fp.write('</TaskList>\n');
 
+    def saveAlarm(self, fp, list):
+        fp.write('<AlarmList>\n');
+        for obj in list:
+            fp.write('<Alarm name=\'%s\' type=\'%s\' task=\'%s\' event=\'%s\'></Alarm>\n'%(
+                    obj.name, obj.type, obj.task, obj.event));
+        fp.write('</AlarmList>\n');
+
+    def saveResource(self, fp, list):
+        fp.write('<ResourceList>\n');
+        for obj in list:
+            fp.write('<Resource name=\'%s\' ceilprio=\'%s\'></Resource>\n'%(obj.name, obj.ceilprio));
+        fp.write('</ResourceList>\n');

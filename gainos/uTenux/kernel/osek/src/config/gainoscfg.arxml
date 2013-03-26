@@ -22,6 +22,10 @@
 <EventList>
 </EventList>
 </Task>
+<Task name='vTask4' prio='5' stksz='512' autostart='True'>
+<EventList>
+</EventList>
+</Task>
 </TaskList>
 <ResourceList>
 <Resource name='vRes0' ceilprio='7'></Resource>

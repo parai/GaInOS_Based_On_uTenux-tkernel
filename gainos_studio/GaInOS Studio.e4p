@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-03-15, 00:44:24 -->
+<!-- Saved: 2013-03-26, 23:47:57 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -13,19 +13,16 @@
   <Email></Email>
   <Sources>
     <Source>main.py</Source>
-    <Source>Ui_DlgStart.py</Source>
-    <Source>DlgStart.py</Source>
-    <Source>Ui_wmain.py</Source>
-    <Source>Ui_GaInOsStudio.py</Source>
-    <Source>GaInOsStudio.py</Source>
-    <Source>ArxmlParser.py</Source>
-    <Source>GaInOsCfg.py</Source>
-    <Source>ArxmlSaver.py</Source>
-    <Source>CodeGen.py</Source>
+    <Source>ui_calss/DlgArAdd.py</Source>
+    <Source>ui_calss/DlgStart.py</Source>
+    <Source>ui_calss/GaInOsStudio.py</Source>
+    <Source>calss/GaInOsCfg.py</Source>
+    <Source>arxml/ArxmlParser.py</Source>
+    <Source>arxml/ArxmlSaver.py</Source>
+    <Source>codegen/CodeGen.py</Source>
+    <Source>calss/AuosarCfg.py</Source>
   </Sources>
   <Forms>
-    <Form>DlgStart.ui</Form>
-    <Form>GaInOsStudio.ui</Form>
   </Forms>
   <Translations>
   </Translations>
