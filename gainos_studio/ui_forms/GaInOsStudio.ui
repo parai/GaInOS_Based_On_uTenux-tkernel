@@ -685,7 +685,7 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Info</string>
+       <string>Autosar</string>
       </attribute>
       <widget class="QPlainTextEdit" name="pteInfo">
        <property name="geometry">

@@ -59,6 +59,7 @@ from ArxmlParser import *
 from ArxmlSaver import *
 from CodeGen import *
 from DlgArAdd import *
+from AutosarCfg import *
 class wMainClass(QMainWindow, Ui_wMainClass):
     """
     Class documentation goes here.
@@ -102,6 +103,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         #基于tkernel，默认任务最大激活次数为1
         self.spbxTskMaxActivateCount.setDisabled(True);
         self.spbxTskMaxActivateCount.setValue(1);
+        #Autosar 配置信息显示控件
+        self.pteInfo.setDisabled(True);
 
     def initSpbxRange(self):
         self.spbxResCeilPrio.setRange(1, 140);
@@ -133,6 +136,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.reloadTaskGui();
         self.reloadTreeGui(1, self.cfg.resourceList);
         self.reloadTreeGui(2, self.cfg.alarmList);
+        self.reloadTreeGui(3, self.cfg.arobjList);
         self.fileSavedIndicate();
 
     def initMenu(self):
@@ -145,6 +149,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
     def initGui(self):
         self.leFileOpened.setText(self.arxml);
         self.leFileOpened.setDisabled(True);
+        #暂时只支持一个芯片MC9S12DP512的Autosar各组建配置
+        self.cmbxMcuChip.setDisabled(True);
         self.setWindowTitle('GaInOS Studio(parai@foxmail.com)');
         self.initButton();
         self.initTab();
@@ -202,6 +208,10 @@ class wMainClass(QMainWindow, Ui_wMainClass):
             self.btnDel.setDisabled(False);
         elif(self.curtree.parent().text(0)=='Alarm'):
             self.btnDel.setText('Delete Alarm');
+            self.btnAdd.setDisabled(True);
+            self.btnDel.setDisabled(False);
+        elif(self.curtree.parent().text(0)=='Autosar'):
+            self.btnDel.setText('Delete ...');
             self.btnAdd.setDisabled(True);
             self.btnDel.setDisabled(False);
         elif(self.curtree.parent().parent().text(0)=='Task'):
@@ -305,7 +315,12 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.leEventName.setText(self.curobj.name);
         self.leEventMask.setText(self.curobj.mask);
         self.enableTab(4);
- 
+
+    def refreshAutosarTab(self, name):
+        self.curobj=self.findObj(self.cfg.arobjList, name);
+        self.enableTab(5);
+        self.pteInfo.setPlainText(self.curobj.toString());
+
     def refreshTab(self):
         if(self.curtree.parent() == None):
             self.disableAllTab();
@@ -319,6 +334,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
             self.refreshResourceTab(objname);
         elif(trname == 'Alarm'):
             self.refreshAlarmTab(objname);
+        elif(trname == 'Autosar'):
+            self.refreshAutosarTab(objname);
         elif(self.curtree.parent().parent().text(0) == 'Task'):
             self.refreshEventTab(objname);
     
@@ -377,12 +394,14 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         self.setWindowTitle('GaInOS Studio(parai@foxmail.com)');
 
     def addAutosar(self):
-        dlg=DlgArAdd();
+        dlg=DlgArAdd(self.cfg.arobjList);
         dlg.exec_();
         if(dlg.result==True):
             item=QTreeWidgetItem(self.curtree,QStringList(dlg.comp));
             self.curtree.addChild(item);
             self.curtree.setExpanded(True);
+            obj=AutosarObj(str(dlg.comp), self.cfg.chip);
+            self.cfg.arobjList.append(obj);
 
     @pyqtSignature("")
     def on_btnAdd_clicked(self):
@@ -418,6 +437,8 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         elif(text=='Delete Event'):
             tsk=self.findObj(self.cfg.taskList, parent.text(0));
             self.delObj(tsk.eventList);
+        elif(text=='Delete ...'):
+            self.delObj(self.cfg.arobjList);
         del self.curtree;
         #reselect a tree item,software trigger on_trGaInOsCfgList_itemClicked()
         if(index>0):
@@ -612,3 +633,10 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         """
         # TODO: not implemented yet
         raise NotImplementedError
+
+    @pyqtSignature("QTreeWidgetItem*, int")
+    def on_trGaInOsCfgList_itemDoubleClicked(self, item, column):
+        if(item.parent()!=None
+           and item.parent().text(0)=='Autosar'):
+               obj=self.findObj(self.cfg.arobjList, item.text(0));
+               obj.show();

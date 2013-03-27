@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\parai@foxmail.com\github\GaInOS_Based_On_uTenux-tkernel\gainos_studio\GaInOsStudio.ui'
+# Form implementation generated from reading ui file 'F:\parai@foxmail.com\github\GaInOS_Based_On_uTenux-tkernel\gainos_studio\ui_forms\GaInOsStudio.ui'
 #
-# Created: Tue Mar 26 22:04:56 2013
+# Created: Wed Mar 27 20:58:13 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -486,7 +486,7 @@ class Ui_wMainClass(object):
         self.label_25.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p><span style=\" font-size:12pt;\">Event Name:</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_26.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Event Mask:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tabEvent), QtGui.QApplication.translate("wMainClass", "Event", None, QtGui.QApplication.UnicodeUTF8))
-        self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tab), QtGui.QApplication.translate("wMainClass", "Info", None, QtGui.QApplication.UnicodeUTF8))
+        self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tab), QtGui.QApplication.translate("wMainClass", "Autosar", None, QtGui.QApplication.UnicodeUTF8))
         self.btnAdd.setText(QtGui.QApplication.translate("wMainClass", "Add", None, QtGui.QApplication.UnicodeUTF8))
         self.btnDel.setText(QtGui.QApplication.translate("wMainClass", "Delete", None, QtGui.QApplication.UnicodeUTF8))
         self.btnCheck.setText(QtGui.QApplication.translate("wMainClass", "Check", None, QtGui.QApplication.UnicodeUTF8))

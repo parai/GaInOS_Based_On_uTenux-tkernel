@@ -56,9 +56,11 @@ class ArxmlSaver():
         fp=open(arxml, 'w');
         fp.write('<?xml version="1.0" encoding="utf-8"?>\n\n');
         fp.write('<GaInOsCfg>\n');
+        fp.write('<GaInOsChip chip="%s"></GaInOsChip>\n'%(cfg.chip));
         self.saveTask(fp, cfg.taskList);
         self.saveResource(fp, cfg.resourceList);
         self.saveAlarm(fp, cfg.alarmList);
+        self.saveAutosar(fp, cfg.arobjList);
         fp.write('</GaInOsCfg>\n');
         fp.close();
 
@@ -86,3 +88,9 @@ class ArxmlSaver():
         for obj in list:
             fp.write('<Resource name=\'%s\' ceilprio=\'%s\'></Resource>\n'%(obj.name, obj.ceilprio));
         fp.write('</ResourceList>\n');
+    
+    def saveAutosar(self, fp, list):
+        fp.write('<AutosarList>\n');
+        for obj in list:
+            obj.save(fp);
+        fp.write('</AutosarList>\n');

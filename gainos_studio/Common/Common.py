@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# -*- coding: utf-8 -*-
-
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -47,61 +45,27 @@
 /* |---------+-------------------| */
 """
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import pyqtSignature
-from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
-from PyQt4.QtCore import QStringList,QString
 
-from Ui_DlgArAdd import Ui_DlgArAdd
-ArComp=['Adc', 'Can','CanIf','CanNm', 'CanTp', 'CanSm', 'Com', 
-        'Dio', 'Eep', 'Fls', 'Gpt', 'Icu', 'Pwm', 'Port', 'Mcu', 
-        'PduR', 'Spi', 'Wdg', 'WdgIf']
-class DlgArAdd(QDialog, Ui_DlgArAdd):
-    """
-    Class documentation goes here.
-    """
-    def __init__(self, list, parent = None):
-        """
-        Constructor
-        """
-        QDialog.__init__(self, parent);
-        """list是Autosar 组建链表，其是一个特殊的容器"""
-        self.result=False;
-        self.comp='';
-        self.setupUi(self);
-        self.initGUI(list);
+def TRUE(tr):
+    if(tr==True):
+        return 'TRUE';
+    else:
+        return 'FALSE';
 
-    def isArInList(self, ar, list):
-        for obj in list:
-            if(obj.name==ar):
-                return True;
+def bool(s):
+    if(s=='True'):
+        return True;
+    else:
         return False;
-    
-    def initGUI(self, list):
-        for ar in ArComp:
-            if(self.isArInList(ar, list)!=True):
-                item=QTreeWidgetItem(self.trArCom,QStringList(ar));
-                self.trArCom.insertTopLevelItem(0, item);
-        self.trArCom.sortColumn();
-    
-    @pyqtSignature("QTreeWidgetItem*, int")
-    def on_trArCom_itemClicked(self, item, column):
-        self.comp=item.text(0);
-    
-    @pyqtSignature("QTreeWidgetItem*, int")
-    def on_trArCom_itemDoubleClicked(self, item, column):
-        self.comp=item.text(0);
-        self.result=True;
-        self.close();
-    
-    @pyqtSignature("")
-    def on_btnAdd_clicked(self):
-        if(self.comp != ''):
-            self.result=True;
-        else:
-            self.result=False;
-        self.close();
-    
-    @pyqtSignature("")
-    def on_btnCancel_clicked(self):
-        self.close();
+
+
+class UnimplementError():
+    def __init__(self):
+        print 'Un Implement Error!'
+
+    def toString(self):
+        str='  Sorry,Not implemented!\n'
+        return str;
+
+    def show(self):
+        print "Gui Unimplemented!"

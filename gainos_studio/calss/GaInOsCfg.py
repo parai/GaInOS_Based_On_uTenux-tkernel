@@ -44,6 +44,7 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
+from AutosarCfg import *
 class Resource():
     def __init__(self, name, ceilprio):
         self.name=name;
@@ -71,6 +72,8 @@ class Alarm():
 
 class GaInOsCfg():
     def __init__(self):
+        self.chip='MC9S12DP512';
         self.taskList=[];
         self.resourceList=[];
         self.alarmList=[];
+        self.arobjList=[];

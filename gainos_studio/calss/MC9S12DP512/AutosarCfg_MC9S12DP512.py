@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# -*- coding: utf-8 -*-
-
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -46,62 +44,26 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
+from Can_MC9S12DP512 import *
+from Common import *
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import pyqtSignature
-from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
-from PyQt4.QtCore import QStringList,QString
+ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
+                       'Can':CanObj_MC9S12DP512, 
+                       'CanIf':UnimplementError, 
+                       'CanNm':UnimplementError,
+                       'CanTp':UnimplementError,
+                       'CanSm':UnimplementError,
+                       'Com':UnimplementError,
+                       'Dio':UnimplementError,
+                       'Eep':UnimplementError,
+                       'Fls':UnimplementError,
+                       'Gpt':UnimplementError,
+                       'Icu':UnimplementError,
+                       'Pwm':UnimplementError,
+                       'Port':UnimplementError,
+                       'PduR':UnimplementError,
+                       'Spi':UnimplementError,
+                       'Wdg':UnimplementError,
+                       'WdgIf':UnimplementError,
+                       }
 
-from Ui_DlgArAdd import Ui_DlgArAdd
-ArComp=['Adc', 'Can','CanIf','CanNm', 'CanTp', 'CanSm', 'Com', 
-        'Dio', 'Eep', 'Fls', 'Gpt', 'Icu', 'Pwm', 'Port', 'Mcu', 
-        'PduR', 'Spi', 'Wdg', 'WdgIf']
-class DlgArAdd(QDialog, Ui_DlgArAdd):
-    """
-    Class documentation goes here.
-    """
-    def __init__(self, list, parent = None):
-        """
-        Constructor
-        """
-        QDialog.__init__(self, parent);
-        """list是Autosar 组建链表，其是一个特殊的容器"""
-        self.result=False;
-        self.comp='';
-        self.setupUi(self);
-        self.initGUI(list);
-
-    def isArInList(self, ar, list):
-        for obj in list:
-            if(obj.name==ar):
-                return True;
-        return False;
-    
-    def initGUI(self, list):
-        for ar in ArComp:
-            if(self.isArInList(ar, list)!=True):
-                item=QTreeWidgetItem(self.trArCom,QStringList(ar));
-                self.trArCom.insertTopLevelItem(0, item);
-        self.trArCom.sortColumn();
-    
-    @pyqtSignature("QTreeWidgetItem*, int")
-    def on_trArCom_itemClicked(self, item, column):
-        self.comp=item.text(0);
-    
-    @pyqtSignature("QTreeWidgetItem*, int")
-    def on_trArCom_itemDoubleClicked(self, item, column):
-        self.comp=item.text(0);
-        self.result=True;
-        self.close();
-    
-    @pyqtSignature("")
-    def on_btnAdd_clicked(self):
-        if(self.comp != ''):
-            self.result=True;
-        else:
-            self.result=False;
-        self.close();
-    
-    @pyqtSignature("")
-    def on_btnCancel_clicked(self):
-        self.close();

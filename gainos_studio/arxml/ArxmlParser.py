@@ -50,12 +50,8 @@ from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
 from PyQt4.QtCore import QStringList,QString
 import sys
 from GaInOsCfg import *
-
-def bool(s):
-    if(s=='True'):
-        return True;
-    else:
-        return False;
+from Common import *
+from AutosarCfg import *
 
 def gnewArxml(arxml):
     """Global Function:new an arxml"""
@@ -81,13 +77,21 @@ class LoadArxml():
         return root;
 
     def doParse(self, cfg, root):
+        self.doParseChip(cfg, root.find('GaInOsChip'));
         self.doParseTask(cfg, root.find('TaskList'));
         self.doParseResource(cfg, root.find('ResourceList'));
         self.doParseAlarm(cfg, root.find('AlarmList'));
+        self.doParseAutosar(cfg, root.find('AutosarList'));
+
+    def doParseChip(self, cfg, node):
+        if(node!=None):
+            cfg.chip=node.attrib['chip'];
 
     def doParseTask(self, cfg, list):
         del cfg.taskList;
         cfg.taskList=[];
+        if(list==None):
+            return;
         for node in list:
             obj=Task(node.attrib['name'],   \
                     int(node.attrib['prio']),   \
@@ -101,6 +105,8 @@ class LoadArxml():
     def doParseResource(self, cfg, list):
         del cfg.resourceList;
         cfg.resourceList=[];
+        if(list==None):
+            return;
         for node in list:
             obj=Resource(node.attrib['name'],int(node.attrib['ceilprio']));
             cfg.resourceList.append(obj);
@@ -108,9 +114,21 @@ class LoadArxml():
     def doParseAlarm(self, cfg, list):
         del cfg.alarmList;
         cfg.alarmList=[];
+        if(list==None):
+            return;
         for node in list:
             obj=Alarm(node.attrib['name']);
             obj.type=node.attrib['type'];
             obj.task=node.attrib['task'];
             obj.event=node.attrib['event'];
             cfg.alarmList.append(obj);
+
+    def doParseAutosar(self, cfg, list):
+        del cfg.arobjList;
+        cfg.arobjList=[];
+        if(list==None):
+            return;
+        for node in list:
+            obj = AutosarObj(node.attrib['name'], cfg.chip); 
+            cfg.arobjList.append(obj);
+            

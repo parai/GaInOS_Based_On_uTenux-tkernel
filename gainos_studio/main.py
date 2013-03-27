@@ -56,7 +56,9 @@ def gappendpath():
     sys.path.append(dir+'/ui_calss');
     sys.path.append(dir+'/arxml');
     sys.path.append(dir+'/calss');
+    sys.path.append(dir+'/calss/MC9S12DP512');
     sys.path.append(dir+'/codegen');
+    sys.path.append(dir+'/Common');
 
 def main(argc, argv):
     from GaInOsStudio import wMainClass

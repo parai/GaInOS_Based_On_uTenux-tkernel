@@ -44,8 +44,14 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
+import os, sys
+class CanObj_MC9S12DP512():
+    def __init__(self):
+        print 'MC9S12DP512 CAN'
+    
+    def toString(self):
+        str='  Under Construct!\n';
+        return str;
 
-class AutosarCfg():
-    def __init__(self, comp):
-        self.comp=comp;
-        self.list=[];
+    def show(self):
+        print "Gui For MC9S12DP512 CAN Unimplemented!"

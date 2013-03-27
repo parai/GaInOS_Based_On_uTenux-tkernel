@@ -49,12 +49,7 @@ import sys
 import shutil 
 from GaInOsCfg import *
 from time import localtime, time,strftime
-def TRUE(tr):
-    if(tr==True):
-        return 'TRUE';
-    else:
-        return 'FALSE';
-
+from Common import *
 class CodeGen():
     """C 代码生成器"""
     def __init__(self, cfg, path):
