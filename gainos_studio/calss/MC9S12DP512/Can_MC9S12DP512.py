@@ -45,6 +45,7 @@
 /* |---------+-------------------| */
 """
 import os, sys
+from DlgCan_MC9S12DP512 import *
 class CanObj_MC9S12DP512():
     def __init__(self):
         print 'MC9S12DP512 CAN'
@@ -54,4 +55,5 @@ class CanObj_MC9S12DP512():
         return str;
 
     def show(self):
-        print "Gui For MC9S12DP512 CAN Unimplemented!"
+        dlg=DlgCanMC9S12DP512();
+        dlg.exec_();

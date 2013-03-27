@@ -28,5 +28,7 @@
 <AutosarList>
 <AutosarObj name="Can">
 </AutosarObj>
+<AutosarObj name="Adc">
+</AutosarObj>
 </AutosarList>
 </GaInOsCfg>

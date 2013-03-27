@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\github\GaInOS_Based_On_uTenux-tkernel\gainos_studio\ui_forms\DlgStart.ui'
 #
-# Created: Wed Mar 27 20:58:13 2013
+# Created: Wed Mar 27 23:31:37 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

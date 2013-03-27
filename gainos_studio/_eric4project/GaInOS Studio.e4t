@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-4.2.dtd">
 <!-- eric4 tasks file for project GaInOS Studio -->
-<!-- Saved: 2013-03-27, 21:57:21 -->
+<!-- Saved: 2013-03-27, 23:42:17 -->
 <Tasks version="4.2">
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
@@ -294,7 +294,7 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-27, 21:53:02</Created>
+    <Created>2013-03-27, 23:38:56</Created>
     <Resource>
       <Filename>ui_calss/GaInOsStudio.py</Filename>
       <Linenumber>555</Linenumber>
@@ -303,7 +303,7 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-27, 21:53:02</Created>
+    <Created>2013-03-27, 23:38:56</Created>
     <Resource>
       <Filename>ui_calss/GaInOsStudio.py</Filename>
       <Linenumber>602</Linenumber>
@@ -312,7 +312,7 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-27, 21:53:02</Created>
+    <Created>2013-03-27, 23:38:56</Created>
     <Resource>
       <Filename>ui_calss/GaInOsStudio.py</Filename>
       <Linenumber>614</Linenumber>
@@ -321,7 +321,7 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-27, 21:53:02</Created>
+    <Created>2013-03-27, 23:38:56</Created>
     <Resource>
       <Filename>ui_calss/GaInOsStudio.py</Filename>
       <Linenumber>626</Linenumber>
@@ -330,7 +330,7 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-27, 21:53:02</Created>
+    <Created>2013-03-27, 23:38:56</Created>
     <Resource>
       <Filename>ui_calss/GaInOsStudio.py</Filename>
       <Linenumber>634</Linenumber>

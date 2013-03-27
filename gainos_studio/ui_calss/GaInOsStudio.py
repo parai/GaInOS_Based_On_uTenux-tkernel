@@ -640,3 +640,4 @@ class wMainClass(QMainWindow, Ui_wMainClass):
            and item.parent().text(0)=='Autosar'):
                obj=self.findObj(self.cfg.arobjList, item.text(0));
                obj.show();
+               self.fileChangedIndicate();
