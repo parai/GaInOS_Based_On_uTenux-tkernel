@@ -41,5 +41,517 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "Can.h"
+#if(CAN_DEV_ERROR_DETECT == STD_ON)
+#include "Det.h"
+#endif
 
+/* ######################## Hardware dependent GLOBALs #################### */
+EXPORT Can_GlobalType Can_Global =
+{
+	CAN_UNINIT, 	/* driverState */
+	NULL,			/* config */
+	{				/* canUint */
+		{CANIF_CS_UNINIT,},
+		{CANIF_CS_UNINIT,},
+		{CANIF_CS_UNINIT,},
+		{CANIF_CS_UNINIT,},
+		{CANIF_CS_UNINIT,}
+	},
+	0u,	/* configured */
+};
+
+/* ######################## Hardware dependent MACORs and TYPEs #################### */
+// bits in CANxCTL0:
+#define BM_INITRQ	0x01
+#define BM_SLPRQ	0x02
+#define BM_WUPE 	0x04
+
+// bits in CANxCTL1:
+#define BM_INITAK	0x01
+#define BM_SLPAK	0x02
+#define BM_WUPM 	0x04
+#define BM_LISTEN	0x10
+#define BM_LOOPB	0x20
+#define BM_CLKSRC	0x40
+#define BM_CANE		0x80
+
+// bits in CANxRFLG:
+// bits in CANxRIER:
+#define BM_WUPI		0x80
+#define BM_CSCI		0x40
+#define BM_RSTAT1	0x20
+#define BM_RSTAT0	0x10
+#define BM_TSTAT1	0x08
+#define BM_TSTAT0	0x04
+#define BM_OVRI 	0x02
+#define BM_RXF		0x01
+
+// bits in CANxTFLG:
+// bits in CANxTBSEL:
+#define BM_TX2		0x04
+#define BM_TX1		0x02
+#define BM_TX0		0x01
+
+typedef struct{
+	volatile uint8   idr0; // Identifier Register 0
+	volatile uint8   idr1;
+	volatile uint8   idr2;
+	volatile uint8   idr3;
+	volatile uint8   ds0; // Data Segment Register 0
+	volatile uint8   ds1;
+	volatile uint8   ds2;
+	volatile uint8   ds3;
+	volatile uint8   ds4;
+	volatile uint8   ds5;
+	volatile uint8   ds6;
+	volatile uint8   ds7;
+	volatile uint8   dlr;  // Data Length Register
+	volatile uint8   tbpr; // Transmit Buffer Priority Register
+	volatile uint8   tsr_hb; // Time Stamp Register (High Byte)
+	volatile uint8   tsr_lb; // Time Stamp Register (Low Byte)
+} RxTxBuf_t;
+
+/*
+IDR0 : ID28 ID27 ID26 ID25 ID24 ID23 ID22 ID21
+IDR1 : ID20 ID19 ID18 SRR  IDE  ID17 ID16 ID15
+IDR2 : ID14 ID13 ID12 ID11 ID10 ID9  ID8  ID7
+IDR3 : ID6  ID5  ID4  ID3  ID2  ID1  ID0  RTR
+*/
+typedef union {
+	volatile uint8 R[4];
+    struct {
+		volatile uint8 id28to21;
+		volatile uint8 id20to18:3;
+		volatile uint8 SRR:1;
+		volatile uint8 IDE:1;
+		volatile uint8 id17to15:3;
+		volatile uint8 id14to7;
+		volatile uint8 id6to0:7;
+		volatile uint8 RTR:1;
+    } Bit;
+} IdrType;
+
+
+typedef struct{
+	volatile uint8   CTL0; /*   control register 0 */
+	volatile uint8   CTL1; /*   control register 1 */
+	volatile uint8   BTR0; /*   bus timing register 0 */
+	volatile uint8   BTR1; /*   bus timing register 1 */
+	volatile uint8   RFLG; /*   receiver flag register */
+	volatile uint8   RIER; /*   receiver interrupt reg */
+	volatile uint8   TFLG; /*   transmitter flag reg */
+	volatile uint8   TIER; /*   transmitter control reg */
+	volatile uint8   TARQ; /*   transmitter abort request */
+	volatile uint8   TAAK; /*   transmitter abort acknowledge */
+	volatile uint8   TBSEL; /*   transmit buffer selection */
+	volatile uint8   IDAC; /*   identifier acceptance */
+	volatile uint8   NOTUSED1;
+	volatile uint8   NOTUSED2;
+	volatile uint8   RXERR; /*   receive error counter */
+	volatile uint8   TXERR; /*   transmit error counter */
+	volatile uint8   IDAR0; /*   id acceptance reg 0 */
+	volatile uint8   IDAR1; /*   id acceptance reg 1 */
+	volatile uint8   IDAR2; /*   id acceptance reg 2 */
+	volatile uint8   IDAR3; /*   id acceptance reg 3 */
+	volatile uint8   IDMR0; /*   id mask register 0 */
+	volatile uint8   IDMR1; /*   id mask register 1 */
+	volatile uint8   IDMR2; /*   id mask register 2 */
+	volatile uint8   IDMR3; /*   id mask register 3 */
+	volatile uint8   IDAR4; /*   id acceptance reg 4 */
+	volatile uint8   IDAR5; /*   id acceptance reg 5 */
+	volatile uint8   IDAR6; /*   id acceptance reg 6 */
+	volatile uint8   IDAR7; /*   id acceptance reg 7 */
+	volatile uint8   IDMR4; /*   id mask register 4 */
+	volatile uint8   IDMR5; /*   id mask register 5 */
+	volatile uint8   IDMR6; /*   id mask register 6 */
+	volatile uint8   IDMR7; /*   id mask register 7 */
+	volatile RxTxBuf_t   RXFG; /*   receive buffer */
+	volatile RxTxBuf_t   TXFG; /*   transmit buffer */
+} CAN_HW_t;
+/* ####################### MACROs ########################### */
+#define Can_Hw_GetController(_cid)	\
+		((CAN_HW_t *)(CAN_REG_BASE+64*(_cid)))
+
+#if defined(USE_DEM)
+#define VALIDATE_DEM_NO_RV(_exp,_err ) \
+        if( !(_exp) ) { \
+          Dem_ReportErrorStatus(_err, DEM_EVENT_STATUS_FAILED); \
+          return; \
+        }
+#else
+#define VALIDATE_DEM_NO_RV(_exp,_err )
+#endif
+
+#if ( CAN_DEV_ERROR_DETECT == STD_ON )
+#define VALIDATE(_exp,_api,_err ) \
+        if( !(_exp) ) { \
+          Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
+          return CAN_NOT_OK; \
+        }
+#define VALIDATE_NO_RV(_exp,_api,_err ) \
+        if( !(_exp) ) { \
+          Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
+          return; \
+        }
+#else
+#define VALIDATE(_exp,_api,_err )
+#define VALIDATE_NO_RV(_exp,_api,_err )
+#endif
+/* ####################### LOCAL FUNCTIONs ########################### */
+// Uses 25.4.5.1 Transmission Abort Mechanism
+LOCAL void Can_Hw_AbortTx( CAN_HW_t *canHw, Can_UnitType *canUnit ) 
+{
+	uint8 mask = 0;
+	// Wait for mb's being emptied
+	int i=0;
+
+	// Disable Transmit irq
+	canHw->TIER = 0;
+
+	// check if mb's empty
+	if((canHw->TFLG & BM_TX0) == 0){mask |= BM_TX0;}
+	if((canHw->TFLG & BM_TX1) == 0){mask |= BM_TX1;}
+	if((canHw->TFLG & BM_TX2) == 0){mask |= BM_TX2;}
+
+	canHw->TARQ = mask; // Abort all pending mb's
+
+	while(canHw->TFLG != (BM_TX0 | BM_TX1 | BM_TX2))
+	{
+		i++;
+		if(i > 100)
+		{
+			break;
+		}
+	}
+}
+
+//-------------------------------------------------------------------
+/**
+ * Function that finds the Hoh( HardwareObjectHandle ) from a Hth
+ * A HTH may connect to one or several HOH's. Just find the first one.
+ *
+ * @param hth The transmit handle
+ * @returns Ptr to the Hoh
+ */
+LOCAL const Can_HardwareObjectType * Can_FindHoh( Can_HTHType hth , uint32* controller)
+{
+  const Can_HardwareObjectType *hohObj;
+  const Can_ObjectHOHMapType *map;
+  const Can_ControllerConfigType *canHwConfig;
+
+  map = &Can_Global.CanHTHMap[hth];
+#if(CAN_DEV_ERROR_DETECT == STD_ON)
+  // Verify that this is the correct map
+  if (map->CanHOHRef->CanObjectId != hth)
+  {
+    Det_ReportError(MODULE_ID_CAN, 0, CAN_WRITE_SERVICE_ID, CAN_E_PARAM_HANDLE);
+  }
+#endif
+  canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[map->CanControllerRef]);
+
+  hohObj = map->CanHOHRef;
+
+  // Verify that this is the correct Hoh type
+  if ( hohObj->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
+  {
+    *controller = map->CanControllerRef;
+    return hohObj;
+  }
+#if(CAN_DEV_ERROR_DETECT == STD_ON)
+  Det_ReportError(MODULE_ID_CAN, 0, CAN_WRITE_SERVICE_ID, CAN_E_PARAM_HANDLE);
+#endif
+  return NULL;
+}
+LOCAL IdrType Can_Hw_ConstructIdBytes(Can_IdType id, Can_IdTypeType idType)
+{
+    IdrType idr;
+
+    idr.R[3] = idr.R[2] = idr.R[1] = idr.R[0] = 0;
+
+    if(idType == CAN_ID_TYPE_EXTENDED) {
+      idr.Bit.SRR = 1;
+      idr.Bit.RTR = 0;
+      idr.Bit.IDE = 1;
+      idr.Bit.id28to21 = id>>21;
+      idr.Bit.id20to18 = id>>18 & 0x07;
+      idr.Bit.id17to15 = id>>15 & 0x07;
+      idr.Bit.id14to7  = id>>7;
+      idr.Bit.id6to0   = id & 0x7F;
+    } else if (idType == CAN_ID_TYPE_STANDARD) {
+      idr.R[0] = id>>3;
+      idr.R[1] = id<<5 & 0xE0;
+    } else {
+      // No support for mixed in this processor
+      assert(0);
+    }
+
+    return idr;
+}
+LOCAL uint32 McuE_GetSystemClock(void)
+{
+	return 32*1000000;	/* CPU_FREQUENCY = 32MHZ */
+}
+
+/* ####################### FUNCTIONs ########################### */
+EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
+{
+	/*For MSCAN nothing to do. */
+	return;
+}
+
+EXPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_ControllerConfigType* Config)
+{
+	CAN_HW_t *canHw;
+	uint8 tq;
+	uint8 tqSync;
+	uint8 tq1;
+	uint8 tq2;
+	uint32 clock;
+	Can_UnitType *canUnit;
+	const Can_ControllerConfigType *canHwConfig;
+	const Can_HardwareObjectType *hohObj;
+	canHw = Can_Hw_GetController(Controller);
+	canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[Controller]);
+
+	// Start this baby up
+	canHw->CTL0 = BM_INITRQ;				// request Init Mode
+	while((canHw->CTL1 & BM_INITAK) == 0) ;   // wait until Init Mode is established
+
+	// set CAN enable bit, deactivate listen-only mode,
+	// use Bus Clock as clock source and select loop back mode on/off
+	canHw->CTL1 = BM_CANE | BM_CLKSRC | (Config->Can_Loopback ? BM_LOOPB : 0x00);
+
+	// acceptance filters
+	hohObj = canHwConfig->Can_Hoh;
+	do {
+		if (hohObj->CanObjectType == CAN_OBJECT_TYPE_RECEIVE)
+		{
+			canHw->IDAC = hohObj->CanFilterMaskRef->idam;
+			canHw->IDAR0 = hohObj->CanFilterMaskRef->idar[0];
+			canHw->IDAR1 = hohObj->CanFilterMaskRef->idar[1];
+			canHw->IDAR2 = hohObj->CanFilterMaskRef->idar[2];
+			canHw->IDAR3 = hohObj->CanFilterMaskRef->idar[3];
+			canHw->IDAR4 = hohObj->CanFilterMaskRef->idar[4];
+			canHw->IDAR5 = hohObj->CanFilterMaskRef->idar[5];
+			canHw->IDAR6 = hohObj->CanFilterMaskRef->idar[6];
+			canHw->IDAR7 = hohObj->CanFilterMaskRef->idar[7];
+			canHw->IDMR0 = hohObj->CanFilterMaskRef->idmr[0];
+			canHw->IDMR1 = hohObj->CanFilterMaskRef->idmr[1];
+			canHw->IDMR2 = hohObj->CanFilterMaskRef->idmr[2];
+			canHw->IDMR3 = hohObj->CanFilterMaskRef->idmr[3];
+			canHw->IDMR4 = hohObj->CanFilterMaskRef->idmr[4];
+			canHw->IDMR5 = hohObj->CanFilterMaskRef->idmr[5];
+			canHw->IDMR6 = hohObj->CanFilterMaskRef->idmr[6];
+			canHw->IDMR7 = hohObj->CanFilterMaskRef->idmr[7];
+		}
+		++hohObj;
+	}while( !hohObj->Can_EOL );
+
+    // Clock calucation
+    // -------------------------------------------------------------------
+    //
+    // * 1 TQ = Sclk period( also called SCK )
+    // * Ftq = Fcanclk / ( PRESDIV + 1 ) = Sclk
+    //   ( Fcanclk can come from crystal or from the peripheral dividers )
+    //
+    // -->
+    // TQ = 1/Ftq = (PRESDIV+1)/Fcanclk --> PRESDIV = (TQ * Fcanclk - 1 )
+    // TQ is between 8 and 25
+    clock = McuE_GetSystemClock()/2;
+
+    tqSync = Config->CanControllerPropSeg + 1;
+    tq1 = Config->CanControllerSeg1 + 1;
+    tq2 = Config->CanControllerSeg2 + 1;
+    tq = tqSync + tq1 + tq2;
+
+    // Check TQ limitations..
+    VALIDATE_DEM_NO_RV(( (tq1>=1) && (tq1<=16)), CAN_E_TIMEOUT );
+    VALIDATE_DEM_NO_RV(( (tq2>=1) && (tq2<=8)), CAN_E_TIMEOUT );
+    VALIDATE_DEM_NO_RV(( (tq>=3) && (tq<25 )), CAN_E_TIMEOUT );
+
+    canHw->BTR0 = (Config->CanControllerPropSeg << 6) | (uint8)(clock/(Config->CanControllerBaudRate*1000*tq) - 1); // Prescaler
+    canHw->BTR1 = (Config->CanControllerSeg2 << 4) | Config->CanControllerSeg1;
+
+    canHw->CTL0 &= ~BM_INITRQ;				// exit Init Mode
+    while((canHw->CTL1 & BM_INITAK) != 0) ;// wait until Normal Mode is established
+
+    canHw->TBSEL = BM_TX0;					// use (only) TX buffer 0
+}
+
+EXPORT Can_ReturnType Can_Hw_SetControllerMode(uint8 Controller,Can_StateTransitionType Transition)
+{
+	CAN_HW_t *canHw;
+	Can_UnitType *canUnit;
+	UB imask;
+	Can_ReturnType rv = CAN_OK;
+
+	canUnit = CAN_GET_PRIVATE_DATA(Controller);
+	canHw = Can_Hw_GetController(Controller);
+
+	switch(Transition )
+	{
+		case CAN_T_START:
+			canUnit->state = CANIF_CS_STARTED;
+			DI(imask);
+			if (canUnit->lock_cnt == 0){   // REQ CAN196
+			  Can_EnableControllerInterrupts(Controller);
+			}
+			EI(imask);
+		break;
+		case CAN_T_WAKEUP:
+			VALIDATE(canUnit->state == CANIF_CS_SLEEP, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
+			canHw->CTL0 &= ~BM_SLPRQ; // Clear Sleep request
+			canHw->CTL0 &= ~BM_WUPE; // Clear Wake up enable
+			canUnit->state = CANIF_CS_STOPPED;
+		break;
+		case CAN_T_SLEEP:  //CAN258, CAN290
+			// Should be reported to DEM but DET is the next best
+			VALIDATE(canUnit->state == CANIF_CS_STOPPED, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
+			canHw->CTL0 |= BM_WUPE; // Set wake up enable
+			canHw->CTL0 |= BM_SLPRQ; // Set sleep request
+			canHw->RIER |= BM_WUPI; // Enable wake up irq
+			canUnit->state = CANIF_CS_SLEEP;
+		break;
+		case CAN_T_STOP:
+			// Stop
+			canUnit->state = CANIF_CS_STOPPED;
+			Can_Hw_AbortTx( canHw, canUnit ); // CANIF282
+		break;
+		default:
+			// Should be reported to DEM but DET is the next best
+			VALIDATE(canUnit->state == CANIF_CS_STOPPED, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
+		break;
+	}
+
+	return rv;
+}
+EXPORT void Can_Hw_DisableControllerInterrupts(uint8 Controller)
+{
+	UB imask;
+	Can_UnitType *canUnit;
+	CAN_HW_t *canHw;
+
+	canUnit = CAN_GET_PRIVATE_DATA(Controller);
+
+	VALIDATE_NO_RV( (canUnit->state!=CANIF_CS_UNINIT), CAN_DISABLECONTROLLERINTERRUPTS_SERVICE_ID, CAN_E_UNINIT );
+
+	DI(imask);
+	if(canUnit->lock_cnt > 0 )
+	{
+		// Interrupts already disabled
+		canUnit->lock_cnt++;
+		EI(imask);
+		return;
+	}
+	canUnit->lock_cnt++;
+	EI(imask);
+
+	/* Don't try to be intelligent, turn everything off */
+	canHw = Can_Hw_GetController(Controller);
+
+	/* Turn off the tx interrupt mailboxes */
+	canHw->TIER = 0;
+
+	/* Turn off the bus off/tx warning/rx warning and error and rx  */
+	canHw->RIER = 0;
+}
+
+EXPORT void Can_Hw_EnableControllerInterrupts( uint8 Controller )
+{
+	UB imask;
+	Can_UnitType *canUnit;
+	CAN_HW_t *canHw;
+	const Can_ControllerConfigType *canHwConfig;
+
+	canUnit = CAN_GET_PRIVATE_DATA(Controller);
+
+	VALIDATE_NO_RV( (canUnit->state!=CANIF_CS_UNINIT), CAN_ENABLECONTROLLERINTERRUPTS_SERVICE_ID, CAN_E_UNINIT );
+
+	DI(imask);
+	if( canUnit->lock_cnt > 1 )
+	{
+		// IRQ should still be disabled so just decrement counter
+		canUnit->lock_cnt--;
+		EI(imask);
+		return;
+	} else if (canUnit->lock_cnt == 1)
+	{
+		canUnit->lock_cnt = 0;
+	}
+	EI(imask);
+
+	canHw = Can_Hw_GetController(Controller);
+
+	canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[Controller]);
+
+	if( canHwConfig->CanRxProcessing == CAN_PROCESS_TYPE_INTERRUPT )
+	{
+		/* Turn on the rx interrupt */
+		canHw->RIER |= BM_RXF;
+	}
+
+	// BusOff here represents all errors and warnings
+	if( canHwConfig->CanBusOffProcessing == CAN_PROCESS_TYPE_INTERRUPT )
+	{
+		/* Turn off the bus off/tx warning/rx warning and error and rx  */
+		canHw->RIER |= BM_WUPI | BM_CSCI | BM_OVRI | BM_RXF | BM_RSTAT0 | BM_TSTAT0;
+	}
+}
+
+EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_PduType *pduInfo ) {
+  Can_ReturnType rv = CAN_OK;
+  CAN_HW_t *canHw;
+  const Can_HardwareObjectType *hohObj;
+  const Can_ControllerConfigType *canHwConfig;
+  uint32 controller;
+  UB imask;
+  IdrType idr;
+  Can_UnitType *canUnit;
+
+  hohObj = Can_FindHoh(hth, &controller);
+  if (hohObj == NULL)
+    return CAN_NOT_OK;
+
+  
+  canUnit = CAN_GET_PRIVATE_DATA(controller);
+  canHw = Can_Hw_GetController(controller);
+  DI(imask);
+
+  // check for any free box
+  if((canHw->TFLG & BM_TX0) == BM_TX0) {
+    canHw->TBSEL = BM_TX0; // Select mb0
+
+    idr = Can_Hw_ConstructIdBytes(pduInfo->id, hohObj->CanIdType);
+
+    canHw->TXFG.idr0 = idr.R[0];
+    canHw->TXFG.idr1 = idr.R[1];
+    canHw->TXFG.idr2 = idr.R[2];
+    canHw->TXFG.idr3 = idr.R[3];
+
+    memcpy((uint8 *)&canHw->TXFG.ds0, pduInfo->sdu, pduInfo->length);
+    canHw->TXFG.dlr = pduInfo->length;
+    canHw->TXFG.tbpr = 0; // Highest prio
+
+    // Send
+    canHw->TFLG = BM_TX0;
+
+    canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[controller]);
+
+    if( canHwConfig->CanTxProcessing == CAN_PROCESS_TYPE_INTERRUPT ) {
+  	  /* Turn on the tx interrupt mailboxes */
+      canHw->TIER |= BM_TX0; // We only use TX0
+    }
+
+    // Increment statistics
+    canUnit->stats.txSuccessCnt++;
+
+    // Store pdu handle in unit to be used by TxConfirmation
+    canUnit->swPduHandle = pduInfo->swPduHandle;
+  } else {
+    rv = CAN_BUSY;
+  }
+  EI(imask);
+
+  return rv;
+}
 

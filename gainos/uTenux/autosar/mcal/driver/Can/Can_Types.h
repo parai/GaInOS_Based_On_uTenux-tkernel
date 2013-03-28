@@ -62,7 +62,7 @@ Range:
 Represents the hardware object handles of a CAN hardware unit. For CAN
 hardware units with more than 255 HW objects use extended range.
  */
-typedef UINT Can_HwHandleType;
+typedef uint16 Can_HwHandleType;
 
 typedef struct Can_PduType_s {
 	/* the CAN ID, 29 or 11-bit  */
@@ -82,6 +82,16 @@ typedef enum {
 	CAN_T_WAKEUP
 } Can_StateTransitionType;
 
+typedef struct {
+	uint32 txSuccessCnt;
+	uint32 rxSuccessCnt;
+	uint32 txErrorCnt;
+	uint32 rxErrorCnt;
+	uint32 boffCnt;
+	uint32 fifoOverflow;
+	uint32 fifoWarning;
+} Can_StatisticsType;
+
 typedef enum {
 	CAN_OK,
 	CAN_NOT_OK,
@@ -90,8 +100,8 @@ typedef enum {
 
 typedef enum
 {
-	CAN_PROCESS_INTERRUPT,
-	CAN_PROCESS_POLLING
+	CAN_PROCESS_TYPE_INTERRUPT,
+	CAN_PROCESS_TYPE_POLLING
 }Can_ProcessType;
 typedef enum
 {
@@ -103,16 +113,15 @@ typedef enum
 typedef enum
 {
 	/** All the CANIDs are of type extended only (29 bit).*/
-	CAN_ID_EXTENDED = 0x1,
+	CAN_ID_TYPE_EXTENDED = 0x1,
 	/** All the CANIDs are of type standard only (11bit). */
-	CAN_ID_STANDARD = 0x2,
+	CAN_ID_TYPE_STANDARD = 0x2,
 	/** The type of CANIDs can be both Standard or Extended.*/
-	CAN_ID_MIXED    = 0x3
-
+	CAN_ID_TYPE_MIXED    = 0x3
 }Can_IdTypeType;
 
 typedef enum {
-	CAN_OBJECT_RECEIVE,
-	CAN_OBJECT_TRANSMIT
+	CAN_OBJECT_TYPE_RECEIVE,
+	CAN_OBJECT_TYPE_TRANSMIT
 } Can_ObjectTypeType;
 #endif /* CAN_TYPES_H_ */

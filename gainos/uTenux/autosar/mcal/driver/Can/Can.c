@@ -47,18 +47,23 @@
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
 #include "Det.h"
 #endif
-typedef struct{
-	Can_DriverStateType driverState;
-	const Can_ConfigType* config;
-}Can_GlobalType;
 
-LOCAL Can_GlobalType Can_Global =
-{
-		CAN_UNINIT, 	/* driverState */
-};
+/* #################### IMPORTs ############################# */
+IMPORT Can_GlobalType Can_Global;
+IMPORT void Can_Hw_Init(const Can_ConfigType* Config);
+IMPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_ControllerConfigType* Config);
+IMPORT Can_ReturnType Can_Hw_SetControllerMode(uint8 Controller,Can_StateTransitionType Transition);
+IMPORT void Can_Hw_DisableControllerInterrupts(uint8 Controller);
+IMPORT void Can_Hw_EnableControllerInterrupts( uint8 Controller );
 
+/* ####################### FUNCTIONs ########################### */
 EXPORT void Can_Init(const Can_ConfigType* Config)
 {
+	  Can_UnitType *canUnit;
+	  const Can_ControllerConfigType *canHwConfig;
+	  const Can_HardwareObjectType* hoh;
+	  uint8 ctlrId;
+	  int configId;
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
 	if(CAN_UNINIT != Can_Global.driverState)
 	{
@@ -71,7 +76,42 @@ EXPORT void Can_Init(const Can_ConfigType* Config)
 		return;
 	}
 #endif
+	/* save config */
+	Can_Global.config = Config;
+	Can_Global.driverState = CAN_READY;
 
+	Can_Hw_Init(Config);
+
+	for (configId=0; configId < CAN_CTRL_CONFIG_CNT; configId++)
+	{
+		canHwConfig = CAN_GET_CONTROLLER_CONFIG(configId);
+		ctlrId = canHwConfig->CanControllerId;
+
+		// Assign the configuration channel used later..
+		Can_Global.channelMap[ctlrId] = configId;
+		Can_Global.configured |= (1<<ctlrId);
+
+		canUnit = CAN_GET_PRIVATE_DATA(ctlrId);
+		canUnit->state = CANIF_CS_STOPPED;
+
+		canUnit->lock_cnt = 0;
+
+		// Clear stats
+		memset(&canUnit->stats, 0, sizeof(Can_StatisticsType));
+	    Can_InitController(ctlrId, canHwConfig);
+
+	    // Loop through all Hohs and map them into the HTHMap
+	    hoh = canHwConfig->Can_Hoh;
+		do
+		{
+			if (hoh->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
+			{
+				Can_Global.CanHTHMap[hoh->CanObjectId].CanControllerRef = canHwConfig->CanControllerId;
+				Can_Global.CanHTHMap[hoh->CanObjectId].CanHOHRef = hoh;
+			}
+			hoh++;
+		} while (!hoh->Can_EOL);
+	}
 }
 
 #if(CAN_VERSION_INFO_API == STD_ON )
@@ -81,8 +121,11 @@ EXPORT void Can_GetVersionInfo(Std_VersionInfoType* versioninfo )
 }
 #endif
 
-EXPORT void Can_InitController(uint8 Controller,const Can_ControllerBaudrateConfigType* Config)
+EXPORT void Can_InitController(uint8 Controller,const Can_ControllerConfigType* Config)
 {
+	Can_UnitType *canUnit;
+	StatusType ercd;
+	canUnit = CAN_GET_PRIVATE_DATA(Controller);
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
 	if(CAN_UNINIT == Can_Global.driverState)
 	{
@@ -94,7 +137,24 @@ EXPORT void Can_InitController(uint8 Controller,const Can_ControllerBaudrateConf
 		Det_ReportError(MODULE_ID_CAN,0,CAN_INITCONTROLLER_SERVICE_ID,CAN_E_PARAM_POINTER);
 		return;
 	}
+	if(Controller >= CAN_CONTROLLER_CNT)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_INITCONTROLLER_SERVICE_ID,CAN_E_PARAM_CONTROLLER);
+		return;
+	}
+	if(canUnit->state!=CANIF_CS_STOPPED)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_INITCONTROLLER_SERVICE_ID,CAN_E_TRANSITION);
+		return;
+	}
 #endif
+	ercd = Can_Hw_InitController(Controller,Config);
+	if(ercd != E_OK)
+	{
+		return;
+	}
+	canUnit->state = CANIF_CS_STOPPED;
+	Can_EnableControllerInterrupts(Controller);
 }
 
 EXPORT Can_ReturnType Can_SetControllerMode(uint8 Controller,Can_StateTransitionType Transition)
@@ -105,12 +165,13 @@ EXPORT Can_ReturnType Can_SetControllerMode(uint8 Controller,Can_StateTransition
 		Det_ReportError(MODULE_ID_CAN,0,CAN_SETCONTROLLERMODE_SERVICE_ID,CAN_E_UNINIT);
 		return CAN_NOT_OK;
 	}
-	if((Transition > CAN_T_WAKEUP) || (Transition <CAN_T_START))
+	if(Controller >= CAN_CONTROLLER_CNT)
 	{
-		Det_ReportError(MODULE_ID_CAN,0,CAN_SETCONTROLLERMODE_SERVICE_ID,CAN_E_TRANSITION);
+		Det_ReportError(MODULE_ID_CAN,0,CAN_SETCONTROLLERMODE_SERVICE_ID,CAN_E_PARAM_CONTROLLER);
 		return CAN_NOT_OK;
 	}
 #endif
+	return Can_Hw_SetControllerMode(Controller,Transition);
 }
 EXPORT void Can_DisableControllerInterrupts(uint8 Controller)
 {
@@ -120,7 +181,13 @@ EXPORT void Can_DisableControllerInterrupts(uint8 Controller)
 		Det_ReportError(MODULE_ID_CAN,0,CAN_DISABLECONTROLLERINTERRUPTS_SERVICE_ID,CAN_E_UNINIT);
 		return;
 	}
+	if(Controller >= CAN_CONTROLLER_CNT)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_DISABLECONTROLLERINTERRUPTS_SERVICE_ID,CAN_E_PARAM_CONTROLLER);
+		return;
+	}
 #endif
+	Can_Hw_DisableControllerInterrupts(Controller);
 }
 
 EXPORT void Can_EnableControllerInterrupts(uint8 Controller)
@@ -132,6 +199,7 @@ EXPORT void Can_EnableControllerInterrupts(uint8 Controller)
 		return;
 	}
 #endif
+	Can_Hw_EnableControllerInterrupts(Controller);
 }
 
 EXPORT Can_ReturnType Can_CheckWakeup(uint8 Controller)
@@ -153,7 +221,23 @@ EXPORT Can_ReturnType Can_Write(Can_HwHandleType Hth,const Can_PduType* PduInfo)
 		Det_ReportError(MODULE_ID_CAN,0,CAN_WRITE_SERVICE_ID,CAN_E_UNINIT);
 		return CAN_NOT_OK;
 	}
+	if(NULL == PduInfo)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_WRITE_SERVICE_ID,CAN_E_PARAM_POINTER);
+		return CAN_NOT_OK;
+	}	  
+  	if(PduInfo->length > 8)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_WRITE_SERVICE_ID,CAN_E_PARAM_DLC);
+		return CAN_NOT_OK;
+	}
+    if(Hth >= NUM_OF_HTHS)
+	{
+		Det_ReportError(MODULE_ID_CAN,0,CAN_WRITE_SERVICE_ID,CAN_E_PARAM_HANDLE);
+		return CAN_NOT_OK;
+	}
 #endif
+    return Can_Hw_Write(Hth,PduInfo);
 }
 
 EXPORT void Can_MainFunction_Write(void)

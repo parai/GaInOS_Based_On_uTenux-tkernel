@@ -54,8 +54,46 @@
 /* ##############################  INCLUDEs  ############################## */
 #include "ComStack_Types.h"
 #include "Can_Types.h"
+#include "CanIf_Types.h"
 #include "Can_Hw.h"
 #include "Can_Cfg.h"
+/* ##############################  TYPEs  ############################## */
+/* Type for holding information about each controller */
+typedef struct {
+  CanIf_ControllerModeType state;
+  UINT		lock_cnt;
+
+  /* Statistics */
+  Can_StatisticsType stats;
+
+  /* Data stored for Txconfirmation callbacks to CanIf */
+  PduIdType swPduHandle;
+} Can_UnitType;
+
+// Mapping between HRH and Controller//HOH
+typedef struct Can_ObjectHOHMapStruct
+{
+  Can_ControllerIdType CanControllerRef;    // Reference to controller
+  const Can_HardwareObjectType* CanHOHRef;       // Reference to HOH.
+} Can_ObjectHOHMapType;
+
+typedef struct{
+	Can_DriverStateType driverState;
+	const Can_ConfigType* config;
+	Can_UnitType canUnit[CAN_CONTROLLER_CNT];
+	/* One bit for each channel that is configured.
+	Used to determine if validity of a channel
+	1 - configured
+	0 - NOT configured*/
+	UINT  configured;
+	/* Maps the channel id to a configured channel id */
+	uint8   channelMap[CAN_CONTROLLER_CNT];
+
+	/* This is a map that maps the HTHs with the controller and Hoh. It is built
+	during Can_Init and is used to make things faster during a transmit. */
+	Can_ObjectHOHMapType CanHTHMap[NUM_OF_HTHS];
+}Can_GlobalType;
+
 
 /* ##############################  MACROs  ############################## */
 #define CAN_E_PARAM_POINTER     0x01
@@ -83,12 +121,18 @@
 #define CAN_MAINFUNCTION_WAKEUP_SERVICE_ID          0x0a
 #define CAN_CBK_CHECKWAKEUP_SERVICE_ID              0x0b
 #define CAN_MAINFUNCTION_MODE_SERVICE_ID            0x0c
+/* #################### MACROs ############################# */
+#define CAN_GET_CONTROLLER_CONFIG(_controller)	\
+        					&Can_Global.config->CanConfigSet->CanController[(_controller)]
 
+#define CAN_GET_PRIVATE_DATA(_controller) \
+									&Can_Global.canUnit[_controller]
 /* ##############################  FUNCTIONs  ############################## */
 IMPORT void Can_Init(const Can_ConfigType* Config);
 IMPORT void Can_GetVersionInfo(Std_VersionInfoType* versioninfo);
-IMPORT void Can_InitController(uint8 Controller,const Can_ControllerBaudrateConfigType* Config);
+IMPORT void Can_InitController(uint8 Controller,const Can_ControllerConfigType* Config);
 IMPORT Can_ReturnType Can_SetControllerMode(uint8 Controller,Can_StateTransitionType Transition);
+IMPORT void Can_EnableControllerInterrupts(uint8 Controller);
 IMPORT void Can_DisableControllerInterrupts(uint8 Controller);
 IMPORT Can_ReturnType Can_CheckWakeup(uint8 Controller);
 IMPORT Can_ReturnType Can_Write(Can_HwHandleType Hth,const Can_PduType* PduInfo);

@@ -59,4 +59,12 @@
 #define CAN_TIMEOUT_DURATION         10
 #define cfgCAN_EXTEND         STD_OFF
 
+typedef enum {
+	TxHWObject,
+	NUM_OF_HTHS
+} Can_HTHType;
+
+/* Number of controller configs */
+#define CAN_CTRL_CONFIG_CNT		1
+
 #endif /* CAN_CFG_H_ */

@@ -50,7 +50,7 @@ typedef enum {
 	CAN_CTRL_3 = 3,
 	CAN_CTRL_4 = 4,
 	CAN_CONTROLLER_CNT = 5
-}CanControllerIdType;
+}Can_ControllerIdType;
 
 /** Start mc9s12 unique */
 typedef enum {
@@ -60,14 +60,6 @@ typedef enum {
   CAN_IDAM_FILTER_CLOSED = 3,
 } Can_IDAMType;
 
-typedef struct {
-	void (*CancelTxConfirmation)( const Can_PduType *);
-	void (*RxIndication)( uint8 ,Can_IdType ,uint8 , const uint8 * );
-	void (*ControllerBusOff)(uint8);
-	void (*TxConfirmation)(PduIdType);
-	void (*ControllerWakeup)(uint8);
-	void (*Arc_Error)(uint8,Can_Arc_ErrorType);
-} Can_CallbackType;
 typedef struct
 {
 	uint8 idmr[8]; /* Identifier Mask Register, 1 = ignore corresponding acceptance code register bit*/
@@ -102,10 +94,10 @@ typedef struct Can_HardwareObjectStruct {
 
 	/** A "1" in this mask tells the driver that that HW Message Box should be
 	occupied by this Hoh. A "1" in bit 31(ppc) occupies Mb 0 in HW.*/
-	uint32 Can_Arc_MbMask;
+	uint32 Can_MbMask;
 
 	/** End Of List. Set to TRUE is this is the last object in the list.*/
-	boolean Can_Arc_EOL;
+	boolean Can_EOL;
 } Can_HardwareObjectType;
 
 typedef struct
@@ -118,7 +110,7 @@ typedef struct
 	/** This parameter provides the controller ID which is unique in a
 	given CAN Driver. The value for this parameter starts with 0 and
 	continue without any gaps. */
-	CanControllerIdType  CanControllerId;
+	Can_ControllerIdType  CanControllerId;
 	/** Enables / disables API Can_MainFunction_Read() for
 	handling PDU reception events in polling mode. */
 	Can_ProcessType CanRxProcessing;
@@ -128,6 +120,7 @@ typedef struct
 	/** Enables / disables API Can_MainFunction_Wakeup() for
 	handling wakeup events in polling mode. */
 	Can_ProcessType CanWakeupProcessing;
+	Can_ProcessType CanBusOffProcessing;
 	/** CAN driver support for wakeup over CAN Bus. */
 	boolean         CanWakeupSupport;
 	/**	Reference to the CPU clock configuration, which is set in the MCU driver
@@ -150,13 +143,11 @@ typedef struct
 	uint16          CanControllerSyncJumpWidth;
 	/** List of Hoh id's that belong to this controller */
 	const Can_HardwareObjectType  *Can_Hoh;
+	boolean Can_Loopback;
 }Can_ControllerConfigType;
 
 typedef struct {
 	const Can_ControllerConfigType *CanController;
-
-	/* Callbacks( Extension )*/
-	const Can_CallbackType *CanCallbacks;
 } Can_ConfigSetType;
 
 /*
@@ -213,9 +204,9 @@ typedef struct
 
 /* CAN Transmit/Receive buffer structure */
 #define CAN_IDR0		0	/* Identifier Register 0 */
-#define CAN_IDR0		1	/* Identifier Register 1 */
-#define CAN_IDR0		2	/* Identifier Register 2 */
-#define CAN_IDR0		3	/* Identifier Register 3 */
+#define CAN_IDR1		1	/* Identifier Register 1 */
+#define CAN_IDR2		2	/* Identifier Register 2 */
+#define CAN_IDR3		3	/* Identifier Register 3 */
 #define CAN_DSR0		4	/* Data Segment Register 0 */
 #define CAN_DSR1		5	/* Data Segment Register 1 */
 #define CAN_DSR2		6	/* Data Segment Register 2 */
