@@ -646,7 +646,8 @@ LOCAL void Can_Hw_RxIsr(int unit) {
                     ((uint32)idr->Bit.id14to7 << 7) | idr->Bit.id6to0;
                 id |= 0x80000000;
             } else {
-                id = ((uint32)idr->Bit.id28to21 << 3) | (uint32)idr->Bit.id20to18;
+                //id = ((uint32)idr->Bit.id28to21 << 3) | (uint32)idr->Bit.id20to18;
+                id = ((uint32)idr->R[0] << 3) | (uint32)(idr->R[1]>>5);
             }
 
             CanIf_RxIndication(hohObj->CanObjectId,

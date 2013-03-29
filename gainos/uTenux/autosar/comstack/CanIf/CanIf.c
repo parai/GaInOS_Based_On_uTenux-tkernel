@@ -58,7 +58,7 @@ void CanIf_TxConfirmation(PduIdType canTxPduId)
 void CanIf_RxIndication(uint8 Hrh, Can_IdType CanId, uint8 CanDlc,
               const uint8 *CanSduPtr)
 {
-    tm_printf("Hrh = %d,CanId = %d:\r\n",Hrh,CanId);
+    tm_printf("Hrh = %d,CanId = %d:\r\n",(int)Hrh,(int)CanId);
     while(CanDlc > 0)
     {
         tm_putchar(*CanSduPtr++);

@@ -62,7 +62,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x900     9415
+  _Range   pZeroOut       0x900     9425
   _Copy    *toCopyDownBeg 0xC5C0
 } _startupData;
 
@@ -75,10 +75,10 @@ Section Name                    Size  Type     From       To       Segment
 .rodata                          402     R     0xC015     0xC1A6   ROM_C000
 .rodata1                         316     R     0xC1A7     0xC2E2   ROM_C000
 NON_BANKED                       733     R     0xC2E3     0xC5BF   ROM_C000
-.copy                             15     R     0xC5C0     0xC5CE   ROM_C000
-.text                           8160     R   0x208000   0x209FDF   PAGE_20
+.copy                             25     R     0xC5C0     0xC5D8   ROM_C000
+.text                           8574     R   0x208000   0x20A17D   PAGE_20
 .stack                           256   R/W      0x800      0x8FF   RAM
-.data                              9   R/W      0x900      0x908   RAM
+.data                             19   R/W      0x900      0x912   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -626,13 +626,13 @@ NON_BANKED                       733     R     0xC2E3     0xC5BF   ROM_C000
 .abs_section_ffa6                  2     R     0xFFA6     0xFFA7   .absSeg544
 .abs_section_ff9e                  2     R     0xFF9E     0xFF9F   .absSeg545
 .abs_section_ff96                  2     R     0xFF96     0xFF97   .absSeg546
-.bss                            5960   R/W      0x909     0x2050   RAM
-.common                         3446   R/W     0x2051     0x2DC6   RAM
+.bss                            5960   R/W      0x913     0x205A   RAM
+.common                         3446   R/W     0x205B     0x2DD0   RAM
 .vectSeg547_vect                   2     R     0xFFFE     0xFFFF   .vectSeg547
 
 Summary of section sizes per section type:
-READ_ONLY (R):        25DD (dec:     9693)
-READ_WRITE (R/W):     25C7 (dec:     9671)
+READ_ONLY (R):        2785 (dec:    10117)
+READ_WRITE (R/W):     25D1 (dec:     9681)
 NO_INIT (N/I):         24E (dec:      590)
 
 *********************************************************************************************
@@ -1191,7 +1191,7 @@ MODULE:                 -- PRINTF.C.o (ansibi.lib) --
      pow10                                     C015      28      40       4   .rodata     
      pow16                                     C03D      20      32       4   .rodata     
      pow8                                      C05D      2C      44       4   .rodata     
-     pbuf                                       909       7       7      16   .bss        
+     pbuf                                       913       7       7      16   .bss        
 MODULE:                 -- STRING.C.o (ansibi.lib) --
 - PROCEDURES:
      memcpy                                  2084B1      24      36       2   .text       
@@ -1216,7 +1216,7 @@ MODULE:                 -- rtshc12.c.o (ansibi.lib) --
      _CASE_CHECKED_BYTE                        C474      14      20       1   NON_BANKED  
      _CASE_SEARCH_8                            C488      17      23       1   NON_BANKED  
      _CASE_SEARCH_8_BYTE                       C49F      1A      26       1   NON_BANKED  
-     _FPCMP                                    C4B9       8       8       3   NON_BANKED  
+     _FPCMP                                    C4B9       8       8       4   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- bitop.c.o --
 - PROCEDURES:
@@ -1234,16 +1234,16 @@ MODULE:                 -- eventflag.c.o --
      knl_eventflag_initialize                2085ED      30      48       3   .text       
      tk_cre_flg                              20861D      86     134       2   .text       
 - VARIABLES:
-     knl_flgcb_table                           2051      8C     140       3   .common     
-     knl_free_flgcb                            20DD       4       4       3   .common     
+     knl_flgcb_table                           205B      8C     140       3   .common     
+     knl_free_flgcb                            20E7       4       4       3   .common     
 MODULE:                 -- mailbox.c.o --
 - PROCEDURES:
      QueInit                                 2086A3       7       7       2   .text       
      QueInsert                               2086AA      15      21       2   .text       
      knl_mailbox_initialize                  2086BF      35      53       3   .text       
 - VARIABLES:
-     knl_mbxcb_table                           20E1      20      32       2   .common     
-     knl_free_mbxcb                            2101       4       4       2   .common     
+     knl_mbxcb_table                           20EB      20      32       2   .common     
+     knl_free_mbxcb                            210B       4       4       2   .common     
 MODULE:                 -- memory.c.o --
 - PROCEDURES:
      QueInit                                 2086F4       7       7       4   .text       
@@ -1261,16 +1261,16 @@ MODULE:                 -- memory.c.o --
 - VARIABLES:
      knl_lowmem_top                             900       2       2       5   .data       
      knl_lowmem_limit                           902       2       2       2   .data       
-     knl_ImallocMem                             910    1000    4096       2   .bss        
-     knl_imacb                                 2105       2       2      12   .common     
+     knl_ImallocMem                             91A    1000    4096       2   .bss        
+     knl_imacb                                 210F       2       2      12   .common     
 MODULE:                 -- messagebuf.c.o --
 - PROCEDURES:
      QueInit                                 208A67       7       7       2   .text       
      QueInsert                               208A6E      15      21       2   .text       
      knl_messagebuffer_initialize            208A83      35      53       3   .text       
 - VARIABLES:
-     knl_mbfcb_table                           2107      48      72       2   .common     
-     knl_free_mbfcb                            214F       4       4       2   .common     
+     knl_mbfcb_table                           2111      48      72       2   .common     
+     knl_free_mbfcb                            2159       4       4       2   .common     
 MODULE:                 -- mutex.c.o --
 - PROCEDURES:
      QueInit                                 208AB8       7       7       4   .text       
@@ -1283,24 +1283,24 @@ MODULE:                 -- mutex.c.o --
      knl_signal_all_mutex                    208B3D      60      96       2   .text       
      tk_cre_mtx                              208B9D      AC     172       2   .text       
 - VARIABLES:
-     knl_mtxcb_table                           2153      AA     170       3   .common     
-     knl_free_mtxcb                            21FD       4       4       3   .common     
+     knl_mtxcb_table                           215D      AA     170       3   .common     
+     knl_free_mtxcb                            2207       4       4       3   .common     
 MODULE:                 -- rendezvous.c.o --
 - PROCEDURES:
      QueInit                                 208C49       7       7       2   .text       
      QueInsert                               208C50      15      21       2   .text       
      knl_rendezvous_initialize               208C65      35      53       3   .text       
 - VARIABLES:
-     knl_porcb_table                           2201      28      40       2   .common     
-     knl_free_porcb                            2229       4       4       2   .common     
+     knl_porcb_table                           220B      28      40       2   .common     
+     knl_free_porcb                            2233       4       4       2   .common     
 MODULE:                 -- semaphore.c.o --
 - PROCEDURES:
      QueInit                                 208C9A       7       7       2   .text       
      QueInsert                               208CA1      15      21       2   .text       
      knl_semaphore_initialize                208CB6      35      53       3   .text       
 - VARIABLES:
-     knl_semcb_table                           222D      20      32       2   .common     
-     knl_free_semcb                            224D       4       4       2   .common     
+     knl_semcb_table                           2237      20      32       2   .common     
+     knl_free_semcb                            2257       4       4       2   .common     
 MODULE:                 -- task.c.o --
 - PROCEDURES:
      QueInit                                 208CEB       7       7       4   .text       
@@ -1316,15 +1316,15 @@ MODULE:                 -- task.c.o --
      knl_task_initialize                     208E83      4F      79       3   .text       
      knl_make_dormant                        208ED2      33      51       4   .text       
      knl_make_ready                          208F05      1E      30       4   .text       
-     knl_make_non_ready                      208F23      1E      30       2   .text       
+     knl_make_non_ready                      208F23      1E      30       4   .text       
      knl_change_task_priority                208F41      60      96       2   .text       
 - VARIABLES:
-     knl_ready_queue                           2251      8A     138       7   .common     
-     knl_schedtsk                              22DB       2       2      13   .common     
-     knl_dispatch_disabled                     22DD       2       2      10   .common     
-     knl_ctxtsk                                22DF       2       2      17   .common     
-     knl_tcb_table                             22E1     840    2112       2   .common     
-     knl_free_tcb                              2B21       4       4       3   .common     
+     knl_ready_queue                           225B      8A     138       7   .common     
+     knl_schedtsk                              22E5       2       2      14   .common     
+     knl_dispatch_disabled                     22E7       2       2      12   .common     
+     knl_ctxtsk                                22E9       2       2      25   .common     
+     knl_tcb_table                             22EB     840    2112       2   .common     
+     knl_free_tcb                              2B2B       4       4       3   .common     
 MODULE:                 -- task_manage.c.o --
 - PROCEDURES:
      QueRemove                               208FA1      13      19       4   .text       
@@ -1343,35 +1343,43 @@ MODULE:                 -- task_manage.c.o --
 - VARIABLES:
 MODULE:                 -- time_calls.c.o --
 - PROCEDURES:
-     QueInit                                 209252       7       7       4   .text       
+     QueInit                                 209252       7       7       6   .text       
      QueInsert                               209259      15      21       4   .text       
-     knl_cyclichandler_initialize            20926E      31      49       3   .text       
-     knl_alarmhandler_initialize             20929F      31      49       3   .text       
+     knl_getPRIMASK                          20926E       7       7       2   .text       
+     knl_isTaskIndependent                   209275       B      11       4   .text       
+     knl_dispatch                            209280       2       2       2   .text       
+     tk_dly_tsk                              209282      82     130       2   .text       
+     knl_cyclichandler_initialize            209304      31      49       3   .text       
+     knl_alarmhandler_initialize             209335      31      49       3   .text       
 - VARIABLES:
-     knl_cyccb_table                           2B25     118     280       2   .common     
-     knl_free_cyccb                            2C3D       4       4       2   .common     
-     knl_almcb_table                           2C41      F0     240       2   .common     
-     knl_free_almcb                            2D31       4       4       2   .common     
+     knl_wspec_dly                              904       A      10       1   .data       
+     knl_cyccb_table                           2B2F     118     280       2   .common     
+     knl_free_cyccb                            2C47       4       4       2   .common     
+     knl_almcb_table                           2C4B      F0     240       2   .common     
+     knl_free_almcb                            2D3B       4       4       2   .common     
 MODULE:                 -- timer.c.o --
 - PROCEDURES:
-     QueInit                                 2092D0       7       7       2   .text       
-     isQueEmpty                              2092D7       C      12       2   .text       
-     QueRemove                               2092E3      13      19       2   .text       
-     knl_isTaskIndependent                   2092F6       B      11       2   .text       
-     knl_dispatch                            209301       2       2       2   .text       
-     knl_start_hw_timer                      209303      10      16       2   .text       
-     knl_clear_hw_timer_interrupt            209313       1       1       2   .text       
-     knl_end_of_hw_timer_interrupt           209314       1       1       2   .text       
-     knl_timer_initialize                    209315      22      34       3   .text       
-     knl_timer_handler                       209337      93     147       2   .text       
+     QueInit                                 209366       7       7       2   .text       
+     isQueEmpty                              20936D       C      12       2   .text       
+     QueInsert                               209379      15      21       2   .text       
+     QueRemove                               20938E      13      19       2   .text       
+     knl_isTaskIndependent                   2093A1       B      11       2   .text       
+     knl_dispatch                            2093AC       2       2       2   .text       
+     knl_start_hw_timer                      2093AE      10      16       2   .text       
+     knl_clear_hw_timer_interrupt            2093BE       1       1       2   .text       
+     knl_end_of_hw_timer_interrupt           2093BF       1       1       2   .text       
+     knl_timer_initialize                    2093C0      22      34       3   .text       
+     knl_enqueue_tmeb                        2093E2      2E      46       2   .text       
+     knl_timer_insert_reltim                 209410      34      52       2   .text       
+     knl_timer_handler                       209444      93     147       2   .text       
 - VARIABLES:
-     knl_current_time                          2D35       4       4       9   .common     
-     knl_real_time_ofs                         2D39       4       4       4   .common     
-     knl_timer_queue                           2D3D       4       4       3   .common     
+     knl_current_time                          2D3F       4       4      11   .common     
+     knl_real_time_ofs                         2D43       4       4       4   .common     
+     knl_timer_queue                           2D47       4       4       5   .common     
 MODULE:                 -- tkstart.c.o --
 - PROCEDURES:
-     knl_init_module                         2093CA       E      14      24   .text       
-     knl_t_kernel_main                       2093D8      C1     193       2   .text       
+     knl_init_module                         2094D7       E      14      24   .text       
+     knl_t_kernel_main                       2094E5      C1     193       2   .text       
 - VARIABLES:
      STRING.cpu.1                              C1A7       4       4       1   .rodata1    
      STRING.tkdev.2                            C1AB       6       6       1   .rodata1    
@@ -1387,31 +1395,33 @@ MODULE:                 -- tkstart.c.o --
      STRING.timer.12                           C20C       6       6       1   .rodata1    
 MODULE:                 -- wait.c.o --
 - PROCEDURES:
-     QueRemove                               209499      13      19       4   .text       
-     knl_timer_delete                        2094AC       5       5       2   .text       
-     knl_make_non_wait                       2094B1      16      22       2   .text       
-     knl_wait_release                        2094C7      16      22       2   .text       
-     knl_wait_release_ok                     2094DD      10      16       2   .text       
+     QueRemove                               2095A6      13      19       6   .text       
+     knl_timer_delete                        2095B9       5       5       2   .text       
+     knl_make_non_wait                       2095BE      16      22       4   .text       
+     knl_wait_release                        2095D4      16      22       2   .text       
+     knl_wait_release_ok                     2095EA      10      16       2   .text       
+     knl_wait_release_tmout                  2095FA      2B      43       3   .text       
+     knl_make_wait_reltim                    209625      3F      63       2   .text       
 - VARIABLES:
 MODULE:                 -- inittask_main.c.o --
 - PROCEDURES:
-     knl_init_task_main                      2094ED       5       5       2   .text       
+     knl_init_task_main                      209664       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- sysinit_main.c.o --
 - PROCEDURES:
-     knl_init_task                           2094F2       F      15       2   .text       
-     main                                    209501       E      14       2   .text       
+     knl_init_task                           209669       F      15       2   .text       
+     main                                    209678       E      14       2   .text       
 - VARIABLES:
 MODULE:                 -- sysstartup.c.o --
 - PROCEDURES:
-     knl_init_system                         20950F      17      23       2   .text       
-     knl_start_system                        209526       E      14       2   .text       
+     knl_init_system                         209686      17      23       2   .text       
+     knl_start_system                        20969D       E      14       2   .text       
 - VARIABLES:
 MODULE:                 -- osek_cfg.c.o --
 - PROCEDURES:
-     TaskMainvTask0                          209534      44      68       2   .text       
-     TaskMainvTask1                          209578       C      12       2   .text       
-     TaskMainvTask2                          209584       C      12       2   .text       
+     TaskMainvTask0                          2096AB      67     103       2   .text       
+     TaskMainvTask1                          209712       C      12       2   .text       
+     TaskMainvTask2                          20971E       C      12       2   .text       
 - VARIABLES:
      OsekResourceTable                         C089      10      16       1   .rodata     
      OsekTaskTable                             C099      4B      75       1   .rodata     
@@ -1421,25 +1431,26 @@ MODULE:                 -- osek_cfg.c.o --
      STRING.vTask0.is.running....5             C21E      15      21       1   .rodata1    
      STRING.vTask1.is.running....6             C233      15      21       1   .rodata1    
      STRING.vTask2.is.running....7             C248      15      21       1   .rodata1    
-     sduData1.1                                 904       2       2       1   .data       
-     sduData2.3                                 906       2       2       1   .data       
-     TaskStackvTask0                           1910     200     512       1   .bss        
-     TaskStackvTask1                           1B10     200     512       1   .bss        
-     TaskStackvTask2                           1D10     200     512       1   .bss        
-     OsekAlarmIdTable                          2D41       4       4       1   .common     
+     sduData1.1                                 90E       2       2       1   .data       
+     sduData2.3                                 910       2       2       1   .data       
+     TaskStackvTask0                           191A     200     512       1   .bss        
+     TaskStackvTask1                           1B1A     200     512       1   .bss        
+     TaskStackvTask2                           1D1A     200     512       1   .bss        
+     OsekAlarmIdTable                          2D4B       4       4       1   .common     
 MODULE:                 -- osek_osctrl.c.o --
 - PROCEDURES:
-     OsekCreateTasks                         209590      3C      60       2   .text       
-     OsekCreateEntFlgs                       2095CC      1C      28       2   .text       
-     OsekInitAlarms                          2095E8      17      23       2   .text       
-     OsekCreateResources                     2095FF      22      34       2   .text       
-     StartOS                                 209621      2C      44       2   .text       
-     ShutdownOS                              20964D       2       2       6   .text       
+     OsekCreateTasks                         20972A      3C      60       2   .text       
+     OsekCreateEntFlgs                       209766      1C      28       2   .text       
+     OsekInitAlarms                          209782      17      23       2   .text       
+     OsekCreateResources                     209799      22      34       2   .text       
+     StartOS                                 2097BB      2C      44       2   .text       
+     ShutdownOS                              2097E7       2       2       6   .text       
 - VARIABLES:
      cflg.1                                    C0EA      10      16       1   .rodata     
 MODULE:                 -- osek_task.c.o --
 - PROCEDURES:
-     TerminateTask                           20964F       8       8       4   .text       
+     TerminateTask                           2097E9       8       8       4   .text       
+     DelayTask                               2097F1       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- inittask_def.c.o --
 - PROCEDURES:
@@ -1447,30 +1458,30 @@ MODULE:                 -- inittask_def.c.o --
      knl_c_init_task                           C0FA      19      25       1   .rodata     
 MODULE:                 -- usermain.c.o --
 - PROCEDURES:
-     usermain                                209657       2       2       2   .text       
+     usermain                                2097F6       2       2       2   .text       
 - VARIABLES:
 MODULE:                 -- tm_monitor.c.o --
 - PROCEDURES:
-     tm_monitor                              209659       2       2       8   .text       
-     tm_putchar                              20965B      27      39       2   .text       
-     tm_putstring                            209682      3C      60      12   .text       
+     tm_monitor                              2097F8       2       2       8   .text       
+     tm_putchar                              2097FA      27      39       2   .text       
+     tm_putstring                            209821      3C      60      12   .text       
 - VARIABLES:
      CR.2                                      C113       1       1       1   .rodata     
      CR.3                                      C114       1       1       1   .rodata     
 MODULE:                 -- tm_printf.c.o --
 - PROCEDURES:
-     tm_printf                               2096BE      36      54       4   .text       
+     tm_printf                               20985D      36      54       4   .text       
 - VARIABLES:
-     tm_log_buf.6                              1F10      80     128       2   .bss        
+     tm_log_buf.6                              1F1A      80     128       2   .bss        
 MODULE:                 -- cpu_calls.c.o --
 - PROCEDURES:
 - VARIABLES:
-     l_sp_offset                                908       1       1       2   .data       
+     l_sp_offset                                912       1       1       2   .data       
 MODULE:                 -- cpu_init.c.o --
 - PROCEDURES:
-     knl_cpu_initialize                      2096F4       3       3       3   .text       
+     knl_cpu_initialize                      209893       3       3       3   .text       
 - VARIABLES:
-     knl_tmp_stack                             2D45      80     128       1   .common     
+     knl_tmp_stack                             2D4F      80     128       1   .common     
 MODULE:                 -- cpu_support.c.o --
 - PROCEDURES:
      l_dispatch0                               C4C1      28      40       2   NON_BANKED  
@@ -1482,39 +1493,39 @@ MODULE:                 -- cpu_support.c.o --
      _Vector_7                                 FFF0       2       2       0   .abs_section_fff0
 MODULE:                 -- devinit.c.o --
 - PROCEDURES:
-     pll_init                                2096F7      1B      27       2   .text       
-     knl_init_device                         209712       B      11       2   .text       
-     knl_start_device                        20971D       3       3       2   .text       
+     pll_init                                209896      1B      27       2   .text       
+     knl_init_device                         2098B1       B      11       2   .text       
+     knl_start_device                        2098BC       3       3       2   .text       
 - VARIABLES:
-     knl_taskindp                              1F90       2       2       4   .bss        
-     knl_taskmode                              2DC5       2       2       2   .common     
+     knl_taskindp                              1F9A       2       2       5   .bss        
+     knl_taskmode                              2DCF       2       2       2   .common     
 MODULE:                 -- power.c.o --
 - PROCEDURES:
-     knl_low_pow                             209720      13      19       2   .text       
+     knl_low_pow                             2098BF      13      19       2   .text       
 - VARIABLES:
      STRING.in.knl_low_pow...So..2             C25D      2F      47       1   .rodata1    
-     flag.1                                    1F92       2       2       2   .bss        
+     flag.1                                    1F9C       2       2       2   .bss        
 MODULE:                 -- tkdev_init.c.o --
 - PROCEDURES:
-     knl_tkdev_initialize                    209733       3       3       3   .text       
+     knl_tkdev_initialize                    2098D2       3       3       3   .text       
 - VARIABLES:
 MODULE:                 -- disint.c.o --
 - PROCEDURES:
-     disint                                  209736       9       9      26   .text       
-     enaint                                  20973F       7       7      28   .text       
+     disint                                  2098D5       9       9      28   .text       
+     enaint                                  2098DE       7       7      30   .text       
 - VARIABLES:
 MODULE:                 -- sio.c.o --
 - PROCEDURES:
-     sio_init                                209746       C      12       2   .text       
-     sio_send_frame                          209752      1A      26       8   .text       
+     sio_init                                2098E5       C      12       2   .text       
+     sio_send_frame                          2098F1      1A      26       8   .text       
 - VARIABLES:
 MODULE:                 -- Can.c.o --
 - PROCEDURES:
-     Can_Init                                20976C      CF     207       3   .text       
-     Can_InitController                      20983B      73     115       2   .text       
-     Can_SetControllerMode                   2098AE      37      55       2   .text       
-     Can_EnableControllerInterrupts          2098E5      1E      30       4   .text       
-     Can_Write                               209903      59      89       2   .text       
+     Can_Init                                20990B      CF     207       3   .text       
+     Can_InitController                      2099DA      73     115       2   .text       
+     Can_SetControllerMode                   209A4D      37      55       4   .text       
+     Can_EnableControllerInterrupts          209A84      1E      30       4   .text       
+     Can_Write                               209AA2      59      89       4   .text       
 - VARIABLES:
 MODULE:                 -- Can_PBCfg.c.o --
 - PROCEDURES:
@@ -1527,24 +1538,24 @@ MODULE:                 -- Can_PBCfg.c.o --
      Can_ConfigData                            C1A5       2       2       1   .rodata     
 MODULE:                 -- Det.c.o --
 - PROCEDURES:
-     Det_ReportError                         20995C      16      22      18   .text       
+     Det_ReportError                         209AFB      16      22      18   .text       
 - VARIABLES:
      STRING.Det.Error..ModuleId..1             C28C      3D      61       1   .rodata1    
 MODULE:                 -- Can_Hw.c.o --
 - PROCEDURES:
-     Can_Hw_AbortTx                          209972      3A      58       2   .text       
-     Can_FindHoh                             2099AC      4F      79       2   .text       
-     Can_Hw_ConstructIdBytes                 2099FB      83     131       2   .text       
-     McuE_GetSystemClock                     209A7E       7       7       2   .text       
-     Can_Hw_Init                             209A85       1       1       2   .text       
-     Can_Hw_InitController                   209A86     147     327      14   .text       
-     Can_Hw_SetControllerMode                209BCD      AC     172       2   .text       
-     Can_Hw_EnableControllerInterrupts       209C79      81     129       2   .text       
-     Can_Hw_Write                            209CFA      DC     220       4   .text       
-     Can_Hw_WakeIsr                          209DD6      14      20      10   .text       
-     Can_Hw_ErrIsr                           209DEA      46      70      10   .text       
-     Can_Hw_RxIsr                            209E30     11A     282      11   .text       
-     Can_Hw_TxIsr                            209F4A      5B      91      10   .text       
+     Can_Hw_AbortTx                          209B11      3A      58       2   .text       
+     Can_FindHoh                             209B4B      4F      79       2   .text       
+     Can_Hw_ConstructIdBytes                 209B9A      83     131       2   .text       
+     McuE_GetSystemClock                     209C1D       7       7       2   .text       
+     Can_Hw_Init                             209C24       1       1       2   .text       
+     Can_Hw_InitController                   209C25     147     327      14   .text       
+     Can_Hw_SetControllerMode                209D6C      AC     172       2   .text       
+     Can_Hw_EnableControllerInterrupts       209E18      81     129       2   .text       
+     Can_Hw_Write                            209E99      DC     220       4   .text       
+     Can_Hw_WakeIsr                          209F75      14      20      10   .text       
+     Can_Hw_ErrIsr                           209F89      46      70      10   .text       
+     Can_Hw_RxIsr                            209FCF     11C     284      11   .text       
+     Can_Hw_TxIsr                            20A0EB      5B      91      10   .text       
      Can_0_RxIsr                               C524       7       7       1   NON_BANKED  
      Can_1_RxIsr                               C52B       8       8       1   NON_BANKED  
      Can_2_RxIsr                               C533       8       8       1   NON_BANKED  
@@ -1566,7 +1577,7 @@ MODULE:                 -- Can_Hw.c.o --
      Can_3_WakeIsr                             C5B0       8       8       1   NON_BANKED  
      Can_4_WakeIsr                             C5B8       8       8       1   NON_BANKED  
 - VARIABLES:
-     Can_Global                                1F94      BD     189      32   .bss        
+     Can_Global                                1F9E      BD     189      32   .bss        
      _Vector_38                                FFB2       2       2       0   .abs_section_ffb2
      _Vector_42                                FFAA       2       2       0   .abs_section_ffaa
      _Vector_46                                FFA2       2       2       0   .abs_section_ffa2
@@ -1589,10 +1600,10 @@ MODULE:                 -- Can_Hw.c.o --
      _Vector_52                                FF96       2       2       0   .abs_section_ff96
 MODULE:                 -- CanIf.c.o --
 - PROCEDURES:
-     CanIf_ControllerWakeup                  209FA5       1       1       2   .text       
-     CanIf_Arc_Error                         209FA6       1       1       2   .text       
-     CanIf_TxConfirmation                    209FA7       1       1       2   .text       
-     CanIf_RxIndication                      209FA8      38      56       2   .text       
+     CanIf_ControllerWakeup                  20A146       1       1       2   .text       
+     CanIf_Arc_Error                         20A147       1       1       2   .text       
+     CanIf_TxConfirmation                    20A148       1       1       2   .text       
+     CanIf_RxIndication                      20A149      35      53       2   .text       
 - VARIABLES:
      STRING.Hrh....d.CanId....d..1             C2C9      17      23       1   .rodata1    
      STRING....2                               C2E0       3       3       1   .rodata1    
@@ -1616,16 +1627,16 @@ MODULE STATISTIC
   semaphore.c.o                               36     81      0
   task.c.o                                  2260    694      0
   task_manage.c.o                              0    689      0
-  time_calls.c.o                             528    126      0
-  timer.c.o                                   12    250      0
+  time_calls.c.o                             538    276      0
+  timer.c.o                                   12    369      0
   tkstart.c.o                                  0    207    107
-  wait.c.o                                     0     84      0
+  wait.c.o                                     0    190      0
   inittask_main.c.o                            0      5      0
   sysinit_main.c.o                             0     29      0
   sysstartup.c.o                               0     37      0
-  osek_cfg.c.o                              1544     92    172
+  osek_cfg.c.o                              1544    127    172
   osek_osctrl.c.o                              0    191     16
-  osek_task.c.o                                0      8      0
+  osek_task.c.o                                0     13      0
   inittask_def.c.o                             0      0     25
   usermain.c.o                                 0      2      0
   tm_monitor.c.o                               0    101      2
@@ -1641,9 +1652,9 @@ MODULE STATISTIC
   Can.c.o                                      0    496      0
   Can_PBCfg.c.o                                0      0    146
   Det.c.o                                      0     22     61
-  Can_Hw.c.o                                 189   1743     40
-  CanIf.c.o                                    0     59     26
-  other                                      256     12     15
+  Can_Hw.c.o                                 189   1745     40
+  CanIf.c.o                                    0     56     26
+  other                                      256     12     25
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
@@ -1665,26 +1676,30 @@ SECTION: ".text"
   knl_make_non_ready knl_change_task_priority QueRemove QueRemoveNext 
   knl_getPRIMASK knl_isTaskIndependent knl_dispatch knl_timer_delete 
   knl_wait_cancel knl_setup_stacd knl_cleanup_context tk_cre_tsk tk_sta_tsk 
-  knl_ter_tsk tk_ext_tsk QueInit QueInsert knl_cyclichandler_initialize 
-  knl_alarmhandler_initialize QueInit isQueEmpty QueRemove 
+  knl_ter_tsk tk_ext_tsk QueInit QueInsert knl_getPRIMASK knl_isTaskIndependent 
+  knl_dispatch tk_dly_tsk knl_cyclichandler_initialize 
+  knl_alarmhandler_initialize QueInit isQueEmpty QueInsert QueRemove 
   knl_isTaskIndependent knl_dispatch knl_start_hw_timer 
   knl_clear_hw_timer_interrupt knl_end_of_hw_timer_interrupt 
-  knl_timer_initialize knl_timer_handler knl_init_module knl_t_kernel_main 
-  QueRemove knl_timer_delete knl_make_non_wait knl_wait_release 
-  knl_wait_release_ok knl_init_task_main knl_init_task main knl_init_system 
-  knl_start_system TaskMainvTask0 TaskMainvTask1 TaskMainvTask2 OsekCreateTasks 
-  OsekCreateEntFlgs OsekInitAlarms OsekCreateResources StartOS ShutdownOS 
-  TerminateTask usermain tm_monitor tm_putchar tm_putstring tm_printf 
-  knl_cpu_initialize pll_init knl_init_device knl_start_device knl_low_pow 
-  knl_tkdev_initialize disint enaint sio_init sio_send_frame Can_Init 
-  Can_InitController Can_SetControllerMode Can_EnableControllerInterrupts 
-  Can_Write Det_ReportError Can_Hw_AbortTx Can_FindHoh Can_Hw_ConstructIdBytes 
+  knl_timer_initialize knl_enqueue_tmeb knl_timer_insert_reltim 
+  knl_timer_handler knl_init_module knl_t_kernel_main QueRemove 
+  knl_timer_delete knl_make_non_wait knl_wait_release knl_wait_release_ok 
+  knl_wait_release_tmout knl_make_wait_reltim knl_init_task_main knl_init_task 
+  main knl_init_system knl_start_system TaskMainvTask0 TaskMainvTask1 
+  TaskMainvTask2 OsekCreateTasks OsekCreateEntFlgs OsekInitAlarms 
+  OsekCreateResources StartOS ShutdownOS TerminateTask DelayTask usermain 
+  tm_monitor tm_putchar tm_putstring tm_printf knl_cpu_initialize pll_init 
+  knl_init_device knl_start_device knl_low_pow knl_tkdev_initialize disint 
+  enaint sio_init sio_send_frame Can_Init Can_InitController 
+  Can_SetControllerMode Can_EnableControllerInterrupts Can_Write 
+  Det_ReportError Can_Hw_AbortTx Can_FindHoh Can_Hw_ConstructIdBytes 
   McuE_GetSystemClock Can_Hw_Init Can_Hw_InitController 
   Can_Hw_SetControllerMode Can_Hw_EnableControllerInterrupts Can_Hw_Write 
   Can_Hw_WakeIsr Can_Hw_ErrIsr Can_Hw_RxIsr Can_Hw_TxIsr CanIf_ControllerWakeup 
   CanIf_Arc_Error CanIf_TxConfirmation CanIf_RxIndication 
 SECTION: ".data"
-  knl_lowmem_top knl_lowmem_limit sduData1.1 sduData2.3 l_sp_offset 
+  knl_lowmem_top knl_lowmem_limit knl_wspec_dly sduData1.1 sduData2.3 
+  l_sp_offset 
 SECTION: ".bss"
   pbuf knl_ImallocMem TaskStackvTask0 TaskStackvTask1 TaskStackvTask2 
   tm_log_buf.6 knl_taskindp flag.1 Can_Global 
@@ -3343,47 +3358,48 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      knl_lowmem_top                             900       2       2       5   .data       
      knl_lowmem_limit                           902       2       2       2   .data       
-     sduData1.1                                 904       2       2       1   .data       
-     sduData2.3                                 906       2       2       1   .data       
-     l_sp_offset                                908       1       1       2   .data       
-     pbuf                                       909       7       7      16   .bss        
-     knl_ImallocMem                             910    1000    4096       2   .bss        
-     TaskStackvTask0                           1910     200     512       1   .bss        
-     TaskStackvTask1                           1B10     200     512       1   .bss        
-     TaskStackvTask2                           1D10     200     512       1   .bss        
-     tm_log_buf.6                              1F10      80     128       2   .bss        
-     knl_taskindp                              1F90       2       2       4   .bss        
-     flag.1                                    1F92       2       2       2   .bss        
-     Can_Global                                1F94      BD     189      32   .bss        
-     knl_flgcb_table                           2051      8C     140       3   .common     
-     knl_free_flgcb                            20DD       4       4       3   .common     
-     knl_mbxcb_table                           20E1      20      32       2   .common     
-     knl_free_mbxcb                            2101       4       4       2   .common     
-     knl_imacb                                 2105       2       2      12   .common     
-     knl_mbfcb_table                           2107      48      72       2   .common     
-     knl_free_mbfcb                            214F       4       4       2   .common     
-     knl_mtxcb_table                           2153      AA     170       3   .common     
-     knl_free_mtxcb                            21FD       4       4       3   .common     
-     knl_porcb_table                           2201      28      40       2   .common     
-     knl_free_porcb                            2229       4       4       2   .common     
-     knl_semcb_table                           222D      20      32       2   .common     
-     knl_free_semcb                            224D       4       4       2   .common     
-     knl_ready_queue                           2251      8A     138       7   .common     
-     knl_schedtsk                              22DB       2       2      13   .common     
-     knl_dispatch_disabled                     22DD       2       2      10   .common     
-     knl_ctxtsk                                22DF       2       2      17   .common     
-     knl_tcb_table                             22E1     840    2112       2   .common     
-     knl_free_tcb                              2B21       4       4       3   .common     
-     knl_cyccb_table                           2B25     118     280       2   .common     
-     knl_free_cyccb                            2C3D       4       4       2   .common     
-     knl_almcb_table                           2C41      F0     240       2   .common     
-     knl_free_almcb                            2D31       4       4       2   .common     
-     knl_current_time                          2D35       4       4       9   .common     
-     knl_real_time_ofs                         2D39       4       4       4   .common     
-     knl_timer_queue                           2D3D       4       4       3   .common     
-     OsekAlarmIdTable                          2D41       4       4       1   .common     
-     knl_tmp_stack                             2D45      80     128       1   .common     
-     knl_taskmode                              2DC5       2       2       2   .common     
+     knl_wspec_dly                              904       A      10       1   .data       
+     sduData1.1                                 90E       2       2       1   .data       
+     sduData2.3                                 910       2       2       1   .data       
+     l_sp_offset                                912       1       1       2   .data       
+     pbuf                                       913       7       7      16   .bss        
+     knl_ImallocMem                             91A    1000    4096       2   .bss        
+     TaskStackvTask0                           191A     200     512       1   .bss        
+     TaskStackvTask1                           1B1A     200     512       1   .bss        
+     TaskStackvTask2                           1D1A     200     512       1   .bss        
+     tm_log_buf.6                              1F1A      80     128       2   .bss        
+     knl_taskindp                              1F9A       2       2       5   .bss        
+     flag.1                                    1F9C       2       2       2   .bss        
+     Can_Global                                1F9E      BD     189      32   .bss        
+     knl_flgcb_table                           205B      8C     140       3   .common     
+     knl_free_flgcb                            20E7       4       4       3   .common     
+     knl_mbxcb_table                           20EB      20      32       2   .common     
+     knl_free_mbxcb                            210B       4       4       2   .common     
+     knl_imacb                                 210F       2       2      12   .common     
+     knl_mbfcb_table                           2111      48      72       2   .common     
+     knl_free_mbfcb                            2159       4       4       2   .common     
+     knl_mtxcb_table                           215D      AA     170       3   .common     
+     knl_free_mtxcb                            2207       4       4       3   .common     
+     knl_porcb_table                           220B      28      40       2   .common     
+     knl_free_porcb                            2233       4       4       2   .common     
+     knl_semcb_table                           2237      20      32       2   .common     
+     knl_free_semcb                            2257       4       4       2   .common     
+     knl_ready_queue                           225B      8A     138       7   .common     
+     knl_schedtsk                              22E5       2       2      14   .common     
+     knl_dispatch_disabled                     22E7       2       2      12   .common     
+     knl_ctxtsk                                22E9       2       2      25   .common     
+     knl_tcb_table                             22EB     840    2112       2   .common     
+     knl_free_tcb                              2B2B       4       4       3   .common     
+     knl_cyccb_table                           2B2F     118     280       2   .common     
+     knl_free_cyccb                            2C47       4       4       2   .common     
+     knl_almcb_table                           2C4B      F0     240       2   .common     
+     knl_free_almcb                            2D3B       4       4       2   .common     
+     knl_current_time                          2D3F       4       4      11   .common     
+     knl_real_time_ofs                         2D43       4       4       4   .common     
+     knl_timer_queue                           2D47       4       4       5   .common     
+     OsekAlarmIdTable                          2D4B       4       4       1   .common     
+     knl_tmp_stack                             2D4F      80     128       1   .common     
+     knl_taskmode                              2DCF       2       2       2   .common     
      _Startup                                  C000       B      11       0   .init       
      pow10                                     C015      28      40       4   .rodata     
      pow16                                     C03D      20      32       4   .rodata     
@@ -3439,7 +3455,7 @@ OBJECT LIST SORTED BY ADDRESS
      _CASE_CHECKED_BYTE                        C474      14      20       1   NON_BANKED  
      _CASE_SEARCH_8                            C488      17      23       1   NON_BANKED  
      _CASE_SEARCH_8_BYTE                       C49F      1A      26       1   NON_BANKED  
-     _FPCMP                                    C4B9       8       8       3   NON_BANKED  
+     _FPCMP                                    C4B9       8       8       4   NON_BANKED  
      l_dispatch0                               C4C1      28      40       2   NON_BANKED  
      knl_dispatch_to_schedtsk                  C4E9      13      19       4   NON_BANKED  
      knl_dispatch_entry                        C4FC      1E      30       1   NON_BANKED  
@@ -3549,7 +3565,7 @@ OBJECT LIST SORTED BY ADDRESS
      knl_task_initialize                     208E83      4F      79       3   .text       
      knl_make_dormant                        208ED2      33      51       4   .text       
      knl_make_ready                          208F05      1E      30       4   .text       
-     knl_make_non_ready                      208F23      1E      30       2   .text       
+     knl_make_non_ready                      208F23      1E      30       4   .text       
      knl_change_task_priority                208F41      60      96       2   .text       
      QueRemove                               208FA1      13      19       4   .text       
      QueRemoveNext                           208FB4      1B      27       2   .text       
@@ -3564,80 +3580,90 @@ OBJECT LIST SORTED BY ADDRESS
      tk_sta_tsk                              20912D      9A     154       2   .text       
      knl_ter_tsk                             2091C7      4B      75       2   .text       
      tk_ext_tsk                              209212      40      64       2   .text       
-     QueInit                                 209252       7       7       4   .text       
+     QueInit                                 209252       7       7       6   .text       
      QueInsert                               209259      15      21       4   .text       
-     knl_cyclichandler_initialize            20926E      31      49       3   .text       
-     knl_alarmhandler_initialize             20929F      31      49       3   .text       
-     QueInit                                 2092D0       7       7       2   .text       
-     isQueEmpty                              2092D7       C      12       2   .text       
-     QueRemove                               2092E3      13      19       2   .text       
-     knl_isTaskIndependent                   2092F6       B      11       2   .text       
-     knl_dispatch                            209301       2       2       2   .text       
-     knl_start_hw_timer                      209303      10      16       2   .text       
-     knl_clear_hw_timer_interrupt            209313       1       1       2   .text       
-     knl_end_of_hw_timer_interrupt           209314       1       1       2   .text       
-     knl_timer_initialize                    209315      22      34       3   .text       
-     knl_timer_handler                       209337      93     147       2   .text       
-     knl_init_module                         2093CA       E      14      24   .text       
-     knl_t_kernel_main                       2093D8      C1     193       2   .text       
-     QueRemove                               209499      13      19       4   .text       
-     knl_timer_delete                        2094AC       5       5       2   .text       
-     knl_make_non_wait                       2094B1      16      22       2   .text       
-     knl_wait_release                        2094C7      16      22       2   .text       
-     knl_wait_release_ok                     2094DD      10      16       2   .text       
-     knl_init_task_main                      2094ED       5       5       2   .text       
-     knl_init_task                           2094F2       F      15       2   .text       
-     main                                    209501       E      14       2   .text       
-     knl_init_system                         20950F      17      23       2   .text       
-     knl_start_system                        209526       E      14       2   .text       
-     TaskMainvTask0                          209534      44      68       2   .text       
-     TaskMainvTask1                          209578       C      12       2   .text       
-     TaskMainvTask2                          209584       C      12       2   .text       
-     OsekCreateTasks                         209590      3C      60       2   .text       
-     OsekCreateEntFlgs                       2095CC      1C      28       2   .text       
-     OsekInitAlarms                          2095E8      17      23       2   .text       
-     OsekCreateResources                     2095FF      22      34       2   .text       
-     StartOS                                 209621      2C      44       2   .text       
-     ShutdownOS                              20964D       2       2       6   .text       
-     TerminateTask                           20964F       8       8       4   .text       
-     usermain                                209657       2       2       2   .text       
-     tm_monitor                              209659       2       2       8   .text       
-     tm_putchar                              20965B      27      39       2   .text       
-     tm_putstring                            209682      3C      60      12   .text       
-     tm_printf                               2096BE      36      54       4   .text       
-     knl_cpu_initialize                      2096F4       3       3       3   .text       
-     pll_init                                2096F7      1B      27       2   .text       
-     knl_init_device                         209712       B      11       2   .text       
-     knl_start_device                        20971D       3       3       2   .text       
-     knl_low_pow                             209720      13      19       2   .text       
-     knl_tkdev_initialize                    209733       3       3       3   .text       
-     disint                                  209736       9       9      26   .text       
-     enaint                                  20973F       7       7      28   .text       
-     sio_init                                209746       C      12       2   .text       
-     sio_send_frame                          209752      1A      26       8   .text       
-     Can_Init                                20976C      CF     207       3   .text       
-     Can_InitController                      20983B      73     115       2   .text       
-     Can_SetControllerMode                   2098AE      37      55       2   .text       
-     Can_EnableControllerInterrupts          2098E5      1E      30       4   .text       
-     Can_Write                               209903      59      89       2   .text       
-     Det_ReportError                         20995C      16      22      18   .text       
-     Can_Hw_AbortTx                          209972      3A      58       2   .text       
-     Can_FindHoh                             2099AC      4F      79       2   .text       
-     Can_Hw_ConstructIdBytes                 2099FB      83     131       2   .text       
-     McuE_GetSystemClock                     209A7E       7       7       2   .text       
-     Can_Hw_Init                             209A85       1       1       2   .text       
-     Can_Hw_InitController                   209A86     147     327      14   .text       
-     Can_Hw_SetControllerMode                209BCD      AC     172       2   .text       
-     Can_Hw_EnableControllerInterrupts       209C79      81     129       2   .text       
-     Can_Hw_Write                            209CFA      DC     220       4   .text       
-     Can_Hw_WakeIsr                          209DD6      14      20      10   .text       
-     Can_Hw_ErrIsr                           209DEA      46      70      10   .text       
-     Can_Hw_RxIsr                            209E30     11A     282      11   .text       
-     Can_Hw_TxIsr                            209F4A      5B      91      10   .text       
-     CanIf_ControllerWakeup                  209FA5       1       1       2   .text       
-     CanIf_Arc_Error                         209FA6       1       1       2   .text       
-     CanIf_TxConfirmation                    209FA7       1       1       2   .text       
-     CanIf_RxIndication                      209FA8      38      56       2   .text       
+     knl_getPRIMASK                          20926E       7       7       2   .text       
+     knl_isTaskIndependent                   209275       B      11       4   .text       
+     knl_dispatch                            209280       2       2       2   .text       
+     tk_dly_tsk                              209282      82     130       2   .text       
+     knl_cyclichandler_initialize            209304      31      49       3   .text       
+     knl_alarmhandler_initialize             209335      31      49       3   .text       
+     QueInit                                 209366       7       7       2   .text       
+     isQueEmpty                              20936D       C      12       2   .text       
+     QueInsert                               209379      15      21       2   .text       
+     QueRemove                               20938E      13      19       2   .text       
+     knl_isTaskIndependent                   2093A1       B      11       2   .text       
+     knl_dispatch                            2093AC       2       2       2   .text       
+     knl_start_hw_timer                      2093AE      10      16       2   .text       
+     knl_clear_hw_timer_interrupt            2093BE       1       1       2   .text       
+     knl_end_of_hw_timer_interrupt           2093BF       1       1       2   .text       
+     knl_timer_initialize                    2093C0      22      34       3   .text       
+     knl_enqueue_tmeb                        2093E2      2E      46       2   .text       
+     knl_timer_insert_reltim                 209410      34      52       2   .text       
+     knl_timer_handler                       209444      93     147       2   .text       
+     knl_init_module                         2094D7       E      14      24   .text       
+     knl_t_kernel_main                       2094E5      C1     193       2   .text       
+     QueRemove                               2095A6      13      19       6   .text       
+     knl_timer_delete                        2095B9       5       5       2   .text       
+     knl_make_non_wait                       2095BE      16      22       4   .text       
+     knl_wait_release                        2095D4      16      22       2   .text       
+     knl_wait_release_ok                     2095EA      10      16       2   .text       
+     knl_wait_release_tmout                  2095FA      2B      43       3   .text       
+     knl_make_wait_reltim                    209625      3F      63       2   .text       
+     knl_init_task_main                      209664       5       5       2   .text       
+     knl_init_task                           209669       F      15       2   .text       
+     main                                    209678       E      14       2   .text       
+     knl_init_system                         209686      17      23       2   .text       
+     knl_start_system                        20969D       E      14       2   .text       
+     TaskMainvTask0                          2096AB      67     103       2   .text       
+     TaskMainvTask1                          209712       C      12       2   .text       
+     TaskMainvTask2                          20971E       C      12       2   .text       
+     OsekCreateTasks                         20972A      3C      60       2   .text       
+     OsekCreateEntFlgs                       209766      1C      28       2   .text       
+     OsekInitAlarms                          209782      17      23       2   .text       
+     OsekCreateResources                     209799      22      34       2   .text       
+     StartOS                                 2097BB      2C      44       2   .text       
+     ShutdownOS                              2097E7       2       2       6   .text       
+     TerminateTask                           2097E9       8       8       4   .text       
+     DelayTask                               2097F1       5       5       2   .text       
+     usermain                                2097F6       2       2       2   .text       
+     tm_monitor                              2097F8       2       2       8   .text       
+     tm_putchar                              2097FA      27      39       2   .text       
+     tm_putstring                            209821      3C      60      12   .text       
+     tm_printf                               20985D      36      54       4   .text       
+     knl_cpu_initialize                      209893       3       3       3   .text       
+     pll_init                                209896      1B      27       2   .text       
+     knl_init_device                         2098B1       B      11       2   .text       
+     knl_start_device                        2098BC       3       3       2   .text       
+     knl_low_pow                             2098BF      13      19       2   .text       
+     knl_tkdev_initialize                    2098D2       3       3       3   .text       
+     disint                                  2098D5       9       9      28   .text       
+     enaint                                  2098DE       7       7      30   .text       
+     sio_init                                2098E5       C      12       2   .text       
+     sio_send_frame                          2098F1      1A      26       8   .text       
+     Can_Init                                20990B      CF     207       3   .text       
+     Can_InitController                      2099DA      73     115       2   .text       
+     Can_SetControllerMode                   209A4D      37      55       4   .text       
+     Can_EnableControllerInterrupts          209A84      1E      30       4   .text       
+     Can_Write                               209AA2      59      89       4   .text       
+     Det_ReportError                         209AFB      16      22      18   .text       
+     Can_Hw_AbortTx                          209B11      3A      58       2   .text       
+     Can_FindHoh                             209B4B      4F      79       2   .text       
+     Can_Hw_ConstructIdBytes                 209B9A      83     131       2   .text       
+     McuE_GetSystemClock                     209C1D       7       7       2   .text       
+     Can_Hw_Init                             209C24       1       1       2   .text       
+     Can_Hw_InitController                   209C25     147     327      14   .text       
+     Can_Hw_SetControllerMode                209D6C      AC     172       2   .text       
+     Can_Hw_EnableControllerInterrupts       209E18      81     129       2   .text       
+     Can_Hw_Write                            209E99      DC     220       4   .text       
+     Can_Hw_WakeIsr                          209F75      14      20      10   .text       
+     Can_Hw_ErrIsr                           209F89      46      70      10   .text       
+     Can_Hw_RxIsr                            209FCF     11C     284      11   .text       
+     Can_Hw_TxIsr                            20A0EB      5B      91      10   .text       
+     CanIf_ControllerWakeup                  20A146       1       1       2   .text       
+     CanIf_Arc_Error                         20A147       1       1       2   .text       
+     CanIf_TxConfirmation                    20A148       1       1       2   .text       
+     CanIf_RxIndication                      20A149      35      53       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -3741,8 +3767,7 @@ task_manage.c.o:
   tk_exd_tsk tk_ter_tsk tk_chg_pri tk_rot_rdq tk_get_tid tk_ref_tsk tk_rel_wai 
 time_calls.c.o:
   isQueEmpty QueRemove QueRemoveNext knl_InitOBJLOCK knl_isLockedOBJ 
-  knl_getPRIMASK knl_isTaskIndependent knl_EnterTaskIndependent 
-  knl_LeaveTaskIndependent knl_dispatch knl_toLSYSTIM knl_toSYSTIM 
+  knl_EnterTaskIndependent knl_LeaveTaskIndependent knl_toLSYSTIM knl_toSYSTIM 
   knl_timer_delete knl_task_alive knl_ready_queue_initialize 
   knl_ready_queue_top knl_ready_queue_top_priority knl_ready_queue_insert 
   knl_ready_queue_insert_top knl_ready_queue_delete knl_ready_queue_rotate 
@@ -3750,19 +3775,18 @@ time_calls.c.o:
   knl_queue_insert_tpri knl_make_non_wait knl_wait_release knl_start_hw_timer 
   knl_clear_hw_timer_interrupt knl_end_of_hw_timer_interrupt 
   knl_terminate_hw_timer knl_get_hw_timer_nsec knl_cyc_next_time 
-  knl_cyc_timer_insert knl_alm_timer_insert tk_get_otm tk_dly_tsk 
-  knl_call_cychdr knl_immediate_call_cychdr tk_cre_cyc tk_del_cyc tk_sta_cyc 
-  tk_stp_cyc tk_ref_cyc knl_call_almhdr tk_cre_alm tk_del_alm 
-  knl_immediate_call_almhdr tk_sta_alm tk_stp_alm tk_ref_alm 
+  knl_cyc_timer_insert knl_alm_timer_insert tk_get_otm knl_call_cychdr 
+  knl_immediate_call_cychdr tk_cre_cyc tk_del_cyc tk_sta_cyc tk_stp_cyc 
+  tk_ref_cyc knl_call_almhdr tk_cre_alm tk_del_alm knl_immediate_call_almhdr 
+  tk_sta_alm tk_stp_alm tk_ref_alm 
 timer.c.o:
-  QueInsert QueRemoveNext knl_InitOBJLOCK knl_isLockedOBJ knl_getPRIMASK 
+  QueRemoveNext knl_InitOBJLOCK knl_isLockedOBJ knl_getPRIMASK 
   knl_EnterTaskIndependent knl_LeaveTaskIndependent knl_toLSYSTIM knl_toSYSTIM 
   knl_timer_delete knl_task_alive knl_ready_queue_initialize 
   knl_ready_queue_top knl_ready_queue_top_priority knl_ready_queue_insert 
   knl_ready_queue_insert_top knl_ready_queue_delete knl_ready_queue_rotate 
   knl_ready_queue_move_last knl_reschedule knl_terminate_hw_timer 
-  knl_get_hw_timer_nsec knl_enqueue_tmeb knl_timer_insert 
-  knl_timer_insert_reltim knl_timer_insert_abs 
+  knl_get_hw_timer_nsec knl_timer_insert knl_timer_insert_abs 
 tkstart.c.o:
   QueInit isQueEmpty QueInsert QueRemove QueRemoveNext knl_InitOBJLOCK 
   knl_isLockedOBJ knl_getPRIMASK knl_isTaskIndependent knl_EnterTaskIndependent 
@@ -3780,9 +3804,8 @@ wait.c.o:
   knl_ready_queue_insert_top knl_ready_queue_delete knl_ready_queue_rotate 
   knl_ready_queue_move_last knl_reschedule knl_wait_cancel 
   knl_queue_insert_tpri knl_wait_release_ok_ercd knl_wait_release_ng 
-  knl_wait_release_tmout knl_make_wait knl_make_wait_reltim knl_wait_delete 
-  knl_wait_tskid knl_gcb_make_wait knl_gcb_change_priority 
-  knl_gcb_top_of_wait_queue 
+  knl_make_wait knl_wait_delete knl_wait_tskid knl_gcb_make_wait 
+  knl_gcb_change_priority knl_gcb_top_of_wait_queue 
 inittask_main.c.o:
   QueInit isQueEmpty QueInsert QueRemove QueRemoveNext knl_InitOBJLOCK 
   knl_isLockedOBJ knl_getPRIMASK knl_isTaskIndependent knl_EnterTaskIndependent 
@@ -3807,7 +3830,7 @@ osek_task.c.o:
   knl_ready_queue_move_last knl_reschedule knl_wait_cancel 
   knl_queue_insert_tpri knl_make_non_wait knl_wait_release knl_setup_context 
   knl_setup_stacd knl_cleanup_context ActivateTask ChainTask Schedule GetTaskID 
-  GetTaskState DelayTask SleepTask WakeUpTask 
+  GetTaskState SleepTask WakeUpTask 
 tm_monitor.c.o:
   tm_command tm_exit tm_getchar tm_getline 
 tm_printf.c.o:
@@ -3867,8 +3890,6 @@ rendezvous.c.o:
   knl_wspec_cal_tfifo knl_wspec_cal_tpri knl_wspec_rdv knl_wspec_acp 
 semaphore.c.o:
   knl_wspec_sem_tfifo knl_wspec_sem_tpri 
-time_calls.c.o:
-  knl_wspec_dly 
 osek_cfg.c.o:
   OsekAlarmHandlerTable OsekAlarmTypeTable 
 tm_monitor.c.o:
@@ -3881,23 +3902,32 @@ COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
 ------- ROM-ADDRESS: 0xC5C0 ---- SIZE       4 ---
 Filling bytes inserted
- 00090900
+ 00130900
 ------- ROM-ADDRESS: 0xC5C4 ---- RAM-ADDRESS: 0x900 ---- SIZE       2 ---
 Name of initialized Object : knl_lowmem_top
- 0910
+ 091A
 ------- ROM-ADDRESS: 0xC5C6 ---- RAM-ADDRESS: 0x902 ---- SIZE       2 ---
 Name of initialized Object : knl_lowmem_limit
- 190E
-------- ROM-ADDRESS: 0xC5C8 ---- RAM-ADDRESS: 0x904 ---- SIZE       2 ---
+ 1918
+------- ROM-ADDRESS: 0xC5C8 ---- SIZE       3 ---
+Filling bytes inserted
+ 000000
+------- ROM-ADDRESS: 0xC5CB ---- RAM-ADDRESS: 0x907 ---- SIZE       1 ---
+Name of initialized Object : knl_wspec_dly:3
+ 02
+------- ROM-ADDRESS: 0xC5CC ---- SIZE       6 ---
+Filling bytes inserted
+ 0000000000 00
+------- ROM-ADDRESS: 0xC5D2 ---- RAM-ADDRESS: 0x90E ---- SIZE       2 ---
 Name of initialized Object : sduData1.1
  C212
-------- ROM-ADDRESS: 0xC5CA ---- RAM-ADDRESS: 0x906 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC5D4 ---- RAM-ADDRESS: 0x910 ---- SIZE       2 ---
 Name of initialized Object : sduData2.3
  C218
-------- ROM-ADDRESS: 0xC5CC ---- RAM-ADDRESS: 0x908 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC5D6 ---- RAM-ADDRESS: 0x912 ---- SIZE       1 ---
 Name of initialized Object : l_sp_offset
  40
-------- ROM-ADDRESS: 0xC5CD ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC5D7 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -4042,6 +4072,10 @@ knl_ter_tsk               USES knl_make_non_ready knl_wait_cancel _FPCMP
 tk_ext_tsk                USES knl_isTaskIndependent knl_ctxtsk tm_monitor 
                                 knl_dispatch_disabled knl_getPRIMASK knl_ter_tsk knl_make_dormant 
                                 knl_dispatch_to_schedtsk 
+knl_isTaskIndependent     USES knl_taskindp 
+tk_dly_tsk                USES knl_dispatch_disabled knl_isTaskIndependent 
+                                knl_ctxtsk knl_getPRIMASK disint knl_wspec_dly 
+                                knl_make_wait_reltim QueInit knl_schedtsk knl_dispatch enaint 
 knl_cyclichandler_initialize USES knl_free_cyccb QueInit knl_cyccb_table 
                                 QueInsert 
 knl_alarmhandler_initialize USES knl_free_almcb QueInit knl_almcb_table 
@@ -4050,6 +4084,8 @@ knl_isTaskIndependent     USES knl_taskindp
 knl_start_hw_timer        USES disint _CRGINT _RTICTL enaint 
 knl_timer_initialize      USES knl_real_time_ofs knl_current_time 
                                 knl_timer_queue QueInit knl_start_hw_timer 
+knl_enqueue_tmeb          USES knl_timer_queue QueInsert 
+knl_timer_insert_reltim   USES knl_current_time knl_enqueue_tmeb 
 knl_timer_handler         USES knl_clear_hw_timer_interrupt disint 
                                 knl_current_time knl_timer_queue _LCMP QueRemove _FPCMP 
                                 isQueEmpty knl_ctxtsk knl_schedtsk knl_isTaskIndependent 
@@ -4070,6 +4106,9 @@ knl_timer_delete          USES QueRemove
 knl_make_non_wait         USES knl_make_ready 
 knl_wait_release          USES knl_timer_delete QueRemove knl_make_non_wait 
 knl_wait_release_ok       USES knl_wait_release 
+knl_wait_release_tmout    USES QueRemove knl_make_non_wait _FPCMP 
+knl_make_wait_reltim      USES knl_ctxtsk knl_make_non_ready 
+                                knl_wait_release_tmout knl_timer_insert_reltim 
 knl_init_task_main        USES usermain 
 knl_init_task             USES knl_start_system knl_init_task_main 
 main                      USES knl_init_system knl_c_init_task 
@@ -4077,7 +4116,8 @@ main                      USES knl_init_system knl_c_init_task
 knl_init_system           USES knl_init_device knl_init_Imalloc tm_monitor 
 knl_start_system          USES knl_start_device tm_monitor 
 TaskMainvTask0            USES STRING.vTask0.is.running....5 tm_putstring 
-                                Can_ConfigData Can_Init sduData1.1 sduData2.3 Can_Write 
+                                Can_ConfigData Can_Init Can_SetControllerMode sduData1.1 
+                                Can_Write sduData2.3 DelayTask 
 TaskMainvTask1            USES STRING.vTask1.is.running....6 tm_putstring 
                                 TerminateTask 
 TaskMainvTask2            USES STRING.vTask2.is.running....7 tm_putstring 
@@ -4090,6 +4130,7 @@ OsekCreateResources       USES OsekResourceTable tk_cre_mtx
 StartOS                   USES OsekCreateTasks ShutdownOS OsekCreateEntFlgs 
                                 OsekInitAlarms OsekCreateResources 
 TerminateTask             USES tk_ext_tsk 
+DelayTask                 USES tk_dly_tsk 
 tm_putchar                USES CR.2 sio_send_frame 
 tm_putstring              USES disint CR.3 sio_send_frame enaint 
 tm_printf                 USES disint tm_log_buf.6 vsprintf _ILSEXT 
@@ -4345,45 +4386,59 @@ DEPENDENCY TREE
  |     |  |  |  |  |           |  
  |     |  |  |  |  |           +- enaint               (see above)
  |     |  |  |  |  |              
+ |     |  |  |  |  +- Can_SetControllerMode
+ |     |  |  |  |  |  | 
+ |     |  |  |  |  |  +- Det_ReportError      (see above)
+ |     |  |  |  |  |  |  
+ |     |  |  |  |  |  +- Can_Hw_SetControllerMode
+ |     |  |  |  |  |     | 
+ |     |  |  |  |  |     +- _CASE_CHECKED_BYTE  
+ |     |  |  |  |  |     |    
+ |     |  |  |  |  |     +- disint               (see above)
+ |     |  |  |  |  |     |  
+ |     |  |  |  |  |     +- Can_EnableControllerInterrupts (see above)
+ |     |  |  |  |  |     |  
+ |     |  |  |  |  |     +- enaint               (see above)
+ |     |  |  |  |  |     |  
+ |     |  |  |  |  |     +- Can_Hw_AbortTx      
+ |     |  |  |  |  |     |    
+ |     |  |  |  |  |     +- Det_ReportError      (see above)
+ |     |  |  |  |  |        
  |     |  |  |  |  +- Can_Write           
+ |     |  |  |  |  |  | 
+ |     |  |  |  |  |  +- Det_ReportError      (see above)
+ |     |  |  |  |  |  |  
+ |     |  |  |  |  |  +- Can_Hw_Write        
+ |     |  |  |  |  |     | 
+ |     |  |  |  |  |     +- Can_FindHoh         
+ |     |  |  |  |  |     |  | 
+ |     |  |  |  |  |     |  +- _ILSEXT              (see above)
+ |     |  |  |  |  |     |  |  
+ |     |  |  |  |  |     |  +- Det_ReportError      (see above)
+ |     |  |  |  |  |     |     
+ |     |  |  |  |  |     +- disint               (see above)
+ |     |  |  |  |  |     |  
+ |     |  |  |  |  |     +- Can_Hw_ConstructIdBytes
+ |     |  |  |  |  |     |  | 
+ |     |  |  |  |  |     |  +- _LSHRU              
+ |     |  |  |  |  |     |       
+ |     |  |  |  |  |     +- memcpy              
+ |     |  |  |  |  |     |    
+ |     |  |  |  |  |     +- _LINC               
+ |     |  |  |  |  |     |    
+ |     |  |  |  |  |     +- enaint               (see above)
+ |     |  |  |  |  |        
+ |     |  |  |  |  +- DelayTask           
  |     |  |  |  |     | 
- |     |  |  |  |     +- Det_ReportError      (see above)
- |     |  |  |  |     |  
- |     |  |  |  |     +- Can_Hw_Write        
- |     |  |  |  |        | 
- |     |  |  |  |        +- Can_FindHoh         
- |     |  |  |  |        |  | 
- |     |  |  |  |        |  +- _ILSEXT              (see above)
- |     |  |  |  |        |  |  
- |     |  |  |  |        |  +- Det_ReportError      (see above)
- |     |  |  |  |        |     
- |     |  |  |  |        +- disint               (see above)
- |     |  |  |  |        |  
- |     |  |  |  |        +- Can_Hw_ConstructIdBytes
- |     |  |  |  |        |  | 
- |     |  |  |  |        |  +- _LSHRU              
- |     |  |  |  |        |       
- |     |  |  |  |        +- memcpy              
- |     |  |  |  |        |    
- |     |  |  |  |        +- _LINC               
- |     |  |  |  |        |    
- |     |  |  |  |        +- enaint               (see above)
- |     |  |  |  |           
- |     |  |  |  +- TaskMainvTask1      
- |     |  |  |  |  | 
- |     |  |  |  |  +- tm_putstring         (see above)
- |     |  |  |  |  |  
- |     |  |  |  |  +- TerminateTask       
- |     |  |  |  |     | 
- |     |  |  |  |     +- tk_ext_tsk          
+ |     |  |  |  |     +- tk_dly_tsk          
  |     |  |  |  |        | 
  |     |  |  |  |        +- knl_isTaskIndependent
  |     |  |  |  |        |    
- |     |  |  |  |        +- tm_monitor           (see above)
- |     |  |  |  |        |  
  |     |  |  |  |        +- knl_getPRIMASK      
  |     |  |  |  |        |    
- |     |  |  |  |        +- knl_ter_tsk         
+ |     |  |  |  |        +- disint               (see above)
+ |     |  |  |  |        |  
+ |     |  |  |  |        +- knl_make_wait_reltim
  |     |  |  |  |        |  | 
  |     |  |  |  |        |  +- knl_make_non_ready  
  |     |  |  |  |        |  |  | 
@@ -4403,6 +4458,54 @@ DEPENDENCY TREE
  |     |  |  |  |        |  |  |        
  |     |  |  |  |        |  |  +- knl_ready_queue_top 
  |     |  |  |  |        |  |       
+ |     |  |  |  |        |  +- knl_wait_release_tmout
+ |     |  |  |  |        |  |  | 
+ |     |  |  |  |        |  |  +- QueRemove           
+ |     |  |  |  |        |  |  |    
+ |     |  |  |  |        |  |  +- knl_make_non_wait   
+ |     |  |  |  |        |  |  |  | 
+ |     |  |  |  |        |  |  |  +- knl_make_ready      
+ |     |  |  |  |        |  |  |     | 
+ |     |  |  |  |        |  |  |     +- knl_ready_queue_insert
+ |     |  |  |  |        |  |  |        | 
+ |     |  |  |  |        |  |  |        +- QueInsert            (see above)
+ |     |  |  |  |        |  |  |        |  
+ |     |  |  |  |        |  |  |        +- knl_tstdlib_bitset  
+ |     |  |  |  |        |  |  |           | 
+ |     |  |  |  |        |  |  |           +- _BSHL                (see above)
+ |     |  |  |  |        |  |  |              
+ |     |  |  |  |        |  |  +- _FPCMP              
+ |     |  |  |  |        |  |       
+ |     |  |  |  |        |  +- knl_timer_insert_reltim
+ |     |  |  |  |        |     | 
+ |     |  |  |  |        |     +- knl_enqueue_tmeb    
+ |     |  |  |  |        |        | 
+ |     |  |  |  |        |        +- QueInsert           
+ |     |  |  |  |        |             
+ |     |  |  |  |        +- QueInit              (see above)
+ |     |  |  |  |        |  
+ |     |  |  |  |        +- knl_dispatch        
+ |     |  |  |  |        |    
+ |     |  |  |  |        +- enaint               (see above)
+ |     |  |  |  |           
+ |     |  |  |  +- TaskMainvTask1      
+ |     |  |  |  |  | 
+ |     |  |  |  |  +- tm_putstring         (see above)
+ |     |  |  |  |  |  
+ |     |  |  |  |  +- TerminateTask       
+ |     |  |  |  |     | 
+ |     |  |  |  |     +- tk_ext_tsk          
+ |     |  |  |  |        | 
+ |     |  |  |  |        +- knl_isTaskIndependent
+ |     |  |  |  |        |    
+ |     |  |  |  |        +- tm_monitor           (see above)
+ |     |  |  |  |        |  
+ |     |  |  |  |        +- knl_getPRIMASK      
+ |     |  |  |  |        |    
+ |     |  |  |  |        +- knl_ter_tsk         
+ |     |  |  |  |        |  | 
+ |     |  |  |  |        |  +- knl_make_non_ready   (see above)
+ |     |  |  |  |        |  |  
  |     |  |  |  |        |  +- knl_wait_cancel     
  |     |  |  |  |        |  |  | 
  |     |  |  |  |        |  |  +- knl_timer_delete    
@@ -4411,8 +4514,8 @@ DEPENDENCY TREE
  |     |  |  |  |        |  |  |       
  |     |  |  |  |        |  |  +- QueRemove            (see above)
  |     |  |  |  |        |  |     
- |     |  |  |  |        |  +- _FPCMP              
- |     |  |  |  |        |  |    
+ |     |  |  |  |        |  +- _FPCMP               (see above)
+ |     |  |  |  |        |  |  
  |     |  |  |  |        |  +- knl_signal_all_mutex
  |     |  |  |  |        |  |  | 
  |     |  |  |  |        |  |  +- isQueEmpty          
@@ -4423,22 +4526,12 @@ DEPENDENCY TREE
  |     |  |  |  |        |  |  |     | 
  |     |  |  |  |        |  |  |     +- knl_timer_delete    
  |     |  |  |  |        |  |  |     |  | 
- |     |  |  |  |        |  |  |     |  +- QueRemove           
- |     |  |  |  |        |  |  |     |       
+ |     |  |  |  |        |  |  |     |  +- QueRemove            (see above)
+ |     |  |  |  |        |  |  |     |     
  |     |  |  |  |        |  |  |     +- QueRemove            (see above)
  |     |  |  |  |        |  |  |     |  
- |     |  |  |  |        |  |  |     +- knl_make_non_wait   
- |     |  |  |  |        |  |  |        | 
- |     |  |  |  |        |  |  |        +- knl_make_ready      
- |     |  |  |  |        |  |  |           | 
- |     |  |  |  |        |  |  |           +- knl_ready_queue_insert
- |     |  |  |  |        |  |  |              | 
- |     |  |  |  |        |  |  |              +- QueInsert            (see above)
- |     |  |  |  |        |  |  |              |  
- |     |  |  |  |        |  |  |              +- knl_tstdlib_bitset  
- |     |  |  |  |        |  |  |                 | 
- |     |  |  |  |        |  |  |                 +- _BSHL                (see above)
- |     |  |  |  |        |  |  |                    
+ |     |  |  |  |        |  |  |     +- knl_make_non_wait    (see above)
+ |     |  |  |  |        |  |  |        
  |     |  |  |  |        |  |  +- knl_change_task_priority
  |     |  |  |  |        |  |     | 
  |     |  |  |  |        |  |     +- knl_ready_queue_delete (see above)
@@ -4737,24 +4830,8 @@ DEPENDENCY TREE
        | 
        +- CanIf_ControllerWakeup
        |    
-       +- Can_SetControllerMode
-          | 
-          +- Det_ReportError      (see above)
-          |  
-          +- Can_Hw_SetControllerMode
-             | 
-             +- _CASE_CHECKED_BYTE  
-             |    
-             +- disint               (see above)
-             |  
-             +- Can_EnableControllerInterrupts (see above)
-             |  
-             +- enaint               (see above)
-             |  
-             +- Can_Hw_AbortTx      
-             |    
-             +- Det_ReportError      (see above)
-                
+       +- Can_SetControllerMode (see above)
+          
  _Vector_40          
  | 
  +- Can_1_WakeIsr       
@@ -4786,5 +4863,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 29
-Total size of all blocks to be downloaded: 9693
+Total size of all blocks to be downloaded: 10117
 

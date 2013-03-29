@@ -31,17 +31,19 @@ TASK(vTask0)
     static char* sduData1 = "Hello"; /* 5 */
     static char* sduData2 = "World"; /* 5 */
     
-    pdu.id=0;
+    pdu.id=125;
     pdu.length=5;
     pdu.swPduHandle=1234;
 	tm_putstring((UB*)"vTask0 is running.\r\n");
 	Can_Init(&Can_ConfigData);
+	Can_SetControllerMode(CAN_CTRL_1,CAN_T_START);
 	for(;;)
 	{
 	    pdu.sdu= sduData1;
-	    while(CAN_NOT_OK == Can_Write(CAN0_HTH,&pdu));
+	    while(CAN_BUSY == Can_Write(CAN0_HTH,&pdu));
 	    pdu.sdu= sduData2;
-	    while(CAN_NOT_OK == Can_Write(CAN0_HTH,&pdu));  
+	    while(CAN_BUSY == Can_Write(CAN0_HTH,&pdu)); 
+	    DelayTask(3000); 
 	}
 	(void)TerminateTask();
 }
