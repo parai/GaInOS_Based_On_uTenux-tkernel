@@ -41,6 +41,7 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "Can.h"
+#include "CanIf_Cbk.h"
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
 #include "Det.h"
 #endif
@@ -112,10 +113,10 @@ typedef struct{
 } RxTxBuf_t;
 
 /*
-IDR0 : ID28 ID27 ID26 ID25 ID24 ID23 ID22 ID21
-IDR1 : ID20 ID19 ID18 SRR  IDE  ID17 ID16 ID15
-IDR2 : ID14 ID13 ID12 ID11 ID10 ID9  ID8  ID7
-IDR3 : ID6  ID5  ID4  ID3  ID2  ID1  ID0  RTR
+  IDR0 : ID28 ID27 ID26 ID25 ID24 ID23 ID22 ID21
+  IDR1 : ID20 ID19 ID18 SRR  IDE  ID17 ID16 ID15
+  IDR2 : ID14 ID13 ID12 ID11 ID10 ID9  ID8  ID7
+  IDR3 : ID6  ID5  ID4  ID3  ID2  ID1  ID0  RTR
 */
 typedef union {
 	volatile uint8 R[4];
@@ -169,30 +170,30 @@ typedef struct{
 	volatile RxTxBuf_t   TXFG; /*   transmit buffer */
 } CAN_HW_t;
 /* ####################### MACROs ########################### */
-#define Can_Hw_GetController(_cid)	\
-		((CAN_HW_t *)(CAN_REG_BASE+64*(_cid)))
+#define Can_Hw_GetController(_cid)              \
+    ((CAN_HW_t *)(CAN_REG_BASE+64*(_cid)))
 
 #if defined(USE_DEM)
-#define VALIDATE_DEM_NO_RV(_exp,_err ) \
-        if( !(_exp) ) { \
-          Dem_ReportErrorStatus(_err, DEM_EVENT_STATUS_FAILED); \
-          return; \
-        }
+#define VALIDATE_DEM_NO_RV(_exp,_err )                          \
+    if( !(_exp) ) {                                             \
+        Dem_ReportErrorStatus(_err, DEM_EVENT_STATUS_FAILED);   \
+        return;                                                 \
+    }
 #else
 #define VALIDATE_DEM_NO_RV(_exp,_err )
 #endif
 
 #if ( CAN_DEV_ERROR_DETECT == STD_ON )
-#define VALIDATE(_exp,_api,_err ) \
-        if( !(_exp) ) { \
-          Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
-          return CAN_NOT_OK; \
-        }
-#define VALIDATE_NO_RV(_exp,_api,_err ) \
-        if( !(_exp) ) { \
-          Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
-          return; \
-        }
+#define VALIDATE(_exp,_api,_err )                   \
+    if( !(_exp) ) {                                 \
+        Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
+        return CAN_NOT_OK;                          \
+    }
+#define VALIDATE_NO_RV(_exp,_api,_err )             \
+    if( !(_exp) ) {                                 \
+        Det_ReportError(MODULE_ID_CAN,0,_api,_err); \
+        return;                                     \
+    }
 #else
 #define VALIDATE(_exp,_api,_err )
 #define VALIDATE_NO_RV(_exp,_api,_err )
@@ -235,32 +236,32 @@ LOCAL void Can_Hw_AbortTx( CAN_HW_t *canHw, Can_UnitType *canUnit )
  */
 LOCAL const Can_HardwareObjectType * Can_FindHoh( Can_HTHType hth , uint32* controller)
 {
-  const Can_HardwareObjectType *hohObj;
-  const Can_ObjectHOHMapType *map;
-  const Can_ControllerConfigType *canHwConfig;
+    const Can_HardwareObjectType *hohObj;
+    const Can_ObjectHOHMapType *map;
+    const Can_ControllerConfigType *canHwConfig;
 
-  map = &Can_Global.CanHTHMap[hth];
+    map = &Can_Global.CanHTHMap[hth];
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
-  // Verify that this is the correct map
-  if (map->CanHOHRef->CanObjectId != hth)
-  {
+    // Verify that this is the correct map
+    if (map->CanHOHRef->CanObjectId != hth)
+    {
+        Det_ReportError(MODULE_ID_CAN, 0, CAN_WRITE_SERVICE_ID, CAN_E_PARAM_HANDLE);
+    }
+#endif
+    canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[map->CanControllerRef]);
+
+    hohObj = map->CanHOHRef;
+
+    // Verify that this is the correct Hoh type
+    if ( hohObj->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
+    {
+        *controller = map->CanControllerRef;
+        return hohObj;
+    }
+#if(CAN_DEV_ERROR_DETECT == STD_ON)
     Det_ReportError(MODULE_ID_CAN, 0, CAN_WRITE_SERVICE_ID, CAN_E_PARAM_HANDLE);
-  }
 #endif
-  canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[map->CanControllerRef]);
-
-  hohObj = map->CanHOHRef;
-
-  // Verify that this is the correct Hoh type
-  if ( hohObj->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
-  {
-    *controller = map->CanControllerRef;
-    return hohObj;
-  }
-#if(CAN_DEV_ERROR_DETECT == STD_ON)
-  Det_ReportError(MODULE_ID_CAN, 0, CAN_WRITE_SERVICE_ID, CAN_E_PARAM_HANDLE);
-#endif
-  return NULL;
+    return NULL;
 }
 LOCAL IdrType Can_Hw_ConstructIdBytes(Can_IdType id, Can_IdTypeType idType)
 {
@@ -269,20 +270,21 @@ LOCAL IdrType Can_Hw_ConstructIdBytes(Can_IdType id, Can_IdTypeType idType)
     idr.R[3] = idr.R[2] = idr.R[1] = idr.R[0] = 0;
 
     if(idType == CAN_ID_TYPE_EXTENDED) {
-      idr.Bit.SRR = 1;
-      idr.Bit.RTR = 0;
-      idr.Bit.IDE = 1;
-      idr.Bit.id28to21 = id>>21;
-      idr.Bit.id20to18 = id>>18 & 0x07;
-      idr.Bit.id17to15 = id>>15 & 0x07;
-      idr.Bit.id14to7  = id>>7;
-      idr.Bit.id6to0   = id & 0x7F;
+        idr.Bit.SRR = 1;
+        idr.Bit.RTR = 0;
+        idr.Bit.IDE = 1;
+        idr.Bit.id28to21 = id>>21;
+        idr.Bit.id20to18 = id>>18 & 0x07;
+        idr.Bit.id17to15 = id>>15 & 0x07;
+        idr.Bit.id14to7  = id>>7;
+        idr.Bit.id6to0   = id & 0x7F;
     } else if (idType == CAN_ID_TYPE_STANDARD) {
-      idr.R[0] = id>>3;
-      idr.R[1] = id<<5 & 0xE0;
+        idr.R[0] = id>>3;
+        idr.R[1] = id<<5 & 0xE0;
     } else {
-      // No support for mixed in this processor
-      assert(0);
+        // No support for mixed in this processor
+        //assert(0);
+        for(;;);
     }
 
     return idr;
@@ -323,7 +325,9 @@ EXPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_Controlle
 
 	// acceptance filters
 	hohObj = canHwConfig->Can_Hoh;
+	--hohObj;
 	do {
+	    ++hohObj;
 		if (hohObj->CanObjectType == CAN_OBJECT_TYPE_RECEIVE)
 		{
 			canHw->IDAC = hohObj->CanFilterMaskRef->idam;
@@ -343,8 +347,7 @@ EXPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_Controlle
 			canHw->IDMR5 = hohObj->CanFilterMaskRef->idmr[5];
 			canHw->IDMR6 = hohObj->CanFilterMaskRef->idmr[6];
 			canHw->IDMR7 = hohObj->CanFilterMaskRef->idmr[7];
-		}
-		++hohObj;
+		}	
 	}while( !hohObj->Can_EOL );
 
     // Clock calucation
@@ -394,16 +397,16 @@ EXPORT Can_ReturnType Can_Hw_SetControllerMode(uint8 Controller,Can_StateTransit
 			canUnit->state = CANIF_CS_STARTED;
 			DI(imask);
 			if (canUnit->lock_cnt == 0){   // REQ CAN196
-			  Can_EnableControllerInterrupts(Controller);
+                Can_EnableControllerInterrupts(Controller);
 			}
 			EI(imask);
-		break;
+            break;
 		case CAN_T_WAKEUP:
 			VALIDATE(canUnit->state == CANIF_CS_SLEEP, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
 			canHw->CTL0 &= ~BM_SLPRQ; // Clear Sleep request
 			canHw->CTL0 &= ~BM_WUPE; // Clear Wake up enable
 			canUnit->state = CANIF_CS_STOPPED;
-		break;
+            break;
 		case CAN_T_SLEEP:  //CAN258, CAN290
 			// Should be reported to DEM but DET is the next best
 			VALIDATE(canUnit->state == CANIF_CS_STOPPED, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
@@ -411,16 +414,16 @@ EXPORT Can_ReturnType Can_Hw_SetControllerMode(uint8 Controller,Can_StateTransit
 			canHw->CTL0 |= BM_SLPRQ; // Set sleep request
 			canHw->RIER |= BM_WUPI; // Enable wake up irq
 			canUnit->state = CANIF_CS_SLEEP;
-		break;
+            break;
 		case CAN_T_STOP:
 			// Stop
 			canUnit->state = CANIF_CS_STOPPED;
 			Can_Hw_AbortTx( canHw, canUnit ); // CANIF282
-		break;
+            break;
 		default:
 			// Should be reported to DEM but DET is the next best
 			VALIDATE(canUnit->state == CANIF_CS_STOPPED, CAN_SETCONTROLLERMODE_SERVICE_ID, CAN_E_TRANSITION);
-		break;
+            break;
 	}
 
 	return rv;
@@ -499,59 +502,240 @@ EXPORT void Can_Hw_EnableControllerInterrupts( uint8 Controller )
 }
 
 EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_PduType *pduInfo ) {
-  Can_ReturnType rv = CAN_OK;
-  CAN_HW_t *canHw;
-  const Can_HardwareObjectType *hohObj;
-  const Can_ControllerConfigType *canHwConfig;
-  uint32 controller;
-  UB imask;
-  IdrType idr;
-  Can_UnitType *canUnit;
+    Can_ReturnType rv = CAN_OK;
+    CAN_HW_t *canHw;
+    const Can_HardwareObjectType *hohObj;
+    const Can_ControllerConfigType *canHwConfig;
+    uint32 controller;
+    UB imask;
+    IdrType idr;
+    Can_UnitType *canUnit;
 
-  hohObj = Can_FindHoh(hth, &controller);
-  if (hohObj == NULL)
-    return CAN_NOT_OK;
+    hohObj = Can_FindHoh(hth, &controller);
+    if (hohObj == NULL)
+        return CAN_NOT_OK;
 
   
-  canUnit = CAN_GET_PRIVATE_DATA(controller);
-  canHw = Can_Hw_GetController(controller);
-  DI(imask);
+    canUnit = CAN_GET_PRIVATE_DATA(controller);
+    canHw = Can_Hw_GetController(controller);
+    DI(imask);
 
-  // check for any free box
-  if((canHw->TFLG & BM_TX0) == BM_TX0) {
-    canHw->TBSEL = BM_TX0; // Select mb0
+    // check for any free box
+    if((canHw->TFLG & BM_TX0) == BM_TX0) {
+        canHw->TBSEL = BM_TX0; // Select mb0
 
-    idr = Can_Hw_ConstructIdBytes(pduInfo->id, hohObj->CanIdType);
+        idr = Can_Hw_ConstructIdBytes(pduInfo->id, hohObj->CanIdType);
 
-    canHw->TXFG.idr0 = idr.R[0];
-    canHw->TXFG.idr1 = idr.R[1];
-    canHw->TXFG.idr2 = idr.R[2];
-    canHw->TXFG.idr3 = idr.R[3];
+        canHw->TXFG.idr0 = idr.R[0];
+        canHw->TXFG.idr1 = idr.R[1];
+        canHw->TXFG.idr2 = idr.R[2];
+        canHw->TXFG.idr3 = idr.R[3];
 
-    memcpy((uint8 *)&canHw->TXFG.ds0, pduInfo->sdu, pduInfo->length);
-    canHw->TXFG.dlr = pduInfo->length;
-    canHw->TXFG.tbpr = 0; // Highest prio
+        memcpy((uint8 *)&canHw->TXFG.ds0, pduInfo->sdu, pduInfo->length);
+        canHw->TXFG.dlr = pduInfo->length;
+        canHw->TXFG.tbpr = 0; // Highest prio
 
-    // Send
-    canHw->TFLG = BM_TX0;
+        // Send
+        canHw->TFLG = BM_TX0;
 
-    canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[controller]);
+        canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[controller]);
 
-    if( canHwConfig->CanTxProcessing == CAN_PROCESS_TYPE_INTERRUPT ) {
-  	  /* Turn on the tx interrupt mailboxes */
-      canHw->TIER |= BM_TX0; // We only use TX0
+        if( canHwConfig->CanTxProcessing == CAN_PROCESS_TYPE_INTERRUPT ) {
+            /* Turn on the tx interrupt mailboxes */
+            canHw->TIER |= BM_TX0; // We only use TX0
+        }
+
+        // Increment statistics
+        canUnit->stats.txSuccessCnt++;
+
+        // Store pdu handle in unit to be used by TxConfirmation
+        canUnit->swPduHandle = pduInfo->swPduHandle;
+    } else {
+        rv = CAN_BUSY;
+    }
+    EI(imask);
+
+    return rv;
+}
+/* ######################### ISR HANDLERs ######################### */
+
+/**
+ * Hardware wake ISR for CAN
+ *
+ * @param unit CAN controller number( from 0 )
+ */
+LOCAL void Can_Hw_WakeIsr( int unit ) {
+	CanIf_ControllerWakeup(unit);
+	// 269,270,271
+	Can_SetControllerMode(unit, CAN_T_STOP);
+
+	// TODO EcuM_CheckWakeup();
+}
+
+/**
+ * Hardware error ISR for CAN
+ *
+ * @param unit CAN controller number( from 0 )
+ */
+LOCAL void Can_Hw_ErrIsr( int unit ) {
+    Can_ErrorType err;
+    CAN_HW_t *canHw = Can_Hw_GetController(unit);
+    Can_UnitType *canUnit = CAN_GET_PRIVATE_DATA(unit);
+    
+    uint8 rflg = canHw->RFLG;
+    err.R = 0;
+
+    if((rflg & BM_OVRI) == BM_OVRI)
+    {
+        err.B.FRMERR = 1;
+
+        // Clear ERRINT
+        canHw->RFLG = BM_OVRI;
     }
 
-    // Increment statistics
-    canUnit->stats.txSuccessCnt++;
+    if((rflg & BM_CSCI) == BM_CSCI)
+    {
+        if( ((rflg & (BM_RSTAT0 | BM_RSTAT0)) == (BM_RSTAT0 | BM_RSTAT1)) ||
+            ((rflg & (BM_TSTAT0 | BM_TSTAT0)) == (BM_TSTAT0 | BM_TSTAT1)) )
+        {
+            canUnit->stats.boffCnt++;
+            CanIf_ControllerBusOff(unit);
+            Can_SetControllerMode(unit, CAN_T_STOP); // CANIF272
 
-    // Store pdu handle in unit to be used by TxConfirmation
-    canUnit->swPduHandle = pduInfo->swPduHandle;
-  } else {
-    rv = CAN_BUSY;
-  }
-  EI(imask);
+            Can_Hw_AbortTx( canHw, canUnit ); // CANIF273
+        }
 
-  return rv;
+        // Clear ERRINT
+        canHw->RFLG = BM_CSCI;
+    }
+
+    if (err.R != 0)
+    {
+        CanIf_Arc_Error( unit, err );
+    }
 }
+
+//-------------------------------------------------------------------
+
+/**
+ * ISR for CAN. Normal Rx/operation
+ *
+ * @param unit CAN controller number( from 0 )
+ */
+LOCAL void Can_Hw_RxIsr(int unit) {
+
+    CAN_HW_t *canHw= Can_Hw_GetController(unit);
+    const Can_ControllerConfigType *canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[unit]);
+    Can_UnitType *canUnit = CAN_GET_PRIVATE_DATA(unit);
+    const Can_HardwareObjectType *hohObj;
+
+    // Loop over all the Hoh's
+    hohObj= canHwConfig->Can_Hoh;
+    --hohObj;
+    do {
+        ++hohObj;
+        if (hohObj->CanObjectType == CAN_OBJECT_TYPE_RECEIVE)
+        {
+            Can_IdType id=0;
+            IdrType *idr;
+            idr = (IdrType *)&canHw->RXFG.idr0;
+
+            // According to autosar MSB shuould be set if extended
+            if (idr->Bit.IDE == 1) {
+                id = ((uint32)idr->Bit.id28to21 << 21) | ((uint32)idr->Bit.id20to18 << 18) | ((uint32)idr->Bit.id17to15 << 15) |
+                    ((uint32)idr->Bit.id14to7 << 7) | idr->Bit.id6to0;
+                id |= 0x80000000;
+            } else {
+                id = ((uint32)idr->Bit.id28to21 << 3) | (uint32)idr->Bit.id20to18;
+            }
+
+            CanIf_RxIndication(hohObj->CanObjectId,
+                               id,
+                               canHw->RXFG.dlr,
+                               (uint8 *)&canHw->RXFG.ds0 ); // Next layer will copy
+            // Increment statistics
+            canUnit->stats.rxSuccessCnt++;
+
+            // Clear interrupt
+            canHw->RFLG = BM_RXF;					// clear RX flag
+        }
+        
+    } while ( !hohObj->Can_EOL);
+}
+
+/**
+ * ISR for CAN. Normal Tx operation
+ *
+ * @param unit CAN controller number( from 0 )
+ */
+LOCAL void Can_Hw_TxIsr(int unit) {
+    CAN_HW_t *canHw= Can_Hw_GetController(unit);
+    const Can_ControllerConfigType *canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[unit]);
+    Can_UnitType *canUnit = CAN_GET_PRIVATE_DATA(unit);
+    const Can_HardwareObjectType *hohObj;
+
+    // Loop over all the Hoh's
+    hohObj= canHwConfig->Can_Hoh;
+    --hohObj;
+    do {
+        ++hohObj;
+        if (hohObj->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
+        {
+            CanIf_TxConfirmation(canUnit->swPduHandle);
+            canUnit->swPduHandle = 0;  // Is this really necessary ??
+
+            // Disable Tx interrupt
+            canHw->TIER = 0;
+        }       
+    } while ( !hohObj->Can_EOL);
+}
+
+/* ######################### ISRs #############################*/
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
+#define ISR_Vcan4tx            55
+#define ISR_Vcan4rx            54
+#define ISR_Vcan4err           53
+#define ISR_Vcan4wkup          52
+#define ISR_Vcan3tx            51
+#define ISR_Vcan3rx            50
+#define ISR_Vcan3err           49
+#define ISR_Vcan3wkup          48
+#define ISR_Vcan2tx            47
+#define ISR_Vcan2rx            46
+#define ISR_Vcan2err           45
+#define ISR_Vcan2wkup          44
+#define ISR_Vcan1tx            43
+#define ISR_Vcan1rx            42
+#define ISR_Vcan1err           41
+#define ISR_Vcan1wkup          40
+#define ISR_Vcan0tx            39
+#define ISR_Vcan0rx            38
+#define ISR_Vcan0err           37
+#define ISR_Vcan0wkup          36
+
+interrupt ISR_Vcan0rx void Can_0_RxIsr( void  ) {	Can_Hw_RxIsr(CAN_CTRL_0); }
+interrupt ISR_Vcan1rx void Can_1_RxIsr( void  ) {	Can_Hw_RxIsr(CAN_CTRL_1); }
+interrupt ISR_Vcan2rx void Can_2_RxIsr( void  ) {	Can_Hw_RxIsr(CAN_CTRL_2); }
+interrupt ISR_Vcan3rx void Can_3_RxIsr( void  ) {	Can_Hw_RxIsr(CAN_CTRL_3); }
+interrupt ISR_Vcan4rx void Can_4_RxIsr( void  ) {	Can_Hw_RxIsr(CAN_CTRL_4); }
+
+interrupt ISR_Vcan0tx void Can_0_TxIsr( void  ) {	Can_Hw_TxIsr(CAN_CTRL_0); }
+interrupt ISR_Vcan1tx void Can_1_TxIsr( void  ) {	Can_Hw_TxIsr(CAN_CTRL_1); }
+interrupt ISR_Vcan2tx void Can_2_TxIsr( void  ) {	Can_Hw_TxIsr(CAN_CTRL_2); }
+interrupt ISR_Vcan3tx void Can_3_TxIsr( void  ) {	Can_Hw_TxIsr(CAN_CTRL_3); }
+interrupt ISR_Vcan4tx void Can_4_TxIsr( void  ) {	Can_Hw_TxIsr(CAN_CTRL_4); }
+
+interrupt ISR_Vcan0err void Can_0_ErrIsr( void  ) {	Can_Hw_ErrIsr(CAN_CTRL_0); }
+interrupt ISR_Vcan1err void Can_1_ErrIsr( void  ) {	Can_Hw_ErrIsr(CAN_CTRL_1); }
+interrupt ISR_Vcan2err void Can_2_ErrIsr( void  ) {	Can_Hw_ErrIsr(CAN_CTRL_2); }
+interrupt ISR_Vcan3err void Can_3_ErrIsr( void  ) {	Can_Hw_ErrIsr(CAN_CTRL_3); }
+interrupt ISR_Vcan4err void Can_4_ErrIsr( void  ) {	Can_Hw_ErrIsr(CAN_CTRL_4); }
+
+interrupt ISR_Vcan0wkup void Can_0_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_0); }
+interrupt ISR_Vcan1wkup void Can_1_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_1); }
+interrupt ISR_Vcan2wkup void Can_2_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_2); }
+interrupt ISR_Vcan3wkup void Can_3_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_3); }
+interrupt ISR_Vcan4wkup void Can_4_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_4); }
+
+#pragma CODE_SEG DEFAULT
 

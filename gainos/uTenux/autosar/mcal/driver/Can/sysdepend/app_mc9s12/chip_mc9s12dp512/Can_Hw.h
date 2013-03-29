@@ -104,9 +104,9 @@ typedef struct
 {
 	/** Enables / disables API Can_MainFunction_BusOff() for
 	handling busoff events in polling mode. */
-	Can_ProcessType CanBusoffProcessing;
+	//Can_ProcessType CanBusoffProcessing;
 	/** Defines if a CAN controller is used in the configuration. */
-	boolean         CanControllerActivation;
+	//boolean         CanControllerActivation;
 	/** This parameter provides the controller ID which is unique in a
 	given CAN Driver. The value for this parameter starts with 0 and
 	continue without any gaps. */
@@ -122,25 +122,25 @@ typedef struct
 	Can_ProcessType CanWakeupProcessing;
 	Can_ProcessType CanBusOffProcessing;
 	/** CAN driver support for wakeup over CAN Bus. */
-	boolean         CanWakeupSupport;
+	//boolean         CanWakeupSupport;
 	/**	Reference to the CPU clock configuration, which is set in the MCU driver
 	configuration.*/
-	uint32 CanCpuClockRef;
+	//uint32 CanCpuClockRef;
 	/** This parameter contains a reference to the Wakeup Source for this
 	ontroller as defined in the ECU State Manager. Implementation Type:
 	reference to EcuM_WakeupSourceType.*/
-	uint32/* ref to EcuMWakeupSource */ CanWakeupSourceRef;
+	//uint32/* ref to EcuMWakeupSource */ CanWakeupSourceRef;
 	/** Specifies the baudrate of the controller in kbps. */
 	uint16          CanControllerBaudRate;
 	/** Specifies propagation delay in time quantas(1..8).*/
 	uint16          CanControllerPropSeg;
-	/** Specifies phase segment 1 in time quantas(1..8).*/
+	/** Specifies phase segment 1 in time quantas(1..16).*/
 	uint16          CanControllerSeg1;
 	/** Specifies phase segment 2 in time quantas(1..8).*/
 	uint16          CanControllerSeg2;
 	/**	Specifies the synchronization jump width(1..4) for the controller in
 	time quantas.*/
-	uint16          CanControllerSyncJumpWidth;
+	//uint16          CanControllerSyncJumpWidth;
 	/** List of Hoh id's that belong to this controller */
 	const Can_HardwareObjectType  *Can_Hoh;
 	boolean Can_Loopback;

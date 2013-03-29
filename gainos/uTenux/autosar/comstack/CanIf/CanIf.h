@@ -43,6 +43,7 @@
 #ifndef CANIF_H_
 #define CANIF_H_
 #include "CanIf_Types.h"
+#include "Can_Types.h"
 
 
 #endif /* CANIF_H_ */

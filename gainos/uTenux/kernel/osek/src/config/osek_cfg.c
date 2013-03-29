@@ -23,10 +23,26 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 	TRUE,	/* vTask1 */
 	TRUE,	/* vTask2 */
 };
-
+#include "Can.h"
 TASK(vTask0)
 {
+    Can_PduType pdu;
+
+    static char* sduData1 = "Hello"; /* 5 */
+    static char* sduData2 = "World"; /* 5 */
+    
+    pdu.id=0;
+    pdu.length=5;
+    pdu.swPduHandle=1234;
 	tm_putstring((UB*)"vTask0 is running.\r\n");
+	Can_Init(&Can_ConfigData);
+	for(;;)
+	{
+	    pdu.sdu= sduData1;
+	    while(CAN_NOT_OK == Can_Write(CAN0_HTH,&pdu));
+	    pdu.sdu= sduData2;
+	    while(CAN_NOT_OK == Can_Write(CAN0_HTH,&pdu));  
+	}
 	(void)TerminateTask();
 }
 

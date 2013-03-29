@@ -41,7 +41,6 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "Can.h"
-#include "CanIf_Cbk.h"
 #include "EcuM_Cbk.h"
 #include "osek_os.h"
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
@@ -102,14 +101,15 @@ EXPORT void Can_Init(const Can_ConfigType* Config)
 
 	    // Loop through all Hohs and map them into the HTHMap
 	    hoh = canHwConfig->Can_Hoh;
+	    hoh--;
 		do
 		{
+		    hoh++;
 			if (hoh->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
 			{
 				Can_Global.CanHTHMap[hoh->CanObjectId].CanControllerRef = canHwConfig->CanControllerId;
 				Can_Global.CanHTHMap[hoh->CanObjectId].CanHOHRef = hoh;
 			}
-			hoh++;
 		} while (!hoh->Can_EOL);
 	}
 }

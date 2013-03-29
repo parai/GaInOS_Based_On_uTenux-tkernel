@@ -124,4 +124,19 @@ typedef enum {
 	CAN_OBJECT_TYPE_RECEIVE,
 	CAN_OBJECT_TYPE_TRANSMIT
 } Can_ObjectTypeType;
+/* Error from  CAN controller */
+typedef union {
+     volatile uint32 R;
+     struct {
+    	 volatile uint32:24;
+         volatile uint32 BIT1ERR:1;
+         volatile uint32 BIT0ERR:1;
+         volatile uint32 ACKERR:1;
+         volatile uint32 CRCERR:1;
+         volatile uint32 FRMERR:1;
+         volatile uint32 STFERR:1;
+         volatile uint32 TXWRN:1;
+         volatile uint32 RXWRN:1;
+     } B;
+ } Can_ErrorType;
 #endif /* CAN_TYPES_H_ */

@@ -19,9 +19,9 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>951</width>
+     <x>10</x>
+     <y>0</y>
+     <width>971</width>
      <height>131</height>
     </rect>
    </property>
@@ -41,12 +41,12 @@
      <string>CanVersionInfoApi</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>30</y>
-      <width>259</width>
+      <width>261</width>
       <height>91</height>
      </rect>
     </property>
@@ -81,7 +81,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -126,23 +126,17 @@
      </item>
     </layout>
    </widget>
-   <zorder>cbxDet</zorder>
-   <zorder>cbxDet_2</zorder>
-   <zorder>cbxDet_3</zorder>
-   <zorder>spinBox</zorder>
-   <zorder>label</zorder>
-   <zorder>cbxDet_4</zorder>
-   <zorder>label_2</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
    <zorder>checkBox</zorder>
-   <zorder>label</zorder>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>150</y>
-     <width>951</width>
-     <height>401</height>
+     <x>10</x>
+     <y>140</y>
+     <width>971</width>
+     <height>421</height>
     </rect>
    </property>
    <property name="title">
@@ -154,7 +148,7 @@
       <x>20</x>
       <y>30</y>
       <width>256</width>
-      <height>361</height>
+      <height>371</height>
      </rect>
     </property>
     <column>
@@ -176,19 +170,184 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>470</x>
       <y>30</y>
-      <width>461</width>
-      <height>361</height>
+      <width>491</width>
+      <height>381</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Controller</string>
      </attribute>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>461</width>
+        <height>128</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>CanBusoffProcessing:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox">
+           <property name="minimumSize">
+            <size>
+             <width>261</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_INTERRUPT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_POLLING</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>CanRxProcessing:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_3">
+           <property name="minimumSize">
+            <size>
+             <width>261</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_INTERRUPT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_POLLING</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>CanTxProcessing:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_4">
+           <property name="minimumSize">
+            <size>
+             <width>261</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_INTERRUPT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_POLLING</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>CanWakeupProcessing:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_5">
+           <property name="minimumSize">
+            <size>
+             <width>261</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_INTERRUPT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CAN_PROCESS_TYPE_POLLING</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>271</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Can Id:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="minimumSize">
+          <size>
+           <width>131</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -201,10 +360,10 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>280</x>
       <y>50</y>
       <width>181</width>
       <height>62</height>

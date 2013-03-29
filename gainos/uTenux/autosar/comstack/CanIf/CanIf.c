@@ -37,41 +37,32 @@
  */
 /* |---------+-------------------| */
 /* | Author: | Wang Fan(parai)   | */
-/* |---------+--2-----------------| */
+/* |---------+-------------------| */
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
-#ifndef CAN_CFG_H_
-#define CAN_CFG_H_
-
-/* ################ Can General ################ */
-#define CAN_DEV_ERROR_DETECT  STD_ON
-#define CAN_VERSION_INFO_API  STD_ON
-#define CAN_HW_TRANSMIT_CANCELLATION   STD_OFF
-#define CAN_IDENTICAL_ID_CANCELLATION  STD_OFF
-#define CAN_MULTIPLEXED_TRANSMISSION   STD_OFF
-
-/* unit is ms */
-#define CanMainFunctionBusoffPeriod  10
-#define CanMainFunctionModePeriod    10
-#define CanMainFunctionReadPeriod    10
-#define CanMainFunctionWakeupPeriod  10
-#define CanMainFunctionWritePeriod   10
-#define CAN_TIMEOUT_DURATION         10
-#define cfgCAN_EXTEND         STD_OFF
-
-typedef enum {
-	CAN0_HTH,
-	CAN1_HTH,
-	NUM_OF_HTHS
-} Can_HTHType;
-
-typedef enum {
-	CAN0_HRH,
-	CAN1_HRH,
-	NUM_OF_HRHS
-} Can_HRHType;
-
-/* Number of controller configs */
-#define CAN_CTRL_CONFIG_CNT		2
-IMPORT EXPORT const Can_ConfigType Can_ConfigData;
-#endif /* CAN_CFG_H_ */
+#include "CanIf.h"
+#include <tm/tmonitor.h>
+#include <tm/tm_printf.h>
+void CanIf_ControllerWakeup(uint8 Controller)
+{
+}
+void CanIf_Arc_Error(uint8 Controller, Can_ErrorType Error)
+{
+}
+void CanIf_ControllerBusOff(uint8 Controller)
+{
+}
+void CanIf_TxConfirmation(PduIdType canTxPduId)
+{
+}
+void CanIf_RxIndication(uint8 Hrh, Can_IdType CanId, uint8 CanDlc,
+              const uint8 *CanSduPtr)
+{
+    tm_printf("Hrh = %d,CanId = %d:\r\n",Hrh,CanId);
+    while(CanDlc > 0)
+    {
+        tm_putchar(*CanSduPtr++);
+        CanDlc--;
+    } 
+    tm_putstring("\r\n");  
+}
