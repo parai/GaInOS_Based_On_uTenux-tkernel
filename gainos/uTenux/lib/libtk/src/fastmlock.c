@@ -35,7 +35,7 @@
  *	The above must be operated exclusively.
  */
 
-Inline void INC( INT *val )
+LOCAL void INC( INT *val )
 {
 	UINT	imask;
 
@@ -44,7 +44,7 @@ Inline void INC( INT *val )
 	EI(imask);
 }
 
-Inline void DEC( INT *val )
+LOCAL void DEC( INT *val )
 {
 	UINT	imask;
 
@@ -53,7 +53,7 @@ Inline void DEC( INT *val )
 	EI(imask);
 }
 
-Inline BOOL BTS( UINT *val, INT no )
+LOCAL BOOL BTS( UINT *val, INT no )
 {
 	UINT	imask;
 	UINT	b;
@@ -66,7 +66,7 @@ Inline BOOL BTS( UINT *val, INT no )
 	return (BOOL)b;
 }
 
-Inline void BR( UINT *val, INT no )
+LOCAL void BR( UINT *val, INT no )
 {
 	UINT	imask;
 

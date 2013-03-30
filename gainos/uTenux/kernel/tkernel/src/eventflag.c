@@ -32,6 +32,16 @@ Noinit(EXPORT FLGCB	knl_flgcb_table[NUM_FLGID]);	/* Event flag control block */
 Noinit(EXPORT QUEUE	knl_free_flgcb);	/* FreeQue */
 #endif /* USE_FUNC_FLGCB_TABLE */
 
+#ifndef __GNUC__
+EXPORT BOOL knl_eventflag_cond( FLGCB *flgcb, UINT waiptn, UINT wfmode )
+{
+	if ( (wfmode & TWF_ORW) != 0 ) {
+		return ( (flgcb->flgptn & waiptn) != 0 );
+	} else {
+		return ( (flgcb->flgptn & waiptn) == waiptn );
+	}
+}
+#endif
 
 #ifdef USE_FUNC_EVENTFLAG_INITIALIZE
 /*

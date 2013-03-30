@@ -44,7 +44,7 @@ OBJ = $(addsuffix .o, $(basename $(SRC)))
 I_OBJ = $(addsuffix .o, $(basename $(I_SRC)))
 
 # compiler options
-CFLAGS += $(CFLAGS_WARNING) -I$(BD)/kernel/osek/src -I$(BD)/kernel/tkernel/src
+CFLAGS += $(CFLAGS_WARNING) -I$(BD)/kernel/osek/src -I$(BD)/kernel/tkernel/src	-I$(BD)/autosar/include
 
 # ----------------------------------------------------------------------------
 

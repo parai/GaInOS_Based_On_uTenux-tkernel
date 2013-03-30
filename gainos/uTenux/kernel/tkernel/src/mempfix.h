@@ -57,10 +57,14 @@ IMPORT QUEUE knl_free_mpfcb;	/* FreeQue */
 /*
  * Return end address in memory pool area
  */
+#ifdef __GNUC__ 
 Inline VP knl_mempool_end( MPFCB *mpfcb )
 {
 	return (VB*)mpfcb->mempool + mpfcb->mpfsz;
 }
+#else
+#define knl_mempool_end(__mpfcb) ((VP)((VB*)(__mpfcb)->mempool + (__mpfcb)->mpfsz))
+#endif
 
 
 

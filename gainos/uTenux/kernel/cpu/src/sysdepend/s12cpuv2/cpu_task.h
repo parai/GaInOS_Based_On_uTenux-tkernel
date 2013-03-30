@@ -60,41 +60,17 @@ typedef struct {
  * Create stack frame for task startup
  *	Call from 'make_dormant()'
  */
-Inline void knl_setup_context( TCB *tcb )
-{
-    SStackFrame     *ssp;
-    UW pc;
-
-    ssp = tcb->isstack;
-    ssp--;
-    pc = (UW)tcb->task;
-
-    /* CPU context initialization */
-    ssp->ppage =(VB)pc;
-    ssp->taskmode  = 0;             /* Initial taskmode */
-    ssp->ccr = (0xC0);              /* CCR Register (Disable STOP instruction and XIRQ)       */
-    ssp->pc = (VH)(pc>>8);          /* Task startup address */
-    tcb->tskctxb.ssp = ssp;         /* System stack */
-}
+IMPORT void knl_setup_context( TCB *tcb );
 
 /*
  * Set task startup code
  *	Called by 'tk_sta_tsk()' processing.
  */
-Inline void knl_setup_stacd( TCB *tcb, INT stacd )
-{
-	SStackFrame	*ssp = tcb->tskctxb.ssp;
-
-	ssp->stacd = stacd;
-	ssp->b = (VB)(tcb->exinf);
-	ssp->a = (VB)((VH)(tcb->exinf)>>8);
-}
+IMPORT void knl_setup_stacd( TCB *tcb, INT stacd );
 
 /*
  * Delete task contexts
  */
-Inline void knl_cleanup_context( TCB *tcb )
-{
-}
+IMPORT void knl_cleanup_context( TCB *tcb );
 
 #endif /* _CPU_TASK_ */

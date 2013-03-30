@@ -32,6 +32,22 @@ Noinit(EXPORT MBXCB	knl_mbxcb_table[NUM_MBXID]);	/* Mailbox control block */
 Noinit(EXPORT QUEUE	knl_free_mbxcb);	/* FreeQue */
 #endif /* USE_FUNC_MBXCB_TABLE */
 
+#ifndef __GNUC__
+LOCAL void knl_queue_insert_mpri( T_MSG_PRI *pk_msg, T_MSG *head )
+{
+	T_MSG_PRI	*msg;
+	T_MSG		*prevmsg = head;
+
+	while ( (msg = (T_MSG_PRI*)nextmsg(prevmsg)) != NULL ) {
+		if ( msg->msgpri > pk_msg->msgpri ) {
+			break;
+		}
+		prevmsg = (T_MSG*)msg;
+	}
+	nextmsg(pk_msg) = msg;
+	nextmsg(prevmsg) = pk_msg;
+}
+#endif
 
 #ifdef USE_FUNC_MAILBOX_INITIALIZE
 /*

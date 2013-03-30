@@ -23,7 +23,6 @@
 #include <libstr.h>
 #include <tm/tmonitor.h>
 #include "bitop.h"
-
 /*
  * Definition of ready queue structure 
  *	In the ready queue, the task queue 'tskque' is provided per priority.
@@ -56,6 +55,7 @@ IMPORT RDYQUE	knl_ready_queue;
 /*
  * Ready queue initialization
  */
+#ifdef __GNUC__ 
 Inline void knl_ready_queue_initialize( RDYQUE *rq )
 {
 	INT	i;
@@ -68,10 +68,13 @@ Inline void knl_ready_queue_initialize( RDYQUE *rq )
 	rq->klocktsk = NULL;
 	(void)memset(rq->bitmap, 0, sizeof(rq->bitmap));
 }
-
+#else
+IMPORT void knl_ready_queue_initialize( RDYQUE *rq );
+#endif
 /*
  * Return the highest priority task in ready queue
  */
+#ifdef __GNUC__ 
 Inline TCB* knl_ready_queue_top( RDYQUE *rq )
 {
 	/* If there is a task at kernel lock, that is the highest priority task */
@@ -81,15 +84,21 @@ Inline TCB* knl_ready_queue_top( RDYQUE *rq )
 
 	return (TCB*)rq->tskque[rq->top_priority].next;
 }
+#else
+IMPORT TCB* knl_ready_queue_top( RDYQUE *rq );
+#endif
 
 /*
  * Return the priority of the highest priority task in the ready queue
  */
+#ifdef __GNUC__ 
 Inline INT knl_ready_queue_top_priority( const RDYQUE *rq )
 {
 	return rq->top_priority;
 }
-
+#else
+#define  knl_ready_queue_top_priority(__rq) ((INT) ((__rq)->top_priority))
+#endif
 /*
  * Insert task in ready queue
  *	Insert it at the end of the same priority tasks with task priority 
@@ -97,6 +106,7 @@ Inline INT knl_ready_queue_top_priority( const RDYQUE *rq )
  *	update 'top_priority' if necessary. When updating 'top_priority,' 
  *	return TRUE, otherwise FALSE.
  */
+#ifdef __GNUC__ 
 Inline BOOL knl_ready_queue_insert( RDYQUE *rq, TCB *tcb )
 {
 	INT	priority = tcb->priority;
@@ -114,10 +124,13 @@ Inline BOOL knl_ready_queue_insert( RDYQUE *rq, TCB *tcb )
 	}
 	return FALSE;
 }
-
+#else
+IMPORT BOOL knl_ready_queue_insert( RDYQUE *rq, TCB *tcb );
+#endif
 /*
  * Insert task at head in ready queue 
  */
+#ifdef __GNUC__ 
 Inline void knl_ready_queue_insert_top( RDYQUE *rq, TCB *tcb )
 {
 	INT	priority = tcb->priority;
@@ -133,7 +146,9 @@ Inline void knl_ready_queue_insert_top( RDYQUE *rq, TCB *tcb )
 		rq->top_priority = priority;
 	}
 }
-
+#else
+IMPORT void knl_ready_queue_insert_top( RDYQUE *rq, TCB *tcb );
+#endif
 /*
  * Delete task from ready queue
  *	Take out TCB from the applicable priority task queue, and if the task 
@@ -142,6 +157,7 @@ Inline void knl_ready_queue_insert_top( RDYQUE *rq, TCB *tcb )
  *	priority. In such case, use the bitmap area to search the second
  *	highest priority task.
  */
+#ifdef __GNUC__ 
 Inline void knl_ready_queue_delete( RDYQUE *rq, TCB *tcb )
 {
 	INT	priority = tcb->priority;
@@ -173,11 +189,14 @@ Inline void knl_ready_queue_delete( RDYQUE *rq, TCB *tcb )
 		rq->top_priority = NUM_PRI;
 	}
 }
-
+#else
+IMPORT void knl_ready_queue_delete( RDYQUE *rq, TCB *tcb );
+#endif
 /*
  * Move the task, whose ready queue priority is 'priority', at head of
  * queue to the end of queue. Do nothing, if the queue is empty.
  */
+#ifdef __GNUC__ 
 Inline void knl_ready_queue_rotate( RDYQUE *rq, INT priority )
 {
 	QUEUE	*tskque = &rq->tskque[priority];
@@ -188,10 +207,13 @@ Inline void knl_ready_queue_rotate( RDYQUE *rq, INT priority )
 		QueInsert((QUEUE*)tcb, tskque);
 	}
 }
-
+#else
+IMPORT void knl_ready_queue_rotate( RDYQUE *rq, INT priority );
+#endif
 /*
  * Put 'tcb' to the end of ready queue. 
  */
+#ifdef __GNUC__ 
 Inline TCB* knl_ready_queue_move_last( RDYQUE *rq, TCB *tcb )
 {
 	QUEUE	*tskque = &rq->tskque[tcb->priority];
@@ -201,5 +223,7 @@ Inline TCB* knl_ready_queue_move_last( RDYQUE *rq, TCB *tcb )
 
 	return (TCB*)tskque->next;	/* New task at head of queue */
 }
-
+#else
+IMPORT TCB* knl_ready_queue_move_last( RDYQUE *rq, TCB *tcb );
+#endif
 #endif /* _READY_QUEUE_ */

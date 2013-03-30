@@ -130,10 +130,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);
 /*
  * Start task dispatcher
  */
-Inline void knl_dispatch(void)
-{
-    asm swi;
-}
+IMPORT void knl_dispatch(void);
 
 /* ----------------------------------------------------------------------- */
 

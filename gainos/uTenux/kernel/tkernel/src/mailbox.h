@@ -61,6 +61,7 @@ IMPORT QUEUE knl_free_mbxcb;	/* FreeQue */
 /*
  * Insert a message queue following priority
  */
+#ifdef __GNUC__ 
 Inline void knl_queue_insert_mpri( T_MSG_PRI *pk_msg, T_MSG *head )
 {
 	T_MSG_PRI	*msg;
@@ -75,5 +76,8 @@ Inline void knl_queue_insert_mpri( T_MSG_PRI *pk_msg, T_MSG *head )
 	nextmsg(pk_msg) = msg;
 	nextmsg(prevmsg) = pk_msg;
 }
+#else
+// LOCAL void knl_queue_insert_mpri( T_MSG_PRI *pk_msg, T_MSG *head );
+#endif
 
 #endif /* _MAILBOX_H_ */

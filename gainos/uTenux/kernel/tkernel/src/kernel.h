@@ -55,18 +55,25 @@ typedef struct task_control_block	TCB;
 typedef struct objlock {
 	QUEUE		wtskq;		/* Wait task queue */
 } OBJLOCK;
-
+#ifdef __GNUC__
 Inline void knl_InitOBJLOCK( OBJLOCK *loc )
 {
 	loc->wtskq.next = NULL;
 }
+#else
+#define  knl_InitOBJLOCK(__loc) ((__loc)->wtskq.next = NULL);
+#endif
 IMPORT void knl_LockOBJ( OBJLOCK* );
 IMPORT void knl_UnlockOBJ( OBJLOCK* );
 
+#ifdef __GNUC__
 Inline BOOL knl_isLockedOBJ( OBJLOCK *loc )
 {
 	return ( loc->wtskq.next != NULL )? TRUE: FALSE;
 }
+#else
+#define knl_isLockedOBJ(__loc)  (( (__loc)->wtskq.next != NULL )? TRUE: FALSE)
+#endif
 
 
 /*

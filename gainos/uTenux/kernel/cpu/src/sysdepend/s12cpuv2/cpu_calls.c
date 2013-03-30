@@ -40,6 +40,7 @@
 #include "cpu_calls.h"
 /** [END Common Definitions] */
 EXPORT UB l_sp_offset = (UB)&(((TCB*)0)->tskctxb);
+
 #ifdef USE_FUNC_TK_DIS_DSP
 /*
  * Dispatch enable/disable 
@@ -94,7 +95,6 @@ EXPORT void knl_set_reg( TCB *tcb, T_REGS *regs, T_EIT *eit, T_CREGS *cregs )
 	}
 
 	if ( cregs != NULL ) {
-		tcb->tskctxb.ssp  = cregs->ssp;
 	}
 }
 #endif /* USE_FUNC_SET_REG */

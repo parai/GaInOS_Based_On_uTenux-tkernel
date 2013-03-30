@@ -51,6 +51,10 @@ IMPORT UINT  knl_taskmode;
 IMPORT	INT  knl_taskindp;
 IMPORT 	 UB	 knl_tmp_stack[TMP_STACK_SZ];
 IMPORT UB l_sp_offset;
+EXPORT void knl_dispatch(void)
+{
+    asm swi;
+}
 /*
  *    Function Name : knl_dispatch_to_schedtsk,knl_dispatch_entry,_ret_int_dispatch
  *    Create Date   : 2009/12/27-2012/11/22

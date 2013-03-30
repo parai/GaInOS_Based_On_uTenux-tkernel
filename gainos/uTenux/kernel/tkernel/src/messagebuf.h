@@ -66,18 +66,28 @@ typedef INT		HEADER;
  * Check message buffer free space
  *	If 'msgsz' message is able to be stored, return TRUE.
  */
+#ifdef __GNUC__ 
 Inline BOOL knl_mbf_free( MBFCB *mbfcb, INT msgsz )
 {
 	return ( HEADERSZ + (UW)msgsz <= (UW)mbfcb->frbufsz );
 }
+#else
+#define knl_mbf_free(__mbfcb,__msgsz )  \
+    ((BOOL)(( HEADERSZ + (UW)(__msgsz) <= (UW)(__mbfcb)->frbufsz )))
+#endif
 
 /*
  * If message buffer is empty, return TRUE.
  */
+#ifdef __GNUC__ 
 Inline BOOL knl_mbf_empty( MBFCB *mbfcb )
 {
 	return ( mbfcb->frbufsz == mbfcb->bufsz );
 }
+#else
+#define knl_mbf_empty(__mbfcb ) \
+    ((BOOL) ((__mbfcb)->frbufsz == (__mbfcb)->bufsz))
+#endif
 
 
 /*

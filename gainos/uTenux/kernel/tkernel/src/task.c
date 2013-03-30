@@ -27,6 +27,19 @@
 #include "check.h"
 /** [END Common Definitions] */
 
+
+#ifndef __GNUC__ 
+EXPORT void knl_reschedule( void )
+{
+	TCB	*toptsk;
+
+	toptsk = knl_ready_queue_top(&knl_ready_queue);
+	if ( knl_schedtsk != toptsk ) {
+		knl_schedtsk = toptsk;
+		knl_dispatch_request();
+	}
+}
+#endif
 #ifdef USE_FUNC_CTXTSK
 /*
  * Task dispatch disable state

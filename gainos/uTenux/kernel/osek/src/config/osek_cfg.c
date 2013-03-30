@@ -26,8 +26,9 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 #include "Can.h"
 TASK(vTask0)
 {
+#if 1
     Can_PduType pdu;
-
+    static char* sduData0 = "Parai"; /* 5 */
     static char* sduData1 = "Hello"; /* 5 */
     static char* sduData2 = "World"; /* 5 */
     
@@ -39,12 +40,15 @@ TASK(vTask0)
 	Can_SetControllerMode(CAN_CTRL_1,CAN_T_START);
 	for(;;)
 	{
+	    pdu.sdu= sduData0;
+	    while(CAN_BUSY == Can_Write(CAN0_HTH,&pdu));
 	    pdu.sdu= sduData1;
 	    while(CAN_BUSY == Can_Write(CAN0_HTH,&pdu));
 	    pdu.sdu= sduData2;
 	    while(CAN_BUSY == Can_Write(CAN0_HTH,&pdu)); 
 	    DelayTask(3000); 
 	}
+#endif
 	(void)TerminateTask();
 }
 

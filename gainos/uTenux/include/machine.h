@@ -80,20 +80,4 @@
 #define Noinit(decl)	decl
 #endif
 
-#ifdef _APP_MC9S12_
-#undef Inline
-#define Inline static
-
-#undef Noinit
-#define Noinit(decl)	decl
-#endif
-
-#ifdef _APP_XC23XX_
-#undef Inline
-#define Inline inline
-
-#undef Noinit
-#define Noinit(decl)	decl
-#endif
-
 #endif /* __MACHINE_H__ */

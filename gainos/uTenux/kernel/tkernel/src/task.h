@@ -25,11 +25,6 @@
 typedef struct mutex_control_block	MTXCB;
 #endif
 
-#ifndef __tcb__
-#define __tcb__
-typedef struct task_control_block	TCB;
-#endif
-
 #include <sys/queue.h>
 #include <sys/str_align.h>
 #include "timer.h"
@@ -53,10 +48,15 @@ typedef enum {
 /*
  * If the task is alive ( except NON-EXISTENT,DORMANT ), return TRUE.
  */
+#ifdef __GNUC__ 
 Inline BOOL knl_task_alive( TSTAT state )
 {
 	return ( (state & (TS_READY|TS_WAIT|TS_SUSPEND)) != 0 );
 }
+#else
+#define knl_task_alive( __state )   \
+    ((BOOL)( (( __state ) & (TS_READY|TS_WAIT|TS_SUSPEND)) != 0 ))
+#endif
 
 
 /*
@@ -129,6 +129,11 @@ struct task_control_block {
 	UB	name[OBJECT_NAME_LENGTH];	/* name */
 #endif
 };
+
+#ifndef __tcb__
+#define __tcb__
+typedef struct task_control_block	TCB;
+#endif
 
 /*
  * Task dispatch disable state
@@ -226,6 +231,7 @@ IMPORT void knl_rotate_ready_queue_run( void );
  * Reselect task to execute
  *	Set 'schedtsk' to the head task at the ready queue.
  */
+#ifdef __GNUC__ 
 Inline void knl_reschedule( void )
 {
 	TCB	*toptsk;
@@ -236,7 +242,9 @@ Inline void knl_reschedule( void )
 		knl_dispatch_request();
 	}
 }
-
+#else
+IMPORT void knl_reschedule( void );
+#endif
 IMPORT void knl_del_tsk( TCB *tcb );
 IMPORT void knl_ter_tsk( TCB *tcb );
 

@@ -35,7 +35,7 @@
  *	be executed exclusively.
  */
 
-Inline INT Inc( FastLock *lock )
+LOCAL INT Inc( FastLock *lock )
 {
 	UINT	imask;
 	INT	c;
@@ -44,7 +44,7 @@ Inline INT Inc( FastLock *lock )
 	EI(imask);
 	return c;
 }
-Inline INT Dec( FastLock *lock )
+LOCAL INT Dec( FastLock *lock )
 {
 	UINT	imask;
 	INT	c;

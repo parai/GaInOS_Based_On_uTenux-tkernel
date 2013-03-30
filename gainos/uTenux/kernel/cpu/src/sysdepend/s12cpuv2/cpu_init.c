@@ -32,6 +32,7 @@
 #include "task.h"
 #include "cpu_insn.h"
 #include "tkdev_conf.h"
+#include "cpu_task.h"
 
 
 /* Temporal stack used when 'dispatch_to_schedtsk' is called */
@@ -42,23 +43,6 @@ Noinit(EXPORT	UB	knl_tmp_stack[TMP_STACK_SZ]);
  */
 EXPORT ER knl_cpu_initialize( void )
 {
-#if USE_TRAP
-IMPORT void knl_dispatch_entry( void );		/* Dispatcher call */
-IMPORT void tk_ret_int_impl( void );		/* 'tk_ret_int()' only call */
-
-	/* Register exception handler used on OS */
-	knl_define_inthdr(SWI_RETINT,   tk_ret_int_impl);
-#if USE_DBGSPT
-IMPORT void knl_call_dbgspt( void );		/* Debugger support call */
-	knl_define_inthdr(SWI_DEBUG,    knl_call_dbgspt);
-#endif
-#endif /* USE_TRAP */
-
-#if USE_TRAP
-IMPORT void knl_call_entry( void );			/* System call */
-	knl_define_inthdr(SWI_SVC,      knl_call_entry);
-#endif
-
 	return E_OK;
 }
 
@@ -70,3 +54,56 @@ EXPORT void knl_cpu_shutdown( void )
 {
 }
 #endif /* USE_CLEANUP */
+
+EXPORT UB knl_getPRIMASK ( void )
+{
+    asm psha; /* sava A */
+	asm tpa;
+    asm tab;
+    asm pula;
+}
+
+EXPORT BOOL knl_isTaskIndependent( void )
+{
+	return ( knl_taskindp > 0 )? TRUE: FALSE;
+}
+
+EXPORT void knl_EnterTaskIndependent( void )
+{
+	knl_taskindp++;
+}
+EXPORT void knl_LeaveTaskIndependent( void )
+{
+	knl_taskindp--;
+}
+
+EXPORT void knl_setup_context( TCB *tcb )
+{
+    SStackFrame     *ssp;
+    UW pc;
+
+    ssp = tcb->isstack;
+    ssp--;
+    pc = (UW)tcb->task;
+
+    /* CPU context initialization */
+    ssp->ppage =(VB)pc;
+    ssp->taskmode  = 0;             /* Initial taskmode */
+    ssp->ccr = (0xC0);              /* CCR Register (Disable STOP instruction and XIRQ)       */
+    ssp->pc = (VH)(pc>>8);          /* Task startup address */
+    tcb->tskctxb.ssp = ssp;         /* System stack */
+}
+
+EXPORT void knl_setup_stacd( TCB *tcb, INT stacd )
+{
+	SStackFrame	*ssp = tcb->tskctxb.ssp;
+
+	ssp->stacd = stacd;
+	ssp->b = (VB)(tcb->exinf);
+	ssp->a = (VB)((VH)(tcb->exinf)>>8);
+}
+
+EXPORT void knl_cleanup_context( TCB *tcb )
+{
+}
+

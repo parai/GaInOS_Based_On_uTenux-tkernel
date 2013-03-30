@@ -36,7 +36,7 @@
 #include <tk/syslib.h>
 #include <sys/sysinfo.h>
 #include "tkdev_conf.h"
-#include "mc9s12dp512.h"
+
 /*
  * Settable interval range (millisecond)
  */
@@ -54,17 +54,7 @@ IMPORT UW	knl_TimerClkDiv;	/* Dividing rate of timer clock */
  *    Param	        : none
  *    Return Code   : none
  */
-Inline void knl_start_hw_timer( void )
-{
-    UB imask;
-	DI(imask);
-
-    CRGINT_RTIE=1;       //使能实时中断
-    RTICTL = 0x70;       //设置实时中断的时间间隔为4.096ms
-    /*????*/
-    //中断周期=1/16 x 10E-6 x （0+1）x 2E（7+9）=0.004096s=4.096ms 
-	EI(imask);
-}
+IMPORT void knl_start_hw_timer( void );
 
 /*
  *    Function Name : knl_clear_hw_timer_interrupt
@@ -80,10 +70,7 @@ Inline void knl_start_hw_timer( void )
  *    Param	        : none
  *    Return Code   : none
  */
-Inline void knl_clear_hw_timer_interrupt( void )
-{
-    	
-}
+#define  knl_clear_hw_timer_interrupt()
 
 /*
  *    Function Name : knl_end_of_hw_timer_interrupt
@@ -99,9 +86,7 @@ Inline void knl_clear_hw_timer_interrupt( void )
  *    Param	        : none
  *    Return Code   : none
  */
-Inline void knl_end_of_hw_timer_interrupt( void )
-{
-}
+#define knl_end_of_hw_timer_interrupt()
 
 /*
  *    Function Name : knl_terminate_hw_timer
@@ -112,9 +97,7 @@ Inline void knl_end_of_hw_timer_interrupt( void )
  *    Param	        : none
  *    Return Code   : none
  */
-Inline void knl_terminate_hw_timer( void )
-{
-}
+#define knl_terminate_hw_timer()
 
 /*
  *    Function Name : knl_get_hw_timer_nsec
@@ -128,8 +111,6 @@ Inline void knl_terminate_hw_timer( void )
  *    Param	        : none
  *    Return Code   : UW: processing time(nanosecond)
  */
-Inline UW knl_get_hw_timer_nsec( void )
-{
-}
+#define knl_get_hw_timer_nsec()     ((UW)0)
 
 #endif /* _TKDEV_TIMER_ */

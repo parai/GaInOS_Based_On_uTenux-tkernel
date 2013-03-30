@@ -54,6 +54,7 @@ typedef struct {
 /*
  * Adjusting the size which can be allocated 
  */
+#ifdef __GNUC__ 
 Inline W roundSize( W sz )
 {
 	if ( sz < (W)MIN_FRAGMENT ) {
@@ -61,6 +62,9 @@ Inline W roundSize( W sz )
 	}
 	return (W)(((UW)sz + (UW)(ROUNDSZ-1)) & ~(UW)(ROUNDSZ-1));
 }
+#else
+IMPORT W roundSize( W sz );
+#endif
 
 
 /*

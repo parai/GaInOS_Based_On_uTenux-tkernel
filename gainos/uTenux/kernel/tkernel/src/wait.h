@@ -47,12 +47,19 @@ IMPORT void knl_wait_release_tmout( TCB *tcb );
  *	Remove the task from the timer queue and the wait queue.
  *	Do not update the task state.
  */
+#ifdef __GNUC__ 
 Inline void knl_wait_cancel( TCB *tcb )
 {
 	knl_timer_delete(&tcb->wtmeb);
 	QueRemove(&tcb->tskque);
 }
-
+#else
+#define knl_wait_cancel( __tcb )            \
+do{                                         \
+  	knl_timer_delete(&( __tcb )->wtmeb);    \
+	QueRemove(&( __tcb )->tskque);          \
+}while(0)	
+#endif
 /*
  * Change the active task to wait state and connect to the
  * timer event queue.
@@ -76,6 +83,7 @@ IMPORT ID knl_wait_tskid( QUEUE *wait_queue );
 /*
  * Connect the task to the prioritized wait queue.
  */
+#ifdef __GNUC__ 
 Inline void knl_queue_insert_tpri( TCB *tcb, QUEUE *queue )
 {
 	QUEUE *q;
@@ -95,7 +103,9 @@ Inline void knl_queue_insert_tpri( TCB *tcb, QUEUE *queue )
 
 	QueInsert(&tcb->tskque, q);
 }
-
+#else
+IMPORT void knl_queue_insert_tpri( TCB *tcb, QUEUE *queue );
+#endif
 /*
  * Common part of control block
  *	For synchronization between tasks and communication object,
@@ -141,6 +151,7 @@ IMPORT TCB* knl_gcb_top_of_wait_queue( GCB *gcb, TCB *tcb );
  * connect to the ready queue.
  * Call when the task is in the wait state (including double wait).
  */
+#ifdef __GNUC__ 
 Inline void knl_make_non_wait( TCB *tcb )
 {
 	if ( tcb->state == TS_WAIT ) {
@@ -149,15 +160,20 @@ Inline void knl_make_non_wait( TCB *tcb )
 		tcb->state = TS_SUSPEND;
 	}
 }
-
+#else
+IMPORT void knl_make_non_wait( TCB *tcb );
+#endif
 /*
  * Release wait state of the task.
  */
+#ifdef __GNUC__
 Inline void knl_wait_release( TCB *tcb )
 {
 	knl_timer_delete(&tcb->wtmeb);
 	QueRemove(&tcb->tskque);
 	knl_make_non_wait(tcb);
 }
-
+#else
+IMPORT void knl_wait_release( TCB *tcb );
+#endif
 #endif /* _WAIT_ */

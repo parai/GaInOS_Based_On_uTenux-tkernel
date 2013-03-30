@@ -41,6 +41,31 @@ Noinit(EXPORT LSYSTIM	knl_real_time_ofs);	/* Actual time - System operation time
  */
 Noinit(EXPORT QUEUE	knl_timer_queue);
 
+#ifndef __GNUC__
+EXPORT LSYSTIM knl_toLSYSTIM( SYSTIM *time )
+{
+	LSYSTIM		ltime;
+#if defined(_APP_MC9S12_)
+    /* Special case for Freescale MC9S12 16bit cpu */
+    ltime =  time->lo; /*ignore high byte as LSYSTIM is 32 bits long */
+#else
+	hilo_ll(ltime, time->hi, time->lo);
+#endif
+	return ltime;
+}
+EXPORT SYSTIM knl_toSYSTIM( LSYSTIM ltime )
+{
+	SYSTIM		time;
+#if defined(_APP_MC9S12_)
+    /* Special case for Freescale MC9S12 16bit cpu */
+    time.hi = 0u;
+    time.lo = ltime;    /*ignore high byte as LSYSTIM is 32 bits long */
+#else
+	ll_hilo(time.hi, time.lo, ltime);
+#endif
+	return time;
+}
+#endif
 /*
  * Initialization of timer module
  */

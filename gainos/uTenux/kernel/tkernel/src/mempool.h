@@ -52,6 +52,7 @@ IMPORT QUEUE knl_free_mplcb;	/* FreeQue */
 /*
  * Maximum free area size
  */
+#ifdef __GNUC__ 
 Inline W knl_MaxFreeSize( MPLCB *mplcb )
 {
 	if ( isQueEmpty(&mplcb->freeque) ) {
@@ -59,6 +60,10 @@ Inline W knl_MaxFreeSize( MPLCB *mplcb )
 	}
 	return FreeSize(mplcb->freeque.prev);
 }
+#else
+#define knl_MaxFreeSize(__mplcb)    \
+    ((W) ( isQueEmpty(&(__mplcb)->freeque)?0:(FreeSize((__mplcb)->freeque.prev)) ) )
+#endif
 
 /*
  * Definition of variable size memory pool wait specification

@@ -33,8 +33,17 @@
 Noinit(EXPORT PORCB knl_porcb_table[NUM_PORID]);	/* Rendezvous port control block */
 Noinit(EXPORT QUEUE knl_free_porcb);	/* FreeQue */
 #endif /* USE_FUNC_PORCB_TABLE */
+#ifndef __GNUC__
+EXPORT RNO knl_gen_rdvno( TCB *tcb )
+{
+	RNO	rdvno;
 
+	rdvno = tcb->wrdvno;
+	tcb->wrdvno += (1U << RDVNO_SHIFT);
 
+	return rdvno;
+}
+#endif /* __GNUC__ */
 #ifdef USE_FUNC_RENDEZVOUS_INITIALIZE
 /* 
  * Initialization of port control block 

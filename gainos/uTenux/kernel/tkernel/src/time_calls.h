@@ -47,6 +47,7 @@ IMPORT QUEUE	knl_free_cyccb;	/* FreeQue */
 /*
  * Next startup time
  */
+#ifdef __GNUC__ 
 Inline LSYSTIM knl_cyc_next_time( CYCCB *cyccb )
 {
 	LSYSTIM		tm;
@@ -66,17 +67,23 @@ Inline LSYSTIM knl_cyc_next_time( CYCCB *cyccb )
 
 	return tm;
 }
-
+#else
+IMPORT LSYSTIM knl_cyc_next_time( CYCCB *cyccb );
+#endif
 IMPORT void knl_call_cychdr( CYCCB* cyccb );
 
 /*
  * Register timer event queue
  */
+#ifdef __GNUC__ 
 Inline void knl_cyc_timer_insert( CYCCB *cyccb, LSYSTIM tm )
 {
 	knl_timer_insert_abs(&cyccb->cyctmeb, tm, (CBACK)knl_call_cychdr, cyccb);
 }
-
+#else
+#define knl_cyc_timer_insert(__cyccb,__tm)   \
+      knl_timer_insert_abs(&(__cyccb)->cyctmeb, (__tm), (CBACK)knl_call_cychdr, (__cyccb))
+#endif
 
 /*
  * Alarm handler control block
@@ -106,6 +113,7 @@ IMPORT void knl_call_almhdr( ALMCB *almcb );
 /*
  * Register onto timer event queue
  */
+#ifdef __GNUC__ 
 Inline void knl_alm_timer_insert( ALMCB *almcb, RELTIM reltim )
 {
 	LSYSTIM	tm;
@@ -117,6 +125,9 @@ Inline void knl_alm_timer_insert( ALMCB *almcb, RELTIM reltim )
 
 	knl_timer_insert_abs(&almcb->almtmeb, tm, (CBACK)knl_call_almhdr, almcb);
 }
+#else
+IMPORT void knl_alm_timer_insert( ALMCB *almcb, RELTIM reltim );
+#endif
 
 
 #endif /* _TIME_CALLS_H */

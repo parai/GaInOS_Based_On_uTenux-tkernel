@@ -43,6 +43,7 @@ IMPORT QUEUE knl_free_flgcb;	/* FreeQue */
 /*
  * Check for event flag wait release condition
  */
+#ifdef  __GNUC__
 Inline BOOL knl_eventflag_cond( FLGCB *flgcb, UINT waiptn, UINT wfmode )
 {
 	if ( (wfmode & TWF_ORW) != 0 ) {
@@ -51,6 +52,9 @@ Inline BOOL knl_eventflag_cond( FLGCB *flgcb, UINT waiptn, UINT wfmode )
 		return ( (flgcb->flgptn & waiptn) == waiptn );
 	}
 }
+#else
+IMPORT BOOL knl_eventflag_cond( FLGCB *flgcb, UINT waiptn, UINT wfmode );
+#endif
 
 
 #endif /* _EVENTFLAG_H_ */

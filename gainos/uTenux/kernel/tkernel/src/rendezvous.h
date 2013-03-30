@@ -50,6 +50,7 @@ IMPORT QUEUE knl_free_porcb;	/* FreeQue */
 /*
  * Create rendezvous number
  */
+#ifdef __GNUC__ 
 Inline RNO knl_gen_rdvno( TCB *tcb )
 {
 	RNO	rdvno;
@@ -59,15 +60,21 @@ Inline RNO knl_gen_rdvno( TCB *tcb )
 
 	return rdvno;
 }
-
+#else
+IMPORT RNO knl_gen_rdvno( TCB *tcb );
+#endif
 /*
  * Get task ID from rendezvous number 
  */
+#ifdef __GNUC__  
 Inline ID knl_get_tskid_rdvno( RNO rdvno )
 {
 	return (ID)((UINT)rdvno & ((1U << RDVNO_SHIFT) - 1));
 }
-
+#else
+#define knl_get_tskid_rdvno(__rdvno)    \
+    ((ID) ((UINT)(__rdvno) & ((1U << RDVNO_SHIFT) - 1)))
+#endif
 #endif /* CFN_MAX_PORID > 0 */
 
 /*

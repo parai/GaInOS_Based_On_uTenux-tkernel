@@ -33,17 +33,11 @@
 
 #include <sys/sysinfo.h>
 
+
 /*
  * Get PRIMASK
  */
-Inline UB knl_getPRIMASK ( void )
-{
-    asm psha; /* sava A */
-	asm tpa;
-    asm tab;
-    asm pula;
-}
-
+IMPORT  UB knl_getPRIMASK ( void );
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -53,22 +47,14 @@ Inline UB knl_getPRIMASK ( void )
 /*
  * If it is the task-independent part, TRUE
  */
-Inline BOOL knl_isTaskIndependent( void )
-{
-	return ( knl_taskindp > 0 )? TRUE: FALSE;
-}
+IMPORT BOOL knl_isTaskIndependent( void );
 
 /*
  * Move to/Restore task independent part
  */
-Inline void knl_EnterTaskIndependent( void )
-{
-	knl_taskindp++;
-}
-Inline void knl_LeaveTaskIndependent( void )
-{
-	knl_taskindp--;
-}
+IMPORT void knl_EnterTaskIndependent( void );
+
+IMPORT void knl_LeaveTaskIndependent( void );
 
 /* ------------------------------------------------------------------------ */
 

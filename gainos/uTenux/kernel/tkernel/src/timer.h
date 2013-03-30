@@ -26,7 +26,7 @@
  * SYSTIM internal expression and conversion
  */
 typedef	longlong	LSYSTIM;	/* SYSTIM int. expression */
-
+#ifdef __GNUC__
 Inline LSYSTIM knl_toLSYSTIM( SYSTIM *time )
 {
 	LSYSTIM		ltime;
@@ -35,7 +35,6 @@ Inline LSYSTIM knl_toLSYSTIM( SYSTIM *time )
 
 	return ltime;
 }
-
 Inline SYSTIM knl_toSYSTIM( LSYSTIM ltime )
 {
 	SYSTIM		time;
@@ -44,6 +43,10 @@ Inline SYSTIM knl_toSYSTIM( LSYSTIM ltime )
 
 	return time;
 }
+#else
+EXPORT LSYSTIM knl_toLSYSTIM( SYSTIM *time );
+EXPORT SYSTIM knl_toSYSTIM( LSYSTIM ltime );
+#endif
 
 /*
  * Definition of timer event block 
@@ -87,9 +90,14 @@ IMPORT void knl_timer_insert_abs( TMEB *evt, LSYSTIM time, CBACK cback, VP arg )
 /*
  * Delete from timer queue
  */
+#ifdef __GNUC__ 
 Inline void knl_timer_delete( TMEB *event )
 {
 	QueRemove(&event->queue);
 }
+#else
+#define knl_timer_delete(__event)   \
+    QueRemove(&((TMEB *)__event)->queue)
+#endif
 
 #endif /* _TIMER_ */

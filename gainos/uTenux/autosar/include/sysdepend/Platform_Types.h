@@ -58,6 +58,9 @@
 #include <sysdepend/app_mc9s12/Platform_Types0.h>
 #endif
 
+#ifdef __GNUC__
+#include <sysdepend/app_mc9s12/Platform_Types0.h>
+#endif
 
 #endif /* _PLATFORM_TYPES_H_ */
 

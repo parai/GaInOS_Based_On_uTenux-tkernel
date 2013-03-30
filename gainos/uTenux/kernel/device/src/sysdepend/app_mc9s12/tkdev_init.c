@@ -34,13 +34,25 @@
 #include <tk/sysdef.h>
 #include <tk/syslib.h>
 #include <tm/tmonitor.h>
-
+#include "mc9s12dp512.h"
 /*
  * Target system-dependent initialization
  */
 EXPORT ER knl_tkdev_initialize( void )
 {
 	return E_OK;
+}
+
+EXPORT void knl_start_hw_timer( void )
+{
+    UB imask;
+	DI(imask);
+
+    CRGINT_RTIE=1;       //使能实时中断
+    RTICTL = 0x70;       //设置实时中断的时间间隔为4.096ms
+    /*????*/
+    //中断周期=1/16 x 10E-6 x （0+1）x 2E（7+9）=0.004096s=4.096ms 
+	EI(imask);
 }
 
 #if USE_CLEANUP

@@ -41,25 +41,26 @@ extern "C" {
  * General purpose register			tk_get_reg tk_set_reg
  */
 typedef struct t_regs {
-	VW	r[13];		/* General purpose register R0-R12 */
-	VP	lr;		    /* Link register R14 */
+    VB b;   /* exinfL */
+    VB a;   /* exinfH */
+    VH x;
+    VH y;
 } T_REGS;
 
 /*
  * Exception-related register		tk_get_reg tk_set_reg
  */
 typedef struct t_eit {
-    VP	pc;		    /* Program counter R15 */
-    UW	psr;		/* Program status register */
-    UW	taskmode;	/* Task mode flag */
+    VB ppage;
+    VB ccr;
+    VH pc;
 } T_EIT;
 
 /*
  * Control register			tk_get_reg tk_set_reg
  */
 typedef struct t_cregs {
-	VP	ssp;		/* System stack pointer usuealy MSP */
-	VP	usp;		/* User stack pointer MSP or PSP */
+	VP	sp;	
 } T_CREGS;
 
 #ifdef __cplusplus

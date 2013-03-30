@@ -22,7 +22,46 @@
 #include "task.h"
 #include "wait.h"
 /** [END Common Definitions] */
+#ifndef __GNUC__ 
+EXPORT void knl_queue_insert_tpri( TCB *tcb, QUEUE *queue )
+{
+	QUEUE *q;
+	QUEUE *start, *end;
+	UB val;
+	W offset;
 
+	start = end = queue;
+	val = tcb->priority;
+	offset = offsetof(TCB, priority);
+
+	for ( q = start->next; q != end; q = q->next ) {
+		if ( *(UB*)((VB*)q + offset) > val ) {
+			break;
+		}
+	}
+
+	QueInsert(&tcb->tskque, q);
+}
+#endif
+#ifndef __GNUC__ 
+EXPORT void knl_make_non_wait( TCB *tcb )
+{
+	if ( tcb->state == TS_WAIT ) {
+		knl_make_ready(tcb);
+	} else {
+		tcb->state = TS_SUSPEND;
+	}
+}
+#endif
+
+#ifndef __GNUC__
+EXPORT void knl_wait_release( TCB *tcb )
+{
+	knl_timer_delete(&tcb->wtmeb);
+	QueRemove(&tcb->tskque);
+	knl_make_non_wait(tcb);
+}
+#endif
 #ifdef USE_FUNC_WAIT_RELEASE_OK
 EXPORT void knl_wait_release_ok( TCB *tcb )
 {

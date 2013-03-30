@@ -26,7 +26,41 @@
 #include "tkdev_timer.h"
 #include "time_calls.h"
 /** [END Common Definitions] */
+#ifndef __GNUC__ 
+IMPORT LSYSTIM knl_cyc_next_time( CYCCB *cyccb )
+{
+	LSYSTIM		tm;
+	longlong	n;
 
+	tm = ll_add(cyccb->cyctmeb.time, uitoll(cyccb->cyctim));
+
+	if ( ll_cmp(tm, knl_current_time) <= 0 ) {
+
+		/* Adjust time to be later than current time */
+		tm = ll_sub(knl_current_time, cyccb->cyctmeb.time);
+		n  = lui_div(tm, cyccb->cyctim);
+		ll_inc(&n);
+		tm = lui_mul(n, cyccb->cyctim);
+		tm = ll_add(cyccb->cyctmeb.time, tm);
+	}
+
+	return tm;
+}
+#endif
+
+#ifndef __GNUC__ 
+EXPORT void knl_alm_timer_insert( ALMCB *almcb, RELTIM reltim )
+{
+	LSYSTIM	tm;
+
+	/* To guarantee to start the handler after the specified time, 
+	   add CFN_TIMER_PERIOD */
+	tm = ll_add(knl_current_time, uitoll(reltim));
+	tm = ll_add(tm, uitoll(CFN_TIMER_PERIOD));
+
+	knl_timer_insert_abs(&almcb->almtmeb, tm, (CBACK)knl_call_almhdr, almcb);
+}
+#endif
 #ifdef USE_FUNC_TK_SET_TIM
 /*
  * Set system clock

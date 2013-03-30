@@ -18,7 +18,15 @@
 #include "memory.h"
 #include <tm/tmonitor.h>
 /** [END Common Definitions] */
-
+#ifndef __GNUC__ 
+EXPORT W roundSize( W sz )
+{
+	if ( sz < (W)MIN_FRAGMENT ) {
+		sz = (W)MIN_FRAGMENT;
+	}
+	return (W)(((UW)sz + (UW)(ROUNDSZ-1)) & ~(UW)(ROUNDSZ-1));
+}
+#endif
 
 #ifdef USE_FUNC_SEARCHFREEAREA
 /*
@@ -241,7 +249,7 @@ EXPORT void* knl_Icalloc( size_t nmemb, size_t size )
 		return NULL;
 	}
 
-	memset(mem, 0, sz);
+	(void)memset(mem, 0, sz);
 
 	return mem;
 }
