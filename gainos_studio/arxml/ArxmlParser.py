@@ -131,4 +131,5 @@ class LoadArxml():
         for node in list:
             obj = AutosarObj(node.attrib['name'], cfg.chip); 
             cfg.arobjList.append(obj);
+            obj.doParse(node);
             

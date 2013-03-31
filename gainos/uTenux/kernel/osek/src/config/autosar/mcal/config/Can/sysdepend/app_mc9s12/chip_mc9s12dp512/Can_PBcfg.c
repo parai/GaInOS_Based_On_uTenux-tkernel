@@ -116,7 +116,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_4_HOHCfgData,
-		TRUE  /* Modified by hand to test */
+		FALSE
 	},
 };
 LOCAL const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};

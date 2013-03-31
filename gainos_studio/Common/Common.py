@@ -58,7 +58,12 @@ def bool(s):
     else:
         return False;
 
-
+def gSTD_ON(s):
+    if(s==True):
+        return 'STD_ON';
+    else:
+        return 'STD_OFF';
+    
 class UnimplementError():
     def __init__(self):
         print 'Un Implement Error!'

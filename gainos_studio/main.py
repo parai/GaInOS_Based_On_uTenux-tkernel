@@ -52,11 +52,16 @@ def gappendpath():
            and os.path.isdir(dir+'/codegen')
            and os.path.isdir(dir+'/ui_forms')):
             break;
+    print dir;
     sys.path.append(dir+'/ui_forms');
+    sys.path.append(dir+'/ui_forms/Common');
+    sys.path.append(dir+'/ui_forms/mc9s12dp512');
     sys.path.append(dir+'/ui_calss');
+    sys.path.append(dir+'/ui_calss/mc9s12dp512');
+    sys.path.append(dir+'/ui_calss/Common');
     sys.path.append(dir+'/arxml');
     sys.path.append(dir+'/calss');
-    sys.path.append(dir+'/calss/MC9S12DP512');
+    sys.path.append(dir+'/calss/mc9s12dp512');
     sys.path.append(dir+'/codegen');
     sys.path.append(dir+'/Common');
 
@@ -64,8 +69,8 @@ def main(argc, argv):
     from GaInOsStudio import wMainClass
     app = QtGui.QApplication(argv);
     wMainWin = wMainClass(argc,argv);
-    wMainWin.show()
-    sys.exit(app.exec_())
+    wMainWin.show();
+    sys.exit(app.exec_());
 
 if __name__ == "__main__":
     gappendpath();

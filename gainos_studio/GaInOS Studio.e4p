@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-03-27, 23:42:17 -->
+<!-- Saved: 2013-03-31, 16:12:31 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -20,22 +20,25 @@
     <Source>arxml/ArxmlParser.py</Source>
     <Source>arxml/ArxmlSaver.py</Source>
     <Source>codegen/CodeGen.py</Source>
-    <Source>calss/MC9S12DP512/Can_MC9S12DP512.py</Source>
     <Source>Common/Common.py</Source>
     <Source>calss/AutosarCfg.py</Source>
-    <Source>calss/MC9S12DP512/AutosarCfg_MC9S12DP512.py</Source>
     <Source>ui_forms/Ui_DlgArAdd.py</Source>
     <Source>ui_forms/Ui_DlgStart.py</Source>
     <Source>ui_forms/Ui_GaInOsStudio.py</Source>
     <Source>ui_forms/Ui_wmain.py</Source>
-    <Source>ui_forms/Ui_Can_MC9S12DP512.py</Source>
-    <Source>ui_calss/DlgCan_MC9S12DP512.py</Source>
+    <Source>ui_forms/mc9s12dp512/Ui_Can_MC9S12DP512.py</Source>
+    <Source>ui_calss/mc9s12dp512/DlgCan_MC9S12DP512.py</Source>
+    <Source>calss/mc9s12dp512/AutosarCfg_MC9S12DP512.py</Source>
+    <Source>calss/mc9s12dp512/Can_MC9S12DP512.py</Source>
+    <Source>ui_forms/Common/Ui_ComDlgAdd.py</Source>
+    <Source>ui_calss/Common/ComDlgAdd.py</Source>
   </Sources>
   <Forms>
     <Form>ui_forms/DlgArAdd.ui</Form>
     <Form>ui_forms/DlgStart.ui</Form>
     <Form>ui_forms/GaInOsStudio.ui</Form>
-    <Form>ui_forms/Can_MC9S12DP512.ui</Form>
+    <Form>ui_forms/mc9s12dp512/Can_MC9S12DP512.ui</Form>
+    <Form>ui_forms/Common/ComDlgAdd.ui</Form>
   </Forms>
   <Translations>
   </Translations>

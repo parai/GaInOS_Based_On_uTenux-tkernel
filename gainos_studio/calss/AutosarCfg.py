@@ -63,7 +63,14 @@ class AutosarObj():
 
     def save(self, fp):
         fp.write('<AutosarObj name="%s">\n'%(self.name));
+        self.arobj.save(fp);
         fp.write('</AutosarObj>\n');
 
     def show(self):
         self.arobj.show();
+    
+    def doParse(self, arxml):
+        self.arobj.doParse(arxml);
+
+    def codeGen(self, path):
+        self.arobj.codeGen(path);

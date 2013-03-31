@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<GaInOsCfg>
+<GaInOsChip chip="MC9S12DP512"></GaInOsChip>
+<TaskList>
+<Task name='vTask0' prio='1' stksz='512' autostart='True'>
+<EventList>
+</EventList>
+</Task>
+<Task name='vTask1' prio='2' stksz='512' autostart='True'>
+<EventList>
+</EventList>
+</Task>
+</TaskList>
+<ResourceList>
+<Resource name='vRes0' ceilprio='1'></Resource>
+<Resource name='vRes1' ceilprio='2'></Resource>
+</ResourceList>
+<AlarmList>
+<Alarm name='vAlarm0' type='callback' task='' event=''></Alarm>
+<Alarm name='vAlarm1' type='callback' task='' event=''></Alarm>
+</AlarmList>
+<AutosarList>
+<AutosarObj name="Can">
+<CanGeneral>
+<CanDevErrorDetection value="True"></CanDevErrorDetection>
+<CanVersionInfoApi value="False"></CanVersionInfoApi>
+<CanTimeoutDuration value="10"></CanTimeoutDuration>
+</CanGeneral>
+<CanFilterMaskList>
+<CanFilterMask name="vCanFilterMask0" idam="CAN_IDAM_2_32BIT" idar0="0" idar1="0" idar2="0" idar3="0" idar4="0" idar5="0" idar6="0" idar7="0" idmr0="0xFF" idmr1="0xFF" idmr2="0xFF" idmr3="0xFF" idmr4="0xFF" idmr5="0xFF" idmr6="0xFF" idmr7="0xFF" ></CanFilterMask>
+<CanFilterMask name="vCanFilterMask1" idam="CAN_IDAM_2_32BIT" idar0="0" idar1="0" idar2="0" idar3="0" idar4="0" idar5="0" idar6="0" idar7="0" idmr0="0xFF" idmr1="0xFF" idmr2="0xFF" idmr3="0xFF" idmr4="0xFF" idmr5="0xFF" idmr6="0xFF" idmr7="0xFF" ></CanFilterMask>
+</CanFilterMaskList>
+<CanCtrlList>
+<CanCtrl name="CAN_CTRL_0" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_0_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_0_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+<CanCtrl name="CAN_CTRL_1" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_1_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_1_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+<CanCtrl name="CAN_CTRL_2" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_2_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_2_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+<CanCtrl name="CAN_CTRL_3" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_3_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_3_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+<CanCtrl name="CAN_CTRL_4" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_4_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_4_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+</CanCtrlList>
+</AutosarObj>
+</AutosarList>
+</GaInOsCfg>

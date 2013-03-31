@@ -170,9 +170,6 @@ typedef struct{
 	volatile RxTxBuf_t   TXFG; /*   transmit buffer */
 } CAN_HW_t;
 /* ####################### MACROs ########################### */
-#define Can_Hw_GetController(_cid)              \
-    ((CAN_HW_t *)(CAN_REG_BASE+64*(_cid)))
-
 #if defined(USE_DEM)
 #define VALIDATE_DEM_NO_RV(_exp,_err )                          \
     if( !(_exp) ) {                                             \
@@ -225,7 +222,30 @@ LOCAL void Can_Hw_AbortTx( CAN_HW_t *canHw, Can_UnitType *canUnit )
 		}
 	}
 }
-
+#define IO_BASE 0
+LOCAL CAN_HW_t * Can_Hw_GetController(int unit)
+{
+	CAN_HW_t *res = 0;
+    switch(unit)
+    {
+        case  CAN_CTRL_0:
+            res = (CAN_HW_t *)(IO_BASE+0x140);
+            break;
+        case  CAN_CTRL_1:
+            res = (CAN_HW_t *)(IO_BASE+0x180);
+            break; 
+        case  CAN_CTRL_2:
+            res = (CAN_HW_t *)(IO_BASE+0x1c0);
+            break;
+        case  CAN_CTRL_3:
+            res = (CAN_HW_t *)(IO_BASE+0x200);
+            break;
+        case  CAN_CTRL_4:
+            res = (CAN_HW_t *)(IO_BASE+0x280);
+            break;                                               
+    }
+	return res;
+}
 //-------------------------------------------------------------------
 /**
  * Function that finds the Hoh( HardwareObjectHandle ) from a Hth

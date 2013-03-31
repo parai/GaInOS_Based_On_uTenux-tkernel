@@ -55,7 +55,12 @@ class CodeGen():
     def __init__(self, cfg, path):
         self.genOsekCfgC(cfg, '%s/osek_cfg.c'%(path));
         self.genOsekCfgH(cfg, '%s/osek_cfg.h'%(path));
-    
+        self.autosarCodeGen(cfg.arobjList, path);
+
+    def autosarCodeGen(self, list, path):
+        for obj in list:
+            obj.codeGen(path);
+
     def backup(self, file):
         tm=localtime(time());
         file2=file+strftime("-%Y-%m-%d-%H-%M-%S",tm);

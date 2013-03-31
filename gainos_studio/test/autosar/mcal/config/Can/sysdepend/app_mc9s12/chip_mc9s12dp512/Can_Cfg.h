@@ -7,19 +7,23 @@
 #define CAN_TIMEOUT_DURATION 10 /* ms */
 
 /* Number of controller configs */
-#define CAN_CTRL_CONFIG_CNT 3
+#define CAN_CTRL_CONFIG_CNT 5
 
 typedef enum {
-	CAN_CTRL_0_vCanHohTx,
-	CAN_CTRL_1_vCanHohTx,
-	CAN_CTRL_4_vCanHohTx,
+	CAN_CTRL_0_vCanHoh1,
+	CAN_CTRL_1_vCanHoh1,
+	CAN_CTRL_2_vCanHoh1,
+	CAN_CTRL_3_vCanHoh1,
+	CAN_CTRL_4_vCanHoh1,
 	NUM_OF_HTHS
 } Can_HTHType;
 
 typedef enum {
-	CAN_CTRL_0_vCanHohRx,
-	CAN_CTRL_1_vCanHohRx,
-	CAN_CTRL_4_vCanHohRx,
+	CAN_CTRL_0_vCanHoh0,
+	CAN_CTRL_1_vCanHoh0,
+	CAN_CTRL_2_vCanHoh0,
+	CAN_CTRL_3_vCanHoh0,
+	CAN_CTRL_4_vCanHoh0,
 	NUM_OF_HRHS
 } Can_HRHType;
 
