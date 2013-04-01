@@ -51,7 +51,6 @@ typedef enum {
 	CAN_CTRL_4 = 4,
 	CAN_CONTROLLER_CNT = 5
 }Can_ControllerIdType;
-
 /** Start mc9s12 unique */
 typedef enum {
   CAN_IDAM_2_32BIT = 0,
@@ -69,7 +68,7 @@ typedef struct
 
 typedef struct Can_HardwareObjectStruct {
 	/** Specifies the type (Full-CAN or Basic-CAN) of a hardware object.*/
-	Can_HandleType CanHandleType;
+	Can_Arc_HohType CanHandleType;
 
 	/** Specifies whether the IdValue is of type - standard identifier - extended
 	identifier - mixed mode ImplementationType: Can_IdType*/

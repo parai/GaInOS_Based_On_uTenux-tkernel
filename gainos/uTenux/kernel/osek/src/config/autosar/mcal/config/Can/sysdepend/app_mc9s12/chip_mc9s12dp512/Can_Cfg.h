@@ -14,14 +14,14 @@ typedef enum {
 	CAN_CTRL_1_vCanHohTx,
 	CAN_CTRL_4_vCanHohTx,
 	NUM_OF_HTHS
-} Can_HTHType;
+} Can_Arc_HTHType;
 
 typedef enum {
 	CAN_CTRL_0_vCanHohRx,
 	CAN_CTRL_1_vCanHohRx,
 	CAN_CTRL_4_vCanHohRx,
 	NUM_OF_HRHS
-} Can_HRHType;
+} Can_Arc_HRHType;
 
 IMPORT const Can_ConfigType Can_ConfigData;
 #endif /* CAN_CFG_H_ */

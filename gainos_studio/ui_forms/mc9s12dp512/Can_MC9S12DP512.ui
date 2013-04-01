@@ -139,7 +139,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -319,14 +319,20 @@
            </item>
            <item>
             <widget class="QComboBox" name="cmbxHohType">
+             <property name="minimumSize">
+              <size>
+               <width>250</width>
+               <height>0</height>
+              </size>
+             </property>
              <item>
               <property name="text">
-               <string>CAN_HANDLE_BASIC</string>
+               <string>CAN_ARC_HANDLE_TYPE_BASIC</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>CAN_HANDLE_FULL</string>
+               <string>CAN_ARC_HANDLE_TYPE_FULL</string>
               </property>
              </item>
             </widget>

@@ -44,18 +44,16 @@ Noinit(EXPORT	UINT	knl_taskmode);
  * Initialization before micro T-Kernel starts
  */
 IMPORT void sio_init(void);
-#define  BUS_CLOCK		   32000000	   //总线频率
-#define  OSC_CLOCK		   16000000	   //晶振频率
 LOCAL void pll_init(void)
 {
     CRGINT = 0;                  //关中断
     CLKSEL_PLLSEL = 0;           //在未初始化PLL前不使用PLL的输出作为CPU时钟
     
-  #if(BUS_CLOCK == 40000000) 
+  #if(CPU_FREQUENCY == 40000000) 
     SYNR = 4;
-  #elif(BUS_CLOCK == 32000000)
+  #elif(CPU_FREQUENCY == 32000000)
     SYNR = 3;     
-  #elif(BUS_CLOCK == 24000000)
+  #elif(CPU_FREQUENCY == 24000000)
     SYNR = 2;
   #endif 
 

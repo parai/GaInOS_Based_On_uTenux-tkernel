@@ -34,32 +34,32 @@
 <CanCtrlList>
 <CanCtrl name="CAN_CTRL_0" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_0_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_0_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_0_vCanHoh0" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_0_vCanHoh1" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_1" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_1_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_1_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_1_vCanHoh0" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_1_vCanHoh1" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_2" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_2_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_2_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_2_vCanHoh0" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_2_vCanHoh1" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_3" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_3_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_3_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_3_vCanHoh0" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_3_vCanHoh1" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask1" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_4" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_4_vCanHoh0" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_4_vCanHoh1" hohType="CAN_HANDLE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_4_vCanHoh0" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_4_vCanHoh1" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 </CanCtrlList>

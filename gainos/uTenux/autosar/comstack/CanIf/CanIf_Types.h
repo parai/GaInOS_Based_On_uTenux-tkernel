@@ -1,61 +1,41 @@
-/* Copyright 2012, Fan Wang(Parai)
+/* -------------------------------- Arctic Core ------------------------------
+ * Arctic Core - the open source AUTOSAR platform http://arccore.com
  *
- * This file is part of GaInOS.
+ * Copyright (C) 2009  ArcCore AB <contact@arccore.com>
  *
- * GaInOS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This source code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published by the
+ * Free Software Foundation; See <http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt>.
  *
- * Linking GaInOS statically or dynamically with other modules is making a
- * combined work based on GaInOS. Thus, the terms and conditions of the GNU
- * General Public License cover the whole combination.
- *
- * In addition, as a special exception, the copyright holders of GaInOS give
- * you permission to combine GaInOS program with free software programs or
- * libraries that are released under the GNU LGPL and with independent modules
- * that communicate with GaInOS solely through the GaInOS defined interface.
- * You may copy and distribute such a system following the terms of the GNU GPL
- * for GaInOS and the licenses of the other code concerned, provided that you
- * include the source code of that other code when and as the GNU GPL requires
- * distribution of source code.
- *
- * Note that people who make modified versions of GaInOS are not obligated to
- * grant this special exception for their modified versions; it is their choice
- * whether to do so. The GNU General Public License gives permission to release
- * a modified version without this exception; this exception also makes it
- * possible to release a modified version which carries forward this exception.
- *
- * GaInOS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with GaInOS. If not, see <http://www.gnu.org/licenses/>.
- *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.
+ * -------------------------------- Arctic Core ------------------------------*/
+
+/** @addtogroup CanIf CAN Interface
+ *  @{ */
+
+/** @file CanIf_Types.h
+ *  Definitions of configuration parameters for CAN Interface.
  */
-/* |---------+-------------------| */
-/* | Author: | Wang Fan(parai)   | */
-/* |---------+-------------------| */
-/* | Email:  | parai@foxmail.com | */
-/* |---------+-------------------| */
+
 #ifndef CANIF_TYPES_H_
 #define CANIF_TYPES_H_
 
-
 #include "ComStack_Types.h"
 
-/** API service with wrong parameter */
-/** name Error Codes */
-#define CANIF_E_PARAM_CANID		      10
-#define CANIF_E_PARAM_DLC			      11
-#define CANIF_E_PARAM_HRH			      12
-#define CANIF_E_PARAM_CHANNEL		    13
-#define CANIF_E_PARAM_CONTROLLER	  14
-#define CANIF_E_PARAM_WAKEUPSOURCE	15
+// API service with wrong parameter
+/** @name Error Codes */
+//@{
+#define CANIF_E_PARAM_CANID		      10 
+#define CANIF_E_PARAM_DLC			      11  
+#define CANIF_E_PARAM_HRH			      12 
+#define CANIF_E_PARAM_CHANNEL		    13  
+#define CANIF_E_PARAM_CONTROLLER	  14  
+#define CANIF_E_PARAM_WAKEUPSOURCE	15  
 
-#define CANIF_E_PARAM_HTH             17
+#define CANIF_E_PARAM_HTH             17 
 #define CANIF_E_PARAM_LPDU            18
 #define CANIF_E_PARAM_CONTROLLER_MODE 19
 
@@ -66,23 +46,24 @@
 #define CANIF_TRCV_E_TRCV_NOT_NORMAL	70
 #define CANIF_E_INVALID_TXPDUID		    80
 #define CANIF_E_INVALID_RXPDUID 		  90
+//@}
 
 typedef enum {
 	/** UNINIT mode. Default mode of the CAN driver and all
 	 *  CAN controllers connected to one CAN network after
 	 *  power on. */
 	CANIF_CS_UNINIT = 0,
-
+	                           
 	/**  STOPPED mode. At least one of all CAN controllers
 	 *   connected to one CAN network are halted and does
 	 *   not operate on the bus. */
-	CANIF_CS_STOPPED,
-
+	CANIF_CS_STOPPED,	                           
+	                           
 	/** STARTED mode. All CAN controllers connected to
 	 *  one CAN network are started by the CAN driver and
 	 *  in full-operational mode. */
 	CANIF_CS_STARTED,
-
+	
 	/** SLEEP mode. At least one of all CAN controllers
 	 *  connected to one CAN network are set into the
 	 *  SLEEP mode and can be woken up by request of the
@@ -99,7 +80,7 @@ typedef enum {
 	/** Channel shall be set to the offline mode
 	 *  => no transmission and reception */
 	CANIF_SET_OFFLINE = 0,
-
+	
 	/** Receive path of the corresponding channel
 	 *  shall be disabled */
 	CANIF_SET_RX_OFFLINE,
@@ -107,19 +88,19 @@ typedef enum {
 	/** Receive path of the corresponding channel
 	 *  shall be enabled */
 	CANIF_SET_RX_ONLINE,
-
+	
 	/** Transmit path of the corresponding channel
 	 *  shall be disabled */
 	CANIF_SET_TX_OFFLINE,
-
+	
 	/** Transmit path of the corresponding channel
 	 *  shall be enabled */
 	CANIF_SET_TX_ONLINE,
-
+	
 	/** Channel shall be set to online mode
 	 *  => full operation mode */
 	CANIF_SET_ONLINE,
-
+	
 	/** Transmit path of the corresponding channel
 	 *  shall be set to the offline active mode
 	 *  => notifications are processed but transmit
@@ -147,17 +128,17 @@ typedef enum {
    *  active mode ==> transmit notifications are processed but transmit
    *  requests are blocked. The receive path is enabled. */
   CANIF_GET_OFFLINE_ACTIVE_RX_ONLINE
-
+	
 } CanIf_ChannelGetModeType;
 
 typedef enum {
 	/** No transmit or receive event occurred for
 	 *  the requested L-PDU. */
-	CANIF_NO_NOTIFICATION = 0,
+	CANIF_NO_NOTIFICATION = 0,	
 	/** The requested Rx/Tx CAN L-PDU was
 	 *  successfully transmitted or received. */
 	CANIF_TX_RX_NOTIFICATION
-
+	
 } CanIf_NotifStatusType;
 
 typedef enum {
@@ -202,4 +183,5 @@ typedef enum {
 	CANIF_TRCV_WU_CLEAR
 } CanIf_TrcvWakeupModeType;
 
-#endif /* CANIF_TYPES_H_ */
+#endif /*CANIF_TYPES_H_*/
+/** @} */

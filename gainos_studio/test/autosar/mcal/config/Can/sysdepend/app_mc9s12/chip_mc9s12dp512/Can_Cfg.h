@@ -16,7 +16,7 @@ typedef enum {
 	CAN_CTRL_3_vCanHoh1,
 	CAN_CTRL_4_vCanHoh1,
 	NUM_OF_HTHS
-} Can_HTHType;
+} Can_Arc_HTHType;
 
 typedef enum {
 	CAN_CTRL_0_vCanHoh0,
@@ -25,7 +25,7 @@ typedef enum {
 	CAN_CTRL_3_vCanHoh0,
 	CAN_CTRL_4_vCanHoh0,
 	NUM_OF_HRHS
-} Can_HRHType;
+} Can_Arc_HRHType;
 
 IMPORT const Can_ConfigType Can_ConfigData;
 #endif /* CAN_CFG_H_ */

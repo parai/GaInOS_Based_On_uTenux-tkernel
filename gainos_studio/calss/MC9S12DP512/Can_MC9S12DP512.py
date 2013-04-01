@@ -254,8 +254,8 @@ class CanObj_MC9S12DP512():
                     hrhs+='\t%s,\n'%(hoh.name);
                 elif(hoh.objType=='CAN_OBJECT_TYPE_TRANSMIT'):
                     hths+='\t%s,\n'%(hoh.name);
-        hths+='\tNUM_OF_HTHS\n} Can_HTHType;\n\n'
-        hrhs+='\tNUM_OF_HRHS\n} Can_HRHType;\n\n'
+        hths+='\tNUM_OF_HTHS\n} Can_Arc_HTHType;\n\n'
+        hrhs+='\tNUM_OF_HRHS\n} Can_Arc_HRHType;\n\n'
         fp.write(hths);
         fp.write(hrhs);
         fp.write('IMPORT const Can_ConfigType Can_ConfigData;\n');

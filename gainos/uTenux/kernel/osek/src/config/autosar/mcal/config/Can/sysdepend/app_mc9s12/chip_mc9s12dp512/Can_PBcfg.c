@@ -11,7 +11,7 @@ LOCAL const Can_FilterMaskType vCanFilterMask0=
 LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_0_vCanHohRx,
@@ -21,7 +21,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_0_vCanHohTx,
@@ -35,7 +35,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_1_vCanHohRx,
@@ -45,7 +45,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_1_vCanHohTx,
@@ -59,7 +59,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_4_vCanHohRx,
@@ -69,7 +69,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_4_vCanHohTx,
@@ -83,7 +83,8 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 {
 	{
-		CAN_CTRL_0,		CAN_PROCESS_TYPE_INTERRUPT,
+		CAN_CTRL_0,
+		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
@@ -92,10 +93,11 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_0_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
-		CAN_CTRL_1,		CAN_PROCESS_TYPE_INTERRUPT,
+		CAN_CTRL_1,
+		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
@@ -104,10 +106,11 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_1_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
-		CAN_CTRL_4,		CAN_PROCESS_TYPE_INTERRUPT,
+		CAN_CTRL_4,
+		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
 		CAN_PROCESS_TYPE_INTERRUPT,
@@ -116,7 +119,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_4_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 };
 LOCAL const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};

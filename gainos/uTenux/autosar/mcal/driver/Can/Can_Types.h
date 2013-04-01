@@ -103,13 +103,13 @@ typedef enum
 	CAN_PROCESS_TYPE_INTERRUPT,
 	CAN_PROCESS_TYPE_POLLING
 }Can_ProcessType;
-typedef enum
+
+typedef enum 
 {
-	/** For several L-PDUs are hadled by the hardware object*/
-	CAN_HANDLE_BASIC,
-	/** For only one L-PDU (identifier) is handled by the hardware object */
-	CAN_HANDLE_FULL
-}Can_HandleType;
+  CAN_ARC_HANDLE_TYPE_BASIC,
+  CAN_ARC_HANDLE_TYPE_FULL
+} Can_Arc_HohType;
+
 typedef enum
 {
 	/** All the CANIDs are of type extended only (29 bit).*/
@@ -138,5 +138,5 @@ typedef union {
          volatile uint32 TXWRN:1;
          volatile uint32 RXWRN:1;
      } B;
- } Can_ErrorType;
+ } Can_Arc_ErrorType;
 #endif /* CAN_TYPES_H_ */

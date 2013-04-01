@@ -18,7 +18,7 @@ LOCAL const Can_FilterMaskType vCanFilterMask1=
 LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_0_vCanHoh0,
@@ -28,7 +28,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_0_vCanHoh1,
@@ -42,7 +42,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_0_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_1_vCanHoh0,
@@ -52,7 +52,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_1_vCanHoh1,
@@ -66,7 +66,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_1_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_2_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_2_vCanHoh0,
@@ -76,7 +76,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_2_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_2_vCanHoh1,
@@ -90,7 +90,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_2_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_3_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_3_vCanHoh0,
@@ -100,7 +100,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_3_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_3_vCanHoh1,
@@ -114,7 +114,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_3_HOHCfgData[]=
 LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 {
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_4_vCanHoh0,
@@ -124,7 +124,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 		FALSE
 	},
 	{
-		CAN_HANDLE_BASIC,
+		CAN_ARC_HANDLE_TYPE_BASIC,
 		CAN_ID_TYPE_STANDARD,
 		0,
 		CAN_CTRL_4_vCanHoh1,
@@ -148,7 +148,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_0_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
 		CAN_CTRL_1,
@@ -161,7 +161,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_1_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
 		CAN_CTRL_2,
@@ -174,7 +174,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_2_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
 		CAN_CTRL_3,
@@ -187,7 +187,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_3_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 	{
 		CAN_CTRL_4,
@@ -200,7 +200,7 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_4_HOHCfgData,
-		FALSE
+		FALSE	/* LoopBack */
 	},
 };
 LOCAL const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};

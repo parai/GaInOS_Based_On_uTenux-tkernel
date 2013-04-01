@@ -44,14 +44,15 @@ TASK(vTask0)
 	    pdu.sdu= sduData0;
 	    while(CAN_BUSY == Can_Write(CAN_CTRL_0_vCanHohTx,&pdu));
 	    pdu.sdu= sduData1;
-	    while(CAN_BUSY == Can_Write(CAN_CTRL_1_vCanHohTx,&pdu));
+	    while(CAN_BUSY == Can_Write(CAN_CTRL_0_vCanHohTx,&pdu));
 	    pdu.sdu= sduData2;
-	    while(CAN_BUSY == Can_Write(CAN_CTRL_4_vCanHohTx,&pdu));
-	    DelayTask(3000); 
+	    while(CAN_BUSY == Can_Write(CAN_CTRL_0_vCanHohTx,&pdu));
+	    DelayTask(250); 
 	}
 #endif
 	(void)TerminateTask();
 }
+
 
 TASK(vTask1)
 {

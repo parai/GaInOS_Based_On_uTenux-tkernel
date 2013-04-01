@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\github\GaInOS_Based_On_uTenux-tkernel\gainos_studio\ui_forms\mc9s12dp512\Can_MC9S12DP512.ui'
 #
-# Created: Sun Mar 31 11:50:22 2013
+# Created: Mon Apr 01 21:04:15 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -157,6 +157,7 @@ class Ui_DlgCanMC9S12DP512(object):
         self.label_25.setObjectName(_fromUtf8("label_25"))
         self.horizontalLayout_28.addWidget(self.label_25)
         self.cmbxHohType = QtGui.QComboBox(self.layoutWidget2)
+        self.cmbxHohType.setMinimumSize(QtCore.QSize(250, 0))
         self.cmbxHohType.setObjectName(_fromUtf8("cmbxHohType"))
         self.cmbxHohType.addItem(_fromUtf8(""))
         self.cmbxHohType.addItem(_fromUtf8(""))
@@ -439,7 +440,7 @@ class Ui_DlgCanMC9S12DP512(object):
         self.verticalLayout_2.addWidget(self.btnDel)
 
         self.retranslateUi(DlgCanMC9S12DP512)
-        self.tabCfg.setCurrentIndex(2)
+        self.tabCfg.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DlgCanMC9S12DP512)
 
     def retranslateUi(self, DlgCanMC9S12DP512):
@@ -464,8 +465,8 @@ class Ui_DlgCanMC9S12DP512(object):
         self.tabCfg.setTabText(self.tabCfg.indexOf(self.tab), QtGui.QApplication.translate("DlgCanMC9S12DP512", "Controller", None, QtGui.QApplication.UnicodeUTF8))
         self.label_32.setText(QtGui.QApplication.translate("DlgCanMC9S12DP512", "Name:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_25.setText(QtGui.QApplication.translate("DlgCanMC9S12DP512", "Hoh Type:", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxHohType.setItemText(0, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_HANDLE_BASIC", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxHohType.setItemText(1, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_HANDLE_FULL", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxHohType.setItemText(0, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_ARC_HANDLE_TYPE_BASIC", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxHohType.setItemText(1, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_ARC_HANDLE_TYPE_FULL", None, QtGui.QApplication.UnicodeUTF8))
         self.label_26.setText(QtGui.QApplication.translate("DlgCanMC9S12DP512", "Id Type:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxIdType.setItemText(0, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_ID_TYPE_EXTENDED", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxIdType.setItemText(1, QtGui.QApplication.translate("DlgCanMC9S12DP512", "CAN_ID_TYPE_STANDARD", None, QtGui.QApplication.UnicodeUTF8))

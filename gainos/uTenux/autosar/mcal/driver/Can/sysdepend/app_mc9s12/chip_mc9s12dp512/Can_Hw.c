@@ -92,6 +92,10 @@ EXPORT Can_GlobalType Can_Global =
 #define BM_TX2		0x04
 #define BM_TX1		0x02
 #define BM_TX0		0x01
+#define BM_TXY      (BM_TX2|BM_TX1|BM_TX0)
+/* This is a really special control data defined for 
+ * use of Tx BUFFERs of MSCAN,add by parai. */
+LOCAL  uint8 Can_TxPrio[NUM_OF_HTHS];
 
 typedef struct{
 	volatile uint8   idr0; // Identifier Register 0
@@ -254,7 +258,7 @@ LOCAL CAN_HW_t * Can_Hw_GetController(int unit)
  * @param hth The transmit handle
  * @returns Ptr to the Hoh
  */
-LOCAL const Can_HardwareObjectType * Can_FindHoh( Can_HTHType hth , uint32* controller)
+LOCAL const Can_HardwareObjectType * Can_FindHoh( Can_Arc_HTHType hth , uint32* controller)
 {
     const Can_HardwareObjectType *hohObj;
     const Can_ObjectHOHMapType *map;
@@ -309,9 +313,10 @@ LOCAL IdrType Can_Hw_ConstructIdBytes(Can_IdType id, Can_IdTypeType idType)
 
     return idr;
 }
+
 LOCAL uint32 McuE_GetSystemClock(void)
 {
-	return 32*1000000;	/* CPU_FREQUENCY = 32MHZ */
+	return CPU_FREQUENCY;	/* CPU_FREQUENCY = 32MHZ */
 }
 
 /* ####################### FUNCTIONs ########################### */
@@ -523,11 +528,23 @@ EXPORT void Can_Hw_EnableControllerInterrupts( uint8 Controller )
 
 EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_PduType *pduInfo ) {
     Can_ReturnType rv = CAN_OK;
+    LOCAL uint8 canTxBufferMap[8]=
+    {       /* Get The lowest index */
+        /* 0=0b000 */ 0,
+        /* 1=0b001 */ BM_TX0,
+        /* 2=0b010 */ BM_TX1,
+        /* 3=0b011 */ BM_TX0,
+        /* 4=0b100 */ BM_TX2,
+        /* 5=0b101 */ BM_TX0,
+        /* 6=0b110 */ BM_TX1,
+        /* 7=0b111 */ BM_TX0
+    };
     CAN_HW_t *canHw;
     const Can_HardwareObjectType *hohObj;
     const Can_ControllerConfigType *canHwConfig;
     uint32 controller;
     UB imask;
+    uint8 fb; /* free Tx buffer mask */
     IdrType idr;
     Can_UnitType *canUnit;
 
@@ -541,8 +558,23 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
     DI(imask);
 
     // check for any free box
-    if((canHw->TFLG & BM_TX0) == BM_TX0) {
-        canHw->TBSEL = BM_TX0; // Select mb0
+    fb = (canHw->TFLG & BM_TXY);
+    if(BM_TXY == fb )
+    {
+       Can_TxPrio[hth]=0; /* reset it when all is free */
+    }
+    else
+    {
+        if(0xFF == Can_TxPrio[hth]) /* already reach the max value allowed */
+        {
+            rv = CAN_BUSY; /* wait untill all is free to sync*/
+            fb=0;
+        }
+    }
+    fb = canTxBufferMap[fb];
+    
+    if(0 != fb) {
+        canHw->TBSEL = fb; // Select mb0
 
         idr = Can_Hw_ConstructIdBytes(pduInfo->id, hohObj->CanIdType);
 
@@ -553,16 +585,18 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
 
         memcpy((uint8 *)&canHw->TXFG.ds0, pduInfo->sdu, pduInfo->length);
         canHw->TXFG.dlr = pduInfo->length;
-        canHw->TXFG.tbpr = 0; // Highest prio
+        canHw->TXFG.tbpr = Can_TxPrio[hth]; 
+        /* 这都是为了能够使用所有硬件上的Tx Buffer */
+        Can_TxPrio[hth]++;
 
         // Send
-        canHw->TFLG = BM_TX0;
+        canHw->TFLG = fb;
 
         canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[controller]);
 
         if( canHwConfig->CanTxProcessing == CAN_PROCESS_TYPE_INTERRUPT ) {
             /* Turn on the tx interrupt mailboxes */
-            canHw->TIER |= BM_TX0; // We only use TX0
+            canHw->TIER |= fb; 
         }
 
         // Increment statistics
@@ -585,7 +619,7 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
  * @param unit CAN controller number( from 0 )
  */
 LOCAL void Can_Hw_WakeIsr( int unit ) {
-	CanIf_ControllerWakeup(unit);
+	//CanIf_ControllerWakeup(unit);
 	// 269,270,271
 	Can_SetControllerMode(unit, CAN_T_STOP);
 
@@ -598,7 +632,7 @@ LOCAL void Can_Hw_WakeIsr( int unit ) {
  * @param unit CAN controller number( from 0 )
  */
 LOCAL void Can_Hw_ErrIsr( int unit ) {
-    Can_ErrorType err;
+    Can_Arc_ErrorType err;
     CAN_HW_t *canHw = Can_Hw_GetController(unit);
     Can_UnitType *canUnit = CAN_GET_PRIVATE_DATA(unit);
     
@@ -759,4 +793,31 @@ interrupt ISR_Vcan3wkup void Can_3_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_3)
 interrupt ISR_Vcan4wkup void Can_4_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_4); }
 
 #pragma CODE_SEG DEFAULT
+#if 1
+#include <tm/tmonitor.h>
+#include <tm/tm_printf.h>
+void CanIf_TxConfirmation( PduIdType canTxPduId )
+{
+
+}
+void CanIf_RxIndication( uint8 Hrh, Can_IdType CanId, uint8 CanDlc, const uint8 *CanSduPtr )
+{
+    tm_printf("Hrh = %d,CanId = %d:\r\n",(int)Hrh,(int)CanId);
+    while(CanDlc > 0)
+    {
+        tm_putchar(*CanSduPtr++);
+        CanDlc--;
+    } 
+    tm_putstring("\r\n");    
+}
+
+void CanIf_ControllerBusOff( uint8 Controller )
+{
+}
+
+/* ArcCore extensions */
+void CanIf_Arc_Error( uint8 Controller, Can_Arc_ErrorType Error )
+{
+}
+#endif
 

@@ -35,7 +35,7 @@
 #undef _APP_MC9S12_
 
 #define _APP_MC9S12_		    1
-#define CPU_SV12		            1
+#define CPU_SV12		        1
 #define CPU_MC9S12	        	1
 #define APP_MC9S12		        1
 
@@ -50,4 +50,6 @@
 #define _Csym			            0
 #endif
 
+#define CPU_FREQUENCY        32000000 /* HZ */
+#define OSC_FREQUENCY         8000000 /* HZ */
 #endif /* __SYS_MACHINE_DEPEND_H__ */

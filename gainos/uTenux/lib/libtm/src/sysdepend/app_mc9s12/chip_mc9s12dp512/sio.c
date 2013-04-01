@@ -33,8 +33,7 @@
 #include <machine.h>
 #include <tk/asm.h>
 #include "mc9s12dp512.h"
-#define  BUS_CLOCK		   32000000	   //总线频率-
-#define  OSC_CLOCK		   16000000	   //晶振频率
+
 #define  BAUD 115200                   //串口波特率
 /*
  *    Function Name : sio_init
@@ -46,7 +45,7 @@
  */
 void sio_init(void)
 {
-    SCI0BD = BUS_CLOCK/16/BAUD;   //设置SCI0波特率为9600
+    SCI0BD = (CPU_FREQUENCY)/16/BAUD;   //设置SCI0波特率为9600
     SCI0CR1 = 0x00;       //设置SCI0为正常模式，八位数据位，无奇偶校验
     SCI0CR2 = 0x0c;        //允许接收和发送数据，禁止中断功能 
 }
