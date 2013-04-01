@@ -5,6 +5,9 @@
  *========================================================================*
  * ORIGINAL AUTHOR: Jeff Loeliger (r12110)                                *
  * $Log: typedefs.h,v $
+ * Revision 1.1.1.1  2013-04-01 15:20:44  Administrator
+ * gainos based on tkernel
+ *
  * Revision 1.7  2007/05/02 22:46:00  dfreeland
  * Use latest web version
  *
