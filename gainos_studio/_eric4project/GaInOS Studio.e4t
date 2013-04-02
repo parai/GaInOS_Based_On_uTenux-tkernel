@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-4.2.dtd">
 <!-- eric4 tasks file for project GaInOS Studio -->
-<!-- Saved: 2013-04-02, 19:41:08 -->
+<!-- Saved: 2013-04-02, 23:18:17 -->
 <Tasks version="4.2">
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
@@ -917,7 +917,7 @@
     <Description></Description>
     <Created>2013-04-02, 19:39:36</Created>
     <Resource>
-      <Filename>F:/parai@foxmail.com/nt/gainos-tkernel/gainos_studio/ui_calss/DlgStart.py</Filename>
+      <Filename>ui_calss/DlgStart.py</Filename>
       <Linenumber>80</Linenumber>
     </Resource>
   </Task>
@@ -926,7 +926,7 @@
     <Description></Description>
     <Created>2013-04-02, 19:39:36</Created>
     <Resource>
-      <Filename>F:/parai@foxmail.com/nt/gainos-tkernel/gainos_studio/ui_calss/DlgStart.py</Filename>
+      <Filename>ui_calss/DlgStart.py</Filename>
       <Linenumber>88</Linenumber>
     </Resource>
   </Task>

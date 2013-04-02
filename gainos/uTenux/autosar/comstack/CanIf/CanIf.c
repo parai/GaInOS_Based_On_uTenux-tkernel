@@ -14,11 +14,17 @@
  * -------------------------------- Arctic Core ------------------------------*/
 
 
-
-
-
-
-
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013-04-02 22:27:00 to $Date: 2013-04-02 14:54:28 $
+ * $Revision: 1.5 $
+ */
 
 #include "Det.h"
 #include "CanIf.h"

@@ -12,7 +12,17 @@
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  * -------------------------------- Arctic Core ------------------------------*/
-
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013.04.02 22:27:00 to $Date: 2013-04-02 14:36:05 $
+ * $Revision: 1.2 $
+ */
 /** @addtogroup CanIf CAN Interface
  *  @{ */
 
@@ -106,7 +116,8 @@ typedef enum {
 	 *  => notifications are processed but transmit
 	 *  requests are blocked. */
 	CANIF_SET_TX_OFFLINE_ACTIVE
-} CanIf_ChannelSetModeType;
+} CanIf_ChannelSetModeType;     /* equals to CanIf_PduSetModeType */
+typedef CanIf_ChannelSetModeType CanIf_PduSetModeType;
 
 
 typedef enum {
@@ -129,8 +140,8 @@ typedef enum {
    *  requests are blocked. The receive path is enabled. */
   CANIF_GET_OFFLINE_ACTIVE_RX_ONLINE
 	
-} CanIf_ChannelGetModeType;
-
+} CanIf_ChannelGetModeType;   /* equals to CanIf_PduGetModeType */
+typedef CanIf_ChannelGetModeType CanIf_PduGetModeType;
 typedef enum {
 	/** No transmit or receive event occurred for
 	 *  the requested L-PDU. */

@@ -58,7 +58,7 @@ class CanFilterMaskMc9S12dp512():
 class CanHohMc9S12dp512():
     def __init__(self, name):
         self.name=name;
-        self.hohType='CAN_HANDLE_BASIC';
+        self.hohType='CAN_ARC_HANDLE_TYPE_BASIC';
         self.idType ='CAN_ID_TYPE_STANDARD';
         self.idValue =0;
         self.objType= 'CAN_OBJECT_TYPE_RECEIVE';
