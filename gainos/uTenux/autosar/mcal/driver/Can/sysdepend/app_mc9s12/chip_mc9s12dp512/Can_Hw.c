@@ -793,7 +793,7 @@ interrupt ISR_Vcan3wkup void Can_3_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_3)
 interrupt ISR_Vcan4wkup void Can_4_WakeIsr( void  ) {	Can_Hw_WakeIsr(CAN_CTRL_4); }
 
 #pragma CODE_SEG DEFAULT
-#if 1
+#if 0
 #include <tm/tmonitor.h>
 #include <tm/tm_printf.h>
 void CanIf_TxConfirmation( PduIdType canTxPduId )
