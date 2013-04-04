@@ -14,7 +14,6 @@
 </TaskList>
 <ResourceList>
 <Resource name='vRes0' ceilprio='1'></Resource>
-<Resource name='vRes1' ceilprio='2'></Resource>
 </ResourceList>
 <AlarmList>
 <Alarm name='vAlarm0' type='callback' task='' event=''></Alarm>
@@ -32,23 +31,21 @@
 <CanCtrlList>
 <CanCtrl name="CAN_CTRL_0" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_0_vCanHohRx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 <CanHoh name="CAN_CTRL_0_vCanHohTx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_0_vCanHohRx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_1" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
-<CanHoh name="CAN_CTRL_1_vCanHohRx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 <CanHoh name="CAN_CTRL_1_vCanHohTx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-</CanHohList>
-</CanCtrl>
-<CanCtrl name="CAN_CTRL_4" baudrate="250" propseg="0" seg1="13" seg2="2" >
-<CanHohList>
-<CanHoh name="CAN_CTRL_4_vCanHohRx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_4_vCanHohTx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_1_vCanHohRx" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 </CanCtrlList>
+</AutosarObj>
+<AutosarObj name="CanIf">
+</AutosarObj>
+<AutosarObj name="EcuC">
 </AutosarObj>
 </AutosarList>
 </GaInOsCfg>

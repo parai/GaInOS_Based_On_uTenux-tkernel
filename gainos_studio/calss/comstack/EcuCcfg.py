@@ -44,29 +44,39 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from Can_MC9S12DP512 import *
-from CanIfCfg import *
-from EcuCcfg import *
+
+
+from PyQt4.QtGui import QDialog
+from PyQt4.QtCore import pyqtSignature
+from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
+from PyQt4.QtCore import QStringList,QString
 from Common import *
 
-ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
-                       'Can':CanObj_MC9S12DP512, 
-                       'CanIf':CanIfObj, 
-                       'CanNm':UnimplementError,
-                       'CanTp':UnimplementError,
-                       'CanSm':UnimplementError,
-                       'Com':UnimplementError,
-                       'Dio':UnimplementError,
-                       'Eep':UnimplementError,
-                       'EcuC':EcuCObj, 
-                       'Fls':UnimplementError,
-                       'Gpt':UnimplementError,
-                       'Icu':UnimplementError,
-                       'Pwm':UnimplementError,
-                       'Port':UnimplementError,
-                       'PduR':UnimplementError,
-                       'Spi':UnimplementError,
-                       'Wdg':UnimplementError,
-                       'WdgIf':UnimplementError,
-                       }
+class EcuCPdu():
+    def __init__(self, name):
+        self.name=name;
 
+class EcuCConfig():
+    def __init__(self):
+        self.pduList=[];
+
+from EcuC_Dlg import *
+class EcuCObj():
+    def __init__(self):
+        self.cfg=EcuCConfig();
+        print "init EcuC Object"
+
+    def toString(self):
+        str='  Double Clicked to Start to Configure the EcuC!\n';
+        return str;
+
+    def show(self):
+        dlg=EcuC_Dlg(self.cfg);
+        dlg.exec_();
+    
+    def save(self, fp):
+        """保存配置信息"""
+        return;
+        
+    def doParse(self, arxml):
+        return;

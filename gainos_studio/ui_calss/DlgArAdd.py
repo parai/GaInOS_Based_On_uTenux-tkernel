@@ -54,7 +54,7 @@ from PyQt4.QtCore import QStringList,QString
 
 from Ui_DlgArAdd import Ui_DlgArAdd
 ArComp=['Adc', 'Can','CanIf','CanNm', 'CanTp', 'CanSm', 'Com', 
-        'Dio', 'Eep', 'Fls', 'Gpt', 'Icu', 'Pwm', 'Port', 'Mcu', 
+        'Dio', 'Eep', 'EcuC', 'Fls', 'Gpt', 'Icu', 'Pwm', 'Port', 'Mcu', 
         'PduR', 'Spi', 'Wdg', 'WdgIf']
 class DlgArAdd(QDialog, Ui_DlgArAdd):
     """

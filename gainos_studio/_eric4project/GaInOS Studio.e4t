@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-4.2.dtd">
 <!-- eric4 tasks file for project GaInOS Studio -->
-<!-- Saved: 2013-04-04, 13:25:28 -->
+<!-- Saved: 2013-04-04, 21:26:12 -->
 <Tasks version="4.2">
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
@@ -888,33 +888,6 @@
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2013-03-31, 17:14:25</Created>
-    <Resource>
-      <Filename>ui_calss/GaInOsStudio.py</Filename>
-      <Linenumber>555</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" bugfix="False">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2013-03-31, 17:14:25</Created>
-    <Resource>
-      <Filename>ui_calss/GaInOsStudio.py</Filename>
-      <Linenumber>631</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" bugfix="False">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2013-03-31, 17:14:25</Created>
-    <Resource>
-      <Filename>ui_calss/GaInOsStudio.py</Filename>
-      <Linenumber>647</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" bugfix="False">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
     <Created>2013-04-02, 19:39:36</Created>
     <Resource>
       <Filename>ui_calss/DlgStart.py</Filename>
@@ -928,6 +901,78 @@
     <Resource>
       <Filename>ui_calss/DlgStart.py</Filename>
       <Linenumber>88</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 20:32:12</Created>
+    <Resource>
+      <Filename>ui_calss/comstack/canif/CanIf_Dlg.py</Filename>
+      <Linenumber>197</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 20:47:32</Created>
+    <Resource>
+      <Filename>ui_calss/comstack/EcuC_Dlg.py</Filename>
+      <Linenumber>24</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 20:47:32</Created>
+    <Resource>
+      <Filename>ui_calss/comstack/EcuC_Dlg.py</Filename>
+      <Linenumber>32</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 20:47:32</Created>
+    <Resource>
+      <Filename>ui_calss/comstack/EcuC_Dlg.py</Filename>
+      <Linenumber>40</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 21:01:22</Created>
+    <Resource>
+      <Filename>ui_calss/comstack/CanIf_Dlg.py</Filename>
+      <Linenumber>265</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 21:22:12</Created>
+    <Resource>
+      <Filename>ui_calss/GaInOsStudio.py</Filename>
+      <Linenumber>555</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 21:22:12</Created>
+    <Resource>
+      <Filename>ui_calss/GaInOsStudio.py</Filename>
+      <Linenumber>637</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2013-04-04, 21:22:12</Created>
+    <Resource>
+      <Filename>ui_calss/GaInOsStudio.py</Filename>
+      <Linenumber>653</Linenumber>
     </Resource>
   </Task>
 </Tasks>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\parai@foxmail.com\github\GaInOS_Based_On_uTenux-tkernel\gainos_studio\ui_forms\Common\ComDlgAdd.ui'
+# Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\Common\ComDlgAdd.ui'
 #
-# Created: Mon Apr 01 21:04:16 2013
+# Created: Thu Apr 04 20:06:18 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

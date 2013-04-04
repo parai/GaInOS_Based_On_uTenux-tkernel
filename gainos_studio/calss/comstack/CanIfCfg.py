@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -44,29 +43,65 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from Can_MC9S12DP512 import *
-from CanIfCfg import *
-from EcuCcfg import *
+
+from PyQt4.QtGui import QDialog
+from PyQt4.QtCore import pyqtSignature
+from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
+from PyQt4.QtCore import QStringList,QString
 from Common import *
+class CanIfGeneral():
+    def __init__(self):
+        self.DevErrorDetection=False;
+        self.VersionInfoApi = False;
+        self.DlcCheck=True;
+        self.RuntimePduConfig=False;
+        self.BusoffNotification='CanIf_User_BusoffNotification';
+        self.ErrorNotification='CanIf_User_ErrorNotification';
+        self.SoftwareFilterType='CANIF_SOFTFILTER_TYPE_MASK';
+class CanIfPdu():
+    def __init__(self, name):
+        self.name=name;
+  
+class CanIfHth():
+    def __init__(self, name):
+        self.name=name;
+        self.type='hth';
+        self.pduList=[];
 
-ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
-                       'Can':CanObj_MC9S12DP512, 
-                       'CanIf':CanIfObj, 
-                       'CanNm':UnimplementError,
-                       'CanTp':UnimplementError,
-                       'CanSm':UnimplementError,
-                       'Com':UnimplementError,
-                       'Dio':UnimplementError,
-                       'Eep':UnimplementError,
-                       'EcuC':EcuCObj, 
-                       'Fls':UnimplementError,
-                       'Gpt':UnimplementError,
-                       'Icu':UnimplementError,
-                       'Pwm':UnimplementError,
-                       'Port':UnimplementError,
-                       'PduR':UnimplementError,
-                       'Spi':UnimplementError,
-                       'Wdg':UnimplementError,
-                       'WdgIf':UnimplementError,
-                       }
+class CanIfHrh():
+    def __init__(self, name):
+        self.name=name;
+        self.type='hrh';
+        self.pduList=[];
 
+class CanIfChannel():
+    def __init__(self, name):
+        self.name=name;
+        self.hthList=[];
+        self.hrhList=[];
+
+class CanIfConfig():
+    def __init__(self):
+        self.General=CanIfGeneral();
+        self.channelList=[];
+
+from CanIf_Dlg import *
+class CanIfObj():
+    def __init__(self):
+        self.cfg=CanIfConfig();
+        print "init CanIf Object"
+
+    def toString(self):
+        str='  Double Clicked to Start to Configure the Can Interface!\n';
+        return str;
+
+    def show(self):
+        dlg=CanIf_Dlg(self.cfg);
+        dlg.exec_();
+    
+    def save(self, fp):
+        """保存配置信息"""
+        return;
+        
+    def doParse(self, arxml):
+        return;

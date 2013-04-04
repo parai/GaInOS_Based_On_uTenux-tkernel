@@ -56,12 +56,15 @@ def gappendpath():
     sys.path.append(dir+'/ui_forms');
     sys.path.append(dir+'/ui_forms/Common');
     sys.path.append(dir+'/ui_forms/mc9s12dp512');
+    sys.path.append(dir+'/ui_forms/comstack');
     sys.path.append(dir+'/ui_calss');
     sys.path.append(dir+'/ui_calss/mc9s12dp512');
+    sys.path.append(dir+'/ui_calss/comstack');
     sys.path.append(dir+'/ui_calss/Common');
     sys.path.append(dir+'/arxml');
     sys.path.append(dir+'/calss');
     sys.path.append(dir+'/calss/mc9s12dp512');
+    sys.path.append(dir+'/calss/comstack');
     sys.path.append(dir+'/codegen');
     sys.path.append(dir+'/Common');
 
