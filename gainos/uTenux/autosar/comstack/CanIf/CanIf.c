@@ -32,10 +32,10 @@
 #include "Can.h"
 #include "CanIf_Cbk.h"
 #include <string.h>
-/*
-  #include "debug.h"
-  #include "PduR.h"
-*/
+
+  //#include "debug.h"
+#include "PduR.h"
+
 #if defined(USE_CANTP)
 #include "CanTp_Cbk.h"
 #endif
@@ -1015,4 +1015,22 @@ uint8 CanIf_Arc_GetChannelDefaultConfIndex(CanIf_Arc_ChannelIdType Channel)
 	//return CanIf_Config.Arc_ChannelDefaultConfIndex[Channel];
 	return CanIf_ConfigPtr->Arc_ChannelDefaultConfIndex[Channel];
 }
+
+#if 1
+#include <tm/tmonitor.h>
+#include <tm/tm_printf.h>
+void PduR_CanIfRxIndication(PduIdType CanRxPduId,const PduInfoType* PduInfoPtr) 
+{
+    int len = PduInfoPtr->SduLength;
+    char* ptr= PduInfoPtr-> SduDataPtr;
+    tm_printf("CanRxPduId = %d:\r\n",(int)CanRxPduId);
+    
+    while(len > 0)
+    {
+        tm_putchar(*ptr++);
+        len--;
+    } 
+    tm_putstring("\r\n"); 
+}
+#endif
 

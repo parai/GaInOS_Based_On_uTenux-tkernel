@@ -80,7 +80,7 @@ LOCAL const Can_HardwareObjectType CAN_CTRL_4_HOHCfgData[]=
 	},
 };
 
-LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
+EXPORT const Can_ControllerConfigType  Can_ControllerCfgData[]=
 {
 	{
 		CAN_CTRL_0,
@@ -122,5 +122,5 @@ LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		TRUE	/* LoopBack */
 	},
 };
-LOCAL const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};
+EXPORT const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};
 EXPORT const Can_ConfigType Can_ConfigData ={&Can_ConfigSetData};

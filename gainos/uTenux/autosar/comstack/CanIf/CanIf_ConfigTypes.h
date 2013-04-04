@@ -114,7 +114,7 @@ typedef struct {
 
 	/** Defines the parameters required for configuraing multiple
 	 *  CANID ranges for a given same HRH. */
-	const CanIf_HrhRangeConfigType *CanIfHrhRangeConfig;
+	//const CanIf_HrhRangeConfigType *CanIfHrhRangeConfig;
 
   /** End Of List. Set to TRUE if this is the last object in the list. */
   boolean CanIf_Arc_EOL;
