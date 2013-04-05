@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\mc9s12dp512\Can_MC9S12DP512.ui'
 #
-# Created: Thu Apr 04 20:06:18 2013
+# Created: Fri Apr 05 15:31:01 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,10 +17,10 @@ except AttributeError:
 class Ui_DlgCanMC9S12DP512(object):
     def setupUi(self, DlgCanMC9S12DP512):
         DlgCanMC9S12DP512.setObjectName(_fromUtf8("DlgCanMC9S12DP512"))
-        DlgCanMC9S12DP512.resize(964, 563)
+        DlgCanMC9S12DP512.resize(1023, 563)
         DlgCanMC9S12DP512.setStyleSheet(_fromUtf8("font: 12pt \"Consolas\";"))
         self.groupBox = QtGui.QGroupBox(DlgCanMC9S12DP512)
-        self.groupBox.setGeometry(QtCore.QRect(10, 0, 941, 131))
+        self.groupBox.setGeometry(QtCore.QRect(10, 0, 1001, 131))
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.layoutWidget = QtGui.QWidget(self.groupBox)
         self.layoutWidget.setGeometry(QtCore.QRect(21, 31, 311, 87))
@@ -51,15 +51,15 @@ class Ui_DlgCanMC9S12DP512(object):
         self.horizontalLayout.addWidget(self.label_2)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.groupBox_2 = QtGui.QGroupBox(DlgCanMC9S12DP512)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 140, 941, 421))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 140, 1001, 421))
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.trCanCfg = QtGui.QTreeWidget(self.groupBox_2)
-        self.trCanCfg.setGeometry(QtCore.QRect(20, 30, 256, 371))
+        self.trCanCfg.setGeometry(QtCore.QRect(20, 30, 311, 371))
         self.trCanCfg.setObjectName(_fromUtf8("trCanCfg"))
         item_0 = QtGui.QTreeWidgetItem(self.trCanCfg)
         item_0 = QtGui.QTreeWidgetItem(self.trCanCfg)
         self.tabCfg = QtGui.QTabWidget(self.groupBox_2)
-        self.tabCfg.setGeometry(QtCore.QRect(430, 20, 491, 381))
+        self.tabCfg.setGeometry(QtCore.QRect(490, 30, 491, 381))
         self.tabCfg.setObjectName(_fromUtf8("tabCfg"))
         self.tab = QtGui.QWidget()
         self.tab.setObjectName(_fromUtf8("tab"))
@@ -427,7 +427,7 @@ class Ui_DlgCanMC9S12DP512(object):
         self.verticalLayout_7.addLayout(self.horizontalLayout_2)
         self.tabCfg.addTab(self.tab_3, _fromUtf8(""))
         self.layoutWidget5 = QtGui.QWidget(self.groupBox_2)
-        self.layoutWidget5.setGeometry(QtCore.QRect(290, 50, 121, 62))
+        self.layoutWidget5.setGeometry(QtCore.QRect(350, 50, 121, 62))
         self.layoutWidget5.setObjectName(_fromUtf8("layoutWidget5"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget5)
         self.verticalLayout_2.setMargin(0)

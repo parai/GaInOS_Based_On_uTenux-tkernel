@@ -213,42 +213,67 @@
    <widget class="QTabWidget" name="tabCfg">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>440</x>
       <y>20</y>
-      <width>491</width>
-      <height>381</height>
+      <width>481</width>
+      <height>361</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Channel</string>
      </attribute>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>71</y>
-        <width>331</width>
-        <height>27</height>
+        <x>21</x>
+        <y>21</y>
+        <width>349</width>
+        <height>62</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_36">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>Name:</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_36">
+         <item>
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leChannelName">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="leChannelName">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_23">
+         <item>
+          <widget class="QLabel" name="label_44">
+           <property name="text">
+            <string>Can Hw Ctrl:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cmbxCanHwCtrl">
+           <property name="minimumSize">
+            <size>
+             <width>231</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -257,16 +282,16 @@
      <attribute name="title">
       <string>Hth</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget_3">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>362</width>
-        <height>229</height>
+        <x>21</x>
+        <y>21</y>
+        <width>433</width>
+        <height>95</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_35">
          <item>
@@ -286,140 +311,54 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <layout class="QHBoxLayout" name="horizontalLayout_28">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_28">
-           <item>
-            <widget class="QLabel" name="label_25">
-             <property name="text">
-              <string>Hoh Type:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cmbxHohType">
-             <property name="minimumSize">
-              <size>
-               <width>250</width>
-               <height>0</height>
-              </size>
-             </property>
-             <item>
-              <property name="text">
-               <string>CAN_ARC_HANDLE_TYPE_BASIC</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CAN_ARC_HANDLE_TYPE_FULL</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QLabel" name="label_25">
+           <property name="text">
+            <string>Hth Type:</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_29">
+          <widget class="QComboBox" name="cmbxHthType">
+           <property name="minimumSize">
+            <size>
+             <width>320</width>
+             <height>0</height>
+            </size>
+           </property>
            <item>
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Id Type:</string>
-             </property>
-            </widget>
+            <property name="text">
+             <string>CAN_ARC_HANDLE_TYPE_BASIC</string>
+            </property>
            </item>
            <item>
-            <widget class="QComboBox" name="cmbxIdType">
-             <item>
-              <property name="text">
-               <string>CAN_ID_TYPE_EXTENDED</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CAN_ID_TYPE_STANDARD</string>
-              </property>
-             </item>
-            </widget>
+            <property name="text">
+             <string>CAN_ARC_HANDLE_TYPE_FULL</string>
+            </property>
            </item>
-          </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_29">
+         <item>
+          <widget class="QLabel" name="label_26">
+           <property name="text">
+            <string>CanIfHthIdSymRef:</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_30">
-           <item>
-            <widget class="QLabel" name="label_27">
-             <property name="text">
-              <string>Id Value:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spbxIdValue"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_31">
-           <item>
-            <widget class="QLabel" name="label_28">
-             <property name="text">
-              <string>Object Type:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cmbxObjType">
-             <item>
-              <property name="text">
-               <string>CAN_OBJECT_TYPE_RECEIVE</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CAN_OBJECT_TYPE_TRANSMIT</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_32">
-           <item>
-            <widget class="QLabel" name="label_29">
-             <property name="text">
-              <string>Filter Mask:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cmbxFilterMask">
-             <property name="minimumSize">
-              <size>
-               <width>231</width>
-               <height>0</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_33">
-           <item>
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>MbMask:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leMbMask">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QComboBox" name="cmbxHthIdSymRef">
+           <property name="minimumSize">
+            <size>
+             <width>270</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -430,50 +369,50 @@
      <attribute name="title">
       <string>Hrh</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget_6">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>362</width>
-        <height>229</height>
+        <width>435</width>
+        <height>126</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_38">
-         <item>
-          <widget class="QLabel" name="label_37">
-           <property name="text">
-            <string>Name:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leHrhName">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_39">
+          <layout class="QHBoxLayout" name="horizontalLayout_38">
            <item>
-            <widget class="QLabel" name="label_38">
+            <widget class="QLabel" name="label_37">
              <property name="text">
-              <string>Hoh Type:</string>
+              <string>Name:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="cmbxHohType_2">
+            <widget class="QLineEdit" name="leHrhName">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_30">
+           <item>
+            <widget class="QLabel" name="label_27">
+             <property name="text">
+              <string>Hrh Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbxHrhType">
              <property name="minimumSize">
               <size>
-               <width>250</width>
+               <width>320</width>
                <height>0</height>
               </size>
              </property>
@@ -492,83 +431,19 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_40">
+          <layout class="QHBoxLayout" name="horizontalLayout_31">
            <item>
-            <widget class="QLabel" name="label_39">
+            <widget class="QLabel" name="label_28">
              <property name="text">
-              <string>Id Type:</string>
+              <string>CanIfHrhIdSymRef:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="cmbxIdType_2">
-             <item>
-              <property name="text">
-               <string>CAN_ID_TYPE_EXTENDED</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CAN_ID_TYPE_STANDARD</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_41">
-           <item>
-            <widget class="QLabel" name="label_40">
-             <property name="text">
-              <string>Id Value:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spbxIdValue_2"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_42">
-           <item>
-            <widget class="QLabel" name="label_41">
-             <property name="text">
-              <string>Object Type:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cmbxObjType_2">
-             <item>
-              <property name="text">
-               <string>CAN_OBJECT_TYPE_RECEIVE</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CAN_OBJECT_TYPE_TRANSMIT</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_43">
-           <item>
-            <widget class="QLabel" name="label_42">
-             <property name="text">
-              <string>Filter Mask:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cmbxFilterMask_2">
+            <widget class="QComboBox" name="cmbxHrhIdSymRef">
              <property name="minimumSize">
               <size>
-               <width>231</width>
+               <width>270</width>
                <height>0</height>
               </size>
              </property>
@@ -576,25 +451,14 @@
            </item>
           </layout>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_44">
-           <item>
-            <widget class="QLabel" name="label_43">
-             <property name="text">
-              <string>MbMask:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leMbMask_2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbxSoftwareFilterHrh">
+         <property name="text">
+          <string>CanIfSoftwareFilterHrh</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -603,343 +467,27 @@
      <attribute name="title">
       <string>Tx Pdu</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget_4">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>110</y>
-        <width>461</width>
-        <height>136</height>
+        <x>20</x>
+        <y>20</y>
+        <width>418</width>
+        <height>194</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>idar0:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar0">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>idar1:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar1">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>idar2:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <item>
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>idar3:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar3">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
-           <item>
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>idmr0:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr0">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_10">
-           <item>
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>idmr1:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr1">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_11">
-           <item>
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>idmr2:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
-           <item>
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>idmr3:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr3">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_19">
-           <item>
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>idar4:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar4">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_20">
-           <item>
-            <widget class="QLabel" name="label_17">
-             <property name="text">
-              <string>idar5:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar5">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_21">
-           <item>
-            <widget class="QLabel" name="label_18">
-             <property name="text">
-              <string>idar6:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar6">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_22">
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>idar7:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdar7">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_13">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_14">
-           <item>
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>idmr4:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr4">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_15">
-           <item>
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>idmr5:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr5">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_16">
-           <item>
-            <widget class="QLabel" name="label_14">
-             <property name="text">
-              <string>idmr6:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr6">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
-           <item>
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>idmr7:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leIdmr7">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_5">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>30</y>
-        <width>279</width>
-        <height>62</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_34">
-         <item>
-          <widget class="QLabel" name="label_31">
+          <widget class="QLabel" name="label_40">
            <property name="text">
-            <string>Name:</string>
+            <string>Global Pdu:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leFmName">
+          <widget class="QLineEdit" name="leTxPduName">
            <property name="text">
             <string/>
            </property>
@@ -950,32 +498,137 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="label_29">
            <property name="text">
-            <string>IDAM:</string>
+            <string>Can Type:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="cmbxIdam">
+          <widget class="QComboBox" name="cmbxTxPduCanType">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
            <item>
             <property name="text">
-             <string>CAN_IDAM_2_32BIT</string>
+             <string>CANIF_PDU_TYPE_STATIC</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>CAN_IDAM_4_16BIT</string>
+             <string>CANIF_PDU_TYPE_DYNAMIC</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Can Id:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spbxTxPduCanId">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label_30">
+           <property name="text">
+            <string>Can Id Type:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cmbxTxPduCanIdType">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>CANIF_CAN_ID_TYPE_11</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>CAN_IDAM_8_8BIT</string>
+             <string>CANIF_CAN_ID_TYPE_29</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Can Data Length Code:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spbxTxPduDlc">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label_31">
+           <property name="text">
+            <string>Confirmation API:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cmbxTxPduConfirmation">
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>0</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>NULL</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>CAN_IDAM_FILTER_CLOSED</string>
+             <string>PduR_CanIfTxConfirmation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CanIf_UserTxConfirmation</string>
             </property>
            </item>
           </widget>
@@ -989,9 +642,211 @@
      <attribute name="title">
       <string>Rx Pdu</string>
      </attribute>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>420</width>
+        <height>229</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="label_41">
+             <property name="text">
+              <string>Global Pdu:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leRxPduName">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_38">
+             <property name="text">
+              <string>Can Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbxRxPduCanType">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>CANIF_PDU_TYPE_STATIC</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CANIF_PDU_TYPE_DYNAMIC</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Can Id:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spbxRxPduCanId">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_39">
+             <property name="text">
+              <string>Can Id Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbxRxPduCanIdType">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>CANIF_CAN_ID_TYPE_11</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CANIF_CAN_ID_TYPE_29</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Can Data Length Code:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spbxRxPduDlc">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <item>
+            <widget class="QLabel" name="label_42">
+             <property name="text">
+              <string>Indication Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbxRxPduIndication">
+             <property name="minimumSize">
+              <size>
+               <width>250</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>CAN_NM</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CAN_TP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CAN_PDUR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>J1939TP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CAN_SPECIAL</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_43">
+           <property name="text">
+            <string>User Indication:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leRxPduUserIndication">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>290</x>

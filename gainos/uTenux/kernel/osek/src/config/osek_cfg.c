@@ -31,21 +31,27 @@ TASK(vTask0)
     static char* sduData0 = "Parai"; /* 5 */
     static char* sduData1 = "Hello"; /* 5 */
     static char* sduData2 = "World"; /* 5 */
+    static char* sduData3 = "Happy"; /* 5 */
     
     pdu.SduLength=5;
 	tm_putstring((UB*)"vTask0 is running.\r\n");
 	Can_Init(&Can_ConfigData);
 	CanIf_Init(&CanIf_Config);
-	CanIf_SetControllerMode(CANIF_CONTROLLER_ID_CAN0,CANIF_CS_STARTED);
-	CanIf_SetControllerMode(CANIF_CONTROLLER_ID_CAN1,CANIF_CS_STARTED);
+	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
+	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
+	CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
 	for(;;)
 	{
+#if 1
 	    pdu.SduDataPtr= sduData0;
-	    while(E_NOT_OK == CanIf_Transmit(CANIF_TX_PDU_ID_PDU_CAN0,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
 	    pdu.SduDataPtr= sduData1;
-	    while(E_NOT_OK == CanIf_Transmit(CANIF_TX_PDU_ID_PDU_CAN1,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu1,&pdu));
 	    pdu.SduDataPtr= sduData2;
-	    while(E_NOT_OK == CanIf_Transmit(CANIF_TX_PDU_ID_PDU_CAN0,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel1_vCanIf_Hth0_vEcuC_Pdu1,&pdu));
+	    pdu.SduDataPtr= sduData3;
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel4_vCanIf_Hth0_vEcuC_Pdu4,&pdu));
+#endif
 	    DelayTask(250); 
 	}
 #endif

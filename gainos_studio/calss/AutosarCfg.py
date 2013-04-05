@@ -66,8 +66,8 @@ class AutosarObj():
         self.arobj.save(fp);
         fp.write('</AutosarObj>\n');
 
-    def show(self):
-        self.arobj.show();
+    def show(self, cfg):
+        self.arobj.show(cfg);
     
     def doParse(self, arxml):
         self.arobj.doParse(arxml);

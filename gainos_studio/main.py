@@ -52,7 +52,6 @@ def gappendpath():
            and os.path.isdir(dir+'/codegen')
            and os.path.isdir(dir+'/ui_forms')):
             break;
-    print dir;
     sys.path.append(dir+'/ui_forms');
     sys.path.append(dir+'/ui_forms/Common');
     sys.path.append(dir+'/ui_forms/mc9s12dp512');

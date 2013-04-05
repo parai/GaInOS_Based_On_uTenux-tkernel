@@ -95,7 +95,7 @@ class CanObj_MC9S12DP512():
         str='  Double Clicked to Start to Configure the Can!\n';
         return str;
 
-    def show(self):
+    def show(self, cfg):
         dlg=DlgCanMC9S12DP512(self.cfg);
         dlg.exec_();
 
@@ -247,6 +247,12 @@ class CanObj_MC9S12DP512():
                 self.cfg.CanGeneral.CanTimeoutDuration));
         fp.write('\n/* Number of controller configs */\n')
         fp.write('#define CAN_CTRL_CONFIG_CNT %s\n\n'%(len(self.cfg.CanCtrlList)));
+        fp.write('/* Info used by CanIF,index of configure in Can_ControllerCfgData[] */\n');
+        index=0;
+        for obj in self.cfg.CanCtrlList:
+            fp.write('#define INDEX_OF_%s %s\n'%(obj.name,index));
+            index+=1;
+        fp.write('\n');
         hths=hrhs='typedef enum {\n'
         for obj in self.cfg.CanCtrlList:
             for hoh in obj.hohList:
@@ -301,7 +307,7 @@ class CanObj_MC9S12DP512():
                 hohs+='\t},\n'
             hohs+='};\n\n';
         fp.write(hohs);
-        ctrls='LOCAL const Can_ControllerConfigType  Can_ControllerCfgData[]=\n{\n';
+        ctrls='EXPORT const Can_ControllerConfigType  Can_ControllerCfgData[]=\n{\n';
         for obj in self.cfg.CanCtrlList:
             ctrls+='\t{\n';
             ctrls+='\t\t%s,\n'%(obj.name);
@@ -315,6 +321,6 @@ class CanObj_MC9S12DP512():
             ctrls+='\t},\n';
         ctrls+='};\n';
         fp.write(ctrls);
-        fp.write('LOCAL const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};\n'); 
+        fp.write('EXPORT const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};\n'); 
         fp.write('EXPORT const Can_ConfigType Can_ConfigData ={&Can_ConfigSetData};\n');
         fp.close();

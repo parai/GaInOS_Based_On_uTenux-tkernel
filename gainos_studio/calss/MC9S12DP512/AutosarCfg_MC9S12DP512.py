@@ -46,8 +46,7 @@
 """
 from Can_MC9S12DP512 import *
 from CanIfCfg import *
-from EcuCcfg import *
-from Common import *
+from EcuCcfg import EcuCObj
 
 ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
                        'Can':CanObj_MC9S12DP512, 

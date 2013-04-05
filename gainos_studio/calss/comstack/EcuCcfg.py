@@ -70,13 +70,29 @@ class EcuCObj():
         str='  Double Clicked to Start to Configure the EcuC!\n';
         return str;
 
-    def show(self):
+    def show(self, arxml):
         dlg=EcuC_Dlg(self.cfg);
         dlg.exec_();
-    
+  
+    def savePdu(self, fp):
+        fp.write('<EcuCList>\n');
+        for obj in self.cfg.pduList:
+            fp.write('<EcuCPdu name="%s"></EcuCPdu>\n'%(obj.name))
+        fp.write('</EcuCList>\n');
+   
     def save(self, fp):
         """保存配置信息"""
-        return;
-        
+        self.savePdu(fp);
+
+    def doParsePdu(self, list):
+        if(list==None):
+            return;
+        for node in list:
+            obj = EcuCPdu(node.attrib['name']);
+            self.cfg.pduList.append(obj);
+    
     def doParse(self, arxml):
+        self.doParsePdu(arxml.find('EcuCList'));
+
+    def codeGen(self, path):
         return;

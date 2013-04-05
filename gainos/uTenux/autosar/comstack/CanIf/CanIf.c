@@ -1032,5 +1032,18 @@ void PduR_CanIfRxIndication(PduIdType CanRxPduId,const PduInfoType* PduInfoPtr)
     } 
     tm_putstring("\r\n"); 
 }
+void CanIf_UserRxIndication(uint8 channel, PduIdType pduId, const uint8 *sduPtr,
+                           uint8 dlc, Can_IdType canId)
+{
+    int len = dlc;
+    char* ptr= sduPtr;
+    tm_printf("channel=%d,pduId=%d,canId=%d.\r\n",(int)channel,(int)pduId,(int)canId);      
+    while(len > 0)
+    {
+        tm_putchar(*ptr++);
+        len--;
+    } 
+    tm_putstring("\r\n");
+}
 #endif
 

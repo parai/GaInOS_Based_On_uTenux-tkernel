@@ -97,7 +97,8 @@ EXPORT void Can_Init(const Can_ConfigType* Config)
 
 		// Clear stats
 		memset(&canUnit->stats, 0, sizeof(Can_StatisticsType));
-	    Can_InitController(ctlrId, canHwConfig);
+		//This can be done by CanIf
+	    //Can_InitController(ctlrId, canHwConfig);
 
 	    // Loop through all Hohs and map them into the HTHMap
 	    hoh = canHwConfig->Can_Hoh;

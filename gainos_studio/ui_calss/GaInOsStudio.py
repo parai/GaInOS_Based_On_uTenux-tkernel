@@ -78,6 +78,7 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         #可能为Task、Event、Alarm或者Resource
         self.curobj=None;
         if(argc == 3 and argv[1]== "--eclipse"):
+            #与eclipse集成
             dir = self.getProject(argv[2]);
             if(dir != argv[2]+'/'):
                 self.getCfgArxml(dir);
@@ -87,6 +88,10 @@ class wMainClass(QMainWindow, Ui_wMainClass):
                     'Cann\'t locate a ture exist OSEK(uTenux) Project,you can load/new arxml by hand!').exec_();
                 self.arxml=argv[2]+'/';
                 #sys.exit(-1);
+        elif(argc == 3 and argv[1]== "--arxml"):
+            #直接加载arxml
+            self.arxml=argv[2];
+            LoadArxml(self.cfg,self.arxml);
         self.initGui();
 
     def initButton(self):
@@ -658,5 +663,5 @@ class wMainClass(QMainWindow, Ui_wMainClass):
         if(item.parent()!=None
            and item.parent().text(0)=='Autosar'):
                obj=self.findObj(self.cfg.arobjList, item.text(0));
-               obj.show();
+               obj.show(self.cfg);
                self.fileChangedIndicate();

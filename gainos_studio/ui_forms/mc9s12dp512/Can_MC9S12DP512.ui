@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>964</width>
+    <width>1023</width>
     <height>563</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>941</width>
+     <width>1001</width>
      <height>131</height>
     </rect>
    </property>
@@ -97,7 +97,7 @@
     <rect>
      <x>10</x>
      <y>140</y>
-     <width>941</width>
+     <width>1001</width>
      <height>421</height>
     </rect>
    </property>
@@ -109,7 +109,7 @@
      <rect>
       <x>20</x>
       <y>30</y>
-      <width>256</width>
+      <width>311</width>
       <height>371</height>
      </rect>
     </property>
@@ -132,8 +132,8 @@
    <widget class="QTabWidget" name="tabCfg">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>20</y>
+      <x>490</x>
+      <y>30</y>
       <width>491</width>
       <height>381</height>
      </rect>
@@ -837,7 +837,7 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>350</x>
       <y>50</y>
       <width>121</width>
       <height>62</height>

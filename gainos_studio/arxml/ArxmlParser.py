@@ -49,9 +49,11 @@ import xml.etree.ElementTree as ET
 from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
 from PyQt4.QtCore import QStringList,QString
 import sys
-from GaInOsCfg import *
 from Common import *
+from GaInOsCfg import *
 from AutosarCfg import *
+
+
 
 def gnewArxml(arxml):
     """Global Function:new an arxml"""
@@ -59,7 +61,7 @@ def gnewArxml(arxml):
     fp.write('<?xml version="1.0" encoding="utf-8"?>\n\n');
     fp.write('<GaInOsCfg></GaInOsCfg>\n\n');
     fp.close();
-    
+
 class LoadArxml():
     def __init__(self,cfg,arxml):
         root = self.tryOpen(arxml);
