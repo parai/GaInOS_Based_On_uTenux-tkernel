@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanIf_Dlg.ui'
 #
-# Created: Sat Apr 06 12:04:38 2013
+# Created: Sat Apr 06 22:16:08 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -453,9 +453,19 @@ class Ui_CanIf_Dlg(object):
         self.cmbxTxPduCanType.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_PDU_TYPE_DYNAMIC", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Id:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_30.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Id Type:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxTxPduCanIdType.setToolTip(QtGui.QApplication.translate("CanIf_Dlg", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This type is really decided by Can Hth,Configue it has no affect.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduCanIdType.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_11", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduCanIdType.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_29", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Data Length Code:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxTxPduDlc.setToolTip(QtGui.QApplication.translate("CanIf_Dlg", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">this means nothing,so you have no need to configure it.Just make compatible with arccore.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_31.setText(QtGui.QApplication.translate("CanIf_Dlg", "Confirmation API:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduConfirmation.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "NULL", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduConfirmation.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "PduR_CanIfTxConfirmation", None, QtGui.QApplication.UnicodeUTF8))
@@ -472,9 +482,19 @@ class Ui_CanIf_Dlg(object):
 "</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Special CanId,If software filter mask on,only Can Frames with this CanId can be received.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_39.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Id Type:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxRxPduCanIdType.setToolTip(QtGui.QApplication.translate("CanIf_Dlg", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This type is really decided by Can Hth,Configue it has no affect.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduCanIdType.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_11", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduCanIdType.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_29", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Data Length Code:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxRxPduDlc.setToolTip(QtGui.QApplication.translate("CanIf_Dlg", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Note:Rx Data\'s DLC must be bigger than the configured value,or the Data will be droped if DLC check enabled.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_42.setText(QtGui.QApplication.translate("CanIf_Dlg", "Indication Type:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduIndication.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "CAN_NM", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduIndication.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "CAN_TP", None, QtGui.QApplication.UnicodeUTF8))

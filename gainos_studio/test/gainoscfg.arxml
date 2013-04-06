@@ -92,9 +92,9 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="vEcuC_Pdu0" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="5" confirmation="NULL" >
+<CanIfTxPdu name="vEcuC_Pdu0" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
 </CanIfTxPdu>
-<CanIfTxPdu name="vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="5" confirmation="NULL" >
+<CanIfTxPdu name="vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>
@@ -114,7 +114,7 @@
 </CanIfHrh>
 <CanIfHrh name="vCanIf_Hrh1" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHrh" softwareFilter="False" >
 <CanIfRxPduList>
-<CanIfRxPdu name="vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="5" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
@@ -124,7 +124,7 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="2" canIdType="CANIF_CAN_ID_TYPE_11" dlc="5" confirmation="NULL" >
+<CanIfTxPdu name="vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="2" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>
@@ -142,7 +142,7 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="vEcuC_Pdu4" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdType="CANIF_CAN_ID_TYPE_11" dlc="4" confirmation="NULL" >
+<CanIfTxPdu name="vEcuC_Pdu4" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>
@@ -150,7 +150,7 @@
 <CanIfHrhList>
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHrh" softwareFilter="False" >
 <CanIfRxPduList>
-<CanIfRxPdu name="vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="4" indicationType="CAN_SPECIAL" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="5" indicationType="CAN_SPECIAL" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
