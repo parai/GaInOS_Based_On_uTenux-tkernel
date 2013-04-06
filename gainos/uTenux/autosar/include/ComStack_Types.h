@@ -64,8 +64,8 @@
 /* module, variables of this type shall be zero-based and consecutive. */
 /* There might be several ranges of PduIds in a module, one for each type of */
 /* operation performed within that module (e.g. sending and receiving). */
-
 typedef uint16 PduIdType;
+#define INVALID_PDU_ID   0xFFFFFFFFu
 typedef uint16 PduLengthType;
 typedef struct {
 	uint8 *SduDataPtr;			 /* payload */

@@ -117,6 +117,10 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
         self.spbxRxPduCanId.setRange(0, 0x1FFFFFFF);
         self.spbxTxPduDlc.setRange(0, 8);
         self.spbxRxPduDlc.setRange(0, 8);
+        #禁止不被支持的控件
+        self.cbxRuntimePduCfg.setDisabled(True);
+        self.cmbxTxPduCanType.setDisabled(True);
+        self.cmbxRxPduCanType.setDisabled(True);
 
     def initGui(self):
         #Init General 

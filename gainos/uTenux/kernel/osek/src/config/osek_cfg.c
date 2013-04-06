@@ -21,12 +21,13 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 	TRUE,	/* vTask0 */
 	TRUE,	/* vTask1 */
 };
-
+#if 0
 #include "Can.h"
 #include "CanIf.h"
+#endif
 TASK(vTask0)
 {
-#if 1
+#if 0
     PduInfoType pdu;
     static char* sduData0 = "Parai"; /* 5 */
     static char* sduData1 = "Hello"; /* 5 */
@@ -48,9 +49,9 @@ TASK(vTask0)
 	    pdu.SduDataPtr= sduData1;
 	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu1,&pdu));
 	    pdu.SduDataPtr= sduData2;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel1_vCanIf_Hth0_vEcuC_Pdu1,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
 	    pdu.SduDataPtr= sduData3;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel4_vCanIf_Hth0_vEcuC_Pdu4,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
 #endif
 	    DelayTask(250); 
 	}

@@ -98,7 +98,7 @@ class CanIfHrh():
         self.type='hrh';
         self.hohType='CAN_ARC_HANDLE_TYPE_BASIC';
         self.hohIdSymRef='';
-        self.softwareFilter=True;
+        self.softwareFilter=False;
         self.pduList=[];
 
 class CanIfChannel():
@@ -339,6 +339,7 @@ class CanIfObj():
         ns+='#define CANIF_WAKEUP_EVENT_API			     STD_OFF   // Not supported\n';
         ns+='#define CANIF_TRANSCEIVER_API               STD_OFF   // Not supported\n';
         ns+='#define CANIF_TRANSMIT_CANCELLATION         STD_OFF   // Not supported\n';
+        ns+='#define CANIF_ARC_RUNTIME_PDU_CONFIGURATION %s   // Not supported\n'%(self.cfg.General.RuntimePduConfig);
         ns+='#define CANIF_CANPDUID_READDATA_API         STD_OFF   // Not supported\n';
         ns+='#define CANIF_READRXPDU_NOTIF_STATUS_API    STD_OFF   // Not supported\n\n';
         fp.write(ns);
@@ -494,8 +495,8 @@ class CanIfObj():
         txpdus='const CanIf_TxPduConfigType CanIfTxPduConfigData[] = \n{\n';
         TX_PDU_CNT=0;
         for channel in self.cfg.channelList:
+            index=0;
             for hth in channel.hthList:
-                index=0;
                 for pdu in hth.pduList:
                     TX_PDU_CNT+=1;
                     txpdus+='\t{\n';
@@ -509,14 +510,14 @@ class CanIfObj():
                     txpdus+='\t\t/*CanIfCanTxPduHthRef =*/ &CanIfHthConfigData_%s[%s],\n'%(channel.name, index);
                     txpdus+='\t\t/*PduIdRef =*/ NULL\n';
                     txpdus+='\t},\n';
-                    index+=1;
+                index+=1;
         txpdus+='};\n\n'
         fp.write(txpdus);
         rxpdus='const CanIf_RxPduConfigType CanIfRxPduConfigData[] = \n{\n';
         RX_PDU_CNT=0;
         for channel in self.cfg.channelList:
+            index=0;
             for hrh in channel.hrhList:
-                index=0;
                 for pdu in hrh.pduList:
                     RX_PDU_CNT+=1;
                     rxpdus+='\t{\n';
@@ -539,7 +540,7 @@ class CanIfObj():
                     else:
                         rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ 0x1FFFFFFF\n';#29
                     rxpdus+='\t},\n';
-                    index+=1;
+                index+=1;
         rxpdus+='};\n\n'
         fp.write(rxpdus);
         #InitConfig

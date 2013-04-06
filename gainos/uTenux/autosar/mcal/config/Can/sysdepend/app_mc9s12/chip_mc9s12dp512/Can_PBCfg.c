@@ -193,7 +193,7 @@ EXPORT const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		13, /* seg1 */
 		2, /* seg2 */
 		CAN_CTRL_4_HOHCfgData,
-		TRUE	/* LoopBack */
+		FALSE	/* LoopBack */
 	},
 };
 EXPORT const Can_ConfigSetType Can_ConfigSetData ={Can_ControllerCfgData};

@@ -43,6 +43,14 @@
 #ifndef CAN_HW_H_
 #define CAN_HW_H_
 #include "Can_Types.h"
+/* Use Hardware buffers or not,not fully implemented. be carefully.
+ * A Hth has three hardware Tx buffers.But I don't know how to use the 3 Tx buffers
+ * among different PduId handler.So the rule below was used to simply implement it:
+ * When a PduId AAA send a frame though Hth0 and not finished, then PduId BBB also want to
+ * send a frame through Hth0,then it's not allowed.but if any of the 3 Tx buffers of Hth0
+ * is empty,then PduId AAA can use Hth0,So PduId AAA can send messages consecutively.
+ * PduId BBB can start to use Hth0 only when all of the 3 Tx buffers is empty.*/
+#define CAN_USE_HW_BUFFER STD_ON
 typedef enum {
 	CAN_CTRL_0 = 0,
 	CAN_CTRL_1 = 1,

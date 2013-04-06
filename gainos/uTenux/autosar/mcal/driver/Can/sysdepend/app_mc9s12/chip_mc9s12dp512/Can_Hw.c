@@ -92,10 +92,13 @@ EXPORT Can_GlobalType Can_Global =
 #define BM_TX2		0x04
 #define BM_TX1		0x02
 #define BM_TX0		0x01
+
+#if(CAN_USE_HW_BUFFER == STD_ON)
 #define BM_TXY      (BM_TX2|BM_TX1|BM_TX0)
 /* This is a really special control data defined for 
  * use of Tx BUFFERs of MSCAN,add by parai. */
 LOCAL  uint8 Can_TxPrio[NUM_OF_HTHS];
+#endif
 
 typedef struct{
 	volatile uint8   idr0; // Identifier Register 0
@@ -528,6 +531,7 @@ EXPORT void Can_Hw_EnableControllerInterrupts( uint8 Controller )
 
 EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_PduType *pduInfo ) {
     Can_ReturnType rv = CAN_OK;
+#if(CAN_USE_HW_BUFFER == STD_ON)
     LOCAL uint8 canTxBufferMap[8]=
     {       /* Get The lowest index */
         /* 0=0b000 */ 0,
@@ -539,12 +543,14 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
         /* 6=0b110 */ BM_TX1,
         /* 7=0b111 */ BM_TX0
     };
+    uint8 fb; /* free Tx buffer mask */
+#endif
     CAN_HW_t *canHw;
     const Can_HardwareObjectType *hohObj;
     const Can_ControllerConfigType *canHwConfig;
     uint32 controller;
     UB imask;
-    uint8 fb; /* free Tx buffer mask */
+
     IdrType idr;
     Can_UnitType *canUnit;
 
@@ -556,7 +562,17 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
     canUnit = CAN_GET_PRIVATE_DATA(controller);
     canHw = Can_Hw_GetController(controller);
     DI(imask);
-
+#if(CAN_USE_HW_BUFFER == STD_ON)
+    /* should be in critical section */
+    if(canUnit->swPduHandle!=INVALID_PDU_ID)
+    {
+    	if(canUnit->swPduHandle!=pduInfo->swPduHandle)
+    	{
+    		return CAN_BUSY;
+    	}
+    }
+#endif
+#if(CAN_USE_HW_BUFFER == STD_ON)
     // check for any free box
     fb = (canHw->TFLG & BM_TXY);
     if(BM_TXY == fb )
@@ -567,8 +583,9 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
     {
         if(0xFF == Can_TxPrio[hth]) /* already reach the max value allowed */
         {
-            rv = CAN_BUSY; /* wait untill all is free to sync*/
-            fb=0;
+            //rv = CAN_BUSY; /* wait untill all is free to sync*/
+            //fb=0;
+        	return CAN_BUSY;
         }
     }
     fb = canTxBufferMap[fb];
@@ -607,6 +624,41 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
     } else {
         rv = CAN_BUSY;
     }
+#else /* CAN_USE_HW_BUFFER */
+    // check for any free box
+    if((canHw->TFLG & BM_TX0) == BM_TX0) {
+      canHw->TBSEL = BM_TX0; // Select mb0
+
+      idr = Can_Hw_ConstructIdBytes(pduInfo->id, hohObj->CanIdType);
+
+      canHw->TXFG.idr0 = idr.R[0];
+      canHw->TXFG.idr1 = idr.R[1];
+      canHw->TXFG.idr2 = idr.R[2];
+      canHw->TXFG.idr3 = idr.R[3];
+
+      memcpy((uint8 *)&canHw->TXFG.ds0, pduInfo->sdu, pduInfo->length);
+      canHw->TXFG.dlr = pduInfo->length;
+      canHw->TXFG.tbpr = 0; // Highest prio
+
+      // Send
+      canHw->TFLG = BM_TX0;
+
+      canHwConfig = CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[controller]);
+
+      if( canHwConfig->CanTxProcessing == CAN_PROCESS_TYPE_INTERRUPT ) {
+    	  /* Turn on the tx interrupt mailboxes */
+        canHw->TIER |= BM_TX0; // We only use TX0
+      }
+
+      // Increment statistics
+      canUnit->stats.txSuccessCnt++;
+
+      // Store pdu handle in unit to be used by TxConfirmation
+      canUnit->swPduHandle = pduInfo->swPduHandle;
+    } else {
+      rv = CAN_BUSY;
+    }
+#endif /* CAN_USE_HW_BUFFER */
     EI(imask);
 
     return rv;
@@ -737,10 +789,18 @@ LOCAL void Can_Hw_TxIsr(int unit) {
         if (hohObj->CanObjectType == CAN_OBJECT_TYPE_TRANSMIT)
         {
             CanIf_TxConfirmation(canUnit->swPduHandle);
-            canUnit->swPduHandle = 0;  // Is this really necessary ??
-
+#if(CAN_USE_HW_BUFFER == STD_ON)
+            if((canHw->TFLG & BM_TXY)==BM_TXY)
+            {
+            	canUnit->swPduHandle = INVALID_PDU_ID;
+            	// Disable Tx interrupt when all has been transfered.
+            	canHw->TIER = 0;
+            }
+#else
             // Disable Tx interrupt
             canHw->TIER = 0;
+#endif
+
         }       
     } while ( !hohObj->Can_EOL);
 }

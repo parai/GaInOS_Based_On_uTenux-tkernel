@@ -20,8 +20,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013.04.02 22:27:00 to $Date: 2013-04-04 08:00:15 $
- * $Revision: 1.3 $
+ * from Date:2013.04.02 22:27:00 to $Date: 2013-04-05 15:50:19 $
+ * $Revision: 1.4 $
  */
 /** @addtogroup CanIf CAN Interface
  *  @{ */
