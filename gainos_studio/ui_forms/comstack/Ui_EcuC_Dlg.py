@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\EcuC_Dlg.ui'
 #
-# Created: Sat Apr 06 22:16:08 2013
+# Created: Sun Apr 07 23:37:11 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

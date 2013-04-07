@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanIf_Dlg.ui'
 #
-# Created: Sat Apr 06 22:16:08 2013
+# Created: Sun Apr 07 23:37:11 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -486,7 +486,7 @@ class Ui_CanIf_Dlg(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Consolas\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This type is really decided by Can Hth,Configue it has no affect.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">If software filter on,and if type is 11 then only standard CAN frames can be received, if type is 29 then only extended CAN frames can be received.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduCanIdType.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_11", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxRxPduCanIdType.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "CANIF_CAN_ID_TYPE_29", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Data Length Code:", None, QtGui.QApplication.UnicodeUTF8))
