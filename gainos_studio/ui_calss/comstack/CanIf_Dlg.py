@@ -234,7 +234,7 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
 
     def refreshRxPduTab(self, obj):
         self.curobj=obj;
-        self.leRxPduName.setText(obj.name);
+        self.leRxPduName.setText(obj.name[3:]);
         self.cmbxRxPduCanType.setCurrentIndex(self.cmbxRxPduCanType.findText(obj.canType));
         self.spbxRxPduCanId.setValue(obj.canId);
         self.cmbxRxPduCanIdType.setCurrentIndex(self.cmbxRxPduCanIdType.findText(obj.canIdType));
@@ -248,7 +248,7 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
 
     def refreshTxPduTab(self, obj):
         self.curobj=obj;
-        self.leTxPduName.setText(obj.name);
+        self.leTxPduName.setText(obj.name[3:]);
         self.cmbxTxPduCanType.setCurrentIndex(self.cmbxTxPduCanType.findText(obj.canType));
         self.spbxTxPduCanId.setValue(obj.canId);
         self.cmbxTxPduCanIdType.setCurrentIndex(self.cmbxTxPduCanIdType.findText(obj.canIdType));
@@ -316,10 +316,30 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
         obj=CanIfHrh(name);
         self.curobj.hrhList.append(obj);
 
+    def isPduAlreadyAdded(self, pduname, typeofhoh):
+        if(typeofhoh=='hth'):
+            #搜索所有Rx Pdu
+            for channel in self.cfg.channelList:
+                for hth in channel.hthList:
+                    for pdu in hth.pduList:
+                        print pdu.name[3:], pduname;
+                        if(pdu.name[3:]==pduname):
+                            return True;
+        elif(typeofhoh=='hrh'):
+            #搜索所有Tx Pdu
+            for channel in self.cfg.channelList:
+                for hrh in channel.hrhList:
+                    for pdu in hrh.pduList:
+                        print pdu.name[3:], pduname;
+                        if(pdu.name[3:]==pduname):
+                            return True;
+        return False;
+        
+
     def addPdu(self):
         list=[];
         for pdu in self.depinfo[1].cfg.pduList:
-            if(self.findObj(self.curobj.pduList, pdu.name)==None):
+            if(self.isPduAlreadyAdded(pdu.name, self.curobj.type)==False):
                 list.append(pdu.name);
         dlg=DlgComAdd(list);
         dlg.exec_();
@@ -327,6 +347,10 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
             name=dlg.item;
         else:
             return;
+        if(self.curobj.type=='hth'):
+            name='TX_'+name;
+        elif(self.curobj.type=='hrh'):
+            name='RX_'+name;
         item=QTreeWidgetItem(self.curtree,QStringList(name));
         self.curtree.addChild(item);
         self.curtree.setExpanded(True);

@@ -22,8 +22,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-02 22:27:00 to $Date: 2013-04-05 15:50:19 $
- * $Revision: 1.7 $
+ * from Date:2013-04-02 22:27:00 to $Date: 2013-04-08 13:40:58 $
+ * $Revision: 1.8 $
  */
 
 #include "Det.h"
@@ -33,7 +33,7 @@
 #include "CanIf_Cbk.h"
 #include <string.h>
 
-  //#include "debug.h"
+#include "ardebug.h"
 #include "PduR.h"
 
 #if defined(USE_CANTP)
