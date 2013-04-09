@@ -65,7 +65,7 @@
 /* There might be several ranges of PduIds in a module, one for each type of */
 /* operation performed within that module (e.g. sending and receiving). */
 typedef uint16 PduIdType;
-#define INVALID_PDU_ID   0xFFFFFFFFu
+#define INVALID_PDU_ID   0xFFFFu
 typedef uint16 PduLengthType;
 typedef struct {
 	uint8 *SduDataPtr;			 /* payload */

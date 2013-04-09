@@ -126,9 +126,11 @@ typedef struct {
 
 } PduRDestPdu_type;
 
+#define  DefaultValueElement_Size  10  /* parai : ÔÝÊ±ÎªÒÆ³ý¾¯¸æ */
 typedef struct {
 	uint8 ElementBytePosition;
-	uint8 DefaultValueElement[];
+	//uint8 DefaultValueElement[];
+	uint8 DefaultValueElement[DefaultValueElement_Size];
 } PduRDefaultValueElement_type;
 
 

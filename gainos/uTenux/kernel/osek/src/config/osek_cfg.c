@@ -21,13 +21,14 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 	TRUE,	/* vTask0 */
 	TRUE,	/* vTask1 */
 };
-#if 0
+#if 1
 #include "Can.h"
 #include "CanIf.h"
+#include "CanTp.h"
 #endif
 TASK(vTask0)
 {
-#if 0
+#if 1
     PduInfoType pdu;
     static char* sduData0 = "Parai"; /* 5 */
     static char* sduData1 = "Hello"; /* 5 */
@@ -36,22 +37,22 @@ TASK(vTask0)
     
     pdu.SduLength=5;
 	tm_putstring((UB*)"vTask0 is running.\r\n");
-	Can_Init(&Can_ConfigData);
-	CanIf_Init(&CanIf_Config);
+	//Can_Init(&Can_ConfigData);
+	//CanIf_Init(&CanIf_Config);
+	CanTp_Init();
 	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
 	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
-	CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
 	for(;;)
 	{
 #if 1
 	    pdu.SduDataPtr= sduData0;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu0,&pdu));
 	    pdu.SduDataPtr= sduData1;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu1,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu1,&pdu));
 	    pdu.SduDataPtr= sduData2;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu2,&pdu));
 	    pdu.SduDataPtr= sduData3;
-	    while(E_NOT_OK == CanIf_Transmit(vCanIf_Channel0_vCanIf_Hth0_vEcuC_Pdu0,&pdu));
+	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu0,&pdu));
 #endif
 	    DelayTask(250); 
 	}

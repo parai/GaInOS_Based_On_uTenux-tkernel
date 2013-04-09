@@ -13,6 +13,17 @@
  * for more details.
  * -------------------------------- Arctic Core ------------------------------*/
 
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013-04-08 to $Date: 2013-04-09 12:25:32 $
+ * $Revision: 1.3 $
+ */
 /*
  *  General requirements
  */
@@ -113,10 +124,11 @@ typedef struct {
 } CanTp_RxNSduType; /** @req CANTP137 */
 
 typedef struct {
+	const PduIdType CanTp_FcPduId;
 	const PduIdType CanIf_PduId; // The polite CanIf index.
 	const PduIdType PduR_PduId; // The polite PduR index.
-	const PduIdType CanTp_FcPduId;
 	const CanTp_AddressingFormantType CanTpAddressingMode; /** @req CANTP262 */
+    const uint8  reserved_CanTpBs;                         /* to make this type same as CanTp_NSduType */
 	const uint16 CanTpNas; /** @req CANTP263 */ /* N_As timeout for transmission of any CAN frame. */
 	const uint16 CanTpNbs; /** @req CANTP264 */ /* N_Bs timeout of transmission until reception of next Flow Control. */
 	const uint16 CanTpNcs; /** @req CANTP265 */ /* N_Bs timeout of transmission until reception of next Flow Control. */
@@ -125,6 +137,8 @@ typedef struct {
 	/*const uint32						CanTpTxNSduId; / ** req: CanTp268: Data length code for of this TxNsdu. */
 	CanTp_StateType CanTpTxPaddingActivation; /** @req CANTP269 */ /* Enable use of padding. */
 	CanTp_TaTypeType CanTpTxTaType; /** @req CANTP270 */ /* Functional or physical addressing. */
+    const uint8 reserved_CanTpWftMax; 
+	const uint16 reserved_CanTpSTmin;
 	/*const uint32						CanTpNSduRef ** req: CanTp261. This is PDU id - typeless enum. */
 	const CanTp_NSaType *CanTpNSa;
 	const CanTp_NTaType *CanTpNTa;

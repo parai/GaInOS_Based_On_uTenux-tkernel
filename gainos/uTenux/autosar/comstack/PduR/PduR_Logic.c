@@ -38,7 +38,8 @@
 
 BufReq_ReturnType PduR_ARC_AllocateRxBuffer(PduIdType PduId, PduLengthType TpSduLength) {
 	BufReq_ReturnType retVal = BUFREQ_BUSY;
-	for (uint8 i = 0; PduRTpBuffer(i)->pduInfoPtr != NULL; i++) {
+	uint8 i;
+	for (i = 0; PduRTpBuffer(i)->pduInfoPtr != NULL; i++) {
 		if (PduRTpBuffer(i)->status == PDUR_BUFFER_FREE) {
 			if (PduRTpBuffer(i)->bufferSize < TpSduLength) {
 				retVal = BUFREQ_OVFL;
