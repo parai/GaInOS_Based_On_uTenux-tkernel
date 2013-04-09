@@ -19,7 +19,7 @@
 #define CANIF_READRXPDU_NOTIF_STATUS_API    STD_OFF   // Not supported
 
 #define USE_PDUR
-#define USE_COM
+//#define USE_COM
 
 /* Tx PduId For CanIF */
 #define TX_vEcuC_Pdu0		0

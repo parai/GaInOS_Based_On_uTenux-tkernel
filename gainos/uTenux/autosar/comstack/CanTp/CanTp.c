@@ -94,7 +94,7 @@
 #endif
 
 
-#if 0
+#if 1   /* debug */
 
 NotifResultType PduR_CanTpRxIndication(PduIdType CanTpRxPduId,
 		NotifResultType Result) {
@@ -1136,7 +1136,7 @@ Std_ReturnType CanTp_Transmit(PduIdType CanTpTxSduId,
 	Std_ReturnType ret = 0;
 	PduIdType CanTp_InternalTxNSduId;
 
-	DEBUG( DEBUG_MEDIUM, "CanTp_Transmit called in polite index: %d!\n", CanTpTxSduId);
+	DEBUG_PRINT1( DEBUG_MEDIUM, "CanTp_Transmit called in polite index: %d!\n", CanTpTxSduId);
 
 	VALIDATE( CanTpTxInfoPtr != NULL,
 			SERVICE_ID_CANTP_TRANSMIT, CANTP_E_PARAM_ADDRESS ); /** @req CANTP031 */

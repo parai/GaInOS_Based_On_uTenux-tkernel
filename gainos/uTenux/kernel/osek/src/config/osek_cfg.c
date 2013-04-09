@@ -46,7 +46,7 @@ TASK(vTask0)
 	{
 #if 1
 	    pdu.SduDataPtr= sduData0;
-	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu0,&pdu));
+	    while(E_NOT_OK == CanTp_Transmit(TX_vEcuC_Pdu0,&pdu));
 	    pdu.SduDataPtr= sduData1;
 	    while(E_NOT_OK == CanIf_Transmit(TX_vEcuC_Pdu1,&pdu));
 	    pdu.SduDataPtr= sduData2;

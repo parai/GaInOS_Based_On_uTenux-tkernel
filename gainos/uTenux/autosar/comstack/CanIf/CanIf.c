@@ -48,16 +48,14 @@
 #include "CanNm.h"
 #endif
 
-#if 0
 // TODO: Include upper layer functions, See CANIF208 and CANIF233
 #include "PduR_CanIf.h"
-#include "CanNm.h"
+//#include "CanNm.h"
 #include "CanTp.h"
 
-#include "PduR_Cbk.h"
-#include "CanNm_Cbk.h"
-#include "CanTp_Cbk.h"
-#endif
+//#include "PduR_Cbk.h"
+//#include "CanNm_Cbk.h"
+//#include "CanTp_Cbk.h"
 
 #if  ( CANIF_DEV_ERROR_DETECT == STD_ON )
 #define VALIDATE(_exp,_api,_err )                           \
@@ -135,7 +133,7 @@ CanIf_GlobalType CanIf_Global;
 
 
 
-#if 0
+#if 1  /* for debug */
 #include <tm/tmonitor.h>
 #include <tm/tm_printf.h>
 void PduR_CanIfRxIndication(PduIdType CanRxPduId,const PduInfoType* PduInfoPtr) 
