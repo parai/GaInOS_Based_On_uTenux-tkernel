@@ -77,7 +77,7 @@ void PduR_Init (const PduR_PBConfigType* ConfigPtr) {
 		PduRConfig = ConfigPtr;
 
 		// Start initialization!
-		DEBUG(DEBUG_LOW,"--Initialization of PDU router--\n");
+		DEBUG_PRINT0(DEBUG_LOW,"--Initialization of PDU router--\n");
 
 		//uint8 failed = 0;
 
@@ -91,7 +91,7 @@ void PduR_Init (const PduR_PBConfigType* ConfigPtr) {
 
 		// The initialization succeeded!
 			PduRState = PDUR_ONLINE;
-			DEBUG(DEBUG_LOW,"--Initialization of PDU router completed --\n");
+			DEBUG_PRINT0(DEBUG_LOW,"--Initialization of PDU router completed --\n");
 	}
 
 }
@@ -124,7 +124,7 @@ void PduR_BufferQueue(PduRTxBuffer_type *Buffer, const uint8 * SduPtr) {
 
 		PduR_BufferInc(Buffer, &Buffer->Last);
 		Buffer->NrItems++;
-		DEBUG(DEBUG_LOW,"\tBuffer %d: Queued data %d. Status: NrItems %d, First %d, Last %d\n", Buffer->BufferId, *SduPtr, Buffer->NrItems, *Buffer->First, *Buffer->Last);
+		DEBUG_PRINT5(DEBUG_LOW,"\tBuffer %d: Queued data %d. Status: NrItems %d, First %d, Last %d\n", Buffer->BufferId, *SduPtr, Buffer->NrItems, *Buffer->First, *Buffer->Last);
 
 	}
     Irq_Restore(state);
@@ -138,15 +138,15 @@ void PduR_BufferDeQueue(PduRTxBuffer_type *Buffer, uint8 *SduPtr) {
 		memcpy(SduPtr, Buffer->First, sizeof(uint8) * Buffer->Length);
 		PduR_BufferInc(Buffer, &Buffer->First);
 		Buffer->NrItems--;
-		DEBUG(DEBUG_LOW,"\tBuffer %d: DeQueueing data. Status: NrItems %d, First %d, Last %d\n", Buffer->BufferId, Buffer->NrItems, *Buffer->First, *Buffer->Last);
+		DEBUG_PRINT4(DEBUG_LOW,"\tBuffer %d: DeQueueing data. Status: NrItems %d, First %d, Last %d\n", Buffer->BufferId, Buffer->NrItems, *Buffer->First, *Buffer->Last);
 	} else {
-		DEBUG(DEBUG_LOW,"\tBuffer %d: Buffer is empty, nothing to dequeue!\n", Buffer->BufferId);
+		DEBUG_PRINT1(DEBUG_LOW,"\tBuffer %d: Buffer is empty, nothing to dequeue!\n", Buffer->BufferId);
 	}
     Irq_Restore(state);
 }
 
 void PduR_BufferFlush(PduRTxBuffer_type *Buffer) {
-	DEBUG(DEBUG_LOW,"\tBuffer %d: Flushing!\n", Buffer->BufferId);
+	DEBUG_PRINT0(DEBUG_LOW,"\tBuffer %d: Flushing!\n", Buffer->BufferId);
     imask_t state;
     Irq_Save(state);
 	Buffer->NrItems = 0;

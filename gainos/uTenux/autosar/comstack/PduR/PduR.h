@@ -33,9 +33,6 @@
 
 #ifndef PDUR_H
 #define PDUR_H
-//#include "ComStack_Types.h"
-//void PduR_CanIfRxIndication(PduIdType CanRxPduId,const PduInfoType* PduInfoPtr);
-//#else
 
 #define PDUR_VENDOR_ID		   1
 #define PDUR_AR_MAJOR_VERSION  2
@@ -115,7 +112,7 @@ extern PduR_StateType PduRState;
 	if ((PduRState == PDUR_UNINIT) || (PduRState == PDUR_REDUCED)) { \
 		Det_ReportError(MODULE_ID_PDUR, PDUR_INSTANCE_ID, _api, PDUR_E_INVALID_REQUEST); \
 		return _rv; \
-	}
+	}	
 
 #define PDUR_VALIDATE_PDUPTR(_api, _pduPtr, _rv) \
 	if ((_pduPtr == NULL) && (PDUR_DEV_ERROR_DETECT)) { \

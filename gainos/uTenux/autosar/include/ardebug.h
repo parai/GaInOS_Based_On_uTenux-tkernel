@@ -95,15 +95,29 @@
 #define DEBUG_PRINT3(_level,format,arg1,arg2,arg3)    \
 	do { \
 		if(_level>=DEBUG_LVL) { \
-			tm_printf (format,arg1,arg2,args); \
+			tm_printf (format,arg1,arg2,args3); \
 		}; \
 	} while(0);
+#define DEBUG_PRINT4(_level,format,arg1,arg2,arg3,arg4)    \
+	do { \
+		if(_level>=DEBUG_LVL) { \
+			tm_printf (format,arg1,arg2,args3,arg4); \
+		}; \
+	} while(0);
+#define DEBUG_PRINT5(_level,format,arg1,arg2,arg3,arg4,arg5)    \
+	do { \
+		if(_level>=DEBUG_LVL) { \
+			tm_printf (format,arg1,arg2,args3,arg4,arg5); \
+		}; \
+	} while(0);	
 
 #else  /* USE_DEBUG */     
 #define DEBUG_PRINT0(_level,arg0)
 #define DEBUG_PRINT1(_level,format,arg1)
 #define DEBUG_PRINT2(_level,format,arg1,arg2)
 #define DEBUG_PRINT3(_level,format,arg1,arg2,arg3)
+#define DEBUG_PRINT4(_level,format,arg1,arg2,arg3,arg4)
+#define DEBUG_PRINT5(_level,format,arg1,arg2,arg3,arg4,arg5)
 #endif /* USE_DEBUG */ 
 
 
