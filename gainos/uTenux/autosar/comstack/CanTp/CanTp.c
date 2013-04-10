@@ -94,7 +94,7 @@
 #endif
 
 
-#if 1   /* debug */
+#if 0   /* debug */
 
 NotifResultType PduR_CanTpRxIndication(PduIdType CanTpRxPduId,
 		NotifResultType Result) {

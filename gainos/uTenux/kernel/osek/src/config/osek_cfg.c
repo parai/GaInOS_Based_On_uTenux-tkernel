@@ -25,6 +25,7 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 #include "Can.h"
 #include "CanIf.h"
 #include "CanTp.h"
+#include "PduR.h"
 #endif
 TASK(vTask0)
 {
@@ -39,9 +40,10 @@ TASK(vTask0)
 	tm_putstring((UB*)"vTask0 is running.\r\n");
 	//Can_Init(&Can_ConfigData);
 	//CanIf_Init(&CanIf_Config);
+	PduR_Init(&PduR_Config);
 	CanTp_Init();
-	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
-	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
+	//CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
+	//CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
 	for(;;)
 	{
 #if 1

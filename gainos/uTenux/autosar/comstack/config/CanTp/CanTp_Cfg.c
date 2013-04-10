@@ -64,14 +64,14 @@ const CanTp_NSduType CanTpNSduConfigList[] =
 		{
     		{
         		/* .configData.CanTpTxNSdu.CanTp_FcPduId = */ 0xDEAD,
-        		/* .configData.CanTpTxNSdu.CanIf_PduId = */1, //CANIF_PDU_ID_UDS_PHYS_TX,
+        		/* .configData.CanTpTxNSdu.CanIf_PduId = */0, //CANIF_PDU_ID_UDS_PHYS_TX,
         		/* .configData.CanTpTxNSdu.PduR_PduId = */ 0, //PDUR_PDU_ID_UDS_PHYS_TX,
         		/* .configData.CanTpTxNSdu.CanTpAddressingMode = */ CANTP_STANDARD,
         		/* .configData.CanTpRxNSdu.reserved_CanTpBs = */ 0xDB,
         		/* .configData.CanTpTxNSdu.CanTpNas =  */2,
         		/* .configData.CanTpTxNSdu.CanTpNbs = */ 2,
         		/* .configData.CanTpTxNSdu.CanTpNcs = */ 2,
-        		/* .configData.CanTpTxNSdu.CanTpTxChannel = */ 2,
+        		/* .configData.CanTpTxNSdu.CanTpTxChannel = */ 0,
         		/* .configData.CanTpTxNSdu.CanTpTxDI = */ 6,
         		/* .configData.CanTpTxNSdu.CanTpTxPaddingActivation = */ CANTP_OFF,
         		/* .configData.CanTpTxNSdu.CanTpTxTaType = */ CANTP_FUNCTIONAL,
@@ -87,14 +87,14 @@ const CanTp_NSduType CanTpNSduConfigList[] =
 		/* .listItemType = */ CANTP_END_OF_LIST,
 		{
     		/* .configData.CanTpTxNSdu.CanTp_FcPduId = */ 0xDEAD,
-    		/* .configData.CanTpTxNSdu.CanIf_PduId = */ 0, //CANIF_PDU_ID_UDS_FUNC_TX,
+    		/* .configData.CanTpTxNSdu.CanIf_PduId = */ 1, //CANIF_PDU_ID_UDS_FUNC_TX,
     		/* .configData.CanTpTxNSdu.PduR_PduId = */ 1, //PDUR_PDU_ID_UDS_FUNC_TX,
     		/* .configData.CanTpTxNSdu.CanTpAddressingMode = */ CANTP_STANDARD,
     		/* .configData.CanTpRxNSdu.reserved_CanTpBs = */ 0xDB,
     		/* .configData.CanTpTxNSdu.CanTpNas = */ 2,
     		/* .configData.CanTpTxNSdu.CanTpNbs = */ 2,
     		/* .configData.CanTpTxNSdu.CanTpNcs = */ 2,
-    		/* .configData.CanTpTxNSdu.CanTpTxChannel = */ 3,    		
+    		/* .configData.CanTpTxNSdu.CanTpTxChannel = */ 1,    		
     		/* .configData.CanTpTxNSdu.CanTpTxDI = */ 6,
     		/* .configData.CanTpTxNSdu.CanTpTxPaddingActivation = */ CANTP_OFF,
     		/* .configData.CanTpTxNSdu.CanTpTxTaType = */ CANTP_FUNCTIONAL,
@@ -109,14 +109,14 @@ const CanTp_NSduType CanTpNSduConfigList[] =
 		/* .listItemType = */ CANTP_NOT_LAST_ENTRY,
 		{
     		/* .configData.CanTpRxNSdu.CanTp_FcPduId = */ 0xDEAD,
-    		/* .configData.CanTpRxNSdu.CanIf_FcPduId = */ 0, //CANIF_PDU_ID_UDS_PHYS_RX,
-    		/* .configData.CanTpRxNSdu.PduR_PduId = */ 0, //PDUR_PDU_ID_UDS_PHYS_RX,	
+    		/* .configData.CanTpRxNSdu.CanIf_FcPduId = */ 2, //CANIF_PDU_ID_UDS_PHYS_RX,
+    		/* .configData.CanTpRxNSdu.PduR_PduId = */ 2, //PDUR_PDU_ID_UDS_PHYS_RX,	
     		/* .configData.CanTpRxNSdu.CanTpAddressingFormant = */ CANTP_STANDARD,
     		/* .configData.CanTpRxNSdu.CanTpBs = */ 30,
     		/* .configData.CanTpRxNSdu.CanTpNar = */ 5000,
     		/* .configData.CanTpRxNSdu.CanTpNbr = */ 1000,
     		/* .configData.CanTpRxNSdu.CanTpNcr = */ 1000,
-    		/* .configData.CanTpRxNSdu.CanTpRxChannel = */ 0,    		
+    		/* .configData.CanTpRxNSdu.CanTpRxChannel = */ 2,    		
     		/* .configData.CanTpRxNSdu.CanTpRxDI = */ 6,
     		/* .configData.CanTpRxNSdu.CanTpRxPaddingActivation = */ CANTP_OFF,
     		/* .configData.CanTpRxNSdu.CanTpRxTaType = */ CANTP_FUNCTIONAL,
@@ -132,14 +132,14 @@ const CanTp_NSduType CanTpNSduConfigList[] =
 		/* .listItemType = */ CANTP_NOT_LAST_ENTRY,
 		{
     		/* .configData.CanTpRxNSdu.CanTp_FcPduId = */ 0xDEAD,
-    		/* .configData.CanTpRxNSdu.CanIf_FcPduId = */ 0, //CANIF_PDU_ID_UDS_FUNC_RX,
-    		/* .configData.CanTpRxNSdu.PduR_PduId = */ 1, //PDUR_PDU_ID_UDS_FUNC_RX,	
+    		/* .configData.CanTpRxNSdu.CanIf_FcPduId = */ 3, //CANIF_PDU_ID_UDS_FUNC_RX,
+    		/* .configData.CanTpRxNSdu.PduR_PduId = */ 3, //PDUR_PDU_ID_UDS_FUNC_RX,	
     		/* .configData.CanTpRxNSdu.CanTpAddressingFormant = */ CANTP_STANDARD,
     		/* .configData.CanTpRxNSdu.CanTpBs = */ 30,
     		/* .configData.CanTpRxNSdu.CanTpNar = */ 5000,
     		/* .configData.CanTpRxNSdu.CanTpNbr = */ 1000,
     		/* .configData.CanTpRxNSdu.CanTpNcr = */ 1000,
-    		/* .configData.CanTpRxNSdu.CanTpRxChannel = */ 1,
+    		/* .configData.CanTpRxNSdu.CanTpRxChannel = */ 3,
     		/* .configData.CanTpRxNSdu.CanTpRxDI = */ 6,
     		/* .configData.CanTpRxNSdu.CanTpRxPaddingActivation = */ CANTP_OFF,
     		/* .configData.CanTpRxNSdu.CanTpRxTaType = */ CANTP_FUNCTIONAL,
@@ -151,11 +151,38 @@ const CanTp_NSduType CanTpNSduConfigList[] =
 	},
 };
 
+const CanTp_RxIdType CanTp_RxIdList[] = 
+{
+	/* PDU_0 */
+	{
+        /* .CanTpAddressingMode =  */CANTP_STANDARD,
+        /* .CanTpNSduIndex =  */0,
+        /* .CanTpReferringTxIndex = */ 0,
+	},	
+	/* PDU_1 */
+	{
+        /* .CanTpAddressingMode = */ CANTP_STANDARD,
+        /* .CanTpNSduIndex = */ 1,
+        /* .CanTpReferringTxIndex =  */1,
+	},	
+	/* PDU_2 */
+	{
+        /* .CanTpAddressingMode = */ CANTP_STANDARD,
+        /* .CanTpNSduIndex = */ 2,
+        /* .CanTpReferringTxIndex = */ 2,
+	},	
+	/* PDU_3 */
+	{
+        /* .CanTpAddressingMode = */ CANTP_STANDARD,
+        /* .CanTpNSduIndex = */ 3,
+        /* .CanTpReferringTxIndex =  */3,
+	}
+};	
 const CanTp_ConfigType CanTpConfig =
 {
   /* .CanTpGeneral 	= */ 	&CanTpGeneralConfig,
   /* .CanTpNSduList = */	CanTpNSduConfigList,
-  /* .CanTpRxIdList = */    NULL
+  /* .CanTpRxIdList = */    CanTp_RxIdList
   
 };
 	

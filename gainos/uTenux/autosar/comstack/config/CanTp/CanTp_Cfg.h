@@ -4,7 +4,7 @@
 
 #include "CanTp_Types.h"
 
-#define CANTP_MAIN_FUNCTION_PERIOD_TIME_MS	1000
+#define CANTP_MAIN_FUNCTION_PERIOD_TIME_MS	1
 #define CANTP_CONVERT_MS_TO_MAIN_CYCLES(x) 	(x)/CANTP_MAIN_FUNCTION_PERIOD_TIME_MS
 
 #define CANTP_NSDU_CONFIG_LIST_SIZE		4
@@ -16,8 +16,9 @@
 #define CANTP_VERSION_INFO_API          STD_ON   /**< Build version info API */
 #define CANTP_DEV_ERROR_DETECT          STD_ON
 
-extern CanTp_ConfigType CanTpConfig;
+extern const CanTp_ConfigType CanTpConfig;
 extern const CanTp_NSduType CanTpNSduConfigList[];
+extern const CanTp_RxIdType CanTp_RxIdList[];
 
 #endif /* _CANTP_CFG_H_ */
 

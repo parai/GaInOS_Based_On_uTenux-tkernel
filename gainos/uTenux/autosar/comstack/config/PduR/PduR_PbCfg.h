@@ -17,8 +17,6 @@
 #error PduR: Configuration file expected BSW module version to be 2.0.*
 #endif
 
-#define USE_CANTP
-#define USE_CANIF
 
 #if defined(USE_DCM)
 #include "Dcm.h"
@@ -36,7 +34,9 @@
 extern const PduR_PBConfigType PduR_Config;
 
 //  PduR Polite Defines.
-#define PDUR_PDU_ID_FreqReq COM_PDU_ID_FreqReq
-#define PDUR_REVERSE_PDU_ID_FreqReq CANIF_PDU_ID_FreqReq  
-#define PDUR_PDU_ID_FreqInd CANIF_PDU_ID_FreqInd
-#define PDUR_REVERSE_PDU_ID_FreqInd COM_PDU_ID_FreqInd  
+#define PDUR_PDU_ID_PDU_0		0
+#define PDUR_PDU_ID_PDU_1		1
+#define PDUR_PDU_ID_PDU_2		2
+#define PDUR_PDU_ID_PDU_3		3
+
+

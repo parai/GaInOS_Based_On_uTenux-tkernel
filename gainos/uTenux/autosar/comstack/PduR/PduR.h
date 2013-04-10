@@ -108,22 +108,22 @@ extern PduR_StateType PduRState;
 
 #define PDUR_DET_REPORTERROR(_x,_y,_z,_o) Det_ReportError(_x,_y,_z,_o)
 
-#define PDUR_VALIDATE_INITIALIZED(_api,_rv) \
-	if ((PduRState == PDUR_UNINIT) || (PduRState == PDUR_REDUCED)) { \
+#define PDUR_VALIDATE_INITIALIZED(_api,_rv)                             \
+	if ((PduRState == PDUR_UNINIT) || (PduRState == PDUR_REDUCED)) {    \
 		Det_ReportError(MODULE_ID_PDUR, PDUR_INSTANCE_ID, _api, PDUR_E_INVALID_REQUEST); \
-		return _rv; \
+		return _rv;                                                     \
 	}	
 
-#define PDUR_VALIDATE_PDUPTR(_api, _pduPtr, _rv) \
-	if ((_pduPtr == NULL) && (PDUR_DEV_ERROR_DETECT)) { \
+#define PDUR_VALIDATE_PDUPTR(_api, _pduPtr, _rv)                        \
+	if ((_pduPtr == NULL) && (PDUR_DEV_ERROR_DETECT)) {                 \
 		Det_ReportError(MODULE_ID_PDUR, PDUR_INSTANCE_ID, _api, PDUR_E_DATA_PTR_INVALID); \
-		return _rv; \
+		return _rv;                                                     \
 	}
 
-#define PDUR_VALIDATE_PDUID(_api, _pduId, _rv) \
+#define PDUR_VALIDATE_PDUID(_api, _pduId, _rv)                          \
 	if ((_pduId >= PduRConfig->NRoutingPaths) && PDUR_DEV_ERROR_DETECT) { \
 		Det_ReportError(MODULE_ID_PDUR, PDUR_INSTANCE_ID, _api, PDUR_E_PDU_ID_INVALID); \
-		return _rv; \
+		return _rv;                                                     \
 	}
 
 
