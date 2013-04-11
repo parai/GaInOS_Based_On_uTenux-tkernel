@@ -343,14 +343,15 @@ class CanIfObj():
         ns+='#define CANIF_CANPDUID_READDATA_API         STD_OFF   // Not supported\n';
         ns+='#define CANIF_READRXPDU_NOTIF_STATUS_API    STD_OFF   // Not supported\n\n';
         fp.write(ns);
-        fp.write('#define USE_PDUR\n\n');
+        fp.write('#define USE_PDUR\n');
+        fp.write('#define USE_CANTP\n\n');
         #TX PDU ID
         fp.write('/* Tx PduId For CanIF */\n')
         index=0;
         for channel in self.cfg.channelList:
             for hth in channel.hthList:
                 for pdu in hth.pduList:
-                    fp.write('#define %s\t\t%s\n'%(pdu.name,index));
+                    fp.write('#define CANIF_%s\t\t%s\n'%(pdu.name,index));
                     index+=1;
         #RX PDU ID
         fp.write('/* Rx PduId For CanIF */\n')
@@ -358,7 +359,7 @@ class CanIfObj():
         for channel in self.cfg.channelList:
             for hrh in channel.hrhList:
                 for pdu in hrh.pduList:
-                    fp.write('#define %s\t\t%s\n'%(pdu.name,index));
+                    fp.write('#define CANIF_%s\t\t%s\n'%(pdu.name,index));
                     index+=1;
         fp.write('// Identifiers for the elements in CanIfControllerConfig[]\n// This is the ConfigurationIndex in CanIf_InitController()\n');
         str=str2='';
@@ -500,7 +501,7 @@ class CanIfObj():
                 for pdu in hth.pduList:
                     TX_PDU_CNT+=1;
                     txpdus+='\t{\n';
-                    txpdus+='\t\t/*CanIfTxPduId =*/ %s,\n'%(pdu.name);
+                    txpdus+='\t\t/*CanIfTxPduId =*/ CANIF_%s,\n'%(pdu.name);
                     txpdus+='\t\t/*CanIfCanTxPduIdCanId =*/ %s,\n'%(pdu.canId);
                     txpdus+='\t\t/*CanIfCanTxPduIdDlc =*/ %s,\n'%(pdu.dlc);
                     txpdus+='\t\t/*CanIfCanTxPduType =*/ %s,\n'%(pdu.canType);
@@ -521,7 +522,7 @@ class CanIfObj():
                 for pdu in hrh.pduList:
                     RX_PDU_CNT+=1;
                     rxpdus+='\t{\n';
-                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ %s,\n'%(pdu.name);
+                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ CANIF_%s,\n'%(pdu.name);
                     rxpdus+='\t\t/*CanIfCanRxPduCanId =*/ %s,\n'%(pdu.canId);
                     rxpdus+='\t\t/*CanIfCanRxPduDlc =*/ %s,\n'%(pdu.dlc);
                     rxpdus+='#if ( CANIF_CANPDUID_READDATA_API == STD_ON )\n\t\t/*CanIfReadRxPduData =*/ TRUE,\n#endif\n'

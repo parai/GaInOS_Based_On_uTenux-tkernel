@@ -1260,7 +1260,7 @@ void CanTp_RxIndication_Main(PduIdType CanTpRxPduId,
 
 	DEBUG_PRINT1( DEBUG_MEDIUM, "CanTp_RxIndication: PduId=%d, [", CanTpRxPduId);
 	for (i=0; i<CanTpRxPduPtr->SduLength; i++) {
-		DEBUG_PRINT1( DEBUG_MEDIUM, "%x, ", CanTpRxPduPtr->SduDataPtr[i]);
+		DEBUG_PRINT1( DEBUG_MEDIUM, "%c, ", CanTpRxPduPtr->SduDataPtr[i]);
 	}
 	DEBUG_PRINT0( DEBUG_MEDIUM, "]");
 

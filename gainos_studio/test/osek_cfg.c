@@ -2,34 +2,52 @@
 
 const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM]=
 {
-	GenResourceCreInfo(1),	/* vRes0 */
+	GenResourceCreInfo(1),	/* vSchedulerResource */
 };
 
 /* Generate Task Stack */
-GenTaskStack(vTask0,512);
-GenTaskStack(vTask1,512);
+GenTaskStack(vTaskInit,512);
+GenTaskStack(vTaskCanTpMainFunction,512);
+GenTaskStack(vTaskSender,512);
+GenTaskStack(vTaskReceiver,512);
 /* Generate Task Create Information */
 const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM]=
 {
-	GenTaskCreInfo(vTask0,1,ID_vTask0Event),
-	GenTaskCreInfo(vTask1,2,ID_vTask1Event),
+	GenTaskCreInfo(vTaskInit,2,NULL),
+	GenTaskCreInfo(vTaskCanTpMainFunction,4,NULL),
+	GenTaskCreInfo(vTaskSender,5,NULL),
+	GenTaskCreInfo(vTaskReceiver,5,NULL),
 };
 /* Is Task auto-startable */
 const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 {
-	TRUE,	/* vTask0 */
-	TRUE,	/* vTask1 */
+	TRUE,	/* vTaskInit */
+	FALSE,	/* vTaskCanTpMainFunction */
+	FALSE,	/* vTaskSender */
+	FALSE,	/* vTaskReceiver */
 };
 
-TASK(vTask0)
+TASK(vTaskInit)
 {
-	tm_putstring((UB*)"vTask0 is running.\r\n");
+	tm_putstring((UB*)"vTaskInit is running.\r\n");
 	(void)TerminateTask();
 }
 
-TASK(vTask1)
+TASK(vTaskCanTpMainFunction)
 {
-	tm_putstring((UB*)"vTask1 is running.\r\n");
+	tm_putstring((UB*)"vTaskCanTpMainFunction is running.\r\n");
+	(void)TerminateTask();
+}
+
+TASK(vTaskSender)
+{
+	tm_putstring((UB*)"vTaskSender is running.\r\n");
+	(void)TerminateTask();
+}
+
+TASK(vTaskReceiver)
+{
+	tm_putstring((UB*)"vTaskReceiver is running.\r\n");
 	(void)TerminateTask();
 }
 
@@ -37,16 +55,10 @@ ID OsekAlarmIdTable[cfgOSEK_ALARM_NUM];
 UB OsekAlarmTypeTable[cfgOSEK_ALARM_NUM];
 const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=
 {
-	AlarmCallBackEntry(vAlarm0),
-	AlarmCallBackEntry(vAlarm1),
+	AlarmCallBackEntry(vAlarmCanTp),
 };
-ALARMCALLBACK(vAlarm0)
+ALARMCALLBACK(vAlarmCanTp)
 {
-	(void)tk_sta_tsk(ID_vTask0,ID_vTask0);
-}
-
-ALARMCALLBACK(vAlarm1)
-{
-	(void)tk_sta_tsk(ID_vTask1,ID_vTask1);
+	(void)tk_sta_tsk(ID_vTaskCanTpMainFunction,ID_vTaskCanTpMainFunction);
 }
 

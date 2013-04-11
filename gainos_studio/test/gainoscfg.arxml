@@ -3,27 +3,28 @@
 <GaInOsCfg>
 <GaInOsChip chip="MC9S12DP512"></GaInOsChip>
 <TaskList>
-<Task name='vTask0' prio='1' stksz='512' autostart='True'>
+<Task name='vTaskInit' prio='2' stksz='512' autostart='True'>
 <EventList>
-<Event name='vTask0Event0' mask='0x1'></Event>
-<Event name='vTask0Event1' mask='0x2'></Event>
-<Event name='vTask0Event2' mask='0x4'></Event>
 </EventList>
 </Task>
-<Task name='vTask1' prio='2' stksz='512' autostart='True'>
+<Task name='vTaskCanTpMainFunction' prio='4' stksz='512' autostart='False'>
 <EventList>
-<Event name='vTask1Event0' mask='0x1'></Event>
-<Event name='vTask1Event1' mask='0x2'></Event>
-<Event name='vTask1Event2' mask='0x4'></Event>
+</EventList>
+</Task>
+<Task name='vTaskSender' prio='5' stksz='512' autostart='False'>
+<EventList>
+</EventList>
+</Task>
+<Task name='vTaskReceiver' prio='5' stksz='512' autostart='False'>
+<EventList>
 </EventList>
 </Task>
 </TaskList>
 <ResourceList>
-<Resource name='vRes0' ceilprio='1'></Resource>
+<Resource name='vSchedulerResource' ceilprio='1'></Resource>
 </ResourceList>
 <AlarmList>
-<Alarm name='vAlarm0' type='task' task='vTask0' event=''></Alarm>
-<Alarm name='vAlarm1' type='task' task='vTask1' event=''></Alarm>
+<Alarm name='vAlarmCanTp' type='task' task='vTaskCanTpMainFunction' event=''></Alarm>
 </AlarmList>
 <AutosarList>
 <AutosarObj name="Can">
@@ -39,7 +40,7 @@
 <CanCtrl name="CAN_CTRL_0" baudrate="250" propseg="0" seg1="13" seg2="2" >
 <CanHohList>
 <CanHoh name="CAN_CTRL_0_vCanHrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
-<CanHoh name="CAN_CTRL_0_vCanHth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_EXTENDED" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_0_vCanHth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 <CanCtrl name="CAN_CTRL_1" baudrate="250" propseg="0" seg1="13" seg2="2" >
@@ -98,9 +99,9 @@
 </CanIfHth>
 </CanIfHthList>
 <CanIfHrhList>
-<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHrh" softwareFilter="False" >
+<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="1" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
@@ -110,33 +111,15 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="TX_vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
+<CanIfTxPdu name="TX_vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>
 </CanIfHthList>
 <CanIfHrhList>
-<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHrh" softwareFilter="False" >
+<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu1" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
-</CanIfRxPdu>
-</CanIfRxPduList>
-</CanIfHrh>
-</CanIfHrhList>
-</CanIfChannel>
-<CanIfChannel name="vCanIf_Channel2" canHwCtrl="CAN_CTRL_4" >
-<CanIfHthList>
-<CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHth" >
-<CanIfTxPduList>
-<CanIfTxPdu name="TX_vEcuC_Pdu2" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
-</CanIfTxPdu>
-</CanIfTxPduList>
-</CanIfHth>
-</CanIfHthList>
-<CanIfHrhList>
-<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHrh" softwareFilter="False" >
-<CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu2" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu1" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="1" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>

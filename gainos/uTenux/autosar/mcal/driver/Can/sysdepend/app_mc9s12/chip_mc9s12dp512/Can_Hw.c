@@ -52,11 +52,11 @@ EXPORT Can_GlobalType Can_Global =
 	CAN_UNINIT, 	/* driverState */
 	NULL,			/* config */
 	{				/* canUint */
-		{CANIF_CS_UNINIT,},
-		{CANIF_CS_UNINIT,},
-		{CANIF_CS_UNINIT,},
-		{CANIF_CS_UNINIT,},
-		{CANIF_CS_UNINIT,}
+		{CANIF_CS_UNINIT,0,{0,},INVALID_PDU_ID},
+		{CANIF_CS_UNINIT,0,{0,},INVALID_PDU_ID},
+		{CANIF_CS_UNINIT,0,{0,},INVALID_PDU_ID},
+		{CANIF_CS_UNINIT,0,{0,},INVALID_PDU_ID},
+		{CANIF_CS_UNINIT,0,{0,},INVALID_PDU_ID}
 	},
 	0u,	/* configured */
 };

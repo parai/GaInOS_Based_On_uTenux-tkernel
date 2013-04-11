@@ -120,7 +120,7 @@ const PduRRoutingPath_type PduRRoutingPath_PDU_0 = {
     /* .TpChunkSize = */0xDEAD,
     /* .PduRDefaultValue = */{0xDB,NULL},
     /* .SrcPduId = */ 0,//CANTP_PDU_ID_PDU_0,
-	/* .SrcModule =  */ARC_PDUR_CANTP,	
+	/* .SrcModule =  */ARC_PDUR_COM,	
 	/* .PduRDestPdus = */ PduRDestinations_PDU_0
 };	
 const PduRRoutingPath_type PduRRoutingPath_PDU_1 = { 

@@ -216,11 +216,29 @@ class CanObj_MC9S12DP512():
         path1=path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512';
         try:
             os.mkdir(path+'/autosar');
+        except:
+            print "nothing serious!file already exists."
+        try:
             os.mkdir(path+'/autosar/mcal');
+        except:
+            print "nothing serious!file already exists."            
+        try:
             os.mkdir(path+'/autosar/mcal/config');
+        except:
+            print "nothing serious!file already exists."
+        try:
             os.mkdir(path+'/autosar/mcal/config/Can');
-            os.mkdir(path+'/autosar/mcal/config/Can/sysdepend');
+        except:
+            print "nothing serious!file already exists."
+        try:
+           os.mkdir(path+'/autosar/mcal/config/Can/sysdepend');
+        except:
+            print "nothing serious!file already exists."            
+        try:
             os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12');
+        except: 
+            print "nothing serious!file already exists."
+        try:
             os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512');
         except:
             print "nothing serious!file already exists."

@@ -27,13 +27,11 @@ void CanIf_User_ErrorNotification(uint8 Controller,Can_Arc_ErrorType Error){}
 const Can_ControllerIdType CanIf_Arc_ChannelToControllerMap[CANIF_CHANNEL_CNT] = {
 	CAN_CTRL_0,	/* vCanIf_Channel0 */
 	CAN_CTRL_1,	/* vCanIf_Channel1 */
-	CAN_CTRL_4,	/* vCanIf_Channel2 */
 };
 
 const uint8 CanIf_Arc_ChannelDefaultConfIndex[CANIF_CHANNEL_CNT] = {
 	vCanIf_Channel0_CONFIG_0,
 	vCanIf_Channel1_CONFIG_0,
-	vCanIf_Channel2_CONFIG_0,
 };
 
 // Container that gets slamed into CanIf_InitController()
@@ -52,12 +50,6 @@ const CanIf_ControllerConfigType CanIfControllerConfig[] = {
 		/*CanIfControllerIdRef =*/ vCanIf_Channel1,
 		/*CanIfDriverNameRef =*/ "FLEXCAN",  // Not used
 		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_1],
-	},
-	{
-		/*WakeupSupport =*/ CANIF_WAKEUP_SUPPORT_NO_WAKEUP,
-		/*CanIfControllerIdRef =*/ vCanIf_Channel2,
-		/*CanIfDriverNameRef =*/ "FLEXCAN",  // Not used
-		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_4],
 	},
 };
 
@@ -86,7 +78,7 @@ const CanIf_HrhConfigType CanIfHrhConfigData_vCanIf_Channel0[]=
 {
 	{
 		/*CanIfHrhType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
-		/*CanIfSoftwareFilterHrh =*/ FALSE,
+		/*CanIfSoftwareFilterHrh =*/ TRUE,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel0,
 		/*CanIfHrhIdSymRef =*/ CAN_CTRL_0_vCanHrh,
 		/*CanIf_Arc_EOL =*/ TRUE
@@ -107,30 +99,9 @@ const CanIf_HrhConfigType CanIfHrhConfigData_vCanIf_Channel1[]=
 {
 	{
 		/*CanIfHrhType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
-		/*CanIfSoftwareFilterHrh =*/ FALSE,
+		/*CanIfSoftwareFilterHrh =*/ TRUE,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel1,
 		/*CanIfHrhIdSymRef =*/ CAN_CTRL_1_vCanHrh,
-		/*CanIf_Arc_EOL =*/ TRUE
-	},
-};
-
-const CanIf_HthConfigType CanIfHthConfigData_vCanIf_Channel2[]=
-{
-	{
-		/*CanIfHthType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
-		/*CanIfCanControllerIdRef =*/ vCanIf_Channel2,
-		/*CanIfHthIdSymRef =*/ CAN_CTRL_4_vCanHth,
-		/*CanIf_Arc_EOL =*/ TRUE
-	},
-};
-
-const CanIf_HrhConfigType CanIfHrhConfigData_vCanIf_Channel2[]=
-{
-	{
-		/*CanIfHrhType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
-		/*CanIfSoftwareFilterHrh =*/ FALSE,
-		/*CanIfCanControllerIdRef =*/ vCanIf_Channel2,
-		/*CanIfHrhIdSymRef =*/ CAN_CTRL_4_vCanHrh,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -147,12 +118,6 @@ const CanIf_InitHohConfigType CanIfHohConfigData[] =
 		/*CanConfigSet =*/ &Can_ConfigSetData,
 		/*CanIfHrhConfig =*/ CanIfHrhConfigData_vCanIf_Channel1,
 		/*CanIfHthConfig =*/ CanIfHthConfigData_vCanIf_Channel1,
-		/*CanIf_Arc_EOL =*/ FALSE
-	},
-	{
-		/*CanConfigSet =*/ &Can_ConfigSetData,
-		/*CanIfHrhConfig =*/ CanIfHrhConfigData_vCanIf_Channel2,
-		/*CanIfHthConfig =*/ CanIfHthConfigData_vCanIf_Channel2,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -160,7 +125,7 @@ const CanIf_InitHohConfigType CanIfHohConfigData[] =
 const CanIf_TxPduConfigType CanIfTxPduConfigData[] = 
 {
 	{
-		/*CanIfTxPduId =*/ TX_vEcuC_Pdu0,
+		/*CanIfTxPduId =*/ CANIF_TX_vEcuC_Pdu0,
 		/*CanIfCanTxPduIdCanId =*/ 0,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
@@ -173,8 +138,8 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 		/*PduIdRef =*/ NULL
 	},
 	{
-		/*CanIfTxPduId =*/ TX_vEcuC_Pdu1,
-		/*CanIfCanTxPduIdCanId =*/ 0,
+		/*CanIfTxPduId =*/ CANIF_TX_vEcuC_Pdu1,
+		/*CanIfCanTxPduIdCanId =*/ 1,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
 #if ( CANIF_READTXPDU_NOTIFY_STATUS_API == STD_ON )
@@ -185,27 +150,14 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 		/*CanIfCanTxPduHthRef =*/ &CanIfHthConfigData_vCanIf_Channel1[0],
 		/*PduIdRef =*/ NULL
 	},
-	{
-		/*CanIfTxPduId =*/ TX_vEcuC_Pdu2,
-		/*CanIfCanTxPduIdCanId =*/ 0,
-		/*CanIfCanTxPduIdDlc =*/ 8,
-		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
-#if ( CANIF_READTXPDU_NOTIFY_STATUS_API == STD_ON )
-		/*CanIfReadTxPduNotifyStatus =*/ FALSE, 
-#endif
-		/*CanIfTxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfUserTxConfirmation =*/ NULL,
-		/*CanIfCanTxPduHthRef =*/ &CanIfHthConfigData_vCanIf_Channel2[0],
-		/*PduIdRef =*/ NULL
-	},
 };
 
 const CanIf_RxPduConfigType CanIfRxPduConfigData[] = 
 {
 	{
-		/*CanIfCanRxPduId =*/ RX_vEcuC_Pdu0,
-		/*CanIfCanRxPduCanId =*/ 0,
-		/*CanIfCanRxPduDlc =*/ 8,
+		/*CanIfCanRxPduId =*/ CANIF_RX_vEcuC_Pdu0,
+		/*CanIfCanRxPduCanId =*/ 1,
+		/*CanIfCanRxPduDlc =*/ 1,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
 		/*CanIfReadRxPduData =*/ TRUE,
 #endif
@@ -213,7 +165,7 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfReadRxPduNotifyStatus =*/ TRUE, 
 #endif
 		/*CanIfRxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfRxUserType =*/ CANIF_USER_TYPE_CAN_PDUR,
+		/*CanIfRxUserType =*/ CANIF_USER_TYPE_CAN_TP,
 		/*CanIfUserRxIndication =*/ NULL,
 		/*CanIfCanRxPduHrhRef =*/ &CanIfHrhConfigData_vCanIf_Channel0[0],
 		/*PduIdRef =*/ NULL,
@@ -221,9 +173,9 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
 	},
 	{
-		/*CanIfCanRxPduId =*/ RX_vEcuC_Pdu1,
+		/*CanIfCanRxPduId =*/ CANIF_RX_vEcuC_Pdu1,
 		/*CanIfCanRxPduCanId =*/ 0,
-		/*CanIfCanRxPduDlc =*/ 8,
+		/*CanIfCanRxPduDlc =*/ 1,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
 		/*CanIfReadRxPduData =*/ TRUE,
 #endif
@@ -231,27 +183,9 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfReadRxPduNotifyStatus =*/ TRUE, 
 #endif
 		/*CanIfRxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfRxUserType =*/ CANIF_USER_TYPE_CAN_PDUR,
+		/*CanIfRxUserType =*/ CANIF_USER_TYPE_CAN_TP,
 		/*CanIfUserRxIndication =*/ NULL,
 		/*CanIfCanRxPduHrhRef =*/ &CanIfHrhConfigData_vCanIf_Channel1[0],
-		/*PduIdRef =*/ NULL,
-		/*CanIfSoftwareFilterType =*/ CANIF_SOFTFILTER_TYPE_MASK,
-		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
-	},
-	{
-		/*CanIfCanRxPduId =*/ RX_vEcuC_Pdu2,
-		/*CanIfCanRxPduCanId =*/ 0,
-		/*CanIfCanRxPduDlc =*/ 8,
-#if ( CANIF_CANPDUID_READDATA_API == STD_ON )
-		/*CanIfReadRxPduData =*/ TRUE,
-#endif
-#if ( CANIF_READTXPDU_NOTIFY_STATUS_API == STD_ON )
-		/*CanIfReadRxPduNotifyStatus =*/ TRUE, 
-#endif
-		/*CanIfRxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfRxUserType =*/ CANIF_USER_TYPE_CAN_PDUR,
-		/*CanIfUserRxIndication =*/ NULL,
-		/*CanIfCanRxPduHrhRef =*/ &CanIfHrhConfigData_vCanIf_Channel2[0],
 		/*PduIdRef =*/ NULL,
 		/*CanIfSoftwareFilterType =*/ CANIF_SOFTFILTER_TYPE_MASK,
 		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
@@ -263,8 +197,8 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 const CanIf_InitConfigType CanIfInitConfig =
 {
 	/*CanIfConfigSet =*/ 0, // Not used 
-	/*CanIfNumberOfCanRxPduIds =*/ 3,
-	/*CanIfNumberOfCanTXPduIds =*/ 3,
+	/*CanIfNumberOfCanRxPduIds =*/ 2,
+	/*CanIfNumberOfCanTXPduIds =*/ 2,
 	/*CanIfNumberOfDynamicCanTXPduIds =*/ 0, // Not used
 	// Containers
 	/*CanIfHohConfigPtr =*/ CanIfHohConfigData,
