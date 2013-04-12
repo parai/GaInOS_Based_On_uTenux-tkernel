@@ -125,7 +125,7 @@ const CanIf_InitHohConfigType CanIfHohConfigData[] =
 const CanIf_TxPduConfigType CanIfTxPduConfigData[] = 
 {
 	{
-		/*CanIfTxPduId =*/ CANIF_TX_vEcuC_Pdu0,
+		/*CanIfTxPduId =*/ CANTP_TX_vEcuC_Pdu0,
 		/*CanIfCanTxPduIdCanId =*/ 0,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
@@ -133,12 +133,12 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 		/*CanIfReadTxPduNotifyStatus =*/ FALSE, 
 #endif
 		/*CanIfTxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfUserTxConfirmation =*/ NULL,
+		/*CanIfUserTxConfirmation =*/ CanTp_TxConfirmation,
 		/*CanIfCanTxPduHthRef =*/ &CanIfHthConfigData_vCanIf_Channel0[0],
 		/*PduIdRef =*/ NULL
 	},
 	{
-		/*CanIfTxPduId =*/ CANIF_TX_vEcuC_Pdu1,
+		/*CanIfTxPduId =*/ CANTP_TX_vEcuC_Pdu1,
 		/*CanIfCanTxPduIdCanId =*/ 1,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
@@ -146,7 +146,7 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 		/*CanIfReadTxPduNotifyStatus =*/ FALSE, 
 #endif
 		/*CanIfTxPduIdCanIdType =*/ CANIF_CAN_ID_TYPE_11,
-		/*CanIfUserTxConfirmation =*/ NULL,
+		/*CanIfUserTxConfirmation =*/ CanTp_TxConfirmation,
 		/*CanIfCanTxPduHthRef =*/ &CanIfHthConfigData_vCanIf_Channel1[0],
 		/*PduIdRef =*/ NULL
 	},
@@ -155,7 +155,7 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 const CanIf_RxPduConfigType CanIfRxPduConfigData[] = 
 {
 	{
-		/*CanIfCanRxPduId =*/ CANIF_RX_vEcuC_Pdu0,
+		/*CanIfCanRxPduId =*/ CANTP_RX_vEcuC_Pdu0,
 		/*CanIfCanRxPduCanId =*/ 1,
 		/*CanIfCanRxPduDlc =*/ 1,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
@@ -173,7 +173,7 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
 	},
 	{
-		/*CanIfCanRxPduId =*/ CANIF_RX_vEcuC_Pdu1,
+		/*CanIfCanRxPduId =*/ CANTP_RX_vEcuC_Pdu1,
 		/*CanIfCanRxPduCanId =*/ 0,
 		/*CanIfCanRxPduDlc =*/ 1,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )

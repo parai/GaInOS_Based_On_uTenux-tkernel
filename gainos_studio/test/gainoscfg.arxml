@@ -73,9 +73,6 @@
 <EcuCList>
 <EcuCPdu name="vEcuC_Pdu0"></EcuCPdu>
 <EcuCPdu name="vEcuC_Pdu1"></EcuCPdu>
-<EcuCPdu name="vEcuC_Pdu2"></EcuCPdu>
-<EcuCPdu name="vEcuC_Pdu3"></EcuCPdu>
-<EcuCPdu name="vEcuC_Pdu4"></EcuCPdu>
 </EcuCList>
 </AutosarObj>
 <AutosarObj name="CanIf">
@@ -93,7 +90,7 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="TX_vEcuC_Pdu0" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
+<CanIfTxPdu name="TX_vEcuC_Pdu0" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="CanTp_TxConfirmation" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>
@@ -101,7 +98,7 @@
 <CanIfHrhList>
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="1" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
@@ -111,7 +108,7 @@
 <CanIfHthList>
 <CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHth" >
 <CanIfTxPduList>
-<CanIfTxPdu name="TX_vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="NULL" >
+<CanIfTxPdu name="TX_vEcuC_Pdu1" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="CanTp_TxConfirmation" >
 </CanIfTxPdu>
 </CanIfTxPduList>
 </CanIfHth>

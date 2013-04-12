@@ -47,7 +47,8 @@ TASK(vTaskInit)
 	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
 	
 	//启动CanTp周期任务定时器，周期激活任务 ID_vTaskCanTpMainFunction
-	(void)SetRelAlarm(ID_vAlarmCanTp,5,5);//1个Tick 4ms
+	//(void)SetRelAlarm(ID_vAlarmCanTp,1,1);//1个Tick 4ms
+	(void)ActivateTask(ID_vTaskCanTpMainFunction);
 	
 	//启动任务
 	(void)ActivateTask(ID_vTaskSender);
@@ -57,11 +58,13 @@ TASK(vTaskInit)
 
 TASK(vTaskCanTpMainFunction)
 {
-	//tm_putstring((UB*)"vTaskCanTpMainFunction is running.\r\n");
+	tm_putstring((UB*)"vTaskCanTpMainFunction is running.\r\n");
 	
-	CanTp_MainFunction();
-	
-	(void)TerminateTask();
+	for(;;){
+	    CanTp_MainFunction();
+	    DelayTask(1);
+	}	
+	//(void)TerminateTask();
 }
 
 const UB* G_Message = "I am parai.\r\n"

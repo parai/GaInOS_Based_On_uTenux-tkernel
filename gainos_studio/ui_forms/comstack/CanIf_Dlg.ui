@@ -234,7 +234,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -652,6 +652,11 @@ p, li { white-space: pre-wrap; }
            <item>
             <property name="text">
              <string>PduR_CanIfTxConfirmation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CanTp_TxConfirmation</string>
             </property>
            </item>
            <item>

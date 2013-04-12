@@ -501,7 +501,7 @@ class CanIfObj():
                 for pdu in hth.pduList:
                     TX_PDU_CNT+=1;
                     txpdus+='\t{\n';
-                    txpdus+='\t\t/*CanIfTxPduId =*/ CANIF_%s,\n'%(pdu.name);
+                    txpdus+='\t\t/*CanIfTxPduId =*/ CANTP_%s,\n'%(pdu.name);
                     txpdus+='\t\t/*CanIfCanTxPduIdCanId =*/ %s,\n'%(pdu.canId);
                     txpdus+='\t\t/*CanIfCanTxPduIdDlc =*/ %s,\n'%(pdu.dlc);
                     txpdus+='\t\t/*CanIfCanTxPduType =*/ %s,\n'%(pdu.canType);
@@ -522,7 +522,7 @@ class CanIfObj():
                 for pdu in hrh.pduList:
                     RX_PDU_CNT+=1;
                     rxpdus+='\t{\n';
-                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ CANIF_%s,\n'%(pdu.name);
+                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ CANTP_%s,\n'%(pdu.name);
                     rxpdus+='\t\t/*CanIfCanRxPduCanId =*/ %s,\n'%(pdu.canId);
                     rxpdus+='\t\t/*CanIfCanRxPduDlc =*/ %s,\n'%(pdu.dlc);
                     rxpdus+='#if ( CANIF_CANPDUID_READDATA_API == STD_ON )\n\t\t/*CanIfReadRxPduData =*/ TRUE,\n#endif\n'

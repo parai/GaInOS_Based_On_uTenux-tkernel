@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanIf_Dlg.ui'
 #
-# Created: Sun Apr 07 23:37:11 2013
+# Created: Fri Apr 12 23:16:56 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -286,6 +286,7 @@ class Ui_CanIf_Dlg(object):
         self.cmbxTxPduConfirmation.addItem(_fromUtf8(""))
         self.cmbxTxPduConfirmation.addItem(_fromUtf8(""))
         self.cmbxTxPduConfirmation.addItem(_fromUtf8(""))
+        self.cmbxTxPduConfirmation.addItem(_fromUtf8(""))
         self.horizontalLayout_7.addWidget(self.cmbxTxPduConfirmation)
         self.verticalLayout_3.addLayout(self.horizontalLayout_7)
         self.tabCfg.addTab(self.tab_3, _fromUtf8(""))
@@ -397,7 +398,7 @@ class Ui_CanIf_Dlg(object):
         self.verticalLayout_2.addWidget(self.btnDel)
 
         self.retranslateUi(CanIf_Dlg)
-        self.tabCfg.setCurrentIndex(4)
+        self.tabCfg.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(CanIf_Dlg)
 
     def retranslateUi(self, CanIf_Dlg):
@@ -469,7 +470,8 @@ class Ui_CanIf_Dlg(object):
         self.label_31.setText(QtGui.QApplication.translate("CanIf_Dlg", "Confirmation API:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduConfirmation.setItemText(0, QtGui.QApplication.translate("CanIf_Dlg", "NULL", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTxPduConfirmation.setItemText(1, QtGui.QApplication.translate("CanIf_Dlg", "PduR_CanIfTxConfirmation", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxTxPduConfirmation.setItemText(2, QtGui.QApplication.translate("CanIf_Dlg", "CanIf_UserTxConfirmation", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxTxPduConfirmation.setItemText(2, QtGui.QApplication.translate("CanIf_Dlg", "CanTp_TxConfirmation", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxTxPduConfirmation.setItemText(3, QtGui.QApplication.translate("CanIf_Dlg", "CanIf_UserTxConfirmation", None, QtGui.QApplication.UnicodeUTF8))
         self.tabCfg.setTabText(self.tabCfg.indexOf(self.tab_3), QtGui.QApplication.translate("CanIf_Dlg", "Tx Pdu", None, QtGui.QApplication.UnicodeUTF8))
         self.label_41.setText(QtGui.QApplication.translate("CanIf_Dlg", "Global Pdu:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_38.setText(QtGui.QApplication.translate("CanIf_Dlg", "Can Type:", None, QtGui.QApplication.UnicodeUTF8))

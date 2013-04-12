@@ -51,6 +51,9 @@ from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
 from PyQt4.QtCore import QStringList,QString
 from Common import *
+import os, sys
+import shutil 
+from time import localtime, time,strftime
 
 class EcuCPdu():
     def __init__(self, name):
@@ -94,5 +97,43 @@ class EcuCObj():
     def doParse(self, arxml):
         self.doParsePdu(arxml.find('EcuCList'));
 
+    def backup(self, file):
+        tm=localtime(time());
+        file2=file+strftime("-%Y-%m-%d-%H-%M-%S",tm);
+        shutil.copy(file, file2+'.bak');
+
     def codeGen(self, path):
-        return;
+        path1=path+'/autosar/comstack/config/EcuC';
+        try:
+            os.mkdir(path+'/autosar');
+        except:
+            print "nothing serious!file already exists."
+        try:
+            os.mkdir(path+'/autosar/comstack');
+        except:
+            print "nothing serious!file already exists."
+        try:
+            os.mkdir(path+'/autosar/comstack/config');
+        except:
+            print "nothing serious!file already exists."
+        try:
+            os.mkdir(path+'/autosar/comstack/config/EcuC');
+        except:
+            print "nothing serious!file already exists."
+        self.codeGenH(path1);
+
+    def codeGenH(self, path):
+        file=path+'/EcuC_Cfg.h';
+        if os.path.isfile(file):
+            self.backup(file);
+        fp=open(file, 'w');
+        fp.write('#ifndef ECUC_CFG_H_\n#define ECUC_CFG_H_\n\n');
+        id = 0;
+        for obj in self.cfg.pduList:
+            fp.write('#define RX_%s %s\n'%(obj.name,id));
+            id += 1;
+        for obj in self.cfg.pduList:
+            fp.write('#define TX_%s %s\n'%(obj.name,id));
+            id += 1;
+        fp.write('\n#endif\n\n');
+        fp.close();
