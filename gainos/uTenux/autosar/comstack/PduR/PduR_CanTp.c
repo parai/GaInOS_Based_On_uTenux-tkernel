@@ -25,13 +25,19 @@ BufReq_ReturnType PduR_CanTpProvideRxBuffer(PduIdType CanTpRxPduId, PduLengthTyp
 	return PduR_ARC_ProvideRxBuffer(CanTpRxPduId, TpSduLength, PduInfoPtr, 0x03);
 }
 #else
-UB G_RxBuffer[128];
-PduInfoType G_RxPdu; 
+UB G_RxBuffer[2][256];
+PduInfoType G_RxPdu[2]; 
 BufReq_ReturnType PduR_CanTpProvideRxBuffer(PduIdType CanTpRxPduId, PduLengthType TpSduLength, PduInfoType** PduInfoPtr) {
 	
-	G_RxPdu.SduDataPtr = G_RxBuffer;
-	G_RxPdu.SduLength  = 128;
-	*PduInfoPtr = &G_RxPdu;
+	static int i=0;
+	if(i > 1)
+	{
+	    i = 0;
+	}
+	G_RxPdu[i].SduDataPtr = G_RxBuffer[i];
+	G_RxPdu[i].SduLength  = 128;
+	*PduInfoPtr = &G_RxPdu[i];
+	i++;
 	return  BUFREQ_OK;
 }
 #endif

@@ -29,11 +29,15 @@
 </CanTpRxNSdu>
 <CanTpRxNSdu name="vCanTp_RxNSdu1" PduR_PduId="RX_vEcuC_Pdu1" CanIf_FcPduId="TX_vEcuC_Pdu1" CanTpRxDI="8" CanTpRxPaddingActivation="CANTP_OFF" CanTpRxTaType="CANTP_PHYSICAL" CanTpBs="4" CanTpSTmin="0" CanTpWftMax="5" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNar="100" CanTpNbr="100" CanTpNcr="100" >
 </CanTpRxNSdu>
+<CanTpRxNSdu name="vCanTp_RxNSdu4" PduR_PduId="RX_vEcuC_Pdu4" CanIf_FcPduId="TX_vEcuC_Pdu4" CanTpRxDI="8" CanTpRxPaddingActivation="CANTP_OFF" CanTpRxTaType="CANTP_PHYSICAL" CanTpBs="4" CanTpSTmin="0" CanTpWftMax="5" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNar="100" CanTpNbr="100" CanTpNcr="100" >
+</CanTpRxNSdu>
 </CanTpRxNSduList>
 <CanTpTxNSduList>
-<CanTpTxNSdu name="vCanTp_TxNSdu0" PduR_PduId="TX_vEcuC_Pdu0" CanIf_FcPduId="RX_vEcuC_Pdu0" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
+<CanTpTxNSdu name="vCanTp_TxNSdu0" PduR_PduId="TX_vEcuC_Pdu0" CanIf_FcPduId="RX_vEcuC_Pdu1" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
-<CanTpTxNSdu name="vCanTp_TxNSdu1" PduR_PduId="TX_vEcuC_Pdu1" CanIf_FcPduId="RX_vEcuC_Pdu1" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
+<CanTpTxNSdu name="vCanTp_TxNSdu1" PduR_PduId="TX_vEcuC_Pdu1" CanIf_FcPduId="RX_vEcuC_Pdu0" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
+</CanTpTxNSdu>
+<CanTpTxNSdu name="vCanTp_TxNSdu4" PduR_PduId="TX_vEcuC_Pdu4" CanIf_FcPduId="RX_vEcuC_Pdu4" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
 </CanTpTxNSduList>
 </AutosarObj>
@@ -41,6 +45,7 @@
 <EcuCList>
 <EcuCPdu name="vEcuC_Pdu0"></EcuCPdu>
 <EcuCPdu name="vEcuC_Pdu1"></EcuCPdu>
+<EcuCPdu name="vEcuC_Pdu4"></EcuCPdu>
 </EcuCList>
 </AutosarObj>
 <AutosarObj name="Can">
@@ -63,6 +68,12 @@
 <CanHohList>
 <CanHoh name="CAN_CTRL_1_vCanHrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 <CanHoh name="CAN_CTRL_1_vCanHth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+</CanHohList>
+</CanCtrl>
+<CanCtrl name="CAN_CTRL_4" baudrate="250" propseg="0" seg1="13" seg2="2" >
+<CanHohList>
+<CanHoh name="CAN_CTRL_4_vCanHrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_RECEIVE" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
+<CanHoh name="CAN_CTRL_4_vCanHth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" idType="CAN_ID_TYPE_STANDARD" idValue="0" objType="CAN_OBJECT_TYPE_TRANSMIT" filterMask="vCanFilterMask0" mbMask="0x00000000" ></CanHoh>
 </CanHohList>
 </CanCtrl>
 </CanCtrlList>
@@ -109,6 +120,24 @@
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
 <CanIfRxPdu name="RX_vEcuC_Pdu1" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="0" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
+</CanIfRxPdu>
+</CanIfRxPduList>
+</CanIfHrh>
+</CanIfHrhList>
+</CanIfChannel>
+<CanIfChannel name="vCanIf_Channel4" canHwCtrl="CAN_CTRL_4" >
+<CanIfHthList>
+<CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHth" >
+<CanIfTxPduList>
+<CanIfTxPdu name="TX_vEcuC_Pdu4" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="CanTp_TxConfirmation" >
+</CanIfTxPdu>
+</CanIfTxPduList>
+</CanIfHth>
+</CanIfHthList>
+<CanIfHrhList>
+<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHrh" softwareFilter="True" >
+<CanIfRxPduList>
+<CanIfRxPdu name="RX_vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>

@@ -397,6 +397,12 @@ class CanTpObj():
             index+=1;
         rxIdList+='};\n\n';
         fp.write(rxIdList);
+        fp.write('const CanTp_ConfigType CanTpConfig =\n'
+                '{\n'
+                '\t/* .CanTpGeneral 	= */ 	&CanTpGeneralConfig,\n'
+                '\t/* .CanTpNSduList = */	CanTpNSduConfigList,\n'
+                '\t/* .CanTpRxIdList = */    CanTp_RxIdList\n'
+                '};\n\n');
         fp.close();
     
     def findCanTpReferringTxIndex(self, obj):

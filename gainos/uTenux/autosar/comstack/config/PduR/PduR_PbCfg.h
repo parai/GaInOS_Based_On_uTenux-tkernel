@@ -37,9 +37,11 @@ extern const PduR_PBConfigType PduR_Config;
 /* PduR Rx NSdu Id */
 #define PDUR_RX_vEcuC_Pdu0 0
 #define PDUR_RX_vEcuC_Pdu1 1
+#define PDUR_RX_vEcuC_Pdu4 2
 
 /* PduR Tx NSdu Id */
-#define PDUR_TX_vEcuC_Pdu0 2
-#define PDUR_TX_vEcuC_Pdu1 3
+#define PDUR_TX_vEcuC_Pdu0 3
+#define PDUR_TX_vEcuC_Pdu1 4
+#define PDUR_TX_vEcuC_Pdu4 5
 
 

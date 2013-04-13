@@ -45,6 +45,7 @@ TASK(vTaskInit)
     //Com 通道启动	
 	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
 	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
+	CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
 	
 	//启动CanTp周期任务定时器，周期激活任务 ID_vTaskCanTpMainFunction
 	//(void)SetRelAlarm(ID_vAlarmCanTp,1,1);//1个Tick 4ms
@@ -67,9 +68,15 @@ TASK(vTaskCanTpMainFunction)
 	//(void)TerminateTask();
 }
 
-const UB* G_Message = "I am parai.\r\n"
+const UB* G_Message0 = "I am parai.\r\n"
     "Try to port the com of ArcCore on GaInOS.\r\n"
     "I wish a Success.\r\n";
+const UB* G_Message1 = "Yes,you are parai.\r\n"
+    "You do port the com of ArcCore on GaInOS successfully.\r\n"
+    "Wish you happy every day.\r\n";
+const UB* G_Message2 = "Yes,This Message Send by A Loopback Can Ctrl.\r\n"
+    "The Can Ctrl send the message and received it by itself.\r\n"
+    "Wish you happy every day.\r\n";    
     
 PduInfoType G_TxPdu;    
 TASK(vTaskSender)
@@ -78,19 +85,39 @@ TASK(vTaskSender)
     
 	tm_putstring((UB*)"vTaskSender is running.\r\n");
 	
-	G_TxPdu.SduLength  = strlen(G_Message);
-	G_TxPdu.SduDataPtr = G_Message;
 	for(;;)
 	{
+	    G_TxPdu.SduLength  = strlen(G_Message0);
+	    G_TxPdu.SduDataPtr = G_Message0;
 	    CanTp_Transmit(CANTP_TX_vEcuC_Pdu0,&G_TxPdu);
-	    DelayTask(250*60); //沉睡1分钟后重启
+	    DelayTask(250*10); //沉睡10s后重启
+	    G_TxPdu.SduLength  = strlen(G_Message1);
+	    G_TxPdu.SduDataPtr = G_Message1;
+	    CanTp_Transmit(CANTP_TX_vEcuC_Pdu1,&G_TxPdu);
+	    DelayTask(250*10); //沉睡10s后重启
+	    G_TxPdu.SduLength  = strlen(G_Message2);
+	    G_TxPdu.SduDataPtr = G_Message2;
+	    CanTp_Transmit(CANTP_TX_vEcuC_Pdu4,&G_TxPdu);
+	    DelayTask(250*10); //沉睡10s后重启
+	    
 	}
 	(void)TerminateTask();
 }
 
+extern PduInfoType G_RxPdu[2];
 TASK(vTaskReceiver)
 {
 	tm_putstring((UB*)"vTaskReceiver is running.\r\n");
+	DelayTask(250*5); //沉睡5s
+	for(;;)
+	{	    
+	    G_RxPdu[0].SduDataPtr[G_RxPdu[0].SduLength]='\0';
+	    tm_putstring(G_RxPdu[0].SduDataPtr);
+	    G_RxPdu[1].SduDataPtr[G_RxPdu[1].SduLength]='\0';
+	    tm_putstring(G_RxPdu[1].SduDataPtr);
+	    DelayTask(250*10); //沉睡10s
+	    
+	}
 	(void)TerminateTask();
 }
 

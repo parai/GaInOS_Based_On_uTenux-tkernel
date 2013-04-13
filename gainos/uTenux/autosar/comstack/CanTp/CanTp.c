@@ -65,7 +65,7 @@
 #include "PduR_CanTp.h"
 //#include "MemMap.h"
 #include <string.h>
-//#define USE_DEBUG_PRINTF
+
 #define USE_DEBUG
 #include "ardebug.h"
 
