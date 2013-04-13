@@ -22,8 +22,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-02 22:27:00 to $Date: 2013-04-08 13:40:58 $
- * $Revision: 1.8 $
+ * from Date:2013-04-02 22:27:00 to $Date: 2013-04-13 02:19:45 $
+ * $Revision: 1.9 $
  */
 
 #include "Det.h"
