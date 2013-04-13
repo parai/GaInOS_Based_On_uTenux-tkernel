@@ -501,7 +501,8 @@ class CanIfObj():
                 for pdu in hth.pduList:
                     TX_PDU_CNT+=1;
                     txpdus+='\t{\n';
-                    txpdus+='\t\t/*CanIfTxPduId =*/ CANTP_%s,\n'%(pdu.name);
+                    txpdus+='\t\t/*CanIfTxPduId =*/ %s_%s,\n'%(
+                            self.getPduIdPrefix(pdu), pdu.name);
                     txpdus+='\t\t/*CanIfCanTxPduIdCanId =*/ %s,\n'%(pdu.canId);
                     txpdus+='\t\t/*CanIfCanTxPduIdDlc =*/ %s,\n'%(pdu.dlc);
                     txpdus+='\t\t/*CanIfCanTxPduType =*/ %s,\n'%(pdu.canType);
@@ -522,7 +523,8 @@ class CanIfObj():
                 for pdu in hrh.pduList:
                     RX_PDU_CNT+=1;
                     rxpdus+='\t{\n';
-                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ CANTP_%s,\n'%(pdu.name);
+                    rxpdus+='\t\t/*CanIfCanRxPduId =*/ %s_%s,\n'%(
+                            self.getPduIdPrefix(pdu), pdu.name);
                     rxpdus+='\t\t/*CanIfCanRxPduCanId =*/ %s,\n'%(pdu.canId);
                     rxpdus+='\t\t/*CanIfCanRxPduDlc =*/ %s,\n'%(pdu.dlc);
                     rxpdus+='#if ( CANIF_CANPDUID_READDATA_API == STD_ON )\n\t\t/*CanIfReadRxPduData =*/ TRUE,\n#endif\n'
@@ -570,3 +572,18 @@ class CanIfObj():
         fp.write('\t/*Arc_ChannelDefaultConfIndex =*/ CanIf_Arc_ChannelDefaultConfIndex,\n');
         fp.write('};\n');
         fp.close();
+
+    def getPduIdPrefix(self, pdu):
+        if(pdu.type == 'txPdu'):
+            if(pdu.confirmation == 'PduR_CanIfTxConfirmation'):
+                return 'PDUR';
+            elif(pdu.confirmation == 'CanTp_TxConfirmation'):
+                return 'CANTP';
+        elif(pdu.type == 'rxPdu'):
+            if(pdu.indicationType == 'CAN_NM'):
+                return 'CANNM';
+            elif(pdu.indicationType == 'CAN_TP'):
+                return 'CANTP';
+            elif(pdu.indicationType == 'CAN_PDUR'):
+                return 'PDUR';
+        return 'CANIF';

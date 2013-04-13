@@ -157,7 +157,7 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 	{
 		/*CanIfCanRxPduId =*/ CANTP_RX_vEcuC_Pdu0,
 		/*CanIfCanRxPduCanId =*/ 1,
-		/*CanIfCanRxPduDlc =*/ 1,
+		/*CanIfCanRxPduDlc =*/ 0,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
 		/*CanIfReadRxPduData =*/ TRUE,
 #endif
@@ -175,7 +175,7 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 	{
 		/*CanIfCanRxPduId =*/ CANTP_RX_vEcuC_Pdu1,
 		/*CanIfCanRxPduCanId =*/ 0,
-		/*CanIfCanRxPduDlc =*/ 1,
+		/*CanIfCanRxPduDlc =*/ 0,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
 		/*CanIfReadRxPduData =*/ TRUE,
 #endif

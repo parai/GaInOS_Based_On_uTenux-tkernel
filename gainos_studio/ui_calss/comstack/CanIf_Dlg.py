@@ -425,7 +425,7 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
     
     @pyqtSignature("bool")
     def on_cbxDlcCheck_clicked(self, checked):
-        self.cfg.General.VersionInfoApi=checked;
+        self.cfg.General.DlcCheck=checked;
     
     @pyqtSignature("bool")
     def on_cbxRuntimePduCfg_clicked(self, checked):

@@ -44,15 +44,16 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-from Can_MC9S12DP512 import *
-from CanIfCfg import *
+from Can_MC9S12DP512 import CanObj_MC9S12DP512, UnimplementError
+from CanIfCfg import CanIfObj
 from EcuCcfg import EcuCObj
+from CanTpCfg import CanTpObj
 
 ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
                        'Can':CanObj_MC9S12DP512, 
                        'CanIf':CanIfObj, 
                        'CanNm':UnimplementError,
-                       'CanTp':UnimplementError,
+                       'CanTp':CanTpObj,
                        'CanSm':UnimplementError,
                        'Com':UnimplementError,
                        'Dio':UnimplementError,

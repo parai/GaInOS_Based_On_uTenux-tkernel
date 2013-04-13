@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanIf_Dlg.ui'
 #
-# Created: Fri Apr 12 23:16:56 2013
+# Created: Sat Apr 13 17:27:49 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_CanIf_Dlg(object):
     def setupUi(self, CanIf_Dlg):
         CanIf_Dlg.setObjectName(_fromUtf8("CanIf_Dlg"))
-        CanIf_Dlg.resize(965, 577)
+        CanIf_Dlg.resize(965, 588)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Consolas"))
         font.setPointSize(12)
@@ -86,7 +86,7 @@ class Ui_CanIf_Dlg(object):
         self.horizontalLayout_37.addWidget(self.cmbxSoftwareFilterType)
         self.verticalLayout_10.addLayout(self.horizontalLayout_37)
         self.groupBox_2 = QtGui.QGroupBox(CanIf_Dlg)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 170, 941, 401))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 170, 941, 411))
         self.groupBox_2.setMaximumSize(QtCore.QSize(16777214, 16777215))
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.trCanIfCfg = QtGui.QTreeWidget(self.groupBox_2)
@@ -398,7 +398,7 @@ class Ui_CanIf_Dlg(object):
         self.verticalLayout_2.addWidget(self.btnDel)
 
         self.retranslateUi(CanIf_Dlg)
-        self.tabCfg.setCurrentIndex(3)
+        self.tabCfg.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(CanIf_Dlg)
 
     def retranslateUi(self, CanIf_Dlg):

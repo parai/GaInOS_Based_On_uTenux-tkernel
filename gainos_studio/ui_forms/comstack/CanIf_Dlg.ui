@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>965</width>
-    <height>577</height>
+    <height>588</height>
    </rect>
   </property>
   <property name="font">
@@ -192,7 +192,7 @@ p, li { white-space: pre-wrap; }
      <x>10</x>
      <y>170</y>
      <width>941</width>
-     <height>401</height>
+     <height>411</height>
     </rect>
    </property>
    <property name="maximumSize">
@@ -234,7 +234,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">

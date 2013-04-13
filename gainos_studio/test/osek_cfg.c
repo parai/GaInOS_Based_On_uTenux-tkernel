@@ -2,52 +2,34 @@
 
 const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM]=
 {
-	GenResourceCreInfo(1),	/* vSchedulerResource */
+	GenResourceCreInfo(1),	/* vRes0 */
 };
 
 /* Generate Task Stack */
-GenTaskStack(vTaskInit,512);
-GenTaskStack(vTaskCanTpMainFunction,512);
-GenTaskStack(vTaskSender,512);
-GenTaskStack(vTaskReceiver,512);
+GenTaskStack(vTask0,512);
+GenTaskStack(vTask1,512);
 /* Generate Task Create Information */
 const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM]=
 {
-	GenTaskCreInfo(vTaskInit,2,NULL),
-	GenTaskCreInfo(vTaskCanTpMainFunction,4,NULL),
-	GenTaskCreInfo(vTaskSender,5,NULL),
-	GenTaskCreInfo(vTaskReceiver,5,NULL),
+	GenTaskCreInfo(vTask0,1,NULL),
+	GenTaskCreInfo(vTask1,2,NULL),
 };
 /* Is Task auto-startable */
 const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 {
-	TRUE,	/* vTaskInit */
-	FALSE,	/* vTaskCanTpMainFunction */
-	FALSE,	/* vTaskSender */
-	FALSE,	/* vTaskReceiver */
+	TRUE,	/* vTask0 */
+	TRUE,	/* vTask1 */
 };
 
-TASK(vTaskInit)
+TASK(vTask0)
 {
-	tm_putstring((UB*)"vTaskInit is running.\r\n");
+	tm_putstring((UB*)"vTask0 is running.\r\n");
 	(void)TerminateTask();
 }
 
-TASK(vTaskCanTpMainFunction)
+TASK(vTask1)
 {
-	tm_putstring((UB*)"vTaskCanTpMainFunction is running.\r\n");
-	(void)TerminateTask();
-}
-
-TASK(vTaskSender)
-{
-	tm_putstring((UB*)"vTaskSender is running.\r\n");
-	(void)TerminateTask();
-}
-
-TASK(vTaskReceiver)
-{
-	tm_putstring((UB*)"vTaskReceiver is running.\r\n");
+	tm_putstring((UB*)"vTask1 is running.\r\n");
 	(void)TerminateTask();
 }
 
@@ -55,10 +37,10 @@ ID OsekAlarmIdTable[cfgOSEK_ALARM_NUM];
 UB OsekAlarmTypeTable[cfgOSEK_ALARM_NUM];
 const FP OsekAlarmHandlerTable[cfgOSEK_ALARM_NUM]=
 {
-	AlarmCallBackEntry(vAlarmCanTp),
+	AlarmCallBackEntry(vAlarm0),
 };
-ALARMCALLBACK(vAlarmCanTp)
+ALARMCALLBACK(vAlarm0)
 {
-	(void)tk_sta_tsk(ID_vTaskCanTpMainFunction,ID_vTaskCanTpMainFunction);
+	tm_putstring((UB*)"vAlarm0 cbk is running.\r\n");
 }
 
