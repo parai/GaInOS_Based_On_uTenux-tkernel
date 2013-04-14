@@ -64,10 +64,15 @@ extern Com_Arc_Config_type Com_Arc_Config;
 #define VALIDATE_SIGNAL(PduId, ApiId,_rv)
 #endif
 
-
+#if 0
 #define TESTBIT(source,bit)	( *( (uint8 *)source  + (bit / 8) ) &  (uint8)(1u << (bit % 8)) )
 #define SETBIT(dest,bit)	( *( (uint8 *)dest    + (bit / 8) ) |= (uint8)(1u << (bit % 8)) )
 #define CLEARBIT(dest,bit)	( *( (uint8 *)dest    + (bit / 8) ) &= (uint8)~(uint8)(1u << (bit % 8)) )
+#else  /* I hate "/" and "%"  operation which can be replaced by ">>" and  "&", @parai*/
+#define TESTBIT(source,bit)	( *( (uint8 *)source  + (bit >> 3U) ) &  (uint8)(1u << (bit & 7U)) )
+#define SETBIT(dest,bit)	( *( (uint8 *)dest    + (bit >> 3U) ) |= (uint8)(1u << (bit & 7U)) )
+#define CLEARBIT(dest,bit)	( *( (uint8 *)dest    + (bit >> 3U) ) &= (uint8)~(uint8)(1u << (bit & 7U)) )
+#endif
 
 
 #define GET_Signal(SignalId) \
