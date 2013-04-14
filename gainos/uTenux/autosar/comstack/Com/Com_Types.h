@@ -398,8 +398,9 @@ typedef struct {
 	const ComTxIPdu_type ComTxIPdu;
 
 	/** Reference to the actual pdu data storage */
-	void *const ComIPduDataPtr;
-	void *const ComIPduDeferredDataPtr;
+	/* I think better to be uint8*. */
+	/* void * */uint8 *const ComIPduDataPtr;
+	/* void * */uint8 *const ComIPduDeferredDataPtr;
 
 	/** References to all signals and signal groups contained in this IPDU.
 	 * It probably makes little sense not to define at least one signal or signal group for each IPDU.

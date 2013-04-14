@@ -13,7 +13,17 @@
  * for more details.
  * -------------------------------- Arctic Core ------------------------------*/
 
-
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013-04-08 to $Date: 2013-04-14 05:44:29 $
+ * $Revision: 1.1 $
+ */
 
 
 
@@ -23,24 +33,26 @@
 #include "Com_Internal.h"
 #include "Com_misc.h"
 #include <string.h>
-#include "debug.h"
+#include "ardebug.h"
 #include "Cpu.h"
 
-#define timerDec(timer) \
-	if (timer > 0) { \
-		timer = timer - 1; \
+#define timerDec(timer)                         \
+	if (timer > 0) {                            \
+		timer = timer - 1;                      \
 	}
 
 
-void Com_MainFunctionRx(void) {
-	//DEBUG(DEBUG_MEDIUM, "Com_MainFunctionRx() excecuting\n");
-	for (uint16 pduId = 0; !ComConfig->ComIPdu[pduId].Com_Arc_EOL; pduId++) {
-		boolean pduUpdated = false;
+void Com_MainFunctionRx(void) {	
+	uint16 pduId;
+	//DEBUG_PRINT0(DEBUG_MEDIUM, "Com_MainFunctionRx() excecuting\n");
+	for (pduId = 0; !ComConfig->ComIPdu[pduId].Com_Arc_EOL; pduId++) {
+		boolean pduUpdated = FALSE;
 		const ComIPdu_type *IPdu = GET_IPdu(pduId);
 		Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(pduId);
 		imask_t irq_state;
+		uint16 i;
 		Irq_Save(irq_state);
-		for (uint16 i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
+		for (i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
 			const ComSignal_type *signal = IPdu->ComIPduSignalRef[i];
 			Com_Arc_Signal_type * Arc_Signal = GET_ArcSignal(signal->ComHandleId);
 			// Monitor signal reception deadline
@@ -53,7 +65,7 @@ void Com_MainFunctionRx(void) {
 				if (Arc_Signal->Com_Arc_DeadlineCounter == 0) {
 					if (signal->ComRxDataTimeoutAction == COM_TIMEOUT_DATA_ACTION_REPLACE) {
 						// Replace signal data.
-						Arc_Signal->ComSignalUpdated = true;
+						Arc_Signal->ComSignalUpdated = TRUE;
 						Com_WriteSignalDataToPdu(signal->ComHandleId, signal->ComSignalInitValue);
 
 					}
@@ -69,13 +81,14 @@ void Com_MainFunctionRx(void) {
 			}
 
 			if (Arc_Signal->ComSignalUpdated) {
-				pduUpdated = true;
+				pduUpdated = TRUE;
 			}
 		}
 		if (pduUpdated && IPdu->ComIPduSignalProcessing == DEFERRED && IPdu->ComIPduDirection == RECEIVE) {
+			uint16 i;
 			UnlockTpBuffer(getPduId(IPdu));
 			memcpy(IPdu->ComIPduDeferredDataPtr,IPdu->ComIPduDataPtr,IPdu->ComIPduSize);
-			for (uint16 i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
+			for (i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
 				const ComSignal_type *signal = IPdu->ComIPduSignalRef[i];
 				Com_Arc_Signal_type * Arc_Signal = GET_ArcSignal(signal->ComHandleId);
 				if (Arc_Signal->ComSignalUpdated) {
@@ -93,13 +106,16 @@ void Com_MainFunctionRx(void) {
 
 void Com_MainFunctionTx(void) {
 	imask_t irq_state;
-
-	//DEBUG(DEBUG_MEDIUM, "Com_MainFunctionTx() excecuting\n");
-	// Decrease timers.
+	uint16 i;
 	const ComIPdu_type *IPdu;
-	for (uint16 i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+
+	//DEBUG_PRINT0(DEBUG_MEDIUM, "Com_MainFunctionTx() excecuting\n");
+	// Decrease timers.
+	
+	for ( i= 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+	    Com_Arc_IPdu_type *Arc_IPdu;
 		IPdu = &ComConfig->ComIPdu[i];
-		Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(i);
+		Arc_IPdu= GET_ArcIPdu(i);
 
 		Irq_Save(irq_state);
 
@@ -110,19 +126,19 @@ void Com_MainFunctionTx(void) {
 
 			// If IPDU has periodic or mixed transmission mode.
 			if ( (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == PERIODIC)
-				|| (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == MIXED) ) {
+                 || (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == MIXED) ) {
 
 				timerDec(Arc_IPdu->Com_Arc_TxIPduTimers.ComTxModeTimePeriodTimer);
 
 				// Is it time for a direct transmission?
 				if ( (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == MIXED)
-					&& (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft > 0) ) {
+                     && (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft > 0) ) {
 
 					timerDec(Arc_IPdu->Com_Arc_TxIPduTimers.ComTxModeRepetitionPeriodTimer);
 
 					// Is it time for a transmission?
 					if ( (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxModeRepetitionPeriodTimer == 0)
-						&& (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduMinimumDelayTimer == 0) ) {
+                         && (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduMinimumDelayTimer == 0) ) {
 
 						if (Com_Internal_TriggerIPduSend(i) == E_OK) {
 							// Reset periodic timer
@@ -143,7 +159,7 @@ void Com_MainFunctionTx(void) {
 					}
 				}
 
-			// If IPDU has direct transmission mode.
+                // If IPDU has direct transmission mode.
 			} else if (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == DIRECT) {
 				// Do we need to transmit anything?
 				if (Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft > 0) {
@@ -161,7 +177,7 @@ void Com_MainFunctionTx(void) {
 					}
 				}
 
-			// The IDPU has NONE transmission mode.
+                // The IDPU has NONE transmission mode.
 			} else {
 				// Don't send!
 			}

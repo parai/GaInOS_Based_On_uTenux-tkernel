@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""
 /* Copyright 2012, Fan Wang(Parai)
  *
  * This file is part of GaInOS.
@@ -43,31 +40,14 @@
 /* |---------+-------------------| */
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
-"""
-from Common import UnimplementError
-from Can_MC9S12DP512 import CanObj_MC9S12DP512
-from CanIfCfg import CanIfObj
-from EcuCcfg import EcuCObj
-from CanTpCfg import CanTpObj
+#ifndef _CPU_H_H_H_
+#define _CPU_H_H_H_
+#include "Std_Types.h"
 
-ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
-                       'Can':CanObj_MC9S12DP512, 
-                       'CanIf':CanIfObj, 
-                       'CanNm':UnimplementError,
-                       'CanTp':CanTpObj,
-                       'CanSm':UnimplementError,
-                       'Com':UnimplementError,
-                       'Dio':UnimplementError,
-                       'Eep':UnimplementError,
-                       'EcuC':EcuCObj, 
-                       'Fls':UnimplementError,
-                       'Gpt':UnimplementError,
-                       'Icu':UnimplementError,
-                       'Pwm':UnimplementError,
-                       'Port':UnimplementError,
-                       'PduR':UnimplementError,
-                       'Spi':UnimplementError,
-                       'Wdg':UnimplementError,
-                       'WdgIf':UnimplementError,
-                       }
+#define Irq_Restore(_mask) EI(_mask)
 
+#define Irq_Save(_mask)    DI(_mask)
+
+
+
+#endif /* _CPU_H_H_H_ */

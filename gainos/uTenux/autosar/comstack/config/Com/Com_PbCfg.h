@@ -45,7 +45,7 @@ extern const Com_ConfigType ComConfiguration;
 
 
 // Callouts
-boolean IncommingFreqReq(PduIdType PduId, const uint8 *IPduData); 
+extern boolean IncommingFreqReq(PduIdType PduId, const uint8 *IPduData);
 
 
 #endif /* COM_PBCFG_H */

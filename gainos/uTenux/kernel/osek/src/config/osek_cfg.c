@@ -31,6 +31,7 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 #include "CanTp.h"
 #include "CanIf.h"
 #include "Can.h"
+#include "Com.h"
 #include "string.h"
 TASK(vTaskInit)
 {
@@ -41,6 +42,7 @@ TASK(vTaskInit)
 	CanIf_Init(&CanIf_Config);
 	CanTp_Init();
 	PduR_Init(&PduR_Config);
+	Com_Init(&ComConfiguration);
 	
     //Com Í¨µÀÆô¶¯	
 	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
@@ -56,7 +58,11 @@ TASK(vTaskInit)
 	(void)ActivateTask(ID_vTaskReceiver);
 	(void)TerminateTask();
 }
-
+boolean IncommingFreqReq(PduIdType PduId, const uint8 *IPduData)
+{
+    tm_putstring((UB*)"IncommingFreqReq() is running.\r\n");
+    return FALSE;
+}
 TASK(vTaskCanTpMainFunction)
 {
 	tm_putstring((UB*)"vTaskCanTpMainFunction is running.\r\n");

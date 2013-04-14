@@ -72,5 +72,11 @@ class UnimplementError():
         str='  Sorry,Not implemented!\n'
         return str;
 
-    def show(self):
+    def show(self, cfg):
         print "Gui Unimplemented!"
+    
+    def save(self, fp):
+        return;
+    
+    def doParse(self, arxml):
+        return;

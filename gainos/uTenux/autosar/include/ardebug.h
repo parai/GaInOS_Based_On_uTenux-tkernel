@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-09 $
- * $Revision: 1.2 $
+ * from Date:2013-04-08 to $Date: 2013-04-13 13:51:22 $
+ * $Revision: 1.1 $
  */
 #ifndef AR_DEBUG_H_
 #define AR_DEBUG_H_

@@ -33,9 +33,9 @@
 </CanTpRxNSdu>
 </CanTpRxNSduList>
 <CanTpTxNSduList>
-<CanTpTxNSdu name="vCanTp_TxNSdu0" PduR_PduId="TX_vEcuC_Pdu0" CanIf_FcPduId="RX_vEcuC_Pdu1" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
+<CanTpTxNSdu name="vCanTp_TxNSdu0" PduR_PduId="TX_vEcuC_Pdu0" CanIf_FcPduId="RX_vEcuC_Pdu0" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
-<CanTpTxNSdu name="vCanTp_TxNSdu1" PduR_PduId="TX_vEcuC_Pdu1" CanIf_FcPduId="RX_vEcuC_Pdu0" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
+<CanTpTxNSdu name="vCanTp_TxNSdu1" PduR_PduId="TX_vEcuC_Pdu1" CanIf_FcPduId="RX_vEcuC_Pdu1" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
 <CanTpTxNSdu name="vCanTp_TxNSdu4" PduR_PduId="TX_vEcuC_Pdu4" CanIf_FcPduId="RX_vEcuC_Pdu4" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>

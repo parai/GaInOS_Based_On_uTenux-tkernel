@@ -66,7 +66,7 @@ typedef float               float32;
 typedef double              float64; 
 
 /* This is a Cpu ISR Mask type <CCR>*/
-typedef uint8               MaskType; 
+typedef uint8               imask_t; 
 
 
 

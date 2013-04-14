@@ -20,7 +20,7 @@
 
 #if (PDUR_ZERO_COST_OPERATION == STD_OFF) && (PDUR_CANTP_SUPPORT == STD_ON)
 
-#if 0
+#if 1
 BufReq_ReturnType PduR_CanTpProvideRxBuffer(PduIdType CanTpRxPduId, PduLengthType TpSduLength, PduInfoType** PduInfoPtr) {
 	return PduR_ARC_ProvideRxBuffer(CanTpRxPduId, TpSduLength, PduInfoPtr, 0x03);
 }
@@ -35,7 +35,7 @@ BufReq_ReturnType PduR_CanTpProvideRxBuffer(PduIdType CanTpRxPduId, PduLengthTyp
 	    i = 0;
 	}
 	G_RxPdu[i].SduDataPtr = G_RxBuffer[i];
-	G_RxPdu[i].SduLength  = 128;
+	G_RxPdu[i].SduLength  = 256;
 	*PduInfoPtr = &G_RxPdu[i];
 	i++;
 	return  BUFREQ_OK;
@@ -45,11 +45,11 @@ BufReq_ReturnType PduR_CanTpProvideRxBuffer(PduIdType CanTpRxPduId, PduLengthTyp
 void PduR_CanTpRxIndication(PduIdType CanTpRxPduId, NotifResultType Result) {
 	PduInfoType PduInfo = {
 		/* .SduDataPtr = */ &Result,
-		/* .SduLength = 0 */ // To fix PC-Lint 785
+		/* .SduLength  = */ 0  // To fix PC-Lint 785
 	};
 	PduR_ARC_RxIndication(CanTpRxPduId, &PduInfo, 0x04);
 }
-#if 0  /* debug */
+#if 1  /* debug */
 BufReq_ReturnType PduR_CanTpProvideTxBuffer(PduIdType CanTpTxPduId, PduInfoType** PduInfoPtr, uint16 Length) {
 	return PduR_ARC_ProvideTxBuffer(CanTpTxPduId, PduInfoPtr, Length, 0x03);
 }

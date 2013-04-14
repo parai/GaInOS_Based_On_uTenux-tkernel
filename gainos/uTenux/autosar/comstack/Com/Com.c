@@ -13,6 +13,17 @@
  * for more details.
  * -------------------------------- Arctic Core ------------------------------*/
 
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013-04-08 to $Date: 2013-04-14 13:14:14 $
+ * $Revision: 1.2 $
+ */
 
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
@@ -20,7 +31,7 @@
 
 
 
-#include <assert.h>
+//#include <assert.h>
 #include <stdlib.h>
 //#include <stdio.h>
 #include <string.h>
@@ -28,12 +39,14 @@
 #include "Com_Arc_Types.h"
 #include "Com_Internal.h"
 #include "Com_misc.h"
-#include "debug.h"
+#define USE_DEBUG
+#define DEBUG_LVL DEBUG_LOW
+#include "ardebug.h"
 #include "Cpu.h"
 
 
 /* TODO: Better way to get endianness across all compilers? */
-static const uint32_t endianness_test = 0xdeadbeefU;
+static const uint32 endianness_test = 0xdeadbeefU;
 ComSignalEndianess_type Com_SystemEndianness;
 
 
@@ -41,30 +54,32 @@ const Com_ConfigType * ComConfig;
 
 
 void Com_Init(const Com_ConfigType *config ) {
-	DEBUG(DEBUG_LOW, "--Initialization of COM--\n");
+	uint8 failure = 0;
+	uint32 firstTimeout;
+	uint8 endiannessByte;
+	uint16 i;
+	uint16 j;
+    //ComIPdu_type *IPdu;
+	//Com_Arc_IPdu_type *Arc_IPdu;
+	const ComSignal_type *Signal;
+	const ComGroupSignal_type *GroupSignal;
+	
+	DEBUG_PRINT0(DEBUG_LOW, "--Initialization of COM--\n");
 
 	ComConfig = config;
 
-	uint8 failure = 0;
-
-	uint32 firstTimeout;
-
 	//lint --e(928)	PC-Lint exception Misra 11.4, Must be like this. /tojo
-	uint8 endiannessByte = *(const uint8 *)&endianness_test;
+	endiannessByte = *(const uint8 *)&endianness_test;
 	if      ( endiannessByte == 0xef ) { Com_SystemEndianness = COM_LITTLE_ENDIAN; }
 	else if ( endiannessByte == 0xde ) { Com_SystemEndianness = COM_BIG_ENDIAN; }
 	else {
 		// No other endianness supported
 		//lint --e(506)	PC-Lint exception Misra 13.7, 14.1, Allow boolean to always be false.
-		assert(0);
+		AR_ASSERT(0);
 	}
 
 	// Initialize each IPdu
-	//ComIPdu_type *IPdu;
-	//Com_Arc_IPdu_type *Arc_IPdu;
-	const ComSignal_type *Signal;
-	const ComGroupSignal_type *GroupSignal;
-	for (uint16 i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
 
 		const ComIPdu_type *IPdu = GET_IPdu(i);
 		Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(i);
@@ -78,7 +93,7 @@ void Com_Init(const Com_ConfigType *config ) {
 
 		// If this is a TX and cyclic IPdu, configure the first deadline.
 		if ( (IPdu->ComIPduDirection == SEND) &&
-				( (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == PERIODIC) || (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == MIXED) )) {
+             ( (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == PERIODIC) || (IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeMode == MIXED) )) {
 			//IPdu->Com_Arc_TxIPduTimers.ComTxModeTimePeriodTimer = IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeTimeOffsetFactor;
 			Arc_IPdu->Com_Arc_TxIPduTimers.ComTxModeTimePeriodTimer = IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeTimeOffsetFactor;
 		}
@@ -94,9 +109,10 @@ void Com_Init(const Com_ConfigType *config ) {
 
 		// For each signal in this PDU.
 		//Arc_IPdu->NComIPduSignalRef = 0;
-		for (uint16 j = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[j] != NULL) ; j++) {
+		for (j = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[j] != NULL) ; j++) {
+			Com_Arc_Signal_type * Arc_Signal;
 			Signal = IPdu->ComIPduSignalRef[j];
-			Com_Arc_Signal_type * Arc_Signal = GET_ArcSignal(Signal->ComHandleId);
+			Arc_Signal = GET_ArcSignal(Signal->ComHandleId);
 
 			// Configure signal deadline monitoring if used.
 			if (Signal->ComTimeoutFactor > 0) {
@@ -120,11 +136,12 @@ void Com_Init(const Com_ConfigType *config ) {
 
 			// If this signal is a signal group
 			if (Signal->Com_Arc_IsSignalGroup) {
-
+			    uint8 h;
 				// For each group signal of this signal group.
-				for(uint8 h = 0; Signal->ComGroupSignal[h] != NULL; h++) {
+				for(h = 0; Signal->ComGroupSignal[h] != NULL; h++) {
+					Com_Arc_GroupSignal_type *Arc_GroupSignal;
 					GroupSignal = Signal->ComGroupSignal[h];
-					Com_Arc_GroupSignal_type *Arc_GroupSignal = GET_ArcGroupSignal(GroupSignal->ComHandleId);
+					Arc_GroupSignal = GET_ArcGroupSignal(GroupSignal->ComHandleId);
 					// Set pointer to shadow buffer
 					Arc_GroupSignal->Com_Arc_ShadowBuffer = (void *)Signal->Com_Arc_ShadowBuffer;
 					// Initialize group signal data.
@@ -140,26 +157,27 @@ void Com_Init(const Com_ConfigType *config ) {
 			memcpy(IPdu->ComIPduDeferredDataPtr,IPdu->ComIPduDataPtr,IPdu->ComIPduSize);
 		}
 		// Configure per I-PDU based deadline monitoring.
-		for (uint16 j = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[j] != NULL); j++) {
+		for (j = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[j] != NULL); j++) {
+			Com_Arc_Signal_type * Arc_Signal;
 			Signal = IPdu->ComIPduSignalRef[j];
-			Com_Arc_Signal_type * Arc_Signal = GET_ArcSignal(Signal->ComHandleId);
+			Arc_Signal = GET_ArcSignal(Signal->ComHandleId);
 
 			if ( (Signal->ComTimeoutFactor > 0) && (!Signal->ComSignalArcUseUpdateBit) ) {
 				Arc_Signal->Com_Arc_DeadlineCounter = firstTimeout;
 			}
 		}
 	}
-	for (uint16 i = 0; i < COM_N_IPDUS; i++) {
+	for (i = 0; i < COM_N_IPDUS; i++) {
 		Com_BufferPduState[i].currentPosition = 0;
-		Com_BufferPduState[i].locked = false;
+		Com_BufferPduState[i].locked = FALSE;
 	}
 
 	// An error occurred.
 	if (failure) {
-		DEBUG(DEBUG_LOW, "--Initialization of COM failed--\n");
+		DEBUG_PRINT0(DEBUG_LOW, "--Initialization of COM failed--\n");
 		//DET_REPORTERROR(COM_MODULE_ID, COM_INSTANCE_ID, 0x01, COM_E_INVALID_FILTER_CONFIGURATION);
 	} else {
-		DEBUG(DEBUG_LOW, "--Initialization of COM completed--\n");
+		DEBUG_PRINT0(DEBUG_LOW, "--Initialization of COM completed--\n");
 	}
 }
 
@@ -169,8 +187,9 @@ void Com_DeInit( void ) {
 }
 
 void Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId,boolean Initialize) {
+    uint16 i;
 	(void)Initialize; // Nothing to be done. This is just to avoid Lint warning.
-	for (uint16 i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
 		if (ComConfig->ComIPdu[i].ComIPduGroupRef == IpduGroupId) {
 			Com_Arc_Config.ComIPdu[i].Com_Arc_IpduStarted = 1;
 		}
@@ -178,7 +197,8 @@ void Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId,boolean Initialize) {
 }
 
 void Com_IpduGroupStop(Com_PduGroupIdType IpduGroupId) {
-	for (uint16 i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+    uint16 i;
+	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
 		if (ComConfig->ComIPdu[i].ComIPduGroupRef == IpduGroupId) {
 			Com_Arc_Config.ComIPdu[i].Com_Arc_IpduStarted = 0;
 		}
@@ -203,10 +223,10 @@ BufReq_ReturnType Com_CopyTxData(PduIdType PduId, PduInfoType* PduInfoPtr, Retry
 
 	Irq_Save(state);
 	sizeOk = IPdu->ComIPduSize >= Com_BufferPduState[PduId].currentPosition + PduInfoPtr->SduLength;
-	Com_BufferPduState[PduId].locked = true;
+	Com_BufferPduState[PduId].locked = TRUE;
 	if (dirOk && sizeOk) {
-		void* source = (void *)IPdu->ComIPduDataPtr;
-		memcpy(PduInfoPtr->SduDataPtr,source + Com_BufferPduState[PduId].currentPosition, PduInfoPtr->SduLength);
+		void* source = (void *)(IPdu->ComIPduDataPtr);
+		memcpy((void *)PduInfoPtr->SduDataPtr,(void *)((uint8*)source + Com_BufferPduState[PduId].currentPosition), PduInfoPtr->SduLength);
 		Com_BufferPduState[PduId].currentPosition += PduInfoPtr->SduLength;
 		*TxDataCntPtr = IPdu->ComIPduSize - Com_BufferPduState[PduId].currentPosition;
 	} else {
@@ -230,7 +250,7 @@ BufReq_ReturnType Com_CopyRxData(PduIdType PduId, const PduInfoType* PduInfoPtr,
     dirOk = GET_IPdu(PduId)->ComIPduDirection == RECEIVE;
 	lockOk = isPduBufferLocked(PduId);
 	if (dirOk && lockOk && sizeOk) {
-		memcpy((void *)(GET_IPdu(PduId)->ComIPduDataPtr+Com_BufferPduState[PduId].currentPosition), PduInfoPtr->SduDataPtr, PduInfoPtr->SduLength);
+		memcpy((void *)(((uint8*)GET_IPdu(PduId)->ComIPduDataPtr)+Com_BufferPduState[PduId].currentPosition), PduInfoPtr->SduDataPtr, PduInfoPtr->SduLength);
 		Com_BufferPduState[PduId].currentPosition += PduInfoPtr->SduLength;
 		*RxBufferSizePtr = GET_IPdu(PduId)->ComIPduSize - Com_BufferPduState[PduId].currentPosition;
 	} else {
@@ -245,9 +265,11 @@ static void Com_SetDynSignalLength(PduIdType ComRxPduId,PduLengthType TpSduLengt
 	if (IPdu->ComIPduDynSignalRef == 0) {
 		return;
 	}
-	const ComSignal_type * const dynSignal = IPdu->ComIPduDynSignalRef;
-	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(ComRxPduId);
-	Arc_IPdu->Com_Arc_DynSignalLength = TpSduLength - (dynSignal->ComBitPosition/8);
+	{ //to make hcs12 compiler happier
+    	const ComSignal_type * const dynSignal = IPdu->ComIPduDynSignalRef;
+    	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(ComRxPduId);
+    	Arc_IPdu->Com_Arc_DynSignalLength = TpSduLength - (dynSignal->ComBitPosition/8);
+	}
 	return;
 }
 
@@ -263,7 +285,7 @@ BufReq_ReturnType Com_StartOfReception(PduIdType ComRxPduId, PduLengthType TpSdu
 			if (!Com_BufferPduState[ComRxPduId].locked) {
 				ComIPduSize = GET_IPdu(ComRxPduId)->ComIPduSize;
 				if (ComIPduSize >= TpSduLength) {
-					Com_BufferPduState[ComRxPduId].locked = true;
+					Com_BufferPduState[ComRxPduId].locked = TRUE;
 					*RxBufferSizePtr = ComIPduSize;
 					Com_SetDynSignalLength(ComRxPduId,TpSduLength);
 				} else {

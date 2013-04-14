@@ -13,7 +13,17 @@
  * for more details.
  * -------------------------------- Arctic Core ------------------------------*/
 
-
+/* Modified && Ported by parai to integrated with GaInOS,which is an open source 
+ * AUTOSAR OS based on uTenux(tkernel). 
+ * And re-construct a GUI tool named gainos-studio,which is based on python and Qt4.8,
+ * for the whole Com Architecture of ArCore.
+ * License of GaInOS: GNU GPL License version 3.
+ * URL:      https://github.com/parai
+ * Email:    parai@foxmail.com
+ * Name:     parai(Wang Fan)
+ * from Date:2013-04-08 to $Date: 2013-04-14 05:44:28 $
+ * $Revision: 1.1 $
+ */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
 
@@ -29,7 +39,7 @@
 #include "ardebug.h"
 #include "PduR.h"
 #include "Det.h"
-//#include "Cpu.h"
+#include "Cpu.h"
 
 Com_BufferPduStateType Com_BufferPduState[COM_N_IPDUS];
 
@@ -51,7 +61,7 @@ uint8 Com_SendSignal(Com_SignalIdType SignalId, const void *SignalDataPtr) {
 	//DEBUG(DEBUG_LOW, "Com_SendSignal: id %d, nBytes %d, BitPosition %d, intVal %d\n", SignalId, nBytes, signal->ComBitPosition, (uint32)*(uint8 *)SignalDataPtr);
 
 	
-	DI(irq_state);
+	Irq_Save(irq_state);
 	Com_WriteSignalDataToPdu(Signal->ComHandleId, SignalDataPtr);
 
 	// If the signal has an update bit. Set it!
@@ -65,7 +75,7 @@ uint8 Com_SendSignal(Com_SignalIdType SignalId, const void *SignalDataPtr) {
 	if (Signal->ComTransferProperty == TRIGGERED) {
 		Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft = IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeNumberOfRepetitions + 1;
 	}
-	EI(irq_state);
+	Irq_Restore(irq_state);
 
 	return E_OK;
 }
@@ -113,7 +123,7 @@ uint8 Com_ReceiveDynSignal(Com_SignalIdType SignalId, void* SignalDataPtr, uint1
 		return COM_SERVICE_NOT_AVAILABLE;
 	}
 
-    DI(state);
+    Irq_Save(state);
 
 	if (*Length > Arc_IPdu->Com_Arc_DynSignalLength) {
 		*Length = Arc_IPdu->Com_Arc_DynSignalLength;
@@ -128,9 +138,9 @@ uint8 Com_ReceiveDynSignal(Com_SignalIdType SignalId, void* SignalDataPtr, uint1
 		}
 		pduDataPtr = IPdu->ComIPduDataPtr;
 	}
-	memcpy((void*)SignalDataPtr, (void*)(pduDataPtr + startFromPduByte), *Length);
+	memcpy((void*)SignalDataPtr, (void*)((uint8*)pduDataPtr + startFromPduByte), *Length);
 
-    EI(state);
+    Irq_Restore(state);
 
 	return r;
 }
@@ -159,7 +169,7 @@ uint8 Com_SendDynSignal(Com_SignalIdType SignalId, const void* SignalDataPtr, ui
 	}
 	startFromPduByte = bitPosition / 8;
 
-	DI(state);
+	Irq_Save(state);
 	memcpy((void *)(IPdu->ComIPduDataPtr + startFromPduByte), SignalDataPtr, Length);
 	Arc_IPdu->Com_Arc_DynSignalLength = Length;
 	// If the signal has an update bit. Set it!
@@ -170,7 +180,7 @@ uint8 Com_SendDynSignal(Com_SignalIdType SignalId, const void* SignalDataPtr, ui
 	if (Signal->ComTransferProperty == TRIGGERED) {
 		Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft = IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeNumberOfRepetitions + 1;
 	}
-    EI(state);
+    Irq_Restore(state);
 
     return E_OK;
 }
@@ -189,11 +199,11 @@ Std_ReturnType Com_TriggerTransmit(PduIdType ComTxPduId, PduInfoType *PduInfoPtr
 	 * COM395: This function must override the IPdu callouts used in Com_TriggerIPduTransmit();
 	 */
 	IPdu = GET_IPdu(ComTxPduId);
-    DI(state);
+    Irq_Save(state);
 
     memcpy(PduInfoPtr->SduDataPtr, IPdu->ComIPduDataPtr, IPdu->ComIPduSize);
 
-    EI(state);
+    Irq_Restore(state);
 
 	PduInfoPtr->SduLength = IPdu->ComIPduSize;
 	return E_OK;
@@ -204,12 +214,15 @@ Std_ReturnType Com_TriggerTransmit(PduIdType ComTxPduId, PduInfoType *PduInfoPtr
 Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 	const ComIPdu_type *IPdu;
 	Com_Arc_IPdu_type *Arc_IPdu;
-    INT state;
+    imask_t state;
+    uint8 i;
+    PduInfoType PduInfoPackage;
+    uint8 sizeWithoutDynSignal;
 	PDU_ID_CHECK(ComTxPduId, 0x17);
 
 	IPdu = GET_IPdu(ComTxPduId);
 	Arc_IPdu = GET_ArcIPdu(ComTxPduId);
-    DI(state);
+    Irq_Save(state);
 
     if( isPduBufferLocked(ComTxPduId) ) {
     	return E_NOT_OK;
@@ -224,14 +237,14 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 			if (!IPdu->ComIPduCallout(ComTxPduId, IPdu->ComIPduDataPtr)) {
 				// TODO Report error to DET.
 				// Det_ReportError();
-			    EI(state);
+			    Irq_Restore(state);
 				return E_NOT_OK;
 			}
 		}
-		PduInfoType PduInfoPackage;
+		PduInfoPackage;
 		PduInfoPackage.SduDataPtr = (uint8 *)IPdu->ComIPduDataPtr;
 		if (IPdu->ComIPduDynSignalRef != 0) {
-			uint8 sizeWithoutDynSignal = IPdu->ComIPduSize - (IPdu->ComIPduDynSignalRef->ComBitSize/8);
+			sizeWithoutDynSignal = IPdu->ComIPduSize - (IPdu->ComIPduDynSignalRef->ComBitSize/8);
 			PduInfoPackage.SduLength = sizeWithoutDynSignal + Arc_IPdu->Com_Arc_DynSignalLength;
 		} else {
 			PduInfoPackage.SduLength = IPdu->ComIPduSize;
@@ -240,7 +253,7 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 		// Send IPdu!
 		if (PduR_ComTransmit(IPdu->ArcIPduOutgoingId, &PduInfoPackage) == E_OK) {
 			// Clear all update bits for the contained signals
-			for (uint8 i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
+			for (i = 0; (IPdu->ComIPduSignalRef != NULL) && (IPdu->ComIPduSignalRef[i] != NULL); i++) {
 				if (IPdu->ComIPduSignalRef[i]->ComSignalArcUseUpdateBit) {
 					CLEARBIT(IPdu->ComIPduDataPtr, IPdu->ComIPduSignalRef[i]->ComUpdateBitPosition);
 				}
@@ -255,7 +268,7 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 	} else {
 		return E_NOT_OK;
 	}
-    EI(state);
+    Irq_Restore(state);
     return E_OK;
 
 }
@@ -266,11 +279,15 @@ void Com_TriggerIPduSend(PduIdType ComTxPduId) {
 
 //lint -esym(904, Com_RxIndication) //PC-Lint Exception of rule 14.7
 void Com_RxIndication(PduIdType ComRxPduId, const PduInfoType* PduInfoPtr) {
-	PDU_ID_CHECK(ComRxPduId, 0x14);
-
-	const ComIPdu_type *IPdu = GET_IPdu(ComRxPduId);
+	
+	/*const*/ComIPdu_type *IPdu = GET_IPdu(ComRxPduId);
 	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(ComRxPduId);
 	imask_t state;
+	
+	PDU_ID_CHECK(ComRxPduId, 0x14);
+
+	IPdu = GET_IPdu(ComRxPduId);
+	Arc_IPdu = GET_ArcIPdu(ComRxPduId);
 	Irq_Save(state);
 
 	// If Ipdu is stopped
@@ -300,11 +317,15 @@ void Com_RxIndication(PduIdType ComRxPduId, const PduInfoType* PduInfoPtr) {
 }
 
 void Com_TpRxIndication(PduIdType PduId, NotifResultType Result) {
+    /*const*/ ComIPdu_type *IPdu;
+    Com_Arc_IPdu_type *Arc_IPdu;
+    imask_t state;
+    
 	PDU_ID_CHECK(PduId, 0x14);
 
-	const ComIPdu_type *IPdu = GET_IPdu(PduId);
-	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(PduId);
-	imask_t state;
+	IPdu = GET_IPdu(PduId);
+	Arc_IPdu = GET_ArcIPdu(PduId);
+	
 
 	Irq_Save(state);
 
@@ -330,12 +351,12 @@ void Com_TpRxIndication(PduIdType PduId, NotifResultType Result) {
 }
 
 void Com_TpTxConfirmation(PduIdType PduId, NotifResultType Result) {
-	INT state;
+	imask_t state;
 	PDU_ID_CHECK(PduId, 0x15);
 	(void)Result; // touch	
-	DI(state);
+	Irq_Save(state);
 	UnlockTpBuffer(PduId);
-	EI(state);
+	Irq_Restore(state);
 }
 void Com_TxConfirmation(PduIdType ComTxPduId) {
 	PDU_ID_CHECK(ComTxPduId, 0x15);
@@ -349,18 +370,17 @@ Std_ReturnType Com_SendSignalGroup(Com_SignalGroupIdType SignalGroupId) {
 	const ComSignal_type * Signal = GET_Signal(SignalGroupId);
 	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(Signal->ComIPduHandleId);
 	const ComIPdu_type *IPdu = GET_IPdu(Signal->ComIPduHandleId);
-    INT irq_state;
-    
+    imask_t irq_state;
+    uint8 i;
+    // Copy shadow buffer to Ipdu data space
+	const ComGroupSignal_type *groupSignal;
 	if (isPduBufferLocked(getPduId(IPdu))) {
 		return COM_BUSY;
 	}
-
-	// Copy shadow buffer to Ipdu data space
-	const ComGroupSignal_type *groupSignal;
 	
 
-	DI(irq_state);
-	for (uint8 i = 0; Signal->ComGroupSignal[i] != NULL; i++) {
+	Irq_Save(irq_state);
+	for (i = 0; Signal->ComGroupSignal[i] != NULL; i++) {
 		groupSignal = Signal->ComGroupSignal[i];
 
 		Com_WriteGroupSignalDataToPdu(Signal->ComHandleId, groupSignal->ComHandleId, Signal->Com_Arc_ShadowBuffer);
@@ -375,7 +395,7 @@ Std_ReturnType Com_SendSignalGroup(Com_SignalGroupIdType SignalGroupId) {
 	if (Signal->ComTransferProperty == TRIGGERED) {
 		Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduNumberOfRepetitionsLeft = IPdu->ComTxIPdu.ComTxModeTrue.ComTxModeNumberOfRepetitions + 1;
 	}
-	EI(irq_state);
+	Irq_Restore(irq_state);
 
 	return E_OK;
 }

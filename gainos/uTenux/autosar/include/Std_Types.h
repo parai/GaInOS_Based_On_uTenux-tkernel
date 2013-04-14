@@ -115,5 +115,13 @@ typedef INT Std_ReturnType;     /* Should be the same type with "ER",As based on
 #define STD_ON			0x01
 #define STD_OFF			0x00
 
+#define AR_ASSERT(_cs)                          \
+    do{                                         \
+        if(!_cs)                                \
+        {                                       \
+            for(;;);                            \
+        }                                       \
+    }while(0)
+
 #endif /* _STD_TYPES_H_ */
 

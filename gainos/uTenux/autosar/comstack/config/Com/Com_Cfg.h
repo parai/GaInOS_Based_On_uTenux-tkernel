@@ -43,7 +43,9 @@
 
 #define CPU_ENDIANESS COM_BIG_ENDIAN
 
-#define ComConfigurationTimeBase 0.0
+#define ComConfigurationTimeBase 0
 #define ComVersionInfoApi
+
+#define USE_PDUR
 
 #endif /*COM_CFG_H*/
