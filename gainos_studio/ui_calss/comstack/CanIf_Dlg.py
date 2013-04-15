@@ -235,6 +235,7 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
     def refreshRxPduTab(self, obj):
         self.curobj=obj;
         self.leRxPduName.setText(obj.name[3:]);
+        self.leRxPduIdMask.setText(obj.canIdMask);
         self.cmbxRxPduCanType.setCurrentIndex(self.cmbxRxPduCanType.findText(obj.canType));
         self.spbxRxPduCanId.setValue(obj.canId);
         self.cmbxRxPduCanIdType.setCurrentIndex(self.cmbxRxPduCanIdType.findText(obj.canIdType));
@@ -531,7 +532,12 @@ class CanIf_Dlg(QDialog, Ui_CanIf_Dlg):
     def on_cmbxRxPduCanIdType_activated(self, p0):
         if(self.curobj!=None):
             self.curobj.canIdType=p0;
-    
+ 
+    @pyqtSignature("QString")
+    def on_leRxPduIdMask_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.canIdMask=p0;
+
     @pyqtSignature("int")
     def on_spbxRxPduDlc_valueChanged(self, p0):
         if(self.curobj!=None):

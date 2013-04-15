@@ -69,6 +69,7 @@ class CanIfRxPdu():
         self.type='rxPdu'
         self.canType='CANIF_PDU_TYPE_STATIC';
         self.canId=0;
+        self.canIdMask='0x7FF';
         self.canIdType='CANIF_CAN_ID_TYPE_11';
         self.dlc=8;
         self.indicationType='CAN_PDUR';
@@ -185,6 +186,7 @@ class CanIfObj():
         attrib+='type="%s" '%(pdu.type);
         attrib+='canType="%s" '%(pdu.canType);
         attrib+='canId="%s" '%(pdu.canId);
+        attrib+='canIdMask="%s" '%(pdu.canIdMask);
         attrib+='canIdType="%s" '%(pdu.canIdType);
         attrib+='dlc="%s" '%(pdu.dlc);
         attrib+='indicationType="%s" '%(pdu.indicationType);
@@ -263,6 +265,7 @@ class CanIfObj():
         pdu.type='rxPdu'
         pdu.canType=node.attrib['canType'];
         pdu.canId=int(node.attrib['canId']);
+        pdu.canIdMask=node.attrib['canIdMask'];
         pdu.canIdType=node.attrib['canIdType'];
         pdu.dlc=int(node.attrib['dlc']);
         pdu.indicationType=node.attrib['indicationType'];
@@ -538,10 +541,11 @@ class CanIfObj():
                     rxpdus+='\t\t/*CanIfCanRxPduHrhRef =*/ &CanIfHrhConfigData_%s[%s],\n'%(channel.name, index);
                     rxpdus+='\t\t/*PduIdRef =*/ NULL,\n';
                     rxpdus+='\t\t/*CanIfSoftwareFilterType =*/ CANIF_SOFTFILTER_TYPE_MASK,\n';
-                    if(pdu.canIdType=='CANIF_CAN_ID_TYPE_11'):
-                        rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ 0x7FF\n';
-                    else:
-                        rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ 0x1FFFFFFF\n';#29
+                    rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ %s\n'%(pdu.canIdMask);
+                    #if(pdu.canIdType=='CANIF_CAN_ID_TYPE_11'):
+                    #    rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ 0x7FF\n';
+                    #else:
+                    #    rxpdus+='\t\t/*CanIfCanRxPduCanIdMask =*/ 0x1FFFFFFF\n';#29
                     rxpdus+='\t},\n';
                 index+=1;
         rxpdus+='};\n\n'

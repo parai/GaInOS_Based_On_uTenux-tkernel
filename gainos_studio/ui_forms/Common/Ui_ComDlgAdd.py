@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\Common\ComDlgAdd.ui'
 #
-# Created: Sat Apr 13 17:27:48 2013
+# Created: Mon Apr 15 22:06:02 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

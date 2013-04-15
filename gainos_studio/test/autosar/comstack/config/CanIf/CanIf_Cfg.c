@@ -236,7 +236,7 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfCanRxPduHrhRef =*/ &CanIfHrhConfigData_vCanIf_Channel1[0],
 		/*PduIdRef =*/ NULL,
 		/*CanIfSoftwareFilterType =*/ CANIF_SOFTFILTER_TYPE_MASK,
-		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
+		/*CanIfCanRxPduCanIdMask =*/ 0x3
 	},
 	{
 		/*CanIfCanRxPduId =*/ CANTP_RX_vEcuC_Pdu4,

@@ -101,7 +101,7 @@
 <CanIfHrhList>
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_0_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdType="CANIF_CAN_ID_TYPE_11" dlc="0" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu0" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="1" canIdMask="0x7FF" canIdType="CANIF_CAN_ID_TYPE_11" dlc="0" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
@@ -119,7 +119,7 @@
 <CanIfHrhList>
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_1_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu1" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="0" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu1" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdMask="0x3" canIdType="CANIF_CAN_ID_TYPE_11" dlc="0" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
@@ -137,7 +137,7 @@
 <CanIfHrhList>
 <CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHrh" softwareFilter="True" >
 <CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
+<CanIfRxPdu name="RX_vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="4" canIdMask="0x7FF" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_TP" userIndication="CanIf_UserRxIndication" >
 </CanIfRxPdu>
 </CanIfRxPduList>
 </CanIfHrh>
