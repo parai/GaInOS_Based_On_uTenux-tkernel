@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-14 05:44:29 $
- * $Revision: 1.1 $
+ * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
+ * $Revision: 1.2 $
  */
 
 
@@ -112,7 +112,11 @@ void Com_MainFunctionTx(void) {
 	//DEBUG_PRINT0(DEBUG_MEDIUM, "Com_MainFunctionTx() excecuting\n");
 	// Decrease timers.
 	
-	for ( i= 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+#if 0
+	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+#else /*So I changed it to ...*/
+    for(i = 0;i < COM_N_IPDUS;i++){
+#endif
 	    Com_Arc_IPdu_type *Arc_IPdu;
 		IPdu = &ComConfig->ComIPdu[i];
 		Arc_IPdu= GET_ArcIPdu(i);

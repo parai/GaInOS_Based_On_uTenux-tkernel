@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-14 05:44:28 $
- * $Revision: 1.1 $
+ * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
+ * $Revision: 1.2 $
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
@@ -58,7 +58,7 @@ uint8 Com_SendSignal(Com_SignalIdType SignalId, const void *SignalDataPtr) {
 	if (isPduBufferLocked(getPduId(IPdu))) {
 		return COM_BUSY;
 	}
-	//DEBUG(DEBUG_LOW, "Com_SendSignal: id %d, nBytes %d, BitPosition %d, intVal %d\n", SignalId, nBytes, signal->ComBitPosition, (uint32)*(uint8 *)SignalDataPtr);
+	//DEBUG_PRINT4(DEBUG_LOW, "Com_SendSignal: id %d, nBytes %d, BitPosition %d, intVal %d\n", SignalId, nBytes, signal->ComBitPosition, (uint32)*(uint8 *)SignalDataPtr);
 
 	
 	Irq_Save(irq_state);
@@ -87,7 +87,7 @@ uint8 Com_ReceiveSignal(Com_SignalIdType SignalId, void* SignalDataPtr) {
 	uint8 r = E_OK;
 	const void* pduDataPtr;
 	VALIDATE_SIGNAL(SignalId, 0x0b, E_NOT_OK);
-	DEBUG(DEBUG_LOW, "Com_ReceiveSignal: SignalId %d\n", SignalId);
+	DEBUG_PRINT1(DEBUG_LOW, "Com_ReceiveSignal: SignalId %d\n", SignalId);
 
 	Signal = GET_Signal(SignalId);
 	IPdu = GET_IPdu(Signal->ComIPduHandleId);	
@@ -189,7 +189,7 @@ Std_ReturnType Com_TriggerTransmit(PduIdType ComTxPduId, PduInfoType *PduInfoPtr
 	const ComIPdu_type *IPdu;
 
     INT state;
-	PDU_ID_CHECK(ComTxPduId, 0x13, E_NOT_OK);
+	PDU_ID_CHECK(ComTxPduId,0x13,E_NOT_OK);
 	/*
 	 * COM260: This function must not check the transmission mode of the I-PDU
 	 * since it should be possible to use it regardless of the transmission mode.
@@ -218,7 +218,7 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
     uint8 i;
     PduInfoType PduInfoPackage;
     uint8 sizeWithoutDynSignal;
-	PDU_ID_CHECK(ComTxPduId, 0x17);
+	PDU_ID_CHECK(ComTxPduId, 0x17,E_NOT_OK);
 
 	IPdu = GET_IPdu(ComTxPduId);
 	Arc_IPdu = GET_ArcIPdu(ComTxPduId);
@@ -284,7 +284,7 @@ void Com_RxIndication(PduIdType ComRxPduId, const PduInfoType* PduInfoPtr) {
 	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(ComRxPduId);
 	imask_t state;
 	
-	PDU_ID_CHECK(ComRxPduId, 0x14);
+	PDU_ID_CHECK_NO_RV(ComRxPduId, 0x14);
 
 	IPdu = GET_IPdu(ComRxPduId);
 	Arc_IPdu = GET_ArcIPdu(ComRxPduId);
@@ -321,7 +321,7 @@ void Com_TpRxIndication(PduIdType PduId, NotifResultType Result) {
     Com_Arc_IPdu_type *Arc_IPdu;
     imask_t state;
     
-	PDU_ID_CHECK(PduId, 0x14);
+	PDU_ID_CHECK_NO_RV(PduId, 0x14);
 
 	IPdu = GET_IPdu(PduId);
 	Arc_IPdu = GET_ArcIPdu(PduId);
@@ -352,14 +352,14 @@ void Com_TpRxIndication(PduIdType PduId, NotifResultType Result) {
 
 void Com_TpTxConfirmation(PduIdType PduId, NotifResultType Result) {
 	imask_t state;
-	PDU_ID_CHECK(PduId, 0x15);
+	PDU_ID_CHECK_NO_RV(PduId, 0x15);
 	(void)Result; // touch	
 	Irq_Save(state);
 	UnlockTpBuffer(PduId);
 	Irq_Restore(state);
 }
 void Com_TxConfirmation(PduIdType ComTxPduId) {
-	PDU_ID_CHECK(ComTxPduId, 0x15);
+	PDU_ID_CHECK_NO_RV(ComTxPduId, 0x15);
 
 	(void)ComTxPduId; // Nothing to be done. This is just to avoid Lint warning.
 }

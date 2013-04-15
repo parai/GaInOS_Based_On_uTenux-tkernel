@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-14 13:14:14 $
- * $Revision: 1.2 $
+ * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
+ * $Revision: 1.3 $
  */
 
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
@@ -79,8 +79,12 @@ void Com_Init(const Com_ConfigType *config ) {
 	}
 
 	// Initialize each IPdu
+#if 0
+	//Fucking bad code as always need a dummy ComIPdu config with Com_Arc_EOL equal to TRUE.
 	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
-
+#else /*So I changed it to ...*/
+    for(i = 0;i < COM_N_IPDUS;i++){
+#endif
 		const ComIPdu_type *IPdu = GET_IPdu(i);
 		Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(i);
 		Arc_IPdu->Com_Arc_DynSignalLength = 0;
@@ -189,7 +193,11 @@ void Com_DeInit( void ) {
 void Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId,boolean Initialize) {
     uint16 i;
 	(void)Initialize; // Nothing to be done. This is just to avoid Lint warning.
+#if 0
 	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+#else /*So I changed it to ...*/
+    for(i = 0;i < COM_N_IPDUS;i++){
+#endif
 		if (ComConfig->ComIPdu[i].ComIPduGroupRef == IpduGroupId) {
 			Com_Arc_Config.ComIPdu[i].Com_Arc_IpduStarted = 1;
 		}
@@ -198,7 +206,11 @@ void Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId,boolean Initialize) {
 
 void Com_IpduGroupStop(Com_PduGroupIdType IpduGroupId) {
     uint16 i;
+#if 0
 	for (i = 0; !ComConfig->ComIPdu[i].Com_Arc_EOL; i++) {
+#else /*So I changed it to ...*/
+    for(i = 0;i < COM_N_IPDUS;i++){
+#endif
 		if (ComConfig->ComIPdu[i].ComIPduGroupRef == IpduGroupId) {
 			Com_Arc_Config.ComIPdu[i].Com_Arc_IpduStarted = 0;
 		}

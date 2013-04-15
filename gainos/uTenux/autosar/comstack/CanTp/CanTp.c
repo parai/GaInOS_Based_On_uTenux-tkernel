@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-13 13:47:00 $
- * $Revision: 1.5 $
+ * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
+ * $Revision: 1.6 $
  */
 
 /** @addtogroup TBD
@@ -1473,7 +1473,7 @@ void CanTp_MainFunction(void)
 				break;
 			}
 			case TX_WAIT_FLOW_CONTROL:
-				//DEBUG( DEBUG_MEDIUM, "Waiting for flow control!\n");
+				//DEBUG_PRINT0( DEBUG_MEDIUM, "Waiting for flow control!\n");
 				TIMER_DECREMENT(txRuntimeListItem->iso15765.stateTimeoutCount);
 				if (txRuntimeListItem->iso15765.stateTimeoutCount == 0) {
 					DEBUG_PRINT0( DEBUG_MEDIUM, "State TX_WAIT_FLOW_CONTROL timed out!\n");

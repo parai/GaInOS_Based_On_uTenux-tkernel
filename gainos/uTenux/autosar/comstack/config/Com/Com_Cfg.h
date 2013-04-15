@@ -24,7 +24,7 @@
 #define COM_MODULE_ID 20
 #define COM_INSTANCE_ID 1
 
-#define COM_DEV_ERROR_DETECT  STD_OFF
+#define COM_DEV_ERROR_DETECT  STD_ON
 
 #define COM_N_IPDUS 2
 #define COM_N_SIGNALS 2

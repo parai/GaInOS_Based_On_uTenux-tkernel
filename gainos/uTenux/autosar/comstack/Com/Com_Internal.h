@@ -40,27 +40,32 @@ extern Com_Arc_Config_type Com_Arc_Config;
 
 #define DET_REPORTERROR(_x,_y,_z,_q) Det_ReportError(_x,_y,_z,_q)
 
-
 // Define macro for parameter check.
-//#define PDU_ID_CHECK(PduId,ApiId,...) \
 #define PDU_ID_CHECK(PduId,ApiId,_rv) \
 	if (PduId >= COM_N_IPDUS) { \
 		DET_REPORTERROR(COM_MODULE_ID, COM_INSTANCE_ID, ApiId, COM_INVALID_PDU_ID); \
 		return _rv; \
-	} \
+	} 
+	
+#define PDU_ID_CHECK_NO_RV(PduId,ApiId) \
+	if (PduId >= COM_N_IPDUS) { \
+		DET_REPORTERROR(COM_MODULE_ID, COM_INSTANCE_ID, ApiId, COM_INVALID_PDU_ID); \
+		return; \
+	}	
 
 #define VALIDATE_SIGNAL(SignalId, ApiId,_rv) \
 	if (SignalId >= COM_N_SIGNALS) { \
 		DET_REPORTERROR(COM_MODULE_ID, COM_INSTANCE_ID, ApiId, COM_INVALID_SIGNAL_ID); \
 		return _rv; \
-	} \
-
-
+	}
 #else
 
 #define DET_REPORTERROR(_x,_y,_z,_q)
 
 #define PDU_ID_CHECK(PduId,ApiId,_rv)
+
+#define PDU_ID_CHECK_NO_RV(PduId,ApiId)
+
 #define VALIDATE_SIGNAL(PduId, ApiId,_rv)
 #endif
 

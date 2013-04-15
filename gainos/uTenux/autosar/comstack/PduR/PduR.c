@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-13 02:19:46 $
- * $Revision: 1.3 $
+ * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
+ * $Revision: 1.4 $
  */
 
 
@@ -86,7 +86,7 @@ void PduR_Init (const PduR_PBConfigType* ConfigPtr) {
 		/*if (failed) {
 			// TODO Report PDUR_E_INIT_FAILED to Dem.
 			PduRState = PDUR_REDUCED;
-			DEBUG(DEBUG_LOW,"--Initialization of PDU router failed--\n");
+			DEBUG_PRINT0(DEBUG_LOW,"--Initialization of PDU router failed--\n");
 		}*/
 
 		// The initialization succeeded!
