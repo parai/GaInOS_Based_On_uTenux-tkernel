@@ -583,8 +583,8 @@ EXPORT Can_ReturnType Can_Hw_Write( Can_HwHandleType/* Can_HTHType */ hth, Can_P
     {
         if(0xFF == Can_TxPrio[hth]) /* already reach the max value allowed */
         {
-            //rv = CAN_BUSY; /* wait untill all is free to sync*/
-            //fb=0;
+            /* wait untill all is free to sync*/
+            EI(imask);
         	return CAN_BUSY;
         }
     }

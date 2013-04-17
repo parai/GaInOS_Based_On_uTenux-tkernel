@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
- * $Revision: 1.2 $
+ * from Date:2013-04-08 to $Date: 2013-04-17 16:00:59 $
+ * $Revision: 1.3 $
  */
 
 
@@ -45,7 +45,11 @@
 void Com_MainFunctionRx(void) {	
 	uint16 pduId;
 	//DEBUG_PRINT0(DEBUG_MEDIUM, "Com_MainFunctionRx() excecuting\n");
+#if 0 	
 	for (pduId = 0; !ComConfig->ComIPdu[pduId].Com_Arc_EOL; pduId++) {
+#else
+    for (pduId = 0; pduId < COM_N_IPDUS; pduId++) {
+#endif	
 		boolean pduUpdated = FALSE;
 		const ComIPdu_type *IPdu = GET_IPdu(pduId);
 		Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(pduId);

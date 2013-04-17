@@ -97,7 +97,7 @@
     </size>
    </property>
    <property name="title">
-    <string>CanIf Entities</string>
+    <string>CanTp Entities</string>
    </property>
    <widget class="QTreeWidget" name="trCanTpCfg">
     <property name="geometry">

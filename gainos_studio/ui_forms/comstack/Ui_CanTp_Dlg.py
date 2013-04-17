@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanTp_Dlg.ui'
 #
-# Created: Mon Apr 15 22:06:03 2013
+# Created: Tue Apr 16 22:53:34 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -405,7 +405,7 @@ class Ui_CanTp_Dlg(object):
         self.label_36.setText(QtGui.QApplication.translate("CanTp_Dlg", "ms", None, QtGui.QApplication.UnicodeUTF8))
         self.label_35.setText(QtGui.QApplication.translate("CanTp_Dlg", "Main Function Period:", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxDevErr.setText(QtGui.QApplication.translate("CanTp_Dlg", "DevErrorDetection", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_2.setTitle(QtGui.QApplication.translate("CanTp_Dlg", "CanIf Entities", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_2.setTitle(QtGui.QApplication.translate("CanTp_Dlg", "CanTp Entities", None, QtGui.QApplication.UnicodeUTF8))
         self.trCanTpCfg.headerItem().setText(0, QtGui.QApplication.translate("CanTp_Dlg", "CanTp", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.trCanTpCfg.isSortingEnabled()
         self.trCanTpCfg.setSortingEnabled(False)

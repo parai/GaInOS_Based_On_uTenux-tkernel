@@ -145,5 +145,7 @@
 </CanIfChannel>
 </CanIfChannelList>
 </AutosarObj>
+<AutosarObj name="Com">
+</AutosarObj>
 </AutosarList>
 </GaInOsCfg>

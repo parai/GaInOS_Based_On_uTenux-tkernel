@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-04-13, 18:24:55 -->
+<!-- Saved: 2013-04-17, 23:58:24 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -41,6 +41,9 @@
     <Source>ui_forms/comstack/Ui_CanTp_Dlg.py</Source>
     <Source>ui_calss/comstack/CanTp_Dlg.py</Source>
     <Source>calss/comstack/CanTpCfg.py</Source>
+    <Source>ui_forms/comstack/Ui_Com_Dlg.py</Source>
+    <Source>ui_calss/comstack/Com_Dlg.py</Source>
+    <Source>calss/comstack/ComCfg.py</Source>
   </Sources>
   <Forms>
     <Form>ui_forms/DlgArAdd.ui</Form>
@@ -51,6 +54,7 @@
     <Form>ui_forms/comstack/EcuC_Dlg.ui</Form>
     <Form>ui_forms/comstack/CanIf_Dlg.ui</Form>
     <Form>ui_forms/comstack/CanTp_Dlg.ui</Form>
+    <Form>ui_forms/comstack/Com_Dlg.ui</Form>
   </Forms>
   <Translations>
   </Translations>

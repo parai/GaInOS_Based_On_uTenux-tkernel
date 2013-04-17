@@ -49,6 +49,9 @@ TASK(vTaskInit)
 	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
 	CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
 	
+	// Make sure that the right PDU-groups are ready for communication.
+	Com_IpduGroupStart(ComPduGroup, 0);
+	
 	//启动CanTp周期任务定时器，周期激活任务 ID_vTaskCanTpMainFunction
 	//(void)SetRelAlarm(ID_vAlarmCanTp,1,1);//1个Tick 4ms
 	(void)ActivateTask(ID_vTaskCanTpMainFunction);

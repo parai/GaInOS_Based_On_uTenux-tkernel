@@ -217,10 +217,17 @@ Com_Arc_Signal_type Com_Arc_Signal[] = {
 	
 };
 
+#if(COM_N_GROUP_SIGNALS > 0)
+Com_Arc_GroupSignal_type Com_Arc_GroupSignal[COM_N_GROUP_SIGNALS];
+#endif
 
 Com_Arc_Config_type Com_Arc_Config = {
 	/* .ComIPdu = */ Com_Arc_IPdu,
 	/* .ComSignal = */ Com_Arc_Signal,
-	/* .ComGroupSignal = */ NULL
+#if(COM_N_GROUP_SIGNALS > 0)	
+	/* .ComGroupSignal = */ Com_Arc_GroupSignal
+#else
+    /* .ComGroupSignal = */ NULL
+#endif    	
 };
 

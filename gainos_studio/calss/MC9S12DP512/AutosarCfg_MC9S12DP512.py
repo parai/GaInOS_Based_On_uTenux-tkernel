@@ -49,6 +49,7 @@ from Can_MC9S12DP512 import CanObj_MC9S12DP512
 from CanIfCfg import CanIfObj
 from EcuCcfg import EcuCObj
 from CanTpCfg import CanTpObj
+from ComCfg import ComObj
 
 ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
                        'Can':CanObj_MC9S12DP512, 
@@ -56,7 +57,7 @@ ArObjDict_MC9S12DP512={'Adc':UnimplementError,
                        'CanNm':UnimplementError,
                        'CanTp':CanTpObj,
                        'CanSm':UnimplementError,
-                       'Com':UnimplementError,
+                       'Com':ComObj,
                        'Dio':UnimplementError,
                        'Eep':UnimplementError,
                        'EcuC':EcuCObj, 
