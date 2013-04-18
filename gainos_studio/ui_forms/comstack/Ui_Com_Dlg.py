@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\Com_Dlg.ui'
 #
-# Created: Wed Apr 17 23:56:51 2013
+# Created: Thu Apr 18 23:31:56 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -575,7 +575,6 @@ class Ui_Com_Dlg(object):
         self.cmbxGrpSignalType.addItem(_fromUtf8(""))
         self.cmbxGrpSignalType.addItem(_fromUtf8(""))
         self.cmbxGrpSignalType.addItem(_fromUtf8(""))
-        self.cmbxGrpSignalType.addItem(_fromUtf8(""))
         self.horizontalLayout_40.addWidget(self.cmbxGrpSignalType)
         self.verticalLayout_10.addLayout(self.horizontalLayout_40)
         self.horizontalLayout_41 = QtGui.QHBoxLayout()
@@ -641,6 +640,7 @@ class Ui_Com_Dlg(object):
         self.cmbxPduSignalProcessing.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "DEFERRED", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_4.setTitle(QtGui.QApplication.translate("Com_Dlg", "Tx options", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("Com_Dlg", "Minimum delay factor:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxMinDelayFactor.setToolTip(QtGui.QApplication.translate("Com_Dlg", "uint in ms", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("Com_Dlg", "Default value for unused areas:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("Com_Dlg", "Tx Mode:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxPduTxMode.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "DIRECT", None, QtGui.QApplication.UnicodeUTF8))
@@ -649,19 +649,26 @@ class Ui_Com_Dlg(object):
         self.cmbxPduTxMode.setItemText(3, QtGui.QApplication.translate("Com_Dlg", "PERIODIC", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("Com_Dlg", "Number of repetitions:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_11.setText(QtGui.QApplication.translate("Com_Dlg", "Time offset factor:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxTimeOffsetFactor.setToolTip(QtGui.QApplication.translate("Com_Dlg", "uint in ms", None, QtGui.QApplication.UnicodeUTF8))
         self.label_12.setText(QtGui.QApplication.translate("Com_Dlg", "Time period factor:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxTimePeriodFactor.setToolTip(QtGui.QApplication.translate("Com_Dlg", "uint in ms", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Com_Dlg", "Name:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Com_Dlg", "Global Pdu:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("Com_Dlg", "Direction:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxPduDirection.setToolTip(QtGui.QApplication.translate("Com_Dlg", "Shoud be consistent with the Global Pdu,if TX,SEND; if RX,RECEIVE.", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxPduDirection.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "SEND", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxPduDirection.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "RECEIVE", None, QtGui.QApplication.UnicodeUTF8))
         self.label_13.setText(QtGui.QApplication.translate("Com_Dlg", "Pdu Group:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("Com_Dlg", "Callout:", None, QtGui.QApplication.UnicodeUTF8))
+        self.lePduCallout.setToolTip(QtGui.QApplication.translate("Com_Dlg", "If unused,input NULL", None, QtGui.QApplication.UnicodeUTF8))
         self.tabCfg.setTabText(self.tabCfg.indexOf(self.tab_2), QtGui.QApplication.translate("Com_Dlg", "General I-PDU", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_5.setTitle(QtGui.QApplication.translate("Com_Dlg", "Data Configuration", None, QtGui.QApplication.UnicodeUTF8))
         self.label_18.setText(QtGui.QApplication.translate("Com_Dlg", "Position(bit):", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxSignalPosition.setToolTip(QtGui.QApplication.translate("Com_Dlg", "Must be the times of eight.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("Com_Dlg", "Position(Signal LSB):", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("Com_Dlg", "Size(bits):", None, QtGui.QApplication.UnicodeUTF8))
+        self.spbxSignalSize.setToolTip(QtGui.QApplication.translate("Com_Dlg", "Range 0 to 63.\n"
+"Range 0 to 4095 for uint8_n signal types", None, QtGui.QApplication.UnicodeUTF8))
         self.label_21.setText(QtGui.QApplication.translate("Com_Dlg", "Initial value:", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxSignalUpdateBitPosition.setText(QtGui.QApplication.translate("Com_Dlg", "Update bit position:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_6.setTitle(QtGui.QApplication.translate("Com_Dlg", "Timeouts and Notifications", None, QtGui.QApplication.UnicodeUTF8))
@@ -674,6 +681,7 @@ class Ui_Com_Dlg(object):
         self.label_26.setText(QtGui.QApplication.translate("Com_Dlg", "Notification on timeout(function):", None, QtGui.QApplication.UnicodeUTF8))
         self.label_14.setText(QtGui.QApplication.translate("Com_Dlg", "Name:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("Com_Dlg", "Type:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxSignalType.setToolTip(QtGui.QApplication.translate("Com_Dlg", "for UINT8_DYN type, the signal must be the last item and no signal group is allowed for the signal owner IPDU.", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalType.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "BOOLEAN", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalType.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "UINT8", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalType.setItemText(2, QtGui.QApplication.translate("Com_Dlg", "UINT16", None, QtGui.QApplication.UnicodeUTF8))
@@ -684,10 +692,12 @@ class Ui_Com_Dlg(object):
         self.cmbxSignalType.setItemText(7, QtGui.QApplication.translate("Com_Dlg", "SINT16", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalType.setItemText(8, QtGui.QApplication.translate("Com_Dlg", "SINT32", None, QtGui.QApplication.UnicodeUTF8))
         self.label_16.setText(QtGui.QApplication.translate("Com_Dlg", "Endianess:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxSignalEndianess.setToolTip(QtGui.QApplication.translate("Com_Dlg", "if type is UINT8_DYN,then only COM_OPAQUE is allowed.", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalEndianess.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "COM_BIG_ENDIAN", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalEndianess.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "COM_LITTLE_ENDIAN", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalEndianess.setItemText(2, QtGui.QApplication.translate("Com_Dlg", "COM_OPAQUE", None, QtGui.QApplication.UnicodeUTF8))
         self.label_17.setText(QtGui.QApplication.translate("Com_Dlg", "Transfer Property:", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxSignalTxProperty.setToolTip(QtGui.QApplication.translate("Com_Dlg", "When this signal is asigned to a RX IPdu,configure transfer property has no meaning.", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalTxProperty.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "PENDING", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxSignalTxProperty.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "TRIGGERED", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxAutoSysSignalMap.setText(QtGui.QApplication.translate("Com_Dlg", "Override automatic system \n"
@@ -721,10 +731,9 @@ class Ui_Com_Dlg(object):
         self.cmbxGrpSignalType.setItemText(2, QtGui.QApplication.translate("Com_Dlg", "UINT16", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxGrpSignalType.setItemText(3, QtGui.QApplication.translate("Com_Dlg", "UINT32", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxGrpSignalType.setItemText(4, QtGui.QApplication.translate("Com_Dlg", "UINT8_N", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxGrpSignalType.setItemText(5, QtGui.QApplication.translate("Com_Dlg", "UINT8_DYN", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxGrpSignalType.setItemText(6, QtGui.QApplication.translate("Com_Dlg", "SINT8", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxGrpSignalType.setItemText(7, QtGui.QApplication.translate("Com_Dlg", "SINT16", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxGrpSignalType.setItemText(8, QtGui.QApplication.translate("Com_Dlg", "SINT32", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxGrpSignalType.setItemText(5, QtGui.QApplication.translate("Com_Dlg", "SINT8", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxGrpSignalType.setItemText(6, QtGui.QApplication.translate("Com_Dlg", "SINT16", None, QtGui.QApplication.UnicodeUTF8))
+        self.cmbxGrpSignalType.setItemText(7, QtGui.QApplication.translate("Com_Dlg", "SINT32", None, QtGui.QApplication.UnicodeUTF8))
         self.label_37.setText(QtGui.QApplication.translate("Com_Dlg", "Endianess:", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxGrpSignalEndianess.setItemText(0, QtGui.QApplication.translate("Com_Dlg", "COM_BIG_ENDIAN", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxGrpSignalEndianess.setItemText(1, QtGui.QApplication.translate("Com_Dlg", "COM_LITTLE_ENDIAN", None, QtGui.QApplication.UnicodeUTF8))

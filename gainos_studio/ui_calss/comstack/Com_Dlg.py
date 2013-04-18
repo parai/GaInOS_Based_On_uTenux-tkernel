@@ -15,8 +15,14 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
     """
     Class documentation goes here.
     """
-    def __init__(self, cfg, parent = None):
+    def __init__(self, cfg, depinfo, parent = None):
+        """
+        depinfo[]: 
+        -> depinfo[0]: the info about the list configured in EcuC,
+        It is just obj<EcuCObj>;
+        """
         self.cfg=cfg;
+        self.depinfo = depinfo;
         self.curobj=None;
         self.curtree=None;       
         QDialog.__init__(self, parent)
@@ -28,11 +34,75 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.btnAdd2.setDisabled(True);
         self.btnDel.setDisabled(True);
 
+    def reloadTreeGui0(self, trindex, list):
+        tree=self.trComCfg.topLevelItem(trindex);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for obj in list:
+            item=QTreeWidgetItem(tree,QStringList(obj.name));
+            tree.addChild(item);
+
+    def reloadTreeGui1(self):
+        """加载IPDU"""
+        tree=self.trComCfg.topLevelItem(1);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for Ipdu in self.cfg.IPduList:
+            item=QTreeWidgetItem(tree,QStringList(Ipdu.name));
+            tree.addChild(item);
+            for sig in Ipdu.signalList:
+                item2=QTreeWidgetItem(item,QStringList(sig.name));
+                item.addChild(item2);
+            for sig in Ipdu.signalGroupList:
+                item2=QTreeWidgetItem(item,QStringList(sig.name));
+                item.addChild(item2);
+                for grpsig in sig.groupSignalList:
+                    item3=QTreeWidgetItem(item2,QStringList(grpsig.name));
+                    item2.addChild(item3); 
+
+    def reloadTreeGui(self):
+        self.reloadTreeGui0(0, self.cfg.IPduGroupList);
+        self.reloadTreeGui1();
+
     def initGui(self):
-        #self.reloadTreeGui();
+        self.reloadTreeGui();
         self.initButton();
+        #init General
+        self.cbxDevErr.setChecked(self.cfg.General.DevErrorDetection);
+        #init Tab
+        self.initTab();
+
+    def initTab(self):
         self.disableAllTab();
-    
+        #init spinbox range
+        self.spbxMinDelayFactor.setRange(0, 65535);
+        self.spbxDefaultValueForUnusedAreas.setRange(0, 0xFF);
+        self.spbxNumberOfRepetitions.setRange(0, 0xFF);
+        self.spbxTimeOffsetFactor.setRange(0, 65535);
+        self.spbxTimePeriodFactor.setRange(0, 65535);
+        self.spbxSignalPosition.setRange(0, 2031);
+        self.spbxSignalLSBPosition.setRange(0, 2031);
+        self.spbxSignalLSBPosition.setDisabled(True);
+        self.spbxSignalSize.setRange(0, 4095);
+        self.spbxSignalUpdateBitPosition.setRange(0, 2031);
+        self.spbxSignalTimeoutFactor.setRange(0, 65535);
+        self.spbxSignalFirstTimeout.setRange(0, 65535);
+        self.spbxSignalGrpPosition.setRange(0, 2031);
+        self.spbxSignalGrpSize.setRange(0, 4095);
+        self.spbxSignalGrpUpdateBitPosition.setRange(0, 2031);
+        self.spbxSignalGrpTimeoutFactor.setRange(0, 65535);
+        self.spbxGrpSignalPosition.setRange(0, 2031);
+        self.spbxGrpSignalLSBPosition.setRange(0, 2031);
+        self.spbxGrpSignalLSBPosition.setDisabled(True);
+        self.spbxGrpSignalSize.setRange(0, 4095);
+        #init IPDU
+        self.cmbxGblPdu.clear();
+        for pdu in self.depinfo[0].cfg.pduList:
+            self.cmbxGblPdu.addItem('TX_'+pdu.name);
+            self.cmbxGblPdu.addItem('RX_'+pdu.name);
+
     def disableAllTab(self):
         """禁止所有的Tab页"""
         for i in  range(0, 5):
@@ -80,8 +150,8 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
             return;
         id = len(self.curobj.signalList);
         name='%s_Signal%s'%(self.curobj.name, id);
-        item=QTreeWidgetItem(self.curtree,QStringList(name));
-        self.curtree.addChild(item);
+        item=QTreeWidgetItem(None,QStringList(name));
+        self.curtree.insertChild(id, item);
         self.curtree.setExpanded(True);
         obj=ComSignal(name);
         self.curobj.signalList.append(obj);
@@ -128,14 +198,35 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
 
     @pyqtSignature("")
     def on_btnDel_clicked(self):
+        parent = self.curtree.parent();
+        index = parent.indexOfChild(self.curtree);
+        parent.takeChild(index);
+        text=self.btnDel.text();
         if(text == 'Del Pdu Group'):
-            return
+            self.delObj(self.cfg.IPduGroupList);
+        elif(text == 'Del IPdu'):
+            self.delObj(self.cfg.IPduList);
         elif(text == 'Del Signal'):
-            return
+            pname = parent.text(0);
+            Ipdu = self.findObj(self.cfg.IPduList, pname);
+            self.delObj(Ipdu.signalList);
         elif(text == 'Del Group Signal'):
-            return;
+            ppname = parent.parent().text(0);
+            pname = parent.text(0);
+            Ipdu = self.findObj(self.cfg.IPduList, ppname);
+            sig = self.findObj(Ipdu.signalGroupList, pname);
+            self.delObj(sig.groupSignalList);
         elif(text == 'Del Signal Group'):
-            return;
+            pname = parent.text(0);
+            Ipdu = self.findObj(self.cfg.IPduList, pname);
+            self.delObj(Ipdu.signalGroupList);
+        #reselect a tree item,software trigger on_trComCfgList_itemClicked()
+        if(index>0):
+            parent.child(index-1).setSelected(True);
+            self.on_trComCfg_itemClicked(parent.child(index-1), 0);
+        else:
+            parent.setSelected(True);
+            self.on_trComCfg_itemClicked(parent, 0);
 
     def refreshButton(self):
         if(self.curtree==None):
@@ -179,7 +270,7 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
                 self.btnAdd.setDisabled(False);
                 self.btnAdd2.setDisabled(True);
                 self.btnDel.setDisabled(False);
-        elif(self.curtree.parent().parent().text(0)=='Pdus'):
+        elif(self.curtree.parent().parent().parent().text(0)=='Pdus'):
             self.btnDel.setText('Del Group Signal');
             self.btnAdd.setDisabled(True);
             self.btnAdd2.setDisabled(True);
@@ -196,16 +287,60 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.lePduGrpName.setText(obj.name);
         self.enableTab(0);
 
+    def disableIPduTxOption(self, disable):
+        self.spbxMinDelayFactor.setDisabled(disable);
+        self.spbxDefaultValueForUnusedAreas.setDisabled(disable);
+        self.cmbxPduTxMode.setDisabled(disable);
+        self.spbxNumberOfRepetitions.setDisabled(disable);
+        self.spbxTimeOffsetFactor.setDisabled(disable);
+        self.spbxTimePeriodFactor.setDisabled(disable);
+        #rx processing
+        self.cmbxPduSignalProcessing.setDisabled(not disable);
+
     def refreshIPduTab(self, name):
         self.curobj= obj = self.findObj(self.cfg.IPduList, name);
         if(obj == None):
             return;
         self.leIPduName.setText(obj.name);
+        self.cmbxGblPdu.setCurrentIndex(self.cmbxGblPdu.findText(self.curobj.ArcIPduOutgoingId));
+        self.cmbxPduDirection.setCurrentIndex(self.cmbxPduDirection.findText(self.curobj.ComIPduDirection));
+        self.cmbxPduGrp.clear();
+        for obj in self.cfg.IPduGroupList:
+            self.cmbxPduGrp.addItem(obj.name);
+        self.cmbxPduGrp.setCurrentIndex(self.cmbxPduGrp.findText(self.curobj.ComIPduGroupRef));
+        self.lePduCallout.setText(self.curobj.ComIPduCallout);
+        if(self.curobj.ComIPduDirection == 'RECEIVE'):
+            self.disableIPduTxOption(True);
+        elif(self.curobj.ComIPduDirection == 'SEND'):
+            self.disableIPduTxOption(False);
+        self.cmbxPduSignalProcessing.setCurrentIndex(self.cmbxPduSignalProcessing.findText(self.curobj.ComIPduSignalProcessing));
+        self.spbxMinDelayFactor.setValue(self.curobj.ComTxIPduMinimumDelayFactor);
+        self.spbxDefaultValueForUnusedAreas.setValue(self.curobj.ComTxIPduUnusedAreasDefault);
+        self.spbxNumberOfRepetitions.setValue(self.curobj.ComTxModeNumberOfRepetitions);
+        self.spbxTimeOffsetFactor.setValue(self.curobj.ComTxModeTimeOffsetFactor);
+        self.spbxTimePeriodFactor.setValue(self.curobj.ComTxModeTimePeriodFactor);
+        self.cmbxPduTxMode.setCurrentIndex(self.cmbxPduTxMode.findText(self.curobj.ComTxModeMode));
         self.enableTab(1);
 
     def refreshGeneralSignalTab(self, sig):
         self.curobj = sig;
         self.leSignalName.setText(sig.name);
+        self.cmbxSignalType.setCurrentIndex(self.cmbxSignalType.findText(self.curobj.ComSignalType));
+        self.cmbxSignalEndianess.setCurrentIndex(self.cmbxSignalEndianess.findText(self.curobj.ComSignalEndianess));
+        self.cmbxSignalTxProperty.setCurrentIndex(self.cmbxSignalTxProperty.findText(self.curobj.ComTransferProperty));
+        self.cmbxSignalTimeoutAction.setCurrentIndex(self.cmbxSignalTimeoutAction.findText(self.curobj.ComRxDataTimeoutAction));
+        self.cbxAutoSysSignalMap.setDisabled(True);
+        self.cmbxAutoSysSignalMap.setDisabled(True);
+        self.spbxSignalPosition.setValue(self.curobj.ComBitPosition);
+        self.spbxSignalSize.setValue(self.curobj.ComBitSize);
+        self.leSignalInitValue.setText(self.curobj.ComSignalInitValue);
+        self.cbxSignalUpdateBitPosition.setChecked(self.curobj.ComSignalArcUseUpdateBit);
+        self.spbxSignalUpdateBitPosition.setDisabled(not self.curobj.ComSignalArcUseUpdateBit);
+        self.spbxSignalUpdateBitPosition.setValue(self.curobj.ComUpdateBitPosition);
+        self.spbxSignalTimeoutFactor.setValue(self.curobj.ComTimeoutFactor);
+        self.spbxSignalFirstTimeout.setValue(self.curobj.ComFirstTimeoutFactor);
+        self.leSignalNotification.setText(self.curobj.ComNotification);
+        self.leSignalNotificationOnTimeout.setText(self.curobj.ComTimeoutNotification);
         self.enableTab(2);
 
     def refreshSignalGroupTab(self, sig):
@@ -229,7 +364,7 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         pname = self.curtree.parent().text(0);
         Ipdu = self.findObj(self.cfg.IPduList, ppname);
         sigGrp = self.findObj(Ipdu.signalGroupList, pname);
-        sig = self.findObj(sigGrp.groupSignalList,name);
+        self.curobj = sig = self.findObj(sigGrp.groupSignalList,name);
         self.leGrpSignalName.setText(sig.name);
         self.enableTab(4);
 
@@ -254,3 +389,101 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.curtree=item;
         self.refreshButton();
         self.refreshTab();
+
+    @pyqtSignature("bool")
+    def on_cbxDevErr_clicked(self, checked):
+        self.cfg.General.DevErrorDetection = checked;
+
+######################## For Pdu Group Tab ################################
+    @pyqtSignature("QString")
+    def on_lePduGrpName_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0); 
+
+######################## For General I-Pdu Tab ################################
+    @pyqtSignature("QString")
+    def on_leIPduName_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0);  
+    
+    @pyqtSignature("QString")
+    def on_cmbxGblPdu_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ArcIPduOutgoingId=p0;
+    
+    @pyqtSignature("QString")
+    def on_cmbxPduDirection_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComIPduDirection=p0;
+            if(p0 == 'RECEIVE'):
+                self.disableIPduTxOption(True);
+            elif(p0 == 'SEND'):
+                self.disableIPduTxOption(False);
+
+    @pyqtSignature("QString")
+    def on_cmbxPduGrp_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComIPduGroupRef=p0;
+
+    @pyqtSignature("QString")
+    def on_lePduCallout_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComIPduCallout=p0;
+
+    @pyqtSignature("QString")
+    def on_cmbxPduSignalProcessing_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComIPduSignalProcessing=p0;
+
+    @pyqtSignature("int")
+    def on_spbxMinDelayFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxIPduMinimumDelayFactor=p0;
+
+    @pyqtSignature("int")
+    def on_spbxDefaultValueForUnusedAreas_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxIPduUnusedAreasDefault=p0;
+
+    @pyqtSignature("QString")
+    def on_cmbxPduTxMode_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxModeMode=p0;
+
+    @pyqtSignature("int")
+    def on_spbxNumberOfRepetitions_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxModeNumberOfRepetitions=p0;
+
+    @pyqtSignature("int")
+    def on_spbxTimeOffsetFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxModeTimeOffsetFactor=p0;
+
+    @pyqtSignature("int")
+    def on_spbxTimePeriodFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxModeTimePeriodFactor=p0;
+
+######################## For General Signal Tab################################ 
+    @pyqtSignature("QString")
+    def on_leSignalName_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0);
+
+######################## For Signal Group Tab ################################
+    @pyqtSignature("QString")
+    def on_leSignalGrpName_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0);
+
+######################## For Group Signal Tab ################################
+    @pyqtSignature("QString")
+    def on_leGrpSignalName_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0);

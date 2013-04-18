@@ -409,7 +409,7 @@ class CanTp_Dlg(QDialog, Ui_CanTp_Dlg):
             self.delObj(self.cfg.RxNSduList);
         elif(text=='Del Tx NSdu'):
             self.delObj(self.cfg.TxNSduList);
-        #reselect a tree item,software trigger on_trGaInOsCfgList_itemClicked()
+        #reselect a tree item,software trigger on_trCanTpCfgList_itemClicked()
         if(index>0):
             parent.child(index-1).setSelected(True);
             self.on_trCanTpCfg_itemClicked(parent.child(index-1), 0);

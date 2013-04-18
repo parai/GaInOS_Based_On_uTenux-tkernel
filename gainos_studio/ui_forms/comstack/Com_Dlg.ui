@@ -203,7 +203,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxMinDelayFactor"/>
+           <widget class="QSpinBox" name="spbxMinDelayFactor">
+            <property name="toolTip">
+             <string>uint in ms</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -280,7 +284,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxTimeOffsetFactor"/>
+           <widget class="QSpinBox" name="spbxTimeOffsetFactor">
+            <property name="toolTip">
+             <string>uint in ms</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -294,7 +302,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxTimePeriodFactor"/>
+           <widget class="QSpinBox" name="spbxTimePeriodFactor">
+            <property name="toolTip">
+             <string>uint in ms</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -363,6 +375,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Shoud be consistent with the Global Pdu,if TX,SEND; if RX,RECEIVE.</string>
+           </property>
            <item>
             <property name="text">
              <string>SEND</string>
@@ -408,7 +423,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lePduCallout"/>
+          <widget class="QLineEdit" name="lePduCallout">
+           <property name="toolTip">
+            <string>If unused,input NULL</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -451,7 +470,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalPosition"/>
+           <widget class="QSpinBox" name="spbxSignalPosition">
+            <property name="toolTip">
+             <string>Must be the times of eight.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -479,7 +502,12 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalSize"/>
+           <widget class="QSpinBox" name="spbxSignalSize">
+            <property name="toolTip">
+             <string>Range 0 to 63.
+Range 0 to 4095 for uint8_n signal types</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -661,6 +689,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>for UINT8_DYN type, the signal must be the last item and no signal group is allowed for the signal owner IPDU.</string>
+           </property>
            <item>
             <property name="text">
              <string>BOOLEAN</string>
@@ -727,6 +758,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>if type is UINT8_DYN,then only COM_OPAQUE is allowed.</string>
+           </property>
            <item>
             <property name="text">
              <string>COM_BIG_ENDIAN</string>
@@ -762,6 +796,9 @@
              <width>300</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>When this signal is asigned to a RX IPdu,configure transfer property has no meaning.</string>
            </property>
            <item>
             <property name="text">
@@ -1183,11 +1220,6 @@ signal mapping:</string>
            <item>
             <property name="text">
              <string>UINT8_N</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>UINT8_DYN</string>
             </property>
            </item>
            <item>

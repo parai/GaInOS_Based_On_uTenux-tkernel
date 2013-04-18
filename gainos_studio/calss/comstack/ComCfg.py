@@ -67,6 +67,20 @@ class ComSignal():
     def __init__(self, name):
         self.name = name;
         self.isSignalGroup=False;
+        self.ComBitPosition = 0;#应该是8的整数倍
+        self.ComBitSize = 8;
+        self.ComErrorNotification = 'NULL';
+        self.ComFirstTimeoutFactor = 0;
+        self.ComNotification = 'NULL';
+        self.ComRxDataTimeoutAction = 'NONE';
+        self.ComSignalEndianess = 'COM_BIG_ENDIAN';
+        self.ComSignalInitValue = '0x00';
+        self.ComSignalType = 'UINT8';
+        self.ComTimeoutFactor =0;
+        self.ComTimeoutNotification = 'NULL';
+        self.ComTransferProperty = 'TRIGGERED';
+        self.ComUpdateBitPosition = 0;
+        self.ComSignalArcUseUpdateBit = False;
 
 class ComSignalGroup():
     def __init__(self, name):
@@ -77,6 +91,19 @@ class ComSignalGroup():
 class ComIPdu():
     def __init__(self, name):
         self.name = name;
+        self.ComIPduCallout = 'NULL';
+        self.ArcIPduOutgoingId ='';
+        self.ComIPduSignalProcessing ='DEFERRED';
+        #self.ComIPduSize = 64;#should calculate it
+        self.ComIPduDirection = 'SEND';
+        self.ComIPduGroupRef = '';
+        self.ComTxIPduMinimumDelayFactor = 0;
+        self.ComTxIPduUnusedAreasDefault = 0;
+        self.ComTxModeMode = 'PERIODIC';
+        self.ComTxModeNumberOfRepetitions = 0;
+        self.ComTxModeRepetitionPeriodFactor = 0;
+        self.ComTxModeTimeOffsetFactor = 0;
+        self.ComTxModeTimePeriodFactor = 10;
         self.signalList = [];
         self.signalGroupList = [];
 
@@ -96,8 +123,21 @@ class ComObj():
         str='  Double Clicked to Start to Configure the Com!\n';
         return str;
 
-    def show(self, arxml):
-        dlg=Com_Dlg(self.cfg);
+    def findObj(self, list, name):
+        for obj in list:
+            if(name==obj.name):
+                return obj;
+        return None;
+
+    def show(self, cfg):
+        depinfo=[];
+        obj=self.findObj(cfg.arobjList, 'EcuC');
+        if(obj==None):
+            QMessageBox(QMessageBox.Information, 'GaInOS Info', 
+                'Please Configure EcuC Firstly!').exec_();
+            return;
+        depinfo.append(obj.arobj);
+        dlg=Com_Dlg(self.cfg, depinfo);
         dlg.exec_();
   
     def savePdu(self, fp):
