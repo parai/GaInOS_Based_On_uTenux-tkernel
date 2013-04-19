@@ -175,7 +175,7 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         item=QTreeWidgetItem(self.curtree,QStringList(name));
         self.curtree.addChild(item);
         self.curtree.setExpanded(True);
-        obj=ComSignal(name);
+        obj=ComGroupSignal(name);
         self.curobj.groupSignalList.append(obj);
 
     @pyqtSignature("")
@@ -292,10 +292,35 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.spbxDefaultValueForUnusedAreas.setDisabled(disable);
         self.cmbxPduTxMode.setDisabled(disable);
         self.spbxNumberOfRepetitions.setDisabled(disable);
+        self.spbxRepetitionPeriodFactor.setDisabled(disable);
         self.spbxTimeOffsetFactor.setDisabled(disable);
         self.spbxTimePeriodFactor.setDisabled(disable);
         #rx processing
         self.cmbxPduSignalProcessing.setDisabled(not disable);
+
+    def disenIPuTxOption(self, mode):
+        """和cmbxPduTxMode相关联控件的使能和禁止操作"""
+        if(mode == 'DIRECT'):
+            self.spbxNumberOfRepetitions.setDisabled(False);
+            self.spbxRepetitionPeriodFactor.setDisabled(False);
+            self.spbxTimeOffsetFactor.setDisabled(True);
+            self.spbxTimePeriodFactor.setDisabled(True);
+        elif(mode == 'MIXED'):
+            self.spbxNumberOfRepetitions.setDisabled(False);
+            self.spbxRepetitionPeriodFactor.setDisabled(False);
+            self.spbxTimeOffsetFactor.setDisabled(False);
+            self.spbxTimePeriodFactor.setDisabled(True);
+        elif(mode == 'NONE'):
+            self.spbxNumberOfRepetitions.setDisabled(True);
+            self.spbxRepetitionPeriodFactor.setDisabled(True);
+            self.spbxTimeOffsetFactor.setDisabled(True);
+            self.spbxTimePeriodFactor.setDisabled(True);
+        elif(mode == 'PERIODIC'):
+            self.spbxNumberOfRepetitions.setDisabled(True);
+            self.spbxRepetitionPeriodFactor.setDisabled(True);
+            self.spbxTimeOffsetFactor.setDisabled(False);
+            self.spbxTimePeriodFactor.setDisabled(False);
+        
 
     def refreshIPduTab(self, name):
         self.curobj= obj = self.findObj(self.cfg.IPduList, name);
@@ -313,10 +338,12 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
             self.disableIPduTxOption(True);
         elif(self.curobj.ComIPduDirection == 'SEND'):
             self.disableIPduTxOption(False);
+            self.disenIPuTxOption(self.curobj.ComTxModeMode);
         self.cmbxPduSignalProcessing.setCurrentIndex(self.cmbxPduSignalProcessing.findText(self.curobj.ComIPduSignalProcessing));
         self.spbxMinDelayFactor.setValue(self.curobj.ComTxIPduMinimumDelayFactor);
         self.spbxDefaultValueForUnusedAreas.setValue(self.curobj.ComTxIPduUnusedAreasDefault);
         self.spbxNumberOfRepetitions.setValue(self.curobj.ComTxModeNumberOfRepetitions);
+        self.spbxRepetitionPeriodFactor.setValue(self.curobj.ComTxModeRepetitionPeriodFactor);
         self.spbxTimeOffsetFactor.setValue(self.curobj.ComTxModeTimeOffsetFactor);
         self.spbxTimePeriodFactor.setValue(self.curobj.ComTxModeTimePeriodFactor);
         self.cmbxPduTxMode.setCurrentIndex(self.cmbxPduTxMode.findText(self.curobj.ComTxModeMode));
@@ -328,7 +355,6 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.cmbxSignalType.setCurrentIndex(self.cmbxSignalType.findText(self.curobj.ComSignalType));
         self.cmbxSignalEndianess.setCurrentIndex(self.cmbxSignalEndianess.findText(self.curobj.ComSignalEndianess));
         self.cmbxSignalTxProperty.setCurrentIndex(self.cmbxSignalTxProperty.findText(self.curobj.ComTransferProperty));
-        self.cmbxSignalTimeoutAction.setCurrentIndex(self.cmbxSignalTimeoutAction.findText(self.curobj.ComRxDataTimeoutAction));
         self.cbxAutoSysSignalMap.setDisabled(True);
         self.cmbxAutoSysSignalMap.setDisabled(True);
         self.spbxSignalPosition.setValue(self.curobj.ComBitPosition);
@@ -339,6 +365,7 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.spbxSignalUpdateBitPosition.setValue(self.curobj.ComUpdateBitPosition);
         self.spbxSignalTimeoutFactor.setValue(self.curobj.ComTimeoutFactor);
         self.spbxSignalFirstTimeout.setValue(self.curobj.ComFirstTimeoutFactor);
+        self.cmbxSignalTimeoutAction.setCurrentIndex(self.cmbxSignalTimeoutAction.findText(self.curobj.ComRxDataTimeoutAction));
         self.leSignalNotification.setText(self.curobj.ComNotification);
         self.leSignalNotificationOnTimeout.setText(self.curobj.ComTimeoutNotification);
         self.enableTab(2);
@@ -346,6 +373,18 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
     def refreshSignalGroupTab(self, sig):
         self.curobj = sig;
         self.leSignalGrpName.setText(sig.name);
+        self.cmbxSignalGrpTxProperty.setCurrentIndex(self.cmbxSignalGrpTxProperty.findText(sig.ComTransferProperty))
+        self.cbxAutoSysSignalGrpMap.setDisabled(True);
+        self.cmbxAutoSysSignalGrpMap.setDisabled(True);
+        self.spbxSignalGrpPosition.setValue(sig.ComBitPosition);
+        self.spbxSignalGrpSize.setValue(sig.ComBitSize);
+        self.spbxSignalGrpUpdateBitPosition.setValue(sig.ComUpdateBitPosition);
+        self.spbxSignalGrpTimeoutFactor.setValue(sig.ComTimeoutFactor);
+        self.spbxSignalGrpFirstTimeout.setValue(sig.ComFirstTimeoutFactor);
+        self.leSignalGrpNotification.setText(sig.ComNotification);
+        self.leSignalGrpNotificationOnTimeout.setText(sig.ComTimeoutNotification);
+        self.cbxSignalGrpUpdateBitPosition.setChecked(sig.ComSignalArcUseUpdateBit);
+        self.spbxSignalGrpUpdateBitPosition.setDisabled(not sig.ComSignalArcUseUpdateBit);
         self.enableTab(3);
     
     def refreshSignalTab(self, name):
@@ -366,6 +405,14 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         sigGrp = self.findObj(Ipdu.signalGroupList, pname);
         self.curobj = sig = self.findObj(sigGrp.groupSignalList,name);
         self.leGrpSignalName.setText(sig.name);
+        self.leGrpSignalInitValue.setText(sig.ComSignalInitValue);
+        self.cmbxGrpSignalType.setCurrentIndex(self.cmbxGrpSignalType.findText(sig.ComSignalType));
+        self.cmbxGrpSignalEndianess.setCurrentIndex(self.cmbxGrpSignalEndianess.findText(sig.ComSignalEndianess));
+        self.spbxGrpSignalPosition.setValue(sig.ComBitPosition);
+        self.spbxGrpSignalLSBPosition.setDisabled(True);
+        self.spbxGrpSignalSize.setValue(sig.ComBitSize);
+        self.cbxAutoSysGrpSignalMap.setDisabled(True);
+        self.cmbxAutoSysGrpSignalMap.setDisabled(True);
         self.enableTab(4);
 
     def refreshTab(self):
@@ -451,11 +498,17 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
     def on_cmbxPduTxMode_activated(self, p0):
         if(self.curobj!=None):
             self.curobj.ComTxModeMode=p0;
+            self.disenIPuTxOption(p0);
 
     @pyqtSignature("int")
     def on_spbxNumberOfRepetitions_valueChanged(self, p0):
         if(self.curobj!=None):
             self.curobj.ComTxModeNumberOfRepetitions=p0;
+
+    @pyqtSignature("int")
+    def on_spbxRepetitionPeriodFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTxModeRepetitionPeriodFactor=p0;
 
     @pyqtSignature("int")
     def on_spbxTimeOffsetFactor_valueChanged(self, p0):
@@ -473,6 +526,72 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         if(self.curobj!=None):
             self.curobj.name=p0;
             self.curtree.setText(0, p0);
+    
+    @pyqtSignature("QString")
+    def on_cmbxSignalType_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalType=p0;
+
+    @pyqtSignature("QString")
+    def on_cmbxSignalEndianess_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalEndianess=p0;
+    
+    @pyqtSignature("QString")
+    def on_cmbxSignalTxProperty_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTransferProperty=p0;
+
+    @pyqtSignature("int")
+    def on_spbxSignalPosition_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitPosition=p0;
+
+    @pyqtSignature("int")
+    def on_spbxSignalSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitSize=p0;
+
+    @pyqtSignature("bool")
+    def on_cbxSignalUpdateBitPosition_clicked(self, checked):
+        if(self.curobj!=None):
+            self.curobj.ComSignalArcUseUpdateBit=checked;
+            self.spbxSignalUpdateBitPosition.setDisabled(not checked);
+
+    @pyqtSignature("int")
+    def on_spbxSignalUpdateBitPosition_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComUpdateBitPosition=p0;
+
+    @pyqtSignature("int")
+    def on_spbxSignalTimeoutFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTimeoutFactor=p0;
+
+    @pyqtSignature("int")
+    def on_spbxSignalFirstTimeout_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComFirstTimeoutFactor=p0;
+
+    @pyqtSignature("QString")
+    def on_leSignalInitValue_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalInitValue=p0;
+
+    @pyqtSignature("QString")
+    def on_leSignalNotification_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComNotification=p0;
+
+    @pyqtSignature("QString")
+    def on_leSignalNotificationOnTimeout_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTimeoutNotification=p0;
+
+    @pyqtSignature("QString")
+    def on_cmbxSignalTimeoutAction_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComRxDataTimeoutAction=p0;
 
 ######################## For Signal Group Tab ################################
     @pyqtSignature("QString")
@@ -480,6 +599,46 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         if(self.curobj!=None):
             self.curobj.name=p0;
             self.curtree.setText(0, p0);
+    
+    @pyqtSignature("QString")
+    def on_cmbxSignalGrpTxProperty_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTransferProperty=p0;
+    @pyqtSignature("int")
+    def on_spbxSignalGrpPosition_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitPosition=p0;
+    @pyqtSignature("int")
+    def on_spbxSignalGrpSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitSize=p0;
+
+    @pyqtSignature("bool")
+    def on_cbxSignalGrpUpdateBitPosition_clicked(self, checked):
+        if(self.curobj!=None):
+            self.curobj.ComSignalArcUseUpdateBit=checked;
+            self.spbxSignalGrpUpdateBitPosition.setDisabled(not checked);
+
+    @pyqtSignature("int")
+    def on_spbxSignalGrpUpdateBitPosition_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComUpdateBitPosition=p0;
+    @pyqtSignature("int")
+    def on_spbxSignalGrpTimeoutFactor_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTimeoutFactor=p0;
+    @pyqtSignature("int")
+    def on_spbxSignalGrpFirstTimeout_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComFirstTimeoutFactor=p0;
+    @pyqtSignature("QString")
+    def on_leSignalGrpNotification_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComNotification=p0;
+    @pyqtSignature("QString")
+    def on_leSignalGrpNotificationOnTimeout_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComTimeoutNotification=p0;
 
 ######################## For Group Signal Tab ################################
     @pyqtSignature("QString")
@@ -487,3 +646,25 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         if(self.curobj!=None):
             self.curobj.name=p0;
             self.curtree.setText(0, p0);
+
+    @pyqtSignature("QString")
+    def on_leGrpSignalInitValue_textChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalInitValue=p0;
+    @pyqtSignature("QString")
+    def on_cmbxGrpSignalType_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalType=p0;
+    @pyqtSignature("QString")
+    def on_cmbxGrpSignalEndianess_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComSignalEndianess=p0;
+    @pyqtSignature("int")
+    def on_spbxGrpSignalPosition_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitPosition=p0;
+
+    @pyqtSignature("int")
+    def on_spbxGrpSignalSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.ComBitSize=p0;

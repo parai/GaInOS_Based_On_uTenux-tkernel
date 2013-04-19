@@ -59,9 +59,23 @@ class ComGeneral():
     def __init__(self):
         self.DevErrorDetection = False;
 
+    def save(self, fp):
+        fp.write('<ComGeneral>\n');
+        fp.write('<DevErrorDetection value="%s"></DevErrorDetection>\n'%(self.DevErrorDetection));
+        fp.write('</ComGeneral>\n');
+
+    def parse(self, node):
+        self.DevErrorDetection=bool(node.find('DevErrorDetection').attrib['value']);
+
 class ComIPduGroup():
     def __init__(self, name):
         self.name = name;
+
+    def save(self, fp):
+        fp.write('<ComIPduGroup name="%s"></ComIPduGroup>\n'%(self.name));
+
+    def parse(self, node):
+        self.name = node.attrib['name'];
 
 class ComSignal():
     def __init__(self, name):
@@ -70,22 +84,40 @@ class ComSignal():
         self.ComBitPosition = 0;#应该是8的整数倍
         self.ComBitSize = 8;
         self.ComErrorNotification = 'NULL';
-        self.ComFirstTimeoutFactor = 0;
+        self.ComFirstTimeoutFactor = 10;
         self.ComNotification = 'NULL';
         self.ComRxDataTimeoutAction = 'NONE';
         self.ComSignalEndianess = 'COM_BIG_ENDIAN';
         self.ComSignalInitValue = '0x00';
         self.ComSignalType = 'UINT8';
-        self.ComTimeoutFactor =0;
+        self.ComTimeoutFactor =10;
         self.ComTimeoutNotification = 'NULL';
         self.ComTransferProperty = 'TRIGGERED';
         self.ComUpdateBitPosition = 0;
         self.ComSignalArcUseUpdateBit = False;
 
+class ComGroupSignal():
+    def __init__(self, name):
+        self.name = name;
+        self.ComSignalType = 'UINT8';
+        self.ComSignalEndianess = 'COM_BIG_ENDIAN';
+        self.ComBitPosition = 0;#应该是8的整数倍
+        self.ComBitSize = 8;
+        self.ComSignalInitValue = '0x00';
+
 class ComSignalGroup():
     def __init__(self, name):
         self.name = name;
         self.isSignalGroup=True;
+        self.ComTransferProperty = 'TRIGGERED';
+        self.ComUpdateBitPosition = 0;
+        self.ComSignalArcUseUpdateBit = False;
+        self.ComBitPosition = 0;#应该是8的整数倍
+        self.ComBitSize = 8;
+        self.ComFirstTimeoutFactor = 10;
+        self.ComTimeoutFactor = 10;
+        self.ComNotification = 'NULL';
+        self.ComTimeoutNotification = 'NULL';
         self.groupSignalList = [];
     
 class ComIPdu():
@@ -101,11 +133,42 @@ class ComIPdu():
         self.ComTxIPduUnusedAreasDefault = 0;
         self.ComTxModeMode = 'PERIODIC';
         self.ComTxModeNumberOfRepetitions = 0;
-        self.ComTxModeRepetitionPeriodFactor = 0;
-        self.ComTxModeTimeOffsetFactor = 0;
+        self.ComTxModeRepetitionPeriodFactor = 10;
+        self.ComTxModeTimeOffsetFactor = 20;
         self.ComTxModeTimePeriodFactor = 10;
         self.signalList = [];
         self.signalGroupList = [];
+    
+    def save(self, fp):
+        attrib = 'name="%s" '%(self.name);
+        attrib += 'ComIPduCallout="%s" '%(self.ComIPduCallout);
+        attrib += 'ArcIPduOutgoingId="%s" '%(self.ArcIPduOutgoingId);
+        attrib += 'ComIPduSignalProcessing="%s" '%(self.ComIPduSignalProcessing);
+        attrib += 'ComIPduDirection="%s" '%(self.ComIPduDirection);
+        attrib += 'ComIPduGroupRef="%s" '%(self.ComIPduGroupRef);
+        attrib += 'ComTxIPduMinimumDelayFactor="%s" '%(self.ComTxIPduMinimumDelayFactor);
+        attrib += 'ComTxIPduUnusedAreasDefault="%s" '%(self.ComTxIPduUnusedAreasDefault);
+        attrib += 'ComTxModeMode="%s" '%(self.ComTxModeMode);
+        attrib += 'ComTxModeNumberOfRepetitions="%s" '%(self.ComTxModeNumberOfRepetitions);
+        attrib += 'ComTxModeRepetitionPeriodFactor="%s" '%(self.ComTxModeRepetitionPeriodFactor);
+        attrib += 'ComTxModeTimeOffsetFactor="%s" '%(self.ComTxModeTimeOffsetFactor);
+        attrib += 'ComTxModeTimePeriodFactor="%s" '%(self.ComTxModeTimePeriodFactor);
+        fp.write('<ComIPdu %s></ComIPdu>\n'%(attrib));
+
+    def parse(self, node):
+        self.name = node.attrib['name'];
+        self.ComIPduCallout = node.attrib['ComIPduCallout'];
+        self.ArcIPduOutgoingId = node.attrib['ArcIPduOutgoingId'];
+        self.ComIPduSignalProcessing = node.attrib['ComIPduSignalProcessing'];
+        self.ComIPduDirection = node.attrib['ComIPduDirection'];
+        self.ComIPduGroupRef = node.attrib['ComIPduGroupRef'];
+        self.ComTxIPduMinimumDelayFactor = int(node.attrib['ComTxIPduMinimumDelayFactor']);
+        self.ComTxIPduUnusedAreasDefault = int(node.attrib['ComTxIPduUnusedAreasDefault']);
+        self.ComTxModeMode = node.attrib['ComTxModeMode'];
+        self.ComTxModeNumberOfRepetitions = int(node.attrib['ComTxModeNumberOfRepetitions']);
+        self.ComTxModeRepetitionPeriodFactor = int(node.attrib['ComTxModeRepetitionPeriodFactor']);
+        self.ComTxModeTimeOffsetFactor = int(node.attrib['ComTxModeTimeOffsetFactor']);
+        self.ComTxModeTimePeriodFactor = int(node.attrib['ComTxModeTimePeriodFactor']);
 
 class ComConfig():
     def __init__(self):
@@ -140,25 +203,40 @@ class ComObj():
         dlg=Com_Dlg(self.cfg, depinfo);
         dlg.exec_();
   
-    def savePdu(self, fp):
-        fp.write('<EcuCList>\n');
-        for obj in self.cfg.pduList:
-            fp.write('<EcuCPdu name="%s"></EcuCPdu>\n'%(obj.name))
-        fp.write('</EcuCList>\n');
-   
+    def saveIPduGroup(self, fp):
+        fp.write('<ComIPduGroupList>\n');
+        for obj in self.cfg.IPduGroupList:
+            obj.save(fp);
+        fp.write('</ComIPduGroupList>\n');
+
+    def saveIPdu(self, fp):
+        fp.write('<ComIPduList>\n');
+        for obj in self.cfg.IPduList:
+            obj.save(fp);
+        fp.write('</ComIPduList>\n');
+    
     def save(self, fp):
         """保存配置信息"""
-        return;
-
-    def doParsePdu(self, list):
-        if(list==None):
-            return;
+        self.cfg.General.save(fp);
+        self.saveIPduGroup(fp);
+        self.saveIPdu(fp);
+    
+    def doParseIPduGroup(self, list):
         for node in list:
-            obj = EcuCPdu(node.attrib['name']);
-            self.cfg.pduList.append(obj);
+            obj = ComIPduGroup('');
+            obj.parse(node);
+            self.cfg.IPduGroupList.append(obj);
+
+    def doParseIPdu(self, list):
+        for node in list:
+            obj = ComIPdu('');
+            obj.parse(node);
+            self.cfg.IPduList.append(obj);
     
     def doParse(self, arxml):
-        return;
+        self.cfg.General.parse(arxml.find('ComGeneral'));
+        self.doParseIPduGroup(arxml.find('ComIPduGroupList'));
+        self.doParseIPdu(arxml.find('ComIPduList'));
 
     def backup(self, file):
         tm=localtime(time());

@@ -92,7 +92,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -177,19 +177,19 @@
         <x>20</x>
         <y>230</y>
         <width>431</width>
-        <height>191</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
        <string>Tx options</string>
       </property>
-      <widget class="QWidget" name="layoutWidget_5">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>20</y>
-         <width>401</width>
-         <height>164</height>
+         <y>21</y>
+         <width>391</width>
+         <height>192</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -271,6 +271,20 @@
           </item>
           <item>
            <widget class="QSpinBox" name="spbxNumberOfRepetitions"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_42">
+          <item>
+           <widget class="QLabel" name="label_38">
+            <property name="text">
+             <string>Repetition period factor:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spbxRepetitionPeriodFactor"/>
           </item>
          </layout>
         </item>
@@ -603,6 +617,9 @@ Range 0 to 4095 for uint8_n signal types</string>
           </item>
           <item>
            <widget class="QComboBox" name="cmbxSignalTimeoutAction">
+            <property name="toolTip">
+             <string>For Tx signal,configure this has no meaning.</string>
+            </property>
             <item>
              <property name="text">
               <string>REPLACE</string>
