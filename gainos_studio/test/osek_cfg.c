@@ -2,34 +2,52 @@
 
 const T_CMTX OsekResourceTable[cfgOSEK_RESOURCE_NUM]=
 {
-	GenResourceCreInfo(1),	/* vRes0 */
+	GenResourceCreInfo(1),	/* vResScheduler */
 };
 
 /* Generate Task Stack */
-GenTaskStack(vTask0,512);
-GenTaskStack(vTask1,512);
+GenTaskStack(vTaskInit,512);
+GenTaskStack(vTaskMainFunction,512);
+GenTaskStack(vTaskSender,512);
+GenTaskStack(vTaskReceiver,512);
 /* Generate Task Create Information */
 const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM]=
 {
-	GenTaskCreInfo(vTask0,1,NULL),
-	GenTaskCreInfo(vTask1,2,NULL),
+	GenTaskCreInfo(vTaskInit,1,NULL),
+	GenTaskCreInfo(vTaskMainFunction,2,NULL),
+	GenTaskCreInfo(vTaskSender,3,NULL),
+	GenTaskCreInfo(vTaskReceiver,4,NULL),
 };
 /* Is Task auto-startable */
 const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 {
-	TRUE,	/* vTask0 */
-	TRUE,	/* vTask1 */
+	TRUE,	/* vTaskInit */
+	FALSE,	/* vTaskMainFunction */
+	FALSE,	/* vTaskSender */
+	FALSE,	/* vTaskReceiver */
 };
 
-TASK(vTask0)
+TASK(vTaskInit)
 {
-	tm_putstring((UB*)"vTask0 is running.\r\n");
+	tm_putstring((UB*)"vTaskInit is running.\r\n");
 	(void)TerminateTask();
 }
 
-TASK(vTask1)
+TASK(vTaskMainFunction)
 {
-	tm_putstring((UB*)"vTask1 is running.\r\n");
+	tm_putstring((UB*)"vTaskMainFunction is running.\r\n");
+	(void)TerminateTask();
+}
+
+TASK(vTaskSender)
+{
+	tm_putstring((UB*)"vTaskSender is running.\r\n");
+	(void)TerminateTask();
+}
+
+TASK(vTaskReceiver)
+{
+	tm_putstring((UB*)"vTaskReceiver is running.\r\n");
 	(void)TerminateTask();
 }
 

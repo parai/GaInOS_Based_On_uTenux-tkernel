@@ -82,21 +82,21 @@ class Com_Dlg(QDialog, Ui_Com_Dlg):
         self.spbxNumberOfRepetitions.setRange(0, 0xFF);
         self.spbxTimeOffsetFactor.setRange(0, 65535);
         self.spbxTimePeriodFactor.setRange(0, 65535);
-        self.spbxSignalPosition.setRange(0, 2031);
+        self.spbxSignalPosition.setRange(0, 63);
         self.spbxSignalLSBPosition.setRange(0, 2031);
         self.spbxSignalLSBPosition.setDisabled(True);
-        self.spbxSignalSize.setRange(0, 4095);
-        self.spbxSignalUpdateBitPosition.setRange(0, 2031);
+        self.spbxSignalSize.setRange(0, 64);
+        self.spbxSignalUpdateBitPosition.setRange(0, 63);
         self.spbxSignalTimeoutFactor.setRange(0, 65535);
         self.spbxSignalFirstTimeout.setRange(0, 65535);
-        self.spbxSignalGrpPosition.setRange(0, 2031);
-        self.spbxSignalGrpSize.setRange(0, 4095);
+        self.spbxSignalGrpPosition.setRange(0, 63);
+        self.spbxSignalGrpSize.setRange(0, 64);
         self.spbxSignalGrpUpdateBitPosition.setRange(0, 2031);
         self.spbxSignalGrpTimeoutFactor.setRange(0, 65535);
-        self.spbxGrpSignalPosition.setRange(0, 2031);
+        self.spbxGrpSignalPosition.setRange(0, 64);
         self.spbxGrpSignalLSBPosition.setRange(0, 2031);
         self.spbxGrpSignalLSBPosition.setDisabled(True);
-        self.spbxGrpSignalSize.setRange(0, 4095);
+        self.spbxGrpSignalSize.setRange(0, 64);
         #init IPDU
         self.cmbxGblPdu.clear();
         for pdu in self.depinfo[0].cfg.pduList:

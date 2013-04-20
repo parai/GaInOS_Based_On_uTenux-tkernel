@@ -47,10 +47,10 @@ TASK(vTaskInit)
     //Com 通道启动	
 	CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
 	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
-	CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
+	//CanIf_SetControllerMode(vCanIf_Channel4,CANIF_CS_STARTED);
 	
 	// Make sure that the right PDU-groups are ready for communication.
-	Com_IpduGroupStart(ComPduGroup, 0);
+	Com_IpduGroupStart(vCom_IPduGrp0, 0);
 	
 	//启动CanTp周期任务定时器，周期激活任务 ID_vTaskCanTpMainFunction
 	//(void)SetRelAlarm(ID_vAlarmCanTp,1,1);//1个Tick 4ms
@@ -103,10 +103,10 @@ TASK(vTaskSender)
 	    G_TxPdu.SduLength  = strlen(G_Message1);
 	    G_TxPdu.SduDataPtr = G_Message1;
 	    CanTp_Transmit(CANTP_TX_vEcuC_Pdu1,&G_TxPdu);
-	    DelayTask(250*10); //沉睡10s后重启
-	    G_TxPdu.SduLength  = strlen(G_Message2);
-	    G_TxPdu.SduDataPtr = G_Message2;
-	    CanTp_Transmit(CANTP_TX_vEcuC_Pdu4,&G_TxPdu);
+	    //DelayTask(250*10); //沉睡10s后重启
+	    //G_TxPdu.SduLength  = strlen(G_Message2);
+	    //G_TxPdu.SduDataPtr = G_Message2;
+	    //CanTp_Transmit(CANTP_TX_vEcuC_Pdu4,&G_TxPdu);
 	    DelayTask(250*10); //沉睡10s后重启
 	    
 	}

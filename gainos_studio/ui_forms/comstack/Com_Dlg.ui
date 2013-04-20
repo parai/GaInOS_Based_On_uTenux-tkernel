@@ -92,7 +92,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -447,6 +447,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="label_43">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>470</y>
+        <width>291</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Note:IPDU size cann't be bigger than 8 bytes.</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -535,7 +548,11 @@ Range 0 to 4095 for uint8_n signal types</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSignalInitValue"/>
+           <widget class="QLineEdit" name="leSignalInitValue">
+            <property name="toolTip">
+             <string>if type is UINT8_N or UNIT8_DYN,please in put init value with spac ' ' to spearete each other.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -1166,7 +1183,11 @@ signal mapping:</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leGrpSignalInitValue"/>
+           <widget class="QLineEdit" name="leGrpSignalInitValue">
+            <property name="toolTip">
+             <string>if type is UINT8_N,please in put init value with spac ' ' to spearete each other.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

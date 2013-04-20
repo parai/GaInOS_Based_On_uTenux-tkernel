@@ -373,7 +373,7 @@ class CanIfObj():
         str2+='\tCANIF_CHANNEL_CNT\n';
         fp.write('typedef enum {\n%s}CanIf_Arc_ConfigurationIndexType;\n\n'%(str));
         fp.write('typedef enum {\n%s}CanIf_Arc_ChannelIdType;\n\n'%(str2));
-        fp.write('#include "CanIf_ConfigTypes.h"\n\nIMPORT CanIf_ConfigType CanIf_Config;\n\n#endif\n\n');
+        fp.write('#include "CanIf_ConfigTypes.h"\n\nIMPORT const CanIf_ConfigType CanIf_Config;\n\n#endif\n\n');
         fp.close();
 
     def codeGenC(self, path):
@@ -566,7 +566,7 @@ class CanIfObj():
         fp.write('};\n');
         fp.write('// This container includes all necessary configuration sub-containers\n');
         fp.write('// according the CAN Interface configuration structure\n');
-        fp.write('CanIf_ConfigType CanIf_Config =\n');
+        fp.write('const CanIf_ConfigType CanIf_Config =\n');
         fp.write('{\n');
         fp.write('\t/*ControllerConfig =*/ CanIfControllerConfig,\n');
         fp.write('\t/*DispatchConfig =*/ &CanIfDispatchConfig,\n');
