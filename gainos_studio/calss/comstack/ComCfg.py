@@ -437,6 +437,7 @@ class ComObj():
                 '#define COM_E_TOO_MANY_SIGNAL 107\n'
                 '#define COM_E_TOO_MANY_GROUPSIGNAL 108\n'
                 '#define CPU_ENDIANESS COM_BIG_ENDIAN\n\n');
+        fp.write('#define COM_DEV_ERROR_DETECT %s\n\n'%(gSTD_ON(self.cfg.General.DevErrorDetection)));
         fp.write('#define COM_N_IPDUS %s\n'%(len(self.cfg.IPduList)));
         cnt =cnt2 = 0;
         for obj in self.cfg.IPduList:
@@ -472,6 +473,7 @@ class ComObj():
         id = 0;
         for ipdu in self.cfg.IPduList:
             fp.write('#define %s %s\n'%(ipdu.name,id));
+            fp.write('#define COM_%s %s\t/* for %s */\n'%(ipdu.ArcIPduOutgoingId,id,ipdu.name));
             id+=1;
         fp.write('\n//General Signal (Group) Id defines\n');
         id = 0;

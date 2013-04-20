@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 /* Copyright 2012, Fan Wang(Parai)
  *
@@ -44,8 +43,6 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-
-
 from PyQt4.QtGui import QDialog
 from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QTreeWidgetItem, QMessageBox
@@ -54,36 +51,60 @@ from Common import *
 import os, sys
 import shutil 
 from time import localtime, time,strftime
-
-class EcuCPdu():
-    def __init__(self, name):
-        self.name=name;
-        self.rxSize=64;#bits for Rx Pdu
-        self.txSize=64;#bits for Tx Pdu
-
-class EcuCConfig():
+class PduRGeneral():
     def __init__(self):
-        self.pduList=[];
+        self.DevErrorDetection = True;
+        self.VersionInfoAPI = True;
+        self.ZeroCostOperation = False;
+        self.SingleIfEnable = False;
+        self.SingleTpEnable = False;
+        self.SingleIf = 'CAN_IF';
+        self.SingleTp = 'CAN_TP';
+        ###Activated Interface
+        self.CanIfUsed = True;
+        self.CanTpUsed = True;
+        self.ComUsed = True;
+        self.DcmUsed = False;
+        self.LinIfUsed = False;
+        self.LinTpUsed = False;
+        self.J1939TpUsed = False;
 
-from EcuC_Dlg import *
-class EcuCObj():
+class PduRConfig():
     def __init__(self):
-        self.cfg=EcuCConfig();
-        print "init EcuC Object"
+        self.General = PduRGeneral();
+
+from PduR_Dlg import *
+class PduRObj():
+    def __init__(self):
+        self.cfg=PduRConfig();
+        print "init PduR Object"
 
     def toString(self):
-        str='  Double Clicked to Start to Configure the EcuC!\n';
+        str='  Double Clicked to Start to Configure the Pdu Router!\n';
         return str;
 
+    def findObj(self, list, name):
+        for obj in list:
+            if(name==obj.name):
+                return obj;
+        return None;
+
     def show(self, cfg):
-        dlg=EcuC_Dlg(self.cfg);
+        depinfo=[];
+        obj=self.findObj(cfg.arobjList, 'EcuC');
+        if(obj==None):
+            QMessageBox(QMessageBox.Information, 'GaInOS Info', 
+                'Please Configure EcuC Firstly!').exec_();
+            return;
+        depinfo.append(obj.arobj);
+        dlg=PduR_Dlg(self.cfg, depinfo);
         dlg.exec_();
   
     def savePdu(self, fp):
+        return;
         fp.write('<EcuCList>\n');
         for obj in self.cfg.pduList:
-            fp.write('<EcuCPdu name="%s" rxSize="%s" txSize="%s"></EcuCPdu>\n'
-                    %(obj.name, obj.rxSize, obj.txSize));
+            fp.write('<EcuCPdu name="%s"></EcuCPdu>\n'%(obj.name))
         fp.write('</EcuCList>\n');
    
     def save(self, fp):
@@ -91,15 +112,15 @@ class EcuCObj():
         self.savePdu(fp);
 
     def doParsePdu(self, list):
+        return;
         if(list==None):
             return;
         for node in list:
             obj = EcuCPdu(node.attrib['name']);
-            obj.rxSize = int(node.attrib['rxSize']);
-            obj.txSize = int(node.attrib['txSize']);
             self.cfg.pduList.append(obj);
     
     def doParse(self, arxml):
+        return;
         self.doParsePdu(arxml.find('EcuCList'));
 
     def backup(self, file):
@@ -108,6 +129,7 @@ class EcuCObj():
         shutil.copy(file, file2+'.bak');
 
     def codeGen(self, path):
+        return;
         path1=path+'/autosar/comstack/config/EcuC';
         try:
             os.mkdir(path+'/autosar');
@@ -128,6 +150,7 @@ class EcuCObj():
         self.codeGenH(path1);
 
     def codeGenH(self, path):
+        return;
         file=path+'/EcuC_Cfg.h';
         if os.path.isfile(file):
             self.backup(file);
@@ -135,10 +158,10 @@ class EcuCObj():
         fp.write('#ifndef ECUC_CFG_H_\n#define ECUC_CFG_H_\n\n');
         id = 0;
         for obj in self.cfg.pduList:
-            fp.write('#define ECUC_RX_%s %s\n'%(obj.name,id));
+            fp.write('#define RX_%s %s\n'%(obj.name,id));
             id += 1;
         for obj in self.cfg.pduList:
-            fp.write('#define ECUC_TX_%s %s\n'%(obj.name,id));
+            fp.write('#define TX_%s %s\n'%(obj.name,id));
             id += 1;
         fp.write('\n#endif\n\n');
         fp.close();

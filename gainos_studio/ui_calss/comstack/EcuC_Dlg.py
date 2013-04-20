@@ -83,6 +83,8 @@ class EcuC_Dlg(QDialog, Ui_EcuC_Dlg):
         self.reloadTreeGui();
         self.initButton();
         self.disableAllTab();
+        self.spbxRxPduSize.setRange(0, 65535);
+        self.spbxTxPduSize.setRange(0, 65535);
     
     def refreshButton(self):
         if(self.curtree==None):
@@ -127,6 +129,8 @@ class EcuC_Dlg(QDialog, Ui_EcuC_Dlg):
             return;
         self.curobj=obj;
         self.lePduName.setText(obj.name);
+        self.spbxRxPduSize.setValue(obj.rxSize);
+        self.spbxTxPduSize.setValue(obj.txSize);
         self.enableTab(0);
 
     def refreshTab(self):
@@ -183,3 +187,13 @@ class EcuC_Dlg(QDialog, Ui_EcuC_Dlg):
             if(self.curobj.name!=p0):
                 self.curobj.name=p0;
                 self.curtree.setText(0, p0);
+
+    @pyqtSignature("int")
+    def on_spbxRxPduSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.rxSize=p0;
+
+    @pyqtSignature("int")
+    def on_spbxTxPduSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.txSize=p0;

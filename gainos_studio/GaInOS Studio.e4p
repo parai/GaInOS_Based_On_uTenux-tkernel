@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-04-17, 23:58:24 -->
+<!-- Saved: 2013-04-21, 00:30:20 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -13,9 +13,6 @@
   <Email></Email>
   <Sources>
     <Source>main.py</Source>
-    <Source>ui_calss/DlgArAdd.py</Source>
-    <Source>ui_calss/DlgStart.py</Source>
-    <Source>ui_calss/GaInOsStudio.py</Source>
     <Source>calss/GaInOsCfg.py</Source>
     <Source>arxml/ArxmlParser.py</Source>
     <Source>arxml/ArxmlSaver.py</Source>
@@ -27,23 +24,24 @@
     <Source>ui_forms/Ui_GaInOsStudio.py</Source>
     <Source>ui_forms/Ui_wmain.py</Source>
     <Source>ui_forms/mc9s12dp512/Ui_Can_MC9S12DP512.py</Source>
-    <Source>ui_calss/mc9s12dp512/DlgCan_MC9S12DP512.py</Source>
     <Source>calss/mc9s12dp512/AutosarCfg_MC9S12DP512.py</Source>
     <Source>calss/mc9s12dp512/Can_MC9S12DP512.py</Source>
     <Source>ui_forms/Common/Ui_ComDlgAdd.py</Source>
-    <Source>ui_calss/Common/ComDlgAdd.py</Source>
     <Source>calss/comstack/CanIfCfg.py</Source>
     <Source>ui_forms/comstack/Ui_EcuC_Dlg.py</Source>
-    <Source>ui_calss/comstack/EcuC_Dlg.py</Source>
     <Source>calss/comstack/EcuCcfg.py</Source>
-    <Source>ui_calss/comstack/CanIf_Dlg.py</Source>
     <Source>ui_forms/comstack/Ui_CanIf_Dlg.py</Source>
     <Source>ui_forms/comstack/Ui_CanTp_Dlg.py</Source>
-    <Source>ui_calss/comstack/CanTp_Dlg.py</Source>
     <Source>calss/comstack/CanTpCfg.py</Source>
     <Source>ui_forms/comstack/Ui_Com_Dlg.py</Source>
-    <Source>ui_calss/comstack/Com_Dlg.py</Source>
     <Source>calss/comstack/ComCfg.py</Source>
+    <Source>ui_forms/comstack/Ui_PduR_Dlg.py</Source>
+    <Source>ui_calss/comstack/PduR_Dlg.py</Source>
+    <Source>ui_calss/comstack/CanIf_Dlg.py</Source>
+    <Source>ui_calss/comstack/CanTp_Dlg.py</Source>
+    <Source>ui_calss/comstack/Com_Dlg.py</Source>
+    <Source>ui_calss/comstack/EcuC_Dlg.py</Source>
+    <Source>calss/comstack/PduRCfg.py</Source>
   </Sources>
   <Forms>
     <Form>ui_forms/DlgArAdd.ui</Form>
@@ -55,6 +53,7 @@
     <Form>ui_forms/comstack/CanIf_Dlg.ui</Form>
     <Form>ui_forms/comstack/CanTp_Dlg.ui</Form>
     <Form>ui_forms/comstack/Com_Dlg.ui</Form>
+    <Form>ui_forms/comstack/PduR_Dlg.ui</Form>
   </Forms>
   <Translations>
   </Translations>

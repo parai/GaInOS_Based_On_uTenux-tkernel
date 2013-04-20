@@ -18,8 +18,10 @@
 #define COM_E_TOO_MANY_GROUPSIGNAL 108
 #define CPU_ENDIANESS COM_BIG_ENDIAN
 
-#define COM_N_IPDUS 6
-#define COM_N_SIGNALS 12
+#define COM_DEV_ERROR_DETECT STD_ON
+
+#define COM_N_IPDUS 4
+#define COM_N_SIGNALS 8
 #define COM_N_GROUP_SIGNALS 8
 
 #define ComConfigurationTimeBase 0

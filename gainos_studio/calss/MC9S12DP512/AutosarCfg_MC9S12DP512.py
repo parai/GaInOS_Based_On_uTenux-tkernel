@@ -50,6 +50,7 @@ from CanIfCfg import CanIfObj
 from EcuCcfg import EcuCObj
 from CanTpCfg import CanTpObj
 from ComCfg import ComObj
+from PduRCfg import PduRObj
 
 ArObjDict_MC9S12DP512={'Adc':UnimplementError, 
                        'Can':CanObj_MC9S12DP512, 
@@ -66,7 +67,7 @@ ArObjDict_MC9S12DP512={'Adc':UnimplementError,
                        'Icu':UnimplementError,
                        'Pwm':UnimplementError,
                        'Port':UnimplementError,
-                       'PduR':UnimplementError,
+                       'PduR':PduRObj,
                        'Spi':UnimplementError,
                        'Wdg':UnimplementError,
                        'WdgIf':UnimplementError,

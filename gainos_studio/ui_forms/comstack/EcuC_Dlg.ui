@@ -51,7 +51,7 @@
       <x>410</x>
       <y>20</y>
       <width>351</width>
-      <height>91</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -61,29 +61,81 @@
      <attribute name="title">
       <string>Pdu</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget_2">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>301</width>
-        <height>27</height>
+        <x>10</x>
+        <y>21</y>
+        <width>321</width>
+        <height>80</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_36">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>Name:</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_36">
+         <item>
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lePduName">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="lePduName">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Rx Size (bits):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spbxRxPduSize">
+           <property name="minimumSize">
+            <size>
+             <width>220</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>May related to Com/Dcm IPDU and so on. Its size is up to the use of this Rx PDU.</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Tx Size (bits):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spbxTxPduSize">
+           <property name="minimumSize">
+            <size>
+             <width>220</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>May related to Com/Dcm IPDU and so on. Its size is up to the use of this Tx PDU.</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

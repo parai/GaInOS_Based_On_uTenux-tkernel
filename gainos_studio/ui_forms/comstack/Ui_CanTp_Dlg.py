@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\CanTp_Dlg.ui'
 #
-# Created: Sat Apr 20 18:39:09 2013
+# Created: Sun Apr 21 00:27:49 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
