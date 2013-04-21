@@ -1,4 +1,7 @@
 # Object files
+TAGS
+cscope.out
+cscope.files
 *.o
 *.abs
 *.elf
