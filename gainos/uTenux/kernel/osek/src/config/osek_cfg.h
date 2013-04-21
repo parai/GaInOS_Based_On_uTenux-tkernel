@@ -7,11 +7,11 @@
 extern const T_CTSK OsekTaskTable[cfgOSEK_TASK_NUM];
 extern const BOOL   OsekTaskAuotStartable[cfgOSEK_TASK_NUM];
 #define ID_vTaskInit		 (MIN_TSKID+0)
-#define ID_vTaskCanTpMainFunction		 (MIN_TSKID+1)
+#define ID_vTaskMainFunction		 (MIN_TSKID+1)
 #define ID_vTaskSender		 (MIN_TSKID+2)
 #define ID_vTaskReceiver		 (MIN_TSKID+3)
 extern TASK(vTaskInit);
-extern TASK(vTaskCanTpMainFunction);
+extern TASK(vTaskMainFunction);
 extern TASK(vTaskSender);
 extern TASK(vTaskReceiver);
 /* #####################  EVENT ########################## */

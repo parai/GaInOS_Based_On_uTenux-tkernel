@@ -44,7 +44,9 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 """
-
+#如果为True，则在每次生成代码是自动备份上一次生成的配置文件
+#如果为False，则不备份，将直接覆盖，可能造成数据对视，慎用
+File_BakeUp_On_Gen = False;
 
 def TRUE(tr):
     if(tr==True):

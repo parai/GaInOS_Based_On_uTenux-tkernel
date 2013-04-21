@@ -31,7 +31,6 @@
 <EcuCList>
 <EcuCPdu name="vEcuC_Pdu0" rxSize="64" txSize="64"></EcuCPdu>
 <EcuCPdu name="vEcuC_Pdu1" rxSize="64" txSize="64"></EcuCPdu>
-<EcuCPdu name="vEcuC_Pdu4" rxSize="64" txSize="64"></EcuCPdu>
 </EcuCList>
 </AutosarObj>
 <AutosarObj name="Com">
@@ -42,7 +41,7 @@
 <ComIPduGroup name="vCom_IPduGrp0"></ComIPduGroup>
 </ComIPduGroupList>
 <ComIPduList>
-<ComIPdu name="vCom_IPdu0" ComIPduCallout="vCom_IPdu0_Callout" ArcIPduOutgoingId="TX_vEcuC_Pdu0" ComIPduSignalProcessing="DEFERRED" ComIPduDirection="SEND" ComIPduGroupRef="vCom_IPduGrp0" ComTxIPduMinimumDelayFactor="0" ComTxIPduUnusedAreasDefault="0" ComTxModeMode="DIRECT" ComTxModeNumberOfRepetitions="0" ComTxModeRepetitionPeriodFactor="10" ComTxModeTimeOffsetFactor="20" ComTxModeTimePeriodFactor="10" >
+<ComIPdu name="vCom_IPdu0" ComIPduCallout="vCom_IPdu0_Callout" ArcIPduOutgoingId="TX_vEcuC_Pdu0" ComIPduSignalProcessing="DEFERRED" ComIPduDirection="SEND" ComIPduGroupRef="vCom_IPduGrp0" ComTxIPduMinimumDelayFactor="1" ComTxIPduUnusedAreasDefault="0" ComTxModeMode="DIRECT" ComTxModeNumberOfRepetitions="0" ComTxModeRepetitionPeriodFactor="10" ComTxModeTimeOffsetFactor="20" ComTxModeTimePeriodFactor="10" >
 <ComSignalList>
 <ComSignal name="vCom_IPdu0_Signal0" ComBitPosition="0" ComBitSize="24" ComErrorNotification="NULL" ComFirstTimeoutFactor="10" ComNotification="vCom_IPdu0_Signal0_Notification" ComRxDataTimeoutAction="NONE" ComSignalEndianess="COM_BIG_ENDIAN" ComSignalInitValue="0x01 0x02 0x03" ComSignalType="UINT8_N" ComTimeoutFactor="10" ComTimeoutNotification="vCom_IPdu0_Signal0_TimeoutNotification" ComTransferProperty="TRIGGERED" ComUpdateBitPosition="0" ComSignalArcUseUpdateBit="False" ></ComSignal>
 </ComSignalList>
@@ -68,7 +67,7 @@
 </ComSignalGroup>
 </ComSignalGroupList>
 </ComIPdu>
-<ComIPdu name="vCom_IPdu2" ComIPduCallout="vCom_IPdu2_Callout" ArcIPduOutgoingId="TX_vEcuC_Pdu1" ComIPduSignalProcessing="DEFERRED" ComIPduDirection="SEND" ComIPduGroupRef="vCom_IPduGrp0" ComTxIPduMinimumDelayFactor="0" ComTxIPduUnusedAreasDefault="0" ComTxModeMode="DIRECT" ComTxModeNumberOfRepetitions="0" ComTxModeRepetitionPeriodFactor="10" ComTxModeTimeOffsetFactor="20" ComTxModeTimePeriodFactor="10" >
+<ComIPdu name="vCom_IPdu2" ComIPduCallout="vCom_IPdu2_Callout" ArcIPduOutgoingId="TX_vEcuC_Pdu1" ComIPduSignalProcessing="DEFERRED" ComIPduDirection="SEND" ComIPduGroupRef="vCom_IPduGrp0" ComTxIPduMinimumDelayFactor="1" ComTxIPduUnusedAreasDefault="0" ComTxModeMode="DIRECT" ComTxModeNumberOfRepetitions="0" ComTxModeRepetitionPeriodFactor="10" ComTxModeTimeOffsetFactor="20" ComTxModeTimePeriodFactor="10" >
 <ComSignalList>
 <ComSignal name="vCom_IPdu2_Signal0" ComBitPosition="0" ComBitSize="8" ComErrorNotification="NULL" ComFirstTimeoutFactor="10" ComNotification="vCom_IPdu2_Signal0_Notification" ComRxDataTimeoutAction="NONE" ComSignalEndianess="COM_BIG_ENDIAN" ComSignalInitValue="0x00" ComSignalType="UINT8" ComTimeoutFactor="10" ComTimeoutNotification="vCom_IPdu2_Signal0_TimeoutNotification" ComTransferProperty="TRIGGERED" ComUpdateBitPosition="0" ComSignalArcUseUpdateBit="False" ></ComSignal>
 </ComSignalList>
@@ -130,7 +129,7 @@
 <CanIfGeneral>
 <DevErrorDetection value="False"></DevErrorDetection>
 <VersionInfoApi value="False"></VersionInfoApi>
-<DlcCheck value="True"></DlcCheck>
+<DlcCheck value="False"></DlcCheck>
 <RuntimePduConfig value="False"></RuntimePduConfig>
 <BusoffNotification value="CanIf_User_BusoffNotification"></BusoffNotification>
 <ErrorNotification value="CanIf_User_ErrorNotification"></ErrorNotification>
@@ -173,24 +172,6 @@
 </CanIfHrh>
 </CanIfHrhList>
 </CanIfChannel>
-<CanIfChannel name="vCanIf_Channel4" canHwCtrl="CAN_CTRL_4" >
-<CanIfHthList>
-<CanIfHth name="vCanIf_Hth0" type="hth" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHth" >
-<CanIfTxPduList>
-<CanIfTxPdu name="TX_vEcuC_Pdu4" type="txPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" confirmation="PduR_CanIfTxConfirmation" >
-</CanIfTxPdu>
-</CanIfTxPduList>
-</CanIfHth>
-</CanIfHthList>
-<CanIfHrhList>
-<CanIfHrh name="vCanIf_Hrh0" type="hrh" hohType="CAN_ARC_HANDLE_TYPE_BASIC" hohIdSymRef="CAN_CTRL_4_vCanHrh" softwareFilter="True" >
-<CanIfRxPduList>
-<CanIfRxPdu name="RX_vEcuC_Pdu4" type="rxPdu" canType="CANIF_PDU_TYPE_STATIC" canId="0" canIdMask="0x7FF" canIdType="CANIF_CAN_ID_TYPE_11" dlc="8" indicationType="CAN_PDUR" userIndication="CanIf_UserRxIndication" >
-</CanIfRxPdu>
-</CanIfRxPduList>
-</CanIfHrh>
-</CanIfHrhList>
-</CanIfChannel>
 </CanIfChannelList>
 </AutosarObj>
 <AutosarObj name="CanTp">
@@ -203,19 +184,40 @@
 </CanTpRxNSdu>
 <CanTpRxNSdu name="vCanTp_RxNSdu1" PduR_PduId="RX_vEcuC_Pdu1" CanIf_FcPduId="TX_vEcuC_Pdu1" CanTpRxDI="8" CanTpRxPaddingActivation="CANTP_OFF" CanTpRxTaType="CANTP_PHYSICAL" CanTpBs="4" CanTpSTmin="0" CanTpWftMax="5" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNar="100" CanTpNbr="100" CanTpNcr="100" >
 </CanTpRxNSdu>
-<CanTpRxNSdu name="vCanTp_RxNSdu4" PduR_PduId="RX_vEcuC_Pdu4" CanIf_FcPduId="TX_vEcuC_Pdu4" CanTpRxDI="8" CanTpRxPaddingActivation="CANTP_OFF" CanTpRxTaType="CANTP_PHYSICAL" CanTpBs="4" CanTpSTmin="0" CanTpWftMax="5" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNar="100" CanTpNbr="100" CanTpNcr="100" >
-</CanTpRxNSdu>
 </CanTpRxNSduList>
 <CanTpTxNSduList>
 <CanTpTxNSdu name="vCanTp_TxNSdu0" PduR_PduId="TX_vEcuC_Pdu0" CanIf_FcPduId="RX_vEcuC_Pdu0" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
 <CanTpTxNSdu name="vCanTp_TxNSdu1" PduR_PduId="TX_vEcuC_Pdu1" CanIf_FcPduId="RX_vEcuC_Pdu1" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
 </CanTpTxNSdu>
-<CanTpTxNSdu name="vCanTp_TxNSdu4" PduR_PduId="TX_vEcuC_Pdu4" CanIf_FcPduId="RX_vEcuC_Pdu4" CanTpTxDI="8" CanTpTxPaddingActivation="CANTP_OFF" CanTpTxTaType="CANTP_PHYSICAL" CanTpAddressingFormant="CANTP_STANDARD" CanTpNSa="0" CanTpNTa="0" CanTpNas="100" CanTpNbs="100" CanTpNcs="100" >
-</CanTpTxNSdu>
 </CanTpTxNSduList>
 </AutosarObj>
 <AutosarObj name="PduR">
+<PduRGeneral DevErrorDetection="True" VersionInfoAPI="True" ZeroCostOperation="False" SingleIfEnable="False" SingleTpEnable="False" SingleIf="CAN_IF" SingleTp="CAN_TP" CanIfUsed="True" CanTpUsed="True" ComUsed="True" DcmUsed="False" LinIfUsed="False" LinTpUsed="False" J1939TpUsed="False" ></PduRGeneral>
+<PduRSrcPathList>
+<PduRSrcPath name="vPduR_SrcPath0" SduLength="8" SrcPduId="RX_vEcuC_Pdu0" SrcModuleEnable="True" SrcModule="CanIf" >
+<PduRDestPathList>
+<PduRDstPath name="vPduR_DestPath0" DataProvision="NO_PROVISION" DataProvisionEnable="False" DestPduId="RX_vEcuC_Pdu0" DestModule="Com" DestModuleEnable="True" ></PduRDstPath>
+</PduRDestPathList>
+</PduRSrcPath>
+<PduRSrcPath name="vPduR_SrcPath1" SduLength="8" SrcPduId="RX_vEcuC_Pdu1" SrcModuleEnable="True" SrcModule="CanIf" >
+<PduRDestPathList>
+<PduRDstPath name="vPduR_DestPath0" DataProvision="NO_PROVISION" DataProvisionEnable="False" DestPduId="RX_vEcuC_Pdu1" DestModule="Com" DestModuleEnable="True" ></PduRDstPath>
+</PduRDestPathList>
+</PduRSrcPath>
+<PduRSrcPath name="vPduR_SrcPath2" SduLength="8" SrcPduId="TX_vEcuC_Pdu0" SrcModuleEnable="False" SrcModule="Com" >
+<PduRDestPathList>
+<PduRDstPath name="vPduR_DestPath0" DataProvision="NO_PROVISION" DataProvisionEnable="False" DestPduId="TX_vEcuC_Pdu0" DestModule="CanIf" DestModuleEnable="False" ></PduRDstPath>
+</PduRDestPathList>
+</PduRSrcPath>
+<PduRSrcPath name="vPduR_SrcPath3" SduLength="8" SrcPduId="TX_vEcuC_Pdu1" SrcModuleEnable="False" SrcModule="Com" >
+<PduRDestPathList>
+<PduRDstPath name="vPduR_DestPath0" DataProvision="NO_PROVISION" DataProvisionEnable="False" DestPduId="TX_vEcuC_Pdu1" DestModule="CanIf" DestModuleEnable="False" ></PduRDstPath>
+</PduRDestPathList>
+</PduRSrcPath>
+</PduRSrcPathList>
+<PduRTpBufferList>
+</PduRTpBufferList>
 </AutosarObj>
 </AutosarList>
 </GaInOsCfg>

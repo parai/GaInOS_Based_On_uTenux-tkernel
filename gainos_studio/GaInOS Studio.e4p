@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project GaInOS Studio -->
-<!-- Saved: 2013-04-21, 00:30:20 -->
+<!-- Saved: 2013-04-21, 16:51:33 -->
 <!-- Copyright (C) 2013 ,  -->
 <Project version="4.6">
   <Language>en</Language>
@@ -42,6 +42,9 @@
     <Source>ui_calss/comstack/Com_Dlg.py</Source>
     <Source>ui_calss/comstack/EcuC_Dlg.py</Source>
     <Source>calss/comstack/PduRCfg.py</Source>
+    <Source>ui_calss/DlgArAdd.py</Source>
+    <Source>ui_calss/DlgStart.py</Source>
+    <Source>ui_calss/GaInOsStudio.py</Source>
   </Sources>
   <Forms>
     <Form>ui_forms/DlgArAdd.ui</Form>

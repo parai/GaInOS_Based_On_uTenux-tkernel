@@ -276,7 +276,7 @@ void Com_WriteSignalDataToPduBuffer(
                                  signalDataBytesArray, signalBufferSize, startBitOffset, bitSize);
 
 			// Straight copy into real pdu buffer (with mutex)
-			
+			/* What will happen if buffer size is not 8, by parai*/
 			for (i = 0; i < 8; i++) {
 				pduBufferBytes[ i ]  &=        ~( pduSignalMask[ i ] );
 				pduBufferBytes[ i ]  |=  pduBufferBytesStraight[ i ];
@@ -293,6 +293,7 @@ void Com_WriteSignalDataToPduBuffer(
 
 			
 			// actually it is only necessary to iterate through the bytes that are written.
+			/* What will happen if buffer size is not 8, by parai*/
 			for (i = 0; i < 8; i++) {
 				pduBufferBytes[ i ]  &=       ~( pduSignalMask[ (8 - 1) - i ] );
 				pduBufferBytes[ i ]  |=  pduBufferBytesSwapped[ (8 - 1) - i ];

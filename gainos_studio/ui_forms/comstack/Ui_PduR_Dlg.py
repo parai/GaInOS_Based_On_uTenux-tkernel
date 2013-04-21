@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\comstack\PduR_Dlg.ui'
 #
-# Created: Sun Apr 21 00:27:49 2013
+# Created: Sun Apr 21 11:20:54 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,18 +17,18 @@ except AttributeError:
 class Ui_PduR_Dlg(object):
     def setupUi(self, PduR_Dlg):
         PduR_Dlg.setObjectName(_fromUtf8("PduR_Dlg"))
-        PduR_Dlg.resize(963, 589)
+        PduR_Dlg.resize(1086, 586)
         self.groupBox_2 = QtGui.QGroupBox(PduR_Dlg)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 170, 941, 411))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 170, 1061, 411))
         self.groupBox_2.setMaximumSize(QtCore.QSize(16777214, 16777215))
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.trPduRCfg = QtGui.QTreeWidget(self.groupBox_2)
-        self.trPduRCfg.setGeometry(QtCore.QRect(20, 30, 256, 371))
+        self.trPduRCfg.setGeometry(QtCore.QRect(20, 30, 361, 371))
         self.trPduRCfg.setObjectName(_fromUtf8("trPduRCfg"))
         item_0 = QtGui.QTreeWidgetItem(self.trPduRCfg)
         item_0 = QtGui.QTreeWidgetItem(self.trPduRCfg)
         self.tabCfg = QtGui.QTabWidget(self.groupBox_2)
-        self.tabCfg.setGeometry(QtCore.QRect(440, 20, 491, 381))
+        self.tabCfg.setGeometry(QtCore.QRect(550, 20, 491, 381))
         self.tabCfg.setMaximumSize(QtCore.QSize(16777215, 16777214))
         self.tabCfg.setObjectName(_fromUtf8("tabCfg"))
         self.tab = QtGui.QWidget()
@@ -103,9 +103,9 @@ class Ui_PduR_Dlg(object):
         self.verticalLayout_4.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        self.cbxSrcModule_3 = QtGui.QCheckBox(self.layoutWidget1)
-        self.cbxSrcModule_3.setObjectName(_fromUtf8("cbxSrcModule_3"))
-        self.horizontalLayout_7.addWidget(self.cbxSrcModule_3)
+        self.cbxDataProvision = QtGui.QCheckBox(self.layoutWidget1)
+        self.cbxDataProvision.setObjectName(_fromUtf8("cbxDataProvision"))
+        self.horizontalLayout_7.addWidget(self.cbxDataProvision)
         self.cmbxDataProvision = QtGui.QComboBox(self.layoutWidget1)
         self.cmbxDataProvision.setObjectName(_fromUtf8("cmbxDataProvision"))
         self.cmbxDataProvision.addItem(_fromUtf8(""))
@@ -167,7 +167,7 @@ class Ui_PduR_Dlg(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_11)
         self.tabCfg.addTab(self.tab_3, _fromUtf8(""))
         self.layoutWidget3 = QtGui.QWidget(self.groupBox_2)
-        self.layoutWidget3.setGeometry(QtCore.QRect(291, 55, 131, 54))
+        self.layoutWidget3.setGeometry(QtCore.QRect(400, 55, 131, 54))
         self.layoutWidget3.setObjectName(_fromUtf8("layoutWidget3"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget3)
         self.verticalLayout_2.setMargin(0)
@@ -226,7 +226,7 @@ class Ui_PduR_Dlg(object):
         self.horizontalLayout_17.addWidget(self.cmbxSingleTp)
         self.verticalLayout_11.addLayout(self.horizontalLayout_17)
         self.groupBox_3 = QtGui.QGroupBox(PduR_Dlg)
-        self.groupBox_3.setGeometry(QtCore.QRect(470, 10, 481, 151))
+        self.groupBox_3.setGeometry(QtCore.QRect(470, 10, 601, 151))
         self.groupBox_3.setObjectName(_fromUtf8("groupBox_3"))
         self.layoutWidget6 = QtGui.QWidget(self.groupBox_3)
         self.layoutWidget6.setGeometry(QtCore.QRect(20, 42, 221, 86))
@@ -263,7 +263,7 @@ class Ui_PduR_Dlg(object):
         self.horizontalLayout.addLayout(self.verticalLayout_9)
 
         self.retranslateUi(PduR_Dlg)
-        self.tabCfg.setCurrentIndex(2)
+        self.tabCfg.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PduR_Dlg)
 
     def retranslateUi(self, PduR_Dlg):
@@ -289,7 +289,7 @@ class Ui_PduR_Dlg(object):
         self.cmbxSrcModule.setItemText(7, QtGui.QApplication.translate("PduR_Dlg", "FrTp", None, QtGui.QApplication.UnicodeUTF8))
         self.tabCfg.setTabText(self.tabCfg.indexOf(self.tab), QtGui.QApplication.translate("PduR_Dlg", "Routing Path Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("PduR_Dlg", "Symbolic Name:", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxSrcModule_3.setText(QtGui.QApplication.translate("PduR_Dlg", "Data Provision", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbxDataProvision.setText(QtGui.QApplication.translate("PduR_Dlg", "Data Provision", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxDataProvision.setItemText(0, QtGui.QApplication.translate("PduR_Dlg", "DIRECT", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxDataProvision.setItemText(1, QtGui.QApplication.translate("PduR_Dlg", "TRIGGER_TRANSMIT", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("PduR_Dlg", "Destination Pdu:", None, QtGui.QApplication.UnicodeUTF8))

@@ -120,15 +120,15 @@ const ComGroupSignal_type * const vCom_IPdu3_SigGrp0_SignalRefs[] = {
 #endif	/* COM_N_GROUP_SIGNALS */
 
 /* IPdu buffers and signal group buffers */
-uint8 vCom_IPdu0_IPduBuffer[5];
+uint8 vCom_IPdu0_IPduBuffer[8];
 uint8 vCom_IPdu0_SigGrp0_SignalGroupBuffer[2];
-uint8 vCom_IPdu1_IPduBuffer[3];
-uint8 vCom_IPdu1_IPduDeferredRxBuffer[3];
+uint8 vCom_IPdu1_IPduBuffer[8];
+uint8 vCom_IPdu1_IPduDeferredRxBuffer[8];
 uint8 vCom_IPdu1_SigGrp0_SignalGroupBuffer[2];
-uint8 vCom_IPdu2_IPduBuffer[3];
+uint8 vCom_IPdu2_IPduBuffer[8];
 uint8 vCom_IPdu2_SigGrp0_SignalGroupBuffer[2];
-uint8 vCom_IPdu3_IPduBuffer[5];
-uint8 vCom_IPdu3_IPduDeferredRxBuffer[5];
+uint8 vCom_IPdu3_IPduBuffer[8];
+uint8 vCom_IPdu3_IPduDeferredRxBuffer[8];
 uint8 vCom_IPdu3_SigGrp0_SignalGroupBuffer[2];
 
 //Signal definitions
@@ -346,11 +346,11 @@ const ComIPdu_type ComIPdu[] = {
 		/* .ComIPduCallout = */ vCom_IPdu0_Callout,
 		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu0,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
-		/* .ComIPduSize = */ 5,
+		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ SEND,
 		/* .ComIPduGroupRef = */ vCom_IPduGrp0,
 		{/* .ComTxIPdu = */
-			/* .ComTxIPduMinimumDelayFactor = */ 0,
+			/* .ComTxIPduMinimumDelayFactor = */ 1,
 			/* .ComTxIPduUnusedAreasDefault = */ 0,
 			{/* .ComTxModeTrue = */
 				/* .ComTxModeMode =  */ DIRECT,
@@ -370,7 +370,7 @@ const ComIPdu_type ComIPdu[] = {
 		/* .ComIPduCallout = */ vCom_IPdu1_Callout,
 		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu0,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
-		/* .ComIPduSize = */ 3,
+		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ RECEIVE,
 		/* .ComIPduGroupRef = */ vCom_IPduGrp0,
 		{/* .ComTxIPdu = */
@@ -394,11 +394,11 @@ const ComIPdu_type ComIPdu[] = {
 		/* .ComIPduCallout = */ vCom_IPdu2_Callout,
 		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu1,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
-		/* .ComIPduSize = */ 3,
+		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ SEND,
 		/* .ComIPduGroupRef = */ vCom_IPduGrp0,
 		{/* .ComTxIPdu = */
-			/* .ComTxIPduMinimumDelayFactor = */ 0,
+			/* .ComTxIPduMinimumDelayFactor = */ 1,
 			/* .ComTxIPduUnusedAreasDefault = */ 0,
 			{/* .ComTxModeTrue = */
 				/* .ComTxModeMode =  */ DIRECT,
@@ -418,7 +418,7 @@ const ComIPdu_type ComIPdu[] = {
 		/* .ComIPduCallout = */ vCom_IPdu3_Callout,
 		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu1,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
-		/* .ComIPduSize = */ 5,
+		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ RECEIVE,
 		/* .ComIPduGroupRef = */ vCom_IPduGrp0,
 		{/* .ComTxIPdu = */

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\mc9s12dp512\Can_MC9S12DP512.ui'
 #
-# Created: Sun Apr 21 00:27:47 2013
+# Created: Sun Apr 21 11:20:52 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

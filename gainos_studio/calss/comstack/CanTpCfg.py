@@ -261,7 +261,7 @@ class CanTpObj():
 
     def codeGenH(self, path):
         file=path+'/CanTp_Cfg.h';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#ifndef CANTP_CFG_H_\n#define CANTP_CFG_H_\n\n');
@@ -296,7 +296,7 @@ class CanTpObj():
 
     def codeGenC(self, path):
         file=path+'/CanTp_Cfg.c';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#include "CanTp.h"\n'

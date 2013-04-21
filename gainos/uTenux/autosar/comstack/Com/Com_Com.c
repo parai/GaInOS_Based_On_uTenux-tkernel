@@ -223,8 +223,9 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 	IPdu = GET_IPdu(ComTxPduId);
 	Arc_IPdu = GET_ArcIPdu(ComTxPduId);
     Irq_Save(state);
-
+    /* 这里Arccore存在严重的bug，其多处E_NOT_OK返回之前未恢复imask*/
     if( isPduBufferLocked(ComTxPduId) ) {
+        Irq_Restore(state);
     	return E_NOT_OK;
     }
 
@@ -260,12 +261,14 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 			}
 		} else {
 			UnlockTpBuffer(getPduId(IPdu));
+			Irq_Restore(state);
 			return E_NOT_OK;
 		}
 
 		// Reset miminum delay timer.
 		Arc_IPdu->Com_Arc_TxIPduTimers.ComTxIPduMinimumDelayTimer = IPdu->ComTxIPdu.ComTxIPduMinimumDelayFactor;
 	} else {
+    	Irq_Restore(state);
 		return E_NOT_OK;
 	}
     Irq_Restore(state);

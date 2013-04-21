@@ -244,7 +244,7 @@ class ComIPdu():
         #self.ComIPduSize = 64;#should calculate it
         self.ComIPduDirection = 'SEND';
         self.ComIPduGroupRef = '';
-        self.ComTxIPduMinimumDelayFactor = 0;
+        self.ComTxIPduMinimumDelayFactor = 1;
         self.ComTxIPduUnusedAreasDefault = 0;
         self.ComTxModeMode = 'PERIODIC';
         self.ComTxModeNumberOfRepetitions = 0;
@@ -255,6 +255,7 @@ class ComIPdu():
         self.signalGroupList = [];
     
     def sizeInByte(self):
+        return 8;##Arccore 的代码实现决定了必须为8字节
         sizeInByte = 0;
         for sig in self.signalList:
             #基于配置原则，每个信号起始地址必须是8 bit的整数倍，
@@ -418,7 +419,7 @@ class ComObj():
 
     def codeGenCfgH(self, path):
         file=path+'/Com_Cfg.h';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#if !(((COM_SW_MAJOR_VERSION == 1) && (COM_SW_MINOR_VERSION == 2)))\n'
@@ -454,7 +455,7 @@ class ComObj():
 
     def codeGenPbCfgH(self, path):
         file=path+'/Com_PbCfg.h';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#if !(((COM_SW_MAJOR_VERSION == 1) && (COM_SW_MINOR_VERSION == 2)) )\n'
@@ -504,7 +505,7 @@ class ComObj():
 
     def codeGenPbCfgC(self, path):
         file=path+'/Com_PbCfg.c';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#include "Com.h"\n'

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>963</width>
-    <height>589</height>
+    <width>1086</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>170</y>
-     <width>941</width>
+     <width>1061</width>
      <height>411</height>
     </rect>
    </property>
@@ -36,7 +36,7 @@
      <rect>
       <x>20</x>
       <y>30</y>
-      <width>256</width>
+      <width>361</width>
       <height>371</height>
      </rect>
     </property>
@@ -59,7 +59,7 @@
    <widget class="QTabWidget" name="tabCfg">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>550</x>
       <y>20</y>
       <width>491</width>
       <height>381</height>
@@ -72,7 +72,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -219,7 +219,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <widget class="QCheckBox" name="cbxSrcModule_3">
+          <widget class="QCheckBox" name="cbxDataProvision">
            <property name="text">
             <string>Data Provision</string>
            </property>
@@ -362,7 +362,7 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>291</x>
+      <x>400</x>
       <y>55</y>
       <width>131</width>
       <height>54</height>
@@ -504,7 +504,7 @@
     <rect>
      <x>470</x>
      <y>10</y>
-     <width>481</width>
+     <width>601</width>
      <height>151</height>
     </rect>
    </property>

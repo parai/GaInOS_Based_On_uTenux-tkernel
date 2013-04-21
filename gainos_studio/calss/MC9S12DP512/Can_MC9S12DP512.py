@@ -252,7 +252,7 @@ class CanObj_MC9S12DP512():
 
     def codeGenH(self, path):
         file=path+'/Can_Cfg.h';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#ifndef CAN_CFG_H_\n#define CAN_CFG_H_\n\n');
@@ -288,7 +288,7 @@ class CanObj_MC9S12DP512():
 
     def codeGenC(self, path):
         file=path+'/Can_PBcfg.c';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#include "Can.h"\n#include "Can_Cfg.h"\n\n');

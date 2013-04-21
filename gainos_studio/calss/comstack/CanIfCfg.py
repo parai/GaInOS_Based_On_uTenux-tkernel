@@ -327,7 +327,7 @@ class CanIfObj():
 
     def codeGenH(self, path):
         file=path+'/CanIf_Cfg.h';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#ifndef CANIF_CFG_H_\n#define CANIF_CFG_H_\n\n#include "Can.h"\n\n');
@@ -378,7 +378,7 @@ class CanIfObj():
 
     def codeGenC(self, path):
         file=path+'/CanIf_Cfg.c';
-        if os.path.isfile(file):
+        if os.path.isfile(file) and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#include "CanIf.h"\n');

@@ -95,6 +95,39 @@ class PduR_Dlg(QDialog, Ui_PduR_Dlg):
 
     def initTab(self):
         self.disableAllTab();
+        self.spbxBufferSize.setRange(0, 65535);
+        self.spbxSduLength.setRange(0, 65535);
+        self.cmbxSrcPdu.clear();
+        self.cmbxDstPdu.clear();
+        for pdu in self.depinfo[0].cfg.pduList:
+            self.cmbxSrcPdu.addItem('RX_'+pdu.name);
+            self.cmbxDstPdu.addItem('RX_'+pdu.name);
+        for pdu in self.depinfo[0].cfg.pduList:
+            self.cmbxSrcPdu.addItem('TX_'+pdu.name);
+            self.cmbxDstPdu.addItem('TX_'+pdu.name);
+    
+    def reloadTreeGui(self):
+        #Tp Buffers
+        tree=self.trPduRCfg.topLevelItem(1);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for obj in self.cfg.tpBufferList:
+            item=QTreeWidgetItem(tree,QStringList(obj.name));
+            tree.addChild(item);
+        ### Routing Path
+        tree=self.trPduRCfg.topLevelItem(0);
+        for index in range(0, tree.childCount()):
+            temp=tree.takeChild(0);
+            del temp;
+        for src in self.cfg.pduRoutingPathList:
+            text = "%s(%s, %s)"%(src.name, src.SrcModule, src.SrcPduId);
+            item=QTreeWidgetItem(tree,QStringList(text));
+            tree.addChild(item);
+            for dest in src.destPathList:
+                text = "%s(%s, %s)"%(dest.name, dest.DestModule, dest.DestPduId);
+                item2=QTreeWidgetItem(item,QStringList(text));
+                item.addChild(item2);
 
     def initGui(self):
         self.initGeneralGui();
@@ -102,6 +135,8 @@ class PduR_Dlg(QDialog, Ui_PduR_Dlg):
         #init Button
         self.btnAdd.setDisabled(True);
         self.btnDel.setDisabled(True);
+        #reload
+        self.reloadTreeGui();
 
     def disableAllTab(self):
         """禁止所有的Tab页"""
@@ -139,107 +174,232 @@ class PduR_Dlg(QDialog, Ui_PduR_Dlg):
             self.btnDel.setDisabled(True);
         elif(self.curtree.parent().text(0) == 'Routing Table'):
             self.btnAdd.setText('Add Dest Path');
+            self.btnDel.setText('Del Src Path');
             self.btnAdd.setDisabled(False);
             self.btnDel.setDisabled(False);
         elif(self.curtree.parent().text(0) == 'Tp Buffers'):
+            self.btnDel.setText('Del Tp Buffer');
             self.btnAdd.setDisabled(True);
             self.btnDel.setDisabled(False);
         elif(self.curtree.parent().parent().text(0) == 'Routing Table'):
+            self.btnDel.setText('Del Dest Path');
             self.btnAdd.setDisabled(True);
             self.btnDel.setDisabled(False);
+
+    def refreshSrcPathTab(self, name):
+        self.curobj=obj=self.findObj(self.cfg.pduRoutingPathList, name);
+        if(obj==None):
+            return;
+        self.leSrcName.setText(obj.name);
+        self.spbxSduLength.setValue(obj.SduLength);
+        self.cmbxSrcPdu.setCurrentIndex(self.cmbxSrcPdu.findText(obj.SrcPduId));
+        self.cbxSrcModule.setChecked(obj.SrcModuleEnable);
+        self.cmbxSrcModule.setDisabled(not obj.SrcModuleEnable);
+        self.cmbxSrcModule.setCurrentIndex(self.cmbxSrcModule.findText(obj.SrcModule));
+        self.enableTab(0);
+        
+    def refreshDestPathTab(self, name):
+        pname = self.curtree.parent().text(0).split('(')[0];
+        src = self.findObj(self.cfg.pduRoutingPathList, pname);
+        self.curobj=obj=self.findObj(src.destPathList, name);
+        if(obj==None):
+            return;#something wrong
+        self.leDstName.setText(obj.name);
+        self.cmbxDataProvision.setCurrentIndex(self.cmbxDataProvision.findText(obj.DataProvision));
+        self.cmbxDataProvision.setDisabled(not obj.DataProvisionEnable);
+        self.cbxDataProvision.setChecked(obj.DataProvisionEnable);
+        self.cmbxDstPdu.setCurrentIndex(self.cmbxDstPdu.findText(obj.DestPduId));
+        self.cbxDstModule.setChecked(obj.DestModuleEnable);
+        self.cmbxDstModule.setDisabled(not obj.DestModuleEnable);
+        self.cmbxDstModule.setCurrentIndex(self.cmbxDstModule.findText(obj.DestModule));
+        self.enableTab(1);
+        
+    def refreshTpBufferTab(self, name):
+        self.curobj=obj=self.findObj(self.cfg.tpBufferList, name);
+        if(obj==None):
+            return;#something wrong
+        self.leBufferName.setText(obj.name);
+        self.spbxBufferSize.setValue(obj.size);
+        self.enableTab(2);
+
+    def refreshTab(self):
+        if(self.curtree.parent() == None):
+            self.disableAllTab();
+            self.curobj=None;
+            return;
+        trname = self.curtree.parent().text(0);
+        objname= self.curtree.text(0);
+        if(trname  == 'Routing Table'):
+            self.refreshSrcPathTab(objname.split('(')[0]);
+        elif(trname  == 'Tp Buffers'):
+            self.refreshTpBufferTab(objname);
+        elif(self.curtree.parent().parent().text(0) == 'Routing Table' ):
+            self.refreshDestPathTab(objname.split('(')[0]);
 
     @pyqtSignature("QTreeWidgetItem*, int")
     def on_trPduRCfg_itemClicked(self, item, column):
         self.curtree = item;
         self.refreshButton();
-    
+        self.refreshTab();
+#########Tp Buffer#################################################    
     @pyqtSignature("QString")
     def on_leBufferName_textChanged(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-    
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            self.curtree.setText(0, p0);
+
+    @pyqtSignature("int")
+    def on_spbxBufferSize_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.size=p0;
+
+####################### Src Path######################    
     @pyqtSignature("QString")
     def on_leSrcName_textChanged(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.SrcModule, self.curobj.SrcPduId);
+            self.curtree.setText(0, text);
+    
+    @pyqtSignature("int")
+    def on_spbxSduLength_valueChanged(self, p0):
+        if(self.curobj!=None):
+            self.curobj.SduLength=p0;
+
+    @pyqtSignature("QString")   
+    def on_cmbxSrcPdu_activated(self, p0):
+        if(self.curobj!=None):
+            self.curobj.SrcPduId=p0;
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.SrcModule, self.curobj.SrcPduId);
+            self.curtree.setText(0, text);
     
     @pyqtSignature("bool")
     def on_cbxSrcModule_clicked(self, checked):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-    
+        if(self.curobj!=None):
+            self.curobj.SrcModuleEnable=checked;
+            self.cmbxSrcModule.setDisabled(not checked);
+            if(checked == False):
+                ###reset it to Com
+                self.on_cmbxSrcModule_activated('Com');
+                self.cmbxSrcModule.setCurrentIndex(self.cmbxSrcModule.findText('Com'));
+
     @pyqtSignature("QString")
     def on_cmbxSrcModule_activated(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-    
+        if(self.curobj!=None):
+            self.curobj.SrcModule=str(p0);
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.SrcModule, self.curobj.SrcPduId);
+            self.curtree.setText(0, text);
+
+########################## Dst Path #########################
     @pyqtSignature("QString")
     def on_leDstName_textChanged(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-    
+        if(self.curobj!=None):
+            self.curobj.name=p0;
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.DestModule, self.curobj.DestPduId);
+            self.curtree.setText(0, text);
+
+    @pyqtSignature("bool")
+    def on_cbxDataProvision_clicked(self, checked):
+        if(self.curobj!=None):
+            self.curobj.DataProvisionEnable=checked;
+            self.cmbxDataProvision.setDisabled(not checked);
+            if(checked==False):
+                ##reset it
+                self.cmbxDataProvision.setCurrentIndex(-1);
+                self.curobj.DataProvision='NO_PROVISION';
+        
     @pyqtSignature("QString")
     def on_cmbxDataProvision_activated(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        if(self.curobj!=None):
+            self.curobj.DataProvision=p0;
     
     @pyqtSignature("QString")
     def on_cmbxDstPdu_activated(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        if(self.curobj!=None):
+            self.curobj.DestPduId=p0;
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.DestModule, self.curobj.DestPduId);
+            self.curtree.setText(0, text);
     
     @pyqtSignature("bool")
     def on_cbxDstModule_clicked(self, checked):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        if(self.curobj!=None):
+            self.curobj.DestModuleEnable=checked;
+            self.cmbxDstModule.setDisabled(not checked);
+            if(checked == False):
+                ###reset it to CanIf
+                self.on_cmbxDstModule_activated('CanIf');
+                self.cmbxDstModule.setCurrentIndex(self.cmbxDstModule.findText('CanIf'));
     
     @pyqtSignature("QString")
     def on_cmbxDstModule_activated(self, p0):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
-    
+        if(self.curobj!=None):
+            self.curobj.DestModule=str(p0);
+            text='%s(%s, %s)'%(self.curobj.name, self.curobj.DestModule, self.curobj.DestPduId);
+            self.curtree.setText(0, text);
+
+    def addSrcPath(self):
+        id = len(self.cfg.pduRoutingPathList);
+        name='vPduR_SrcPath%s(Com,)'%(id);
+        item=QTreeWidgetItem(self.curtree,QStringList(name));
+        self.curtree.addChild(item);
+        self.curtree.setExpanded(True);
+        obj=PduRSrcPath(name.split('(')[0]);
+        self.cfg.pduRoutingPathList.append(obj);
+
+    def addDestPath(self):
+        pname=self.curtree.text(0).split('(')[0];
+        src=self.findObj(self.cfg.pduRoutingPathList, pname);
+        if(src == None):
+            return;#something wrong.
+        id = len(src.destPathList);
+        name='vPduR_DestPath%s(CanIf,)'%(id);
+        item=QTreeWidgetItem(self.curtree,QStringList(name));
+        self.curtree.addChild(item);
+        self.curtree.setExpanded(True);
+        obj=PduRDstPath(name.split('(')[0]);
+        src.destPathList.append(obj);
+ 
+    def addTpBuffer(self):
+        id = len(self.cfg.tpBufferList);
+        name='vPduR_TpBuffer%s'%(id);
+        item=QTreeWidgetItem(self.curtree,QStringList(name));
+        self.curtree.addChild(item);
+        self.curtree.setExpanded(True);
+        obj=PduRTpBuffer(name);
+        self.cfg.tpBufferList.append(obj);
+
     @pyqtSignature("")
     def on_btnAdd_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        text=self.btnAdd.text();
+        if(text == 'Add Routing Path'):
+            self.addSrcPath(); 
+        elif(text == 'Add Dest Path'):
+            self.addDestPath();
+        elif(text == 'Add Tp Buffer'):
+            self.addTpBuffer();
     
     @pyqtSignature("")
     def on_btnDel_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-        # TODO: not implemented yet
-        raise NotImplementedError
+        parent = self.curtree.parent();
+        index = parent.indexOfChild(self.curtree);
+        parent.takeChild(index);
+        text=self.btnDel.text();
+        if(text=='Del Src Path'):
+            self.delObj(self.cfg.pduRoutingPathList);
+        elif(text=='Del Tp Buffer'):
+            self.delObj(self.cfg.tpBufferList);
+        elif(text=='Del Dest Path'):
+            pname = parent.text(0).split('(')[0];
+            src = self.findObj(self.cfg.pduRoutingPathList, pname);
+            self.delObj(src.destPathList);
+        del self.curtree;
+        #reselect a tree item,software trigger on_trGaInOsCfgList_itemClicked()
+        if(index>0):
+            parent.child(index-1).setSelected(True);
+            self.on_trPduRCfg_itemClicked(parent.child(index-1), 0);
+        else:
+            parent.setSelected(True);
+            self.on_trPduRCfg_itemClicked(parent, 0);
     
     @pyqtSignature("bool")
     def on_cbxDevErr_clicked(self, checked):
@@ -247,7 +407,7 @@ class PduR_Dlg(QDialog, Ui_PduR_Dlg):
 
     @pyqtSignature("bool")
     def on_cbxVersionInfo_clicked(self, checked):
-        self.cfg.General.DevErrorDetection=checked;
+        self.cfg.General.VersionInfoAPI=checked;
     
     @pyqtSignature("bool")
     def on_cbxZeroCostEnable_clicked(self, checked):

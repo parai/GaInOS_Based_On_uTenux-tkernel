@@ -67,7 +67,7 @@ class CodeGen():
         shutil.copy(file, file2+'.bak');
 
     def genOsekCfgC(self, cfg, file):
-        if os.path.isfile(file):
+        if os.path.isfile(file)  and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#include "osek_cfg.h"\n\n');
@@ -116,7 +116,7 @@ class CodeGen():
         fp.close();
 
     def genOsekCfgH(self, cfg, file):
-        if os.path.isfile(file):
+        if os.path.isfile(file)  and File_BakeUp_On_Gen:
             self.backup(file);
         fp=open(file, 'w');
         fp.write('#ifndef _OSEK_CFG_H_\n');
