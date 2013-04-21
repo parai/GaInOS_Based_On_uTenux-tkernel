@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\parai@foxmail.com\nt\gainos-tkernel\gainos_studio\ui_forms\GaInOsStudio.ui'
 #
-# Created: Sun Apr 21 11:20:51 2013
+# Created: Sun Apr 21 21:43:44 2013
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,6 +53,7 @@ class Ui_wMainClass(object):
         self.gridLayout.addWidget(self.label_8, 1, 0, 1, 2)
         self.spbxTskStkSize = QtGui.QSpinBox(self.layoutWidget)
         self.spbxTskStkSize.setMinimumSize(QtCore.QSize(101, 0))
+        self.spbxTskStkSize.setToolTip(_fromUtf8(""))
         self.spbxTskStkSize.setMinimum(64)
         self.spbxTskStkSize.setMaximum(10240000)
         self.spbxTskStkSize.setObjectName(_fromUtf8("spbxTskStkSize"))
@@ -62,6 +63,7 @@ class Ui_wMainClass(object):
         self.gridLayout.addWidget(self.label_6, 2, 0, 1, 1)
         self.cmbxTskType = QtGui.QComboBox(self.layoutWidget)
         self.cmbxTskType.setMinimumSize(QtCore.QSize(111, 0))
+        self.cmbxTskType.setToolTip(_fromUtf8(""))
         self.cmbxTskType.setObjectName(_fromUtf8("cmbxTskType"))
         self.cmbxTskType.addItem(_fromUtf8(""))
         self.cmbxTskType.addItem(_fromUtf8(""))
@@ -71,6 +73,7 @@ class Ui_wMainClass(object):
         self.gridLayout.addWidget(self.label_7, 3, 0, 1, 2)
         self.spbxTskPrio = QtGui.QSpinBox(self.layoutWidget)
         self.spbxTskPrio.setMinimumSize(QtCore.QSize(101, 0))
+        self.spbxTskPrio.setToolTip(_fromUtf8(""))
         self.spbxTskPrio.setObjectName(_fromUtf8("spbxTskPrio"))
         self.gridLayout.addWidget(self.spbxTskPrio, 3, 3, 1, 2)
         self.label_10 = QtGui.QLabel(self.layoutWidget)
@@ -78,6 +81,7 @@ class Ui_wMainClass(object):
         self.gridLayout.addWidget(self.label_10, 4, 0, 1, 3)
         self.spbxTskMaxActivateCount = QtGui.QSpinBox(self.layoutWidget)
         self.spbxTskMaxActivateCount.setMinimumSize(QtCore.QSize(91, 0))
+        self.spbxTskMaxActivateCount.setToolTip(_fromUtf8(""))
         self.spbxTskMaxActivateCount.setObjectName(_fromUtf8("spbxTskMaxActivateCount"))
         self.gridLayout.addWidget(self.spbxTskMaxActivateCount, 4, 3, 1, 2)
         self.cbxTskAutoStart = QtGui.QCheckBox(self.layoutWidget)
@@ -107,6 +111,7 @@ class Ui_wMainClass(object):
         self.gridLayout_2.addWidget(self.label_12, 1, 0, 1, 2)
         self.spbxResCeilPrio = QtGui.QSpinBox(self.layoutWidget1)
         self.spbxResCeilPrio.setMinimumSize(QtCore.QSize(91, 0))
+        self.spbxResCeilPrio.setToolTip(_fromUtf8(""))
         self.spbxResCeilPrio.setObjectName(_fromUtf8("spbxResCeilPrio"))
         self.gridLayout_2.addWidget(self.spbxResCeilPrio, 1, 2, 1, 1)
         self.tblGaInOsCfg.addTab(self.tabRes, _fromUtf8(""))
@@ -130,6 +135,7 @@ class Ui_wMainClass(object):
         self.gridLayout_4.addWidget(self.label_16, 1, 0, 1, 2)
         self.spbxCntMaxAllowedValue = QtGui.QSpinBox(self.layoutWidget2)
         self.spbxCntMaxAllowedValue.setMinimumSize(QtCore.QSize(91, 0))
+        self.spbxCntMaxAllowedValue.setToolTip(_fromUtf8(""))
         self.spbxCntMaxAllowedValue.setMinimum(1)
         self.spbxCntMaxAllowedValue.setMaximum(65535)
         self.spbxCntMaxAllowedValue.setObjectName(_fromUtf8("spbxCntMaxAllowedValue"))
@@ -139,6 +145,7 @@ class Ui_wMainClass(object):
         self.gridLayout_4.addWidget(self.label_17, 2, 0, 1, 2)
         self.spbxCntTickBase = QtGui.QSpinBox(self.layoutWidget2)
         self.spbxCntTickBase.setMinimumSize(QtCore.QSize(91, 0))
+        self.spbxCntTickBase.setToolTip(_fromUtf8(""))
         self.spbxCntTickBase.setMinimum(1)
         self.spbxCntTickBase.setMaximum(65535)
         self.spbxCntTickBase.setObjectName(_fromUtf8("spbxCntTickBase"))
@@ -148,6 +155,7 @@ class Ui_wMainClass(object):
         self.gridLayout_4.addWidget(self.label_18, 3, 0, 1, 3)
         self.spbxCntMinCycle = QtGui.QSpinBox(self.layoutWidget2)
         self.spbxCntMinCycle.setMinimumSize(QtCore.QSize(91, 0))
+        self.spbxCntMinCycle.setToolTip(_fromUtf8(""))
         self.spbxCntMinCycle.setMinimum(1)
         self.spbxCntMinCycle.setMaximum(65535)
         self.spbxCntMinCycle.setObjectName(_fromUtf8("spbxCntMinCycle"))
@@ -176,6 +184,7 @@ class Ui_wMainClass(object):
         self.gridLayout_3.addWidget(self.label_24, 1, 0, 1, 1)
         self.cmbxAlarmOwner = QtGui.QComboBox(self.layoutWidget3)
         self.cmbxAlarmOwner.setMinimumSize(QtCore.QSize(231, 0))
+        self.cmbxAlarmOwner.setToolTip(_fromUtf8(""))
         self.cmbxAlarmOwner.setObjectName(_fromUtf8("cmbxAlarmOwner"))
         self.cmbxAlarmOwner.addItem(_fromUtf8(""))
         self.gridLayout_3.addWidget(self.cmbxAlarmOwner, 1, 1, 1, 2)
@@ -184,6 +193,7 @@ class Ui_wMainClass(object):
         self.gridLayout_3.addWidget(self.label_20, 2, 0, 1, 1)
         self.cmbxAlarmType = QtGui.QComboBox(self.layoutWidget3)
         self.cmbxAlarmType.setMinimumSize(QtCore.QSize(231, 0))
+        self.cmbxAlarmType.setToolTip(_fromUtf8(""))
         self.cmbxAlarmType.setObjectName(_fromUtf8("cmbxAlarmType"))
         self.cmbxAlarmType.addItem(_fromUtf8(""))
         self.cmbxAlarmType.addItem(_fromUtf8(""))
@@ -194,6 +204,7 @@ class Ui_wMainClass(object):
         self.gridLayout_3.addWidget(self.lblAlarmTask, 3, 0, 1, 2)
         self.cmbxAlarmTask = QtGui.QComboBox(self.layoutWidget3)
         self.cmbxAlarmTask.setMinimumSize(QtCore.QSize(231, 0))
+        self.cmbxAlarmTask.setToolTip(_fromUtf8(""))
         self.cmbxAlarmTask.setObjectName(_fromUtf8("cmbxAlarmTask"))
         self.gridLayout_3.addWidget(self.cmbxAlarmTask, 3, 2, 1, 1)
         self.label_23 = QtGui.QLabel(self.layoutWidget3)
@@ -201,6 +212,7 @@ class Ui_wMainClass(object):
         self.gridLayout_3.addWidget(self.label_23, 4, 0, 1, 2)
         self.cmbxAlarmEvent = QtGui.QComboBox(self.layoutWidget3)
         self.cmbxAlarmEvent.setMinimumSize(QtCore.QSize(231, 0))
+        self.cmbxAlarmEvent.setToolTip(_fromUtf8(""))
         self.cmbxAlarmEvent.setObjectName(_fromUtf8("cmbxAlarmEvent"))
         self.gridLayout_3.addWidget(self.cmbxAlarmEvent, 4, 2, 1, 1)
         self.tblGaInOsCfg.addTab(self.tabAlm, _fromUtf8(""))
@@ -351,14 +363,6 @@ class Ui_wMainClass(object):
         self.label_5.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Task Name:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.leTskName.setText(QtGui.QApplication.translate("wMainClass", "vTask", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Task Stack Size:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxTskStkSize.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -367,121 +371,33 @@ class Ui_wMainClass(object):
 "<tr>\n"
 "<td style=\"border: none;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Task Type:</p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxTskType.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTskType.setItemText(0, QtGui.QApplication.translate("wMainClass", "BASIC_TASK", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxTskType.setItemText(1, QtGui.QApplication.translate("wMainClass", "EXTEND_TASK", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("wMainClass", "Task Priority:", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxTskPrio.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("wMainClass", "Task Max Activate Count:", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxTskMaxActivateCount.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxTskAutoStart.setText(QtGui.QApplication.translate("wMainClass", "Task Auto-Start", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxTskPreemtable.setText(QtGui.QApplication.translate("wMainClass", "Task Preemtable", None, QtGui.QApplication.UnicodeUTF8))
         self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tabTask), QtGui.QApplication.translate("wMainClass", "Task", None, QtGui.QApplication.UnicodeUTF8))
         self.label_11.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Resource Name:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.leResName.setText(QtGui.QApplication.translate("wMainClass", "vRes1", None, QtGui.QApplication.UnicodeUTF8))
         self.label_12.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Resource Ceiling Priority:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxResCeilPrio.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tabRes), QtGui.QApplication.translate("wMainClass", "Resource", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Counter Name:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.leCntName.setText(QtGui.QApplication.translate("wMainClass", "vCnt1", None, QtGui.QApplication.UnicodeUTF8))
         self.label_16.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Counter Max Allowed Value:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxCntMaxAllowedValue.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_17.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Counter Ticks Per Base:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxCntTickBase.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_18.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Counter Minimum Cycle:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.spbxCntMinCycle.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tabCnt), QtGui.QApplication.translate("wMainClass", "Counter", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Alarm Name:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.leAlarmName.setText(QtGui.QApplication.translate("wMainClass", "vAlarm1", None, QtGui.QApplication.UnicodeUTF8))
         self.label_24.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Alarm Owner:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxAlarmOwner.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxAlarmOwner.setItemText(0, QtGui.QApplication.translate("wMainClass", "tkernel system counter", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Alarm Type:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxAlarmType.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxAlarmType.setItemText(0, QtGui.QApplication.translate("wMainClass", "callback", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxAlarmType.setItemText(1, QtGui.QApplication.translate("wMainClass", "task", None, QtGui.QApplication.UnicodeUTF8))
         self.cmbxAlarmType.setItemText(2, QtGui.QApplication.translate("wMainClass", "event", None, QtGui.QApplication.UnicodeUTF8))
         self.lblAlarmTask.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Alarm Event Task:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxAlarmTask.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_23.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Alarm Set Event:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.cmbxAlarmEvent.setToolTip(QtGui.QApplication.translate("wMainClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Monospace\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<table border=\"0\" style=\"-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;\">\n"
-"<tr>\n"
-"<td style=\"border: none;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p></td></tr></table></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tblGaInOsCfg.setTabText(self.tblGaInOsCfg.indexOf(self.tabAlm), QtGui.QApplication.translate("wMainClass", "Alarm", None, QtGui.QApplication.UnicodeUTF8))
         self.label_25.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p><span style=\" font-size:12pt;\">Event Name:</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_26.setText(QtGui.QApplication.translate("wMainClass", "<html><head/><body><p>Event Mask:</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))

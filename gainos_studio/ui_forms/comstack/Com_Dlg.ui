@@ -92,7 +92,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -205,7 +205,7 @@
           <item>
            <widget class="QSpinBox" name="spbxMinDelayFactor">
             <property name="toolTip">
-             <string>uint in ms</string>
+             <string>uint in MainFunction Period</string>
             </property>
            </widget>
           </item>
@@ -284,7 +284,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxRepetitionPeriodFactor"/>
+           <widget class="QSpinBox" name="spbxRepetitionPeriodFactor">
+            <property name="toolTip">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -300,7 +304,7 @@
           <item>
            <widget class="QSpinBox" name="spbxTimeOffsetFactor">
             <property name="toolTip">
-             <string>uint in ms</string>
+             <string>uint in MainFunction Period</string>
             </property>
            </widget>
           </item>
@@ -318,7 +322,7 @@
           <item>
            <widget class="QSpinBox" name="spbxTimePeriodFactor">
             <property name="toolTip">
-             <string>uint in ms</string>
+             <string>uint in MainFunction Period</string>
             </property>
            </widget>
           </item>
@@ -605,7 +609,11 @@ Range 0 to 4095 for uint8_n signal types</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalTimeoutFactor"/>
+           <widget class="QSpinBox" name="spbxSignalTimeoutFactor">
+            <property name="toolTip">
+             <string>uint in MainFunction Period</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -619,7 +627,11 @@ Range 0 to 4095 for uint8_n signal types</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalFirstTimeout"/>
+           <widget class="QSpinBox" name="spbxSignalFirstTimeout">
+            <property name="toolTip">
+             <string>uint in MainFunction Period</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -661,7 +673,11 @@ Range 0 to 4095 for uint8_n signal types</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSignalNotification"/>
+           <widget class="QLineEdit" name="leSignalNotification">
+            <property name="toolTip">
+             <string>input &quot;NULL&quot; to turn it off, if you want</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -675,7 +691,11 @@ Range 0 to 4095 for uint8_n signal types</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSignalNotificationOnTimeout"/>
+           <widget class="QLineEdit" name="leSignalNotificationOnTimeout">
+            <property name="toolTip">
+             <string>input &quot;NULL&quot; to turn it off, if you want</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -976,7 +996,11 @@ signal mapping:</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalGrpTimeoutFactor"/>
+           <widget class="QSpinBox" name="spbxSignalGrpTimeoutFactor">
+            <property name="toolTip">
+             <string>uint in MainFunction Period</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -990,7 +1014,11 @@ signal mapping:</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spbxSignalGrpFirstTimeout"/>
+           <widget class="QSpinBox" name="spbxSignalGrpFirstTimeout">
+            <property name="toolTip">
+             <string>uint in MainFunction Period</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -1004,7 +1032,11 @@ signal mapping:</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSignalGrpNotification"/>
+           <widget class="QLineEdit" name="leSignalGrpNotification">
+            <property name="toolTip">
+             <string>input &quot;NULL&quot; to turn it off, if you want</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -1018,7 +1050,11 @@ signal mapping:</string>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSignalGrpNotificationOnTimeout"/>
+           <widget class="QLineEdit" name="leSignalGrpNotificationOnTimeout">
+            <property name="toolTip">
+             <string>input &quot;NULL&quot; to turn it off, if you want</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

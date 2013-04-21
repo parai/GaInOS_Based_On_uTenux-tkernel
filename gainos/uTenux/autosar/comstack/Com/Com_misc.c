@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-14 05:44:29 $
- * $Revision: 1.1 $
+ * from Date:2013-04-08 to $Date: 2013-04-21 13:47:07 $
+ * $Revision: 1.2 $
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
@@ -158,7 +158,7 @@ void Com_ReadSignalDataFromPduBuffer(
 			}
 		} else {
 			//lint --e(506)	PC-Lint exception Misra 13.7, 14.1, Allow boolean to always be false.
-			assert(0);
+			AR_ASSERT(0);
 		}
 	}
 	Irq_Restore(state);
@@ -263,7 +263,7 @@ void Com_WriteSignalDataToPduBuffer(
 			}
 		} else {
 			//lint --e(506)	PC-Lint exception Misra 13.7, 14.1, Allow boolean to always be false.
-			assert(0);
+			AR_ASSERT(0);
 		}
 
 		if (endian == COM_BIG_ENDIAN) {

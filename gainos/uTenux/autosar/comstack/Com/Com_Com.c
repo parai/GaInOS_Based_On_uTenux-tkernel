@@ -21,8 +21,8 @@
  * URL:      https://github.com/parai
  * Email:    parai@foxmail.com
  * Name:     parai(Wang Fan)
- * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
- * $Revision: 1.2 $
+ * from Date:2013-04-08 to $Date: 2013-04-21 13:47:07 $
+ * $Revision: 1.3 $
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
