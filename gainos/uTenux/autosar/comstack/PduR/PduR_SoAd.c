@@ -18,7 +18,7 @@
 
 
 #include "Det.h"
-#include "debug.h"
+#include "ardebug.h"
 
 #if (PDUR_ZERO_COST_OPERATION == STD_OFF) && (PDUR_SOAD_SUPPORT == STD_ON)
 

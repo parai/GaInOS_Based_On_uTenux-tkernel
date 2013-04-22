@@ -33,7 +33,7 @@
  * Do not use this in a header file. Should be used in the *.c file like this.
  *
  * #define USE_DEBUG_PRINTF
- * #include "debug.h"
+ * #include "ardebug.h"
  *
  * Macro's for debugging and tracing
  *
@@ -54,7 +54,7 @@
  *
  */
 
-#include <stdio.h>
+//#include <stdio.h>
 
 #define DEBUG_LOW		1
 #define DEBUG_MEDIUM	2

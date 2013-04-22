@@ -13,7 +13,7 @@
 #if defined(USE_CANNM)
 #include "CanNm_Cbk.h"
 #endif
-#include <stdlib.h>
+//#include <stdlib.h>
 
 // Imported structs from Can_PBcfg.c
 IMPORT const Can_ControllerConfigType Can_ControllerCfgData[];

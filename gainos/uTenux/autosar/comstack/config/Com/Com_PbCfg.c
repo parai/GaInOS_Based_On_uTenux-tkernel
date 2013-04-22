@@ -1,6 +1,6 @@
 #include "Com.h"
 #include "Com_Internal.h"
-#include <stdlib.h>
+//#include <stdlib.h>
 #if defined(USE_PDUR)
 #include "PduR.h"
 #endif

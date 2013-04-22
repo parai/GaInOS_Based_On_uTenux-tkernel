@@ -32,9 +32,10 @@
 
 
 //#include <assert.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 //#include <stdio.h>
-#include <string.h>
+//#include <string.h>
+#include <libstr.h>
 #include "Com.h"
 #include "Com_Arc_Types.h"
 #include "Com_Internal.h"

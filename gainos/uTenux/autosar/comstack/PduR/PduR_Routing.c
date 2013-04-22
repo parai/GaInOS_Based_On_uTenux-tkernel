@@ -17,8 +17,9 @@
 #include "PduR.h"
 
 
-#include <string.h>
-#include "debug.h"
+//#include <string.h>
+#include <libstr.h>
+#include "ardebug.h"
 #if defined(USE_DEM)
 #include "Dem.h"
 #endif

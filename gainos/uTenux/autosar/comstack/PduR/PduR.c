@@ -32,8 +32,9 @@
 
 
 
-#include <stdlib.h>
-#include <string.h>
+//#include <stdlib.h>
+//#include <string.h>
+#include <libstr.h>
 
 
 #include "Det.h"

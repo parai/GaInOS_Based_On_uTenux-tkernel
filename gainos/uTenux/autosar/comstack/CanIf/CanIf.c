@@ -31,7 +31,8 @@
 
 #include "Can.h"
 #include "CanIf_Cbk.h"
-#include <string.h>
+//#include <string.h>
+#include <libstr.h>
 
 #include "ardebug.h"
 #include "PduR.h"

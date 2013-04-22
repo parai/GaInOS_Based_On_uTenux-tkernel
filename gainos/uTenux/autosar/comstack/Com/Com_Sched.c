@@ -32,7 +32,8 @@
 #include "Com.h"
 #include "Com_Internal.h"
 #include "Com_misc.h"
-#include <string.h>
+//#include <string.h>
+#include <libstr.h>
 #include "ardebug.h"
 #include "Cpu.h"
 

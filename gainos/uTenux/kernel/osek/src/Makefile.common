@@ -67,7 +67,22 @@ CFLAGS += $(CFLAGS_WARNING) \
 	-I$(BD)/kernel/tkernel/src	\
 	-I$(BD)/config -I$(BD)/kernel/cpu/src/sysdepend/$(CPU_ARCH)	\
 	-I$(BD)/kernel/osek/src/config	\
-	-I$(BD)/autosar/include
+	-I$(BD)/autosar/include	\
+	-I$(BD)/autosar/comstack/CanIf/ \
+	-I$(BD)/autosar/comstack/CanTp/ \
+	-I$(BD)/autosar/comstack/Com/ \
+	-I$(BD)/autosar/comstack/config/CanIf/ \
+	-I$(BD)/autosar/comstack/config/CanTp/ \
+	-I$(BD)/autosar/comstack/config/Com/ \
+	-I$(BD)/autosar/comstack/config/PduR/ \
+	-I$(BD)/autosar/comstack/PduR/ \
+	-I$(BD)/autosar/diag/Dem/ \
+	-I$(BD)/autosar/diag/Det/ \
+	-I$(BD)/autosar/ecual/EcuM/ \
+	-I$(BD)/autosar/include/sysdepend/ \
+	-I$(BD)/autosar/mcal/driver/Can/ \
+	-I$(BD)/autosar/mcal/config/Can/sysdepend/$(TETYPE)_$(MACHINE)/$(CHIP)/ \
+	-I$(BD)/autosar/mcal/driver/Can/sysdepend/$(TETYPE)_$(MACHINE)/$(CHIP)/
 
 # ----------------------------------------------------------------------------
 

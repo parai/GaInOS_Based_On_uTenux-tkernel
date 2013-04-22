@@ -23,8 +23,9 @@
 
 #include "PduR.h"
 
-#include <string.h>
-#include "debug.h"
+//#include <string.h>
+#include <libstr.h>
+#include "ardebug.h"
 #include "Det.h"
 #if defined(USE_DEM)
 #include "Dem.h"
@@ -202,8 +203,8 @@ void PduR_ARC_RxIndication(PduIdType PduId, const PduInfoType* PduInfo, uint8 se
 
 void PduR_ARC_TxConfirmation(PduIdType PduId, uint8 result, uint8 serviceId) {
 	const PduRRoutingPath_type *route;
-	PDUR_VALIDATE_INITIALIZED(serviceId);
-	PDUR_VALIDATE_PDUID(serviceId, PduId);
+	PDUR_VALIDATE_INITIALIZED(serviceId,);
+	PDUR_VALIDATE_PDUID(serviceId, PduId,);
 
 	route = PduRConfig->RoutingPaths[PduId];
 

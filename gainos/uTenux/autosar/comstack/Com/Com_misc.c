@@ -26,7 +26,8 @@
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
-#include <string.h>
+//#include <string.h>
+#include <libstr.h>
 #include <assert.h>
 
 #include "Com_Arc_Types.h"
