@@ -24,17 +24,11 @@
  * from Date:2013-04-08 to $Date: 2013-04-15 13:25:24 $
  * $Revision: 1.4 $
  */
-
-
-
-
-
-
-
-
-//#include <stdlib.h>
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 
 
 #include "Det.h"
