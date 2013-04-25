@@ -43,10 +43,32 @@
 
 #ifndef _STD_TYPES_H_
 #define _STD_TYPES_H_
-#include <sysdepend/Platform_Types.h>
-#include <basic.h>
-#include <tk/errno.h>
-#include <tk/syslib.h>
+/* =============================== MACROS FOR CPU =============================== */
+#define CPU_TYPE_16    		16
+#define CPU_TYPE_32			32
+#define CPU_TYPE_64			64
+
+#define MSB_FIRST 0
+#define MSB_LAST  1
+
+#define HIGH_BYTE_FIRST 0
+#define HIGH_BYTE_LAST  1
+/* ================================== INCLUDES  ================================= */
+#include "Platform_Types.h"
+/* shit when integrated with uTenux V1.5 */
+/* this file should be named <FullInclude.h>*/
+/* define the MICRO_TENUX_VERSION in your toolchain compiler preprocessor.
+ * For example: -DMICRO_TENUX_VERSION=150 */
+#if(MICRO_TENUX_VERSION == 140)
+#  include <basic.h>
+#  include <tk/errno.h>
+#  include <tk/syslib.h>
+#else if(MICRO_TENUX_VERSION == 150)
+#  include <ts_basic.h>
+#  include <tk/tk_typedef.h>
+#  include <tk/tk_errno.h>
+#  include <stdlib.h> /* as V1.5 has removed the <syslib.h>, so add compiler stdlib */
+#endif  /* MICRO_TENUX_VERSION */
 
 #ifndef FALSE
 #define FALSE		(boolean)0
