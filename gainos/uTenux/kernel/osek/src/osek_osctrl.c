@@ -41,7 +41,7 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "osek_os.h"
-
+#include "Cpu.h"
 static ER OsekCreateTasks(void)
 {
 	int i;
@@ -137,6 +137,7 @@ static ER OsekCreateResources(void)
 void StartOS ( AppModeType xAppMode )
 {
 	ER ercd;
+	DISABLE_INTERRUPT;
 	/* tm_putstring((UB*)"StartOS().\r\n"); */
 	ercd=OsekCreateTasks();
 	if(ercd < E_OK)
@@ -159,6 +160,7 @@ void StartOS ( AppModeType xAppMode )
 #endif
     /* OS424: The first call to StartOS() (for starting the Operating System) shall not
        return. */
+    OsekStartHighReadyTask();
 }
 
 /* |------------------+------------------------------------------------------------------| */
