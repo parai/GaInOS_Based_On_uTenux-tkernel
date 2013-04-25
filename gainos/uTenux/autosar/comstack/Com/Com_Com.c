@@ -26,13 +26,12 @@
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
-
-
-
-
-//#include <stdlib.h>
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
+#include <stdlib.h>
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 #include "Com_Arc_Types.h"
 #include "Com.h"
 #include "Com_Internal.h"
@@ -224,7 +223,7 @@ Std_ReturnType Com_Internal_TriggerIPduSend(PduIdType ComTxPduId) {
 	IPdu = GET_IPdu(ComTxPduId);
 	Arc_IPdu = GET_ArcIPdu(ComTxPduId);
     Irq_Save(state);
-    /* ÕâÀïArccore´æÔÚÑÏÖØµÄbug£¬Æä¶à´¦E_NOT_OK·µ»ØÖ®Ç°Î´»Ö¸´imask*/
+    /* ï¿½ï¿½ï¿½ï¿½Arccoreï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½bugï¿½ï¿½ï¿½ï¿½ï¿½à´¦E_NOT_OKï¿½ï¿½ï¿½ï¿½Ö®Ç°Î´ï¿½Ö¸ï¿½imask*/
     if( isPduBufferLocked(ComTxPduId) ) {
         Irq_Restore(state);
     	return E_NOT_OK;
