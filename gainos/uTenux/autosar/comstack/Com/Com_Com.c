@@ -27,9 +27,9 @@
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
 #if(MICRO_TENUX_VERSION == 140)
-#include <stdlib.h>
 #include <libstr.h>
 #else
+#include <stdlib.h>
 #include <string.h>
 #endif
 #include "Com_Arc_Types.h"
