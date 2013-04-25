@@ -64,8 +64,11 @@
 #include "SchM_CanTp.h"
 #include "PduR_CanTp.h"
 //#include "MemMap.h"
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 
 #define USE_DEBUG
 #include "ardebug.h"
@@ -835,7 +838,7 @@ static INLINE void handleFlowControlFrame(const CanTp_TxNSduType *txConfig,
 	} else {
 		DEBUG_PRINT0( DEBUG_MEDIUM, "Ignoring flow control, we do not expect it!");
 	}
-} // 438, 550 PC-lint: extendAdress används inte. EN BUG? Behöver fixas
+} // 438, 550 PC-lint: extendAdress anvï¿½nds inte. EN BUG? Behï¿½ver fixas
 
 
 // - - - - - - - - - - - - - -
