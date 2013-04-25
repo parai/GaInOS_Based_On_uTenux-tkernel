@@ -32,8 +32,11 @@
 #include "Com.h"
 #include "Com_Internal.h"
 #include "Com_misc.h"
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 #include "ardebug.h"
 #include "Cpu.h"
 
