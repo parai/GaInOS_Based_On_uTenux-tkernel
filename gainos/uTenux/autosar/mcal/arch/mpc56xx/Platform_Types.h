@@ -40,10 +40,10 @@
 /* |---------+-------------------| */
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
-#ifndef _PLATFORM_TYPES0_H_
-#define _PLATFORM_TYPES0_H_
+#ifndef _PLATFORM_TYPES_H_
+#define _PLATFORM_TYPES_H_
 
-#define CPU_TYPE            CPU_TYPE_16
+#define CPU_TYPE            CPU_TYPE_32
 #define CPU_BIT_ORDER       MSB_FIRST 
 #define CPU_BYTE_ORDER      HIGH_BYTE_FIRST
 
@@ -66,9 +66,9 @@ typedef float               float32;
 typedef double              float64; 
 
 /* This is a Cpu ISR Mask type <CCR>*/
-typedef uint8               imask_t; 
+typedef uint32               imask_t; 
 
 
 
-#endif /* _PLATFORM_TYPES0_H_ */
+#endif /* _PLATFORM_TYPES_H_ */
 
