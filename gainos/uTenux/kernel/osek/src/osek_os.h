@@ -44,10 +44,19 @@
 #define _OSEK_OS_H_
 /* Std include of tkernel */
 #include "Std_Types.h"
-#include <tk/tkernel.h>
-#include <tm/tmonitor.h>
-#include <tm/tm_printf.h>
-#include "config.h"
+#if(MICRO_TENUX_VERSION == 140)
+#  include <tk/tkernel.h>
+#  include <tm/tmonitor.h>
+#  include <tm/tm_printf.h>
+#  include "config.h"
+#else if(MICRO_TENUX_VERSION == 150)
+#  include <tk/tk_kernel.h>
+#  include <tm/tm_monitor.h>
+#  include "tm_printf.h"
+#  include "tk_config.h"
+#endif
+
+#endif
 
 /* Values for TaskStateType */
 #define RUNNING   TTS_RUN
@@ -198,8 +207,9 @@ void ShutdownHook ( StatusType xError);
 void StartupHook(void);
 void ErrorHook(StatusType xError);
 void PreTaskHook(void);
-
-#include "utk_config.h"
+#if(MICRO_TENUX_VERSION == 140)
+#  include "utk_config.h"
+#endif
 #include "osek_cfg.h"
 #include "osek_check.h"
 #endif /* _OSEK_OS_H_ */
