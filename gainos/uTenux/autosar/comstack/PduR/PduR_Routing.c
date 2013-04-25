@@ -17,8 +17,11 @@
 #include "PduR.h"
 
 
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 #include "ardebug.h"
 #if defined(USE_DEM)
 #include "Dem.h"
