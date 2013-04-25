@@ -58,8 +58,6 @@
 #  define OsekStartHighReadyTask()   knl_dispatch_force()
 #endif
 
-#endif
-
 /* Values for TaskStateType */
 #define RUNNING   TTS_RUN
 #define READY     TTS_RDY
