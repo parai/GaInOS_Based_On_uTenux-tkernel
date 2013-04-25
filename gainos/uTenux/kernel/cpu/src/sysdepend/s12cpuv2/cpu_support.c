@@ -104,7 +104,7 @@ static void l_dispatch0(void)
     asm   std   knl_taskmode  /* restore knl_taskmode */
     asm   rti;   
 }
-void knl_dispatch_to_schedtsk(void)
+void knl_force_dispatch(void)
 {
     asm  lds #knl_tmp_stack:TMP_STACK_SZ   /* Set temporal stack */
     knl_dispatch_disabled=1;    /* Dispatch disable */ 

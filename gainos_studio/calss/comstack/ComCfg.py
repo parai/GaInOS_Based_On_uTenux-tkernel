@@ -396,26 +396,26 @@ class ComObj():
         shutil.copy(file, file2+'.bak');
 
     def codeGen(self, path):
-        path1=path+'/autosar/comstack/config/Com';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config/Com');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenCfgH(path1);
-        self.codeGenPbCfgH(path1);
-        self.codeGenPbCfgC(path1);
+#        path1=path+'/autosar/comstack/config/Com';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config/Com');
+#        except:
+#            print "nothing serious!file already exists."
+        self.codeGenCfgH(path);
+        self.codeGenPbCfgH(path);
+        self.codeGenPbCfgC(path);
 
     def codeGenCfgH(self, path):
         file=path+'/Com_Cfg.h';

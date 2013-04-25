@@ -213,37 +213,39 @@ class CanObj_MC9S12DP512():
         fp.write('</CanCtrlList>\n'); 
     
     def codeGen(self, path):
-        path1=path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/mcal');
-        except:
-            print "nothing serious!file already exists."            
-        try:
-            os.mkdir(path+'/autosar/mcal/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/mcal/config/Can');
-        except:
-            print "nothing serious!file already exists."
-        try:
-           os.mkdir(path+'/autosar/mcal/config/Can/sysdepend');
-        except:
-            print "nothing serious!file already exists."            
-        try:
-            os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12');
-        except: 
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenH(path1);
-        self.codeGenC(path1);
+        self.codeGenH(path);
+        self.codeGenC(path);
+#        path1=path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/mcal');
+#        except:
+#            print "nothing serious!file already exists."            
+#        try:
+#            os.mkdir(path+'/autosar/mcal/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/mcal/config/Can');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#           os.mkdir(path+'/autosar/mcal/config/Can/sysdepend');
+#        except:
+#            print "nothing serious!file already exists."            
+#        try:
+#            os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12');
+#        except: 
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/mcal/config/Can/sysdepend/app_mc9s12/chip_mc9s12dp512');
+#        except:
+#            print "nothing serious!file already exists."
+#        self.codeGenH(path1);
+#        self.codeGenC(path1);
 
     def backup(self, file):
         tm=localtime(time());

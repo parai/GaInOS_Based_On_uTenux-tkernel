@@ -38,15 +38,15 @@ TASK(vTaskInit)
 	tm_putstring((UB*)"vTaskInit is running.\r\n");
 	
 	//Com 模块初始化
-	//Can_Init(&Can_ConfigData);
+	Can_Init(&Can_ConfigData);
 	CanIf_Init(&CanIf_Config);
 	CanTp_Init();
 	PduR_Init(&PduR_Config);
 	Com_Init(&ComConfiguration);
 	
     //Com 通道启动	
-	//CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
-	//CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
+    CanIf_SetControllerMode(vCanIf_Channel0,CANIF_CS_STARTED);
+	CanIf_SetControllerMode(vCanIf_Channel1,CANIF_CS_STARTED);
 	
 	// Make sure that the right PDU-groups are ready for communication.
 	Com_IpduGroupStart(vCom_IPduGrp0, 0);
@@ -56,7 +56,7 @@ TASK(vTaskInit)
 	(void)ActivateTask(ID_vTaskMainFunction);
 	
 	//启动任务
-	//(void)ActivateTask(ID_vTaskSender);
+	(void)ActivateTask(ID_vTaskSender);
 	(void)ActivateTask(ID_vTaskReceiver);
 	(void)TerminateTask();
 }

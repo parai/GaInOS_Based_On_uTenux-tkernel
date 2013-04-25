@@ -263,26 +263,26 @@ class PduRObj():
         shutil.copy(file, file2+'.bak');
 
     def codeGen(self, path):
-        path1=path+'/autosar/comstack/config/PduR';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config/PduR');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenH(path1);
-        self.codeGenPbCfgH(path1);
-        self.codeGenPbCfgC(path1);
+#        path1=path+'/autosar/comstack/config/PduR';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config/PduR');
+#        except:
+#            print "nothing serious!file already exists."
+        self.codeGenH(path);
+        self.codeGenPbCfgH(path);
+        self.codeGenPbCfgC(path);
 
     def codeGenH(self, path):
         file=path+'/PduR_Cfg.h';

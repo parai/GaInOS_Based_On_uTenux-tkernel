@@ -300,25 +300,25 @@ class CanIfObj():
         self.doParseChannelList(arxml.find('CanIfChannelList'));
 
     def codeGen(self, path):
-        path1=path+'/autosar/comstack/config/CanIf';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config/CanIf');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenH(path1);
-        self.codeGenC(path1);
+#        path1=path+'/autosar/comstack/config/CanIf';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config/CanIf');
+#        except:
+#            print "nothing serious!file already exists."
+        self.codeGenH(path);
+        self.codeGenC(path);
 
     def backup(self, file):
         tm=localtime(time());

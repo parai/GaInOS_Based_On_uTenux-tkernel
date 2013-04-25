@@ -239,25 +239,25 @@ class CanTpObj():
         shutil.copy(file, file2+'.bak');
 
     def codeGen(self, path):
-        path1=path+'/autosar/comstack/config/CanTp';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config/CanTp');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenH(path1);
-        self.codeGenC(path1);
+#        path1=path+'/autosar/comstack/config/CanTp';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config/CanTp');
+#        except:
+#            print "nothing serious!file already exists."
+        self.codeGenH(path);
+        self.codeGenC(path);
 
     def codeGenH(self, path):
         file=path+'/CanTp_Cfg.h';

@@ -43,8 +43,9 @@
 #ifndef _CPU_H_H_H_
 #define _CPU_H_H_H_
 #include "Std_Types.h"
-
-#if(MICRO_TENUX_VERSION == 150)
+#if(MICRO_TENUX_VERSION == 140)
+#define DISABLE_INTERRUPT  {disint();}
+#else if(MICRO_TENUX_VERSION == 150)
 #  include <tk/tk_int.h>
 #endif
 

@@ -108,24 +108,25 @@ class EcuCObj():
         shutil.copy(file, file2+'.bak');
 
     def codeGen(self, path):
-        path1=path+'/autosar/comstack/config/EcuC';
-        try:
-            os.mkdir(path+'/autosar');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config');
-        except:
-            print "nothing serious!file already exists."
-        try:
-            os.mkdir(path+'/autosar/comstack/config/EcuC');
-        except:
-            print "nothing serious!file already exists."
-        self.codeGenH(path1);
+        return;
+#        path1=path+'/autosar/comstack/config/EcuC';
+#        try:
+#            os.mkdir(path+'/autosar');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config');
+#        except:
+#            print "nothing serious!file already exists."
+#        try:
+#            os.mkdir(path+'/autosar/comstack/config/EcuC');
+#        except:
+#            print "nothing serious!file already exists."
+#        self.codeGenH(path1);
 
     def codeGenH(self, path):
         file=path+'/EcuC_Cfg.h';
