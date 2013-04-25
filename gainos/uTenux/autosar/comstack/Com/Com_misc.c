@@ -26,8 +26,11 @@
  */
 //lint -esym(960,8.7)	PC-Lint misunderstanding of Misra 8.7 for Com_SystenEndianness and endianess_test
 
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 #include <assert.h>
 
 #include "Com_Arc_Types.h"
@@ -417,7 +420,7 @@ static void Com_ReadDataSegment(uint8 *dest, const uint8 *source, uint8 destByte
  * Copies the <segmentBitLength> least significant bits from <signal> into <pdu>.
  * The bit segment is placed in <pdu> so that the most significant bit ends up
  * at <segmentStartBitOffset> from the msb of <pdu>.
- * <pduSignalMask> is cleared and written to contain a mask with 1´s where the
+ * <pduSignalMask> is cleared and written to contain a mask with 1ï¿½s where the
  * signal is located in the <pdu>.
  */
 void Com_WriteDataSegment(uint8 *pdu, uint8 *pduSignalMask, const uint8 *signalDataPtr, uint8 destByteLength,
