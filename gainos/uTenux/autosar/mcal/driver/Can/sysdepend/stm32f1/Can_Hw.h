@@ -97,7 +97,7 @@ typedef struct Can_HardwareObjectStruct {
 
 	/** Reference to the filter mask that is used for hardware filtering togerther
 	with the CAN_ID_VALUE*/
-	Can_FilterMaskType *CanFilterMaskRef;
+	const Can_FilterMaskType *CanFilterMaskRef;
 
 	/** A "1" in this mask tells the driver that that HW Message Box should be
 	occupied by this Hoh. A "1" in bit 31(ppc) occupies Mb 0 in HW.*/

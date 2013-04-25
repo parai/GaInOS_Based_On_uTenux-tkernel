@@ -137,7 +137,7 @@ static ER OsekCreateResources(void)
 void StartOS ( AppModeType xAppMode )
 {
 	ER ercd;
-	DISABLE_INTERRUPT;
+	OSEK_DISABLE_INTERRUPT();
 	/* tm_putstring((UB*)"StartOS().\r\n"); */
 	ercd=OsekCreateTasks();
 	if(ercd < E_OK)

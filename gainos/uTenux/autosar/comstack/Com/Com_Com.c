@@ -283,7 +283,7 @@ void Com_TriggerIPduSend(PduIdType ComTxPduId) {
 //lint -esym(904, Com_RxIndication) //PC-Lint Exception of rule 14.7
 void Com_RxIndication(PduIdType ComRxPduId, const PduInfoType* PduInfoPtr) {
 	
-	/*const*/ComIPdu_type *IPdu = GET_IPdu(ComRxPduId);
+	const ComIPdu_type *IPdu = GET_IPdu(ComRxPduId);
 	Com_Arc_IPdu_type *Arc_IPdu = GET_ArcIPdu(ComRxPduId);
 	imask_t state;
 	
@@ -320,7 +320,7 @@ void Com_RxIndication(PduIdType ComRxPduId, const PduInfoType* PduInfoPtr) {
 }
 
 void Com_TpRxIndication(PduIdType PduId, NotifResultType Result) {
-    /*const*/ ComIPdu_type *IPdu;
+    const ComIPdu_type *IPdu;
     Com_Arc_IPdu_type *Arc_IPdu;
     imask_t state;
     

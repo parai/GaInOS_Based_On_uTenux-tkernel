@@ -42,7 +42,7 @@
 /* |---------+-------------------| */
 
 #include "Det.h"
-#include <tm/tm_printf.h>
+#include "tm_printf.h"
 void Det_ReportError(uint16 ModuleId, uint8 InstanceId, uint8 ApiId, uint8 ErrorId)
 {
 	tm_printf("Det Error: ModuleId=%d, InstanceId=%d, ApiId=%d, ErrorId=%d\n", \

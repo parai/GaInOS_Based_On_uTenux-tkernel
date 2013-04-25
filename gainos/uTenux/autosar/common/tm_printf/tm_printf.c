@@ -40,7 +40,7 @@
 /* |---------+-------------------| */
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
-#include <tm/tm_printf.h>
+#include "tm_printf.h"
 /* private function */
 #define isdigit(c)  ((unsigned)((c) - '0') < 10)
 
@@ -548,13 +548,13 @@ int main(int argc,char* argv[])
 	tm_printf("test hex:0x%x\r\n",0xDEADBEEF);
 	tm_printf("test char:%c\r\n",'p');
 }
-#else
-#include <typedef.h>
-#include <stddef.h>
-#include <tk/syslib.h>
-#include <tm/tmonitor.h>
 #endif
-
+#if(MICRO_TENUX_VERSION == 140)
+#  include <tm/tmonitor.h>
+#else if(MICRO_TENUX_VERSION == 150)
+#  include <tm/tm_monitor.h>
+#endif  /* MICRO_TENUX_VERSION */
+#include "Cpu.h"
  #ifdef _APP_MC9S12_
  #include <stdio.h>
  #endif
@@ -568,7 +568,7 @@ void tm_printf(char *fmt, ...)
 	va_list args;
 	unsigned long length;
 	static char tm_log_buf[TM_PRINTF_BUF_SIZE];
-	INT imask;
+	int imask;
 
 	DI(imask);
 	va_start(args, fmt);
@@ -582,7 +582,7 @@ void tm_printf(char *fmt, ...)
 #else
 	if(length > 0)
 	{
-		tm_putstring((UB*)tm_log_buf);
+		tm_putstring((unsigned char*)tm_log_buf);
 	}
 #endif
 	va_end(args);
