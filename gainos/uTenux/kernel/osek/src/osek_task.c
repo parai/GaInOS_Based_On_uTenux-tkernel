@@ -41,11 +41,15 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "osek_os.h"
+#if(MICRO_TENUX_VERSION == 140)
 #include "kernel.h"
 #include "task.h"
 #include "wait.h"
 #include "check.h"
 #include "cpu_task.h"
+#else if(MICRO_TENUX_VERSION == 150)
+#include "knl_kernel.h"
+#endif
 /* |------------------+------------------------------------------------------------| */
 /* | Syntax:          | StatusType ActivateTask ( TaskType <TaskID> )              | */
 /* |------------------+------------------------------------------------------------| */
@@ -207,7 +211,7 @@ StatusType ChainTask ( TaskType xTaskID )
 	knl_ter_tsk(knl_ctxtsk);
 	knl_make_dormant(knl_ctxtsk);
 
-	knl_force_dispatch();
+	OsekStartHighReadyTask();
 	/* No return */
 
 #ifdef DORMANT_STACK_SIZE
