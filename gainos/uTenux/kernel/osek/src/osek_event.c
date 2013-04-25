@@ -41,9 +41,15 @@
 /* | Email:  | parai@foxmail.com | */
 /* |---------+-------------------| */
 #include "osek_os.h"
-#include "kernel.h"
-#include "task.h"
-#include "eventflag.h"
+#if(MICRO_TENUX_VERSION == 140)
+#  include "kernel.h"
+#  include "task.h"
+#  include "eventflag.h"
+#else if(MICRO_TENUX_VERSION == 150)
+#  include "knl_kernel.h"
+#  include "knl_task.h"
+#  include "tk_flgimpl.h"
+#endif
 /* |------------------+----------------------------------------------------------| */
 /* | Syntax:          | StatusType SetEvent ( TaskType <TaskID>                  | */
 /* |                  | EventMaskType <Mask> )                                   | */
