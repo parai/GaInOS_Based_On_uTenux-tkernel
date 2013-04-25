@@ -49,11 +49,13 @@
 #  include <tm/tmonitor.h>
 #  include <tm/tm_printf.h>
 #  include "config.h"
+#  define OsekStartHighReadyTask()   knl_force_dispatch()
 #else if(MICRO_TENUX_VERSION == 150)
 #  include <tk/tk_kernel.h>
 #  include <tm/tm_monitor.h>
 #  include "tm_printf.h"
 #  include "tk_config.h"
+#  define OsekStartHighReadyTask()   knl_dispatch_force()
 #endif
 
 #endif
