@@ -31,8 +31,12 @@
 
 #include "Can.h"
 #include "CanIf_Cbk.h"
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
+
 
 #include "ardebug.h"
 #include "PduR.h"
