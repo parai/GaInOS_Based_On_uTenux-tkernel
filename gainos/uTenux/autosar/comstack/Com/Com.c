@@ -34,8 +34,11 @@
 //#include <assert.h>
 //#include <stdlib.h>
 //#include <stdio.h>
-//#include <string.h>
+#if(MICRO_TENUX_VERSION == 140)
 #include <libstr.h>
+#else
+#include <string.h>
+#endif
 #include "Com.h"
 #include "Com_Arc_Types.h"
 #include "Com_Internal.h"
