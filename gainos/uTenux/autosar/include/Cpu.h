@@ -44,6 +44,10 @@
 #define _CPU_H_H_H_
 #include "Std_Types.h"
 
+#if(MICRO_TENUX_VERSION == 150)
+#  include <tk/tk_int.h>
+#endif
+
 #define Irq_Restore(_mask) EI(_mask)
 
 #define Irq_Save(_mask)    DI(_mask)
