@@ -32,7 +32,7 @@ const BOOL OsekTaskAuotStartable[cfgOSEK_TASK_NUM]=
 #include "CanIf.h"
 #include "Can.h"
 #include "Com.h"
-#include "string.h"
+//#include "string.h"
 TASK(vTaskInit)
 {
 	tm_putstring((UB*)"vTaskInit is running.\r\n");

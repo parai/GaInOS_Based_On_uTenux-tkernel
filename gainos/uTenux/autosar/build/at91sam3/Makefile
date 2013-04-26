@@ -1,6 +1,6 @@
 #
 #------------------------------------------------------------------------------
-#    Bin
+#    autosar
 #
 #    Copyright (C) 2008-2013 by Dalian uLoong Co.,Ltd. All rights reserved.
 #
@@ -26,36 +26,16 @@
 #	 File Name      : makefile
 #	 Create Date    : 2009/9/16-2012/6/10
 #	 Author	        : WangShb
-#	 Description    : bin Makefile for gmake.
+#	 Description    : library main Makefile for gmake.
 #-------------------------------------------------------------------------------
-#your source base dir
-#BD=F:/parai@foxmail.com/github/GaInOS_Based_On_uTenux-tkernel/gainos/uTenux
-BD=D:/usr/GaInOS_Based_On_uTenux-tkernel/gainos/uTenux
-export BD;
-#CHIP selected
-CHIP=AT91SAM3S4C
-export CHIP;
-GCC_EXEC_PREFIX=c:/uLoong/uT-Studio/v300/gcc/libexec/gcc/
-export GCC_EXEC_PREFIX;
-GNUARM=c:/uLoong/uT-Studio/v300/gcc/arm-none-eabi
-export GNUARM;
-GNU_BD=c:/uLoong/uT-Studio/v300/gcc
-export GNU_BD;
-MODE=debug
-export MODE;
 
 # Tenux Target Type
 MACHINE = at91sam3
-TETYPE	= app
+TETYPE = app
+CPU_ARCH = cortex
 
 # default rules
-include $(BD)/etc/makerules
-
-#version of uTenux used
-CFLAGS += -DMICRO_TENUX_VERSION=140
-
-# source files (system-dependent)
-SRC	= 
+include ../../../etc/makerules
 
 # include main makefile (common description)
-include ../Makefile.common
+include ../../Makefile.common

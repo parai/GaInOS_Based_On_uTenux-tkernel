@@ -65,9 +65,11 @@ ASM_SRC = $(filter %.S, $(SRC))
 ASM_OBJ	= $(addsuffix .o, $(basename $(ASM_SRC)))
 
 # compiler options
-CFLAGS += $(CFLAGS_WARNING) -I$(BD)/kernel/osek/src	\
-	-I$(BD)/kernel/osek/src/config	\
-	-I$(BD)/autosar/include
+CFLAGS += $(CFLAGS_WARNING)	\
+	-I$(BD)/autosar/osek/src/	\
+	-I$(BD)/autosar/include		\
+	-I$(BD)/autosar/config	\
+	-I$(BD)/autosar/mcal/arch/$(MACHINE)
 
 # ----------------------------------------------------------------------------
 

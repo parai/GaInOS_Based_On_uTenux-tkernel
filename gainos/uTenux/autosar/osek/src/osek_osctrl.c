@@ -42,6 +42,11 @@
 /* |---------+-------------------| */
 #include "osek_os.h"
 #include "Cpu.h"
+#if(MICRO_TENUX_VERSION == 140)
+#include "cpu_status.h"
+#else if(MICRO_TENUX_VERSION == 150)
+#include "knl_kernel.h"
+#endif
 static ER OsekCreateTasks(void)
 {
 	int i;

@@ -1,0 +1,135 @@
+#
+# ----------------------------------------------------------------------
+#     micro T-Kernel
+#
+#     Copyright (C) 2006-2008 by Ken Sakamura. All rights reserved.
+#     micro T-Kernel is distributed under the micro T-License.
+# ----------------------------------------------------------------------
+#
+#     Version:   1.01.00
+#     Released by T-Engine Forum(http://www.t-engine.org) at 2008/02/25.
+#
+# ----------------------------------------------------------------------
+#
+
+#
+#	Makefile for gmake
+#	micro T-Kernel (common description)
+#
+
+# source file dependencies (generated automatically)
+DEPS = Dependencies
+DEPENDENCIES_OUTPUT := $(DEPS)
+
+# ----------------------------------------------------------------------------
+
+# target object
+TARGET	= libautosar.a
+
+S	= 
+MKFF	= $(BD)/etc/mkfuncfiles
+
+# common source files (not to be devided)
+SRC	+=	$(BD)/autosar/common/tm_printf/tm_printf.c     \
+		$(BD)/autosar/comstack/CanIf/CanIf.c     \
+		$(BD)/autosar/comstack/CanTp/CanTp.c     \
+		$(BD)/autosar/comstack/Com/Com.c     \
+		$(BD)/autosar/comstack/Com/Com_Com.c     \
+		$(BD)/autosar/comstack/Com/Com_misc.c     \
+		$(BD)/autosar/comstack/Com/Com_Sched.c     \
+		$(BD)/autosar/comstack/PduR/PduR.c     \
+		$(BD)/autosar/comstack/PduR/PduR_CanIf.c     \
+		$(BD)/autosar/comstack/PduR/PduR_CanTp.c     \
+		$(BD)/autosar/comstack/PduR/PduR_Com.c     \
+		$(BD)/autosar/comstack/PduR/PduR_Dcm.c     \
+		$(BD)/autosar/comstack/PduR/PduR_J1939Tp.c     \
+		$(BD)/autosar/comstack/PduR/PduR_LinIf.c     \
+		$(BD)/autosar/comstack/PduR/PduR_Logic.c     \
+		$(BD)/autosar/comstack/PduR/PduR_Routing.c     \
+		$(BD)/autosar/comstack/PduR/PduR_SoAd.c     \
+		$(BD)/autosar/config/CanIf_Cfg.c     \
+		$(BD)/autosar/config/CanTp_Cfg.c     \
+		$(BD)/autosar/config/Can_PBcfg.c     \
+		$(BD)/autosar/config/Com_CalloutNotification.c     \
+		$(BD)/autosar/config/Com_PbCfg.c     \
+		$(BD)/autosar/config/osek_cfg.c     \
+		$(BD)/autosar/config/PduR_PbCfg.c     \
+		$(BD)/autosar/diag/Det/Det.c     \
+		$(BD)/autosar/mcal/driver/Can/Can.c     \
+		$(BD)/autosar/mcal/driver/Can/sysdepend/$(MACHINE)/Can_Hw.c     \
+		$(BD)/autosar/osek/src/osek_alarm.c     \
+		$(BD)/autosar/osek/src/osek_counter.c     \
+		$(BD)/autosar/osek/src/osek_event.c     \
+		$(BD)/autosar/osek/src/osek_interrupt.c     \
+		$(BD)/autosar/osek/src/osek_osctrl.c     \
+		$(BD)/autosar/osek/src/osek_resource.c     \
+		$(BD)/autosar/osek/src/osek_task.c
+
+
+VPATH	+= $(S)
+HEADER	+= $(S)
+
+# additional source files (device-dependent)
+VPATH   += $(BD)/kernel/device/src/sysdepend/$(TETYPE)_$(MACHINE)
+HEADER	+= $(BD)/kernel/device/src/sysdepend/$(TETYPE)_$(MACHINE)
+
+# header file path (T-Kernel common standard library)
+HEADER  += $(BD)/kernel/tstd/src
+
+# config file path (kernel settings)
+HEADER  += $(BD)/config
+
+# syscall source files (cpu-dependent)
+VPATH   += $(BD)/kernel/cpu/src/sysdepend/$(CPU_ARCH)
+HEADER	+= $(BD)/kernel/cpu/src/sysdepend/$(CPU_ARCH)
+
+
+OBJ = $(addsuffix .o, $(basename $(SRC)))
+OBJ += $(FUNCOBJ)
+
+ASM_SRC = $(filter %.S, $(SRC))
+ASM_OBJ	= $(addsuffix .o, $(basename $(ASM_SRC)))
+
+# compiler options
+CFLAGS += $(CFLAGS_WARNING) \
+	-I$(BD)/kernel/tkernel/src	\
+	-I$(BD)/config 	\
+	-I$(BD)/kernel/cpu/src/sysdepend/$(CPU_ARCH)	\
+	-I$(BD)/autosar/common/tm_printf	\
+	-I$(BD)/autosar/osek/src	\
+	-I$(BD)/autosar/include	\
+	-I$(BD)/autosar/comstack/CanIf/ \
+	-I$(BD)/autosar/comstack/CanTp/ \
+	-I$(BD)/autosar/comstack/Com/ \
+	-I$(BD)/autosar/comstack/PduR/ \
+	-I$(BD)/autosar/diag/Dem/ \
+	-I$(BD)/autosar/diag/Det/ \
+	-I$(BD)/autosar/ecual/EcuM/ \
+	-I$(BD)/autosar/mcal/arch/$(MACHINE)	\
+	-I$(BD)/autosar/mcal/driver/Can/ \
+	-I$(BD)/autosar/config	\
+	-I$(BD)/autosar/mcal/driver/Can/sysdepend/$(MACHINE)
+
+# ----------------------------------------------------------------------------
+
+.PHONY: all clean install
+
+ALL = $(TARGET) 
+
+all: $(ALL)
+
+$(TARGET): $(OBJ)
+	$(AR) $(ARFLAGS) $@ $?
+  ifdef RANLIB
+	$(RANLIB) $@
+  endif
+
+install: $(addprefix $(KNL_INSTALLDIR)/, $(ALL))
+
+clean:
+	@$(RM) $(OBJ) $(TARGET) $(DEPS)
+
+# generate dependencies
+$(DEPS): ; touch $(DEPS)
+-include $(DEPS)
+

@@ -30,6 +30,7 @@ BIN_INSTALLDIR	= $(BD)/bin/$(TETYPE)_$(MACHINE)
 LIB_APPLI_PATH	= $(BD)/app/build/$(TETYPE)_$(MACHINE)
 LIB_KERNEL_PATH	= $(BD)/kernel/build/$(TETYPE)_$(MACHINE)
 LIB_COMMON_PATH	= $(BD)/lib/build/$(TETYPE)_$(MACHINE)
+LIB_AUTOSAR_PATH = $(BD)/autosar/build/$(MACHINE)
 # ----------------------------------------------------------------------------
 
 # target objects
@@ -47,13 +48,14 @@ K_OBJ	+=	icrt0.o patch.o sysinit.o sysmain.o
 STDLIB = -lgcc
 
 # additional library
-LDSYSLIBS += -ltm -ltstd -ltk  -lcpu -ldevice -ltkernel -lsvc -lusermain -lstr -losek
+LDSYSLIBS += -ltm -ltstd -ltk  -lcpu -ldevice -ltkernel -lsvc -lusermain -lstr -lautosar
 LDLIBS += $(LDSYSLIBS) $(LDUSRLIBS) $(LDSYSLIBS) $(LDUSRLIBS)
 
 
 
 # linker options
-LDFLAGS += -static -nostdlib -T $(LINKSCRIPT) -L$(LIB_APPLI_PATH) -L$(LIB_KERNEL_PATH) -L$(LIB_COMMON_PATH) -L./
+LDFLAGS += -static -nostdlib -T $(LINKSCRIPT) -L$(LIB_APPLI_PATH) -L$(LIB_KERNEL_PATH) -L$(LIB_COMMON_PATH)	\
+	-L$(LIB_AUTOSAR_PATH) -L./
 LINKSCRIPT = chip_$(CHIP)/kernel-ram$(_GCCVER).lnk
 $(TARGET_ROM): LINKSCRIPT = chip_$(CHIP)/kernel-rom$(_GCCVER).lnk
 
@@ -68,7 +70,7 @@ CPPFLAGS +=
 ALL  = $(TARGET_RAM) $(TARGET_RAM:%.sys=%.map) $(TARGET_RAM:%.sys=%.mot)
 ALL += $(TARGET_ROM) $(TARGET_ROM:%.rom=%.map) $(TARGET_ROM:%.rom=%.mot)
 
-all: clean2 lib kernel appli $(ALL)
+all: clean2 lib kernel appli autosar $(ALL)
 
 clean2:
 	$(RM) $(ALL)
@@ -97,6 +99,9 @@ $(TARGET_ROM:%.rom=%.mot): $(TARGET_ROM)
 appli:
 	( cd $(LIB_APPLI_PATH) ; make)
 	
+autosar:	
+	( cd $(LIB_AUTOSAR_PATH) ; make)
+
 kernel:
 ifndef KIT
 	( cd $(LIB_KERNEL_PATH) ; make)
