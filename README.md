@@ -5,9 +5,7 @@ GaInOS is an OSEK conformed OS based on uTenux(iTron/tkernel), It include the C 
 
 ###
     这里仅提供了一个基于uTenuxV1.4的完整发布包，包含uTenux的内核代码。
-    本项目的主要部分是autosar目录下的代码部分，其首先基于uTenux的丰富强大型API提供了以及兼容OSEK223规范的
-API接口层（osek），然后在此基础之上，移植Arctic Core（http://www.arccore.com）的Com通讯栈，继而构建完整的
-Autosar的通讯栈环境。
+    本项目的主要部分是autosar目录下的代码部分和其GUI配置工具（gainos-studio），其首先基于uTenux的丰富强大型API提供了以及兼容OSEK223规范的API接口层（osek），然后在此基础之上，移植Arctic Core（http://www.arccore.com）的Com通讯栈，继而构建完整的Autosar的通讯栈环境。
 
 ###  
     Autosar目录下代码兼容uTenuxV1.5,但需要对tk_sysimpl.c代码进行小小的修改：
