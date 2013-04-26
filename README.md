@@ -26,7 +26,7 @@ GaInOS is an OSEK conformed OS based on uTenux(iTron/tkernel), It include the C 
     /* No return */
     #endif
     
-    这样做，就是不希望uTenux创建初始话任务，任务将都统一由OSEK兼容层来管理。
+    这样做，就是不希望uTenux创建初始化任务，任务将都统一由OSEK兼容层来管理。
     
     修改main（）函数代码如下：
     
