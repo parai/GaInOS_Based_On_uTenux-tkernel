@@ -17,7 +17,7 @@
 #	kernel main (common description)
 #
 
-KERNEL_SYSDEP_TARGET = libdevice libsysinit libsysmain libtkernel libtstd libosek
+KERNEL_SYSDEP_TARGET = libdevice libsysinit libsysmain libtkernel libtstd
 KERNEL_CPUDEP_TARGET = libcpu 
 
 KERNEL_ARCHIVE_OBJ = $(filter lib%, $(KERNEL_SYSDEP_TARGET) $(KERNEL_CPUDEP_TARGET) )
