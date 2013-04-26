@@ -55,6 +55,11 @@
 #define HIGH_BYTE_LAST  1
 /* ================================== INCLUDES  ================================= */
 #include "Platform_Types.h"
+
+#ifndef MICRO_TENUX_VERSION
+#error "Please define MICRO_TENUX_VERSION(=140 or =150) in your toolchain compiler preprocessor"
+#endif
+
 /* shit when integrated with uTenux V1.5 */
 /* this file should be named <FullInclude.h>*/
 /* define the MICRO_TENUX_VERSION in your toolchain compiler preprocessor.
