@@ -118,6 +118,7 @@ endif
 
 clean: 
 	( cd $(LIB_APPLI_PATH)  ; makei clean )
+	( cd $(LIB_AUTOSAR_PATH) ; makei clean)
 ifndef KIT
 	( cd $(LIB_COMMON_PATH) ; makei clean )
 	( cd $(LIB_KERNEL_PATH) ; makei clean )

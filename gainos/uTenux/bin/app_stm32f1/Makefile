@@ -28,6 +28,20 @@
 #	 Author	        : WangShb
 #	 Description    : bin Makefile for gmake.
 #-------------------------------------------------------------------------------
+#BD=F:/parai@foxmail.com/github/GaInOS_Based_On_uTenux-tkernel/gainos/uTenux
+BD=D:/usr/GaInOS_Based_On_uTenux-tkernel/gainos/uTenux
+export BD;
+#CHIP selected
+CHIP=STM32F107VC
+export CHIP;
+GCC_EXEC_PREFIX=c:/uLoong/uT-Studio/v300/gcc/libexec/gcc/
+export GCC_EXEC_PREFIX;
+GNUARM=c:/uLoong/uT-Studio/v300/gcc/arm-none-eabi
+export GNUARM;
+GNU_BD=c:/uLoong/uT-Studio/v300/gcc
+export GNU_BD;
+MODE=debug
+export MODE;
 
 # Tenux Target Type
 MACHINE = stm32f1
@@ -35,6 +49,9 @@ TETYPE	= app
 
 # default rules
 include $(BD)/etc/makerules
+
+#version of uTenux used
+CFLAGS += -DMICRO_TENUX_VERSION=140
 
 # source files (system-dependent)
 SRC	= 
