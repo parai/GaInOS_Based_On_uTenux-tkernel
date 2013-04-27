@@ -36,6 +36,15 @@ CPU_ARCH = cortex
 
 # default rules
 include ../../../etc/makerules
+#here add the special files(such as standard library)
 
+# just add the CAN Driver
+SRC += $(BD)/autosar/mcal/arch/$(MACHINE)/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c	\
+$(BD)/autosar/mcal/arch/$(MACHINE)/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c
+
+#defined STM32F10X_CL for STM32F107VC
+CFLAGS +=-DSTM32F10X_CL	\
+	-I$(BD)/autosar/mcal/arch/$(MACHINE)/STM32F10x_StdPeriph_Driver/inc	\
+	-I$(BD)/autosar/mcal/arch/$(MACHINE)/cm3
 # include main makefile (common description)
 include ../../Makefile.common

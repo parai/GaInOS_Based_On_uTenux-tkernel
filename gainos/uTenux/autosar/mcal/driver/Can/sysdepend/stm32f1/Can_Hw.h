@@ -52,12 +52,9 @@
  * PduId BBB can start to use Hth0 only when all of the 3 Tx buffers is empty.*/
 #define CAN_USE_HW_BUFFER STD_ON
 typedef enum {
-	CAN_CTRL_0 = 0,
-	CAN_CTRL_1 = 1,
-	CAN_CTRL_2 = 2,
-	CAN_CTRL_3 = 3,
-	CAN_CTRL_4 = 4,
-	CAN_CONTROLLER_CNT = 5
+	CAN_CTRL_1 = 0,
+	CAN_CTRL_2 = 1,
+	CAN_CONTROLLER_CNT = 2
 }Can_ControllerIdType;
 /** Start mc9s12 unique */
 typedef enum {

@@ -46,6 +46,11 @@
 #if(CAN_DEV_ERROR_DETECT == STD_ON)
 #include "Det.h"
 #endif
+#if(MICRO_TENUX_VERSION == 140)
+#  include <libstr.h>
+#else if(MICRO_TENUX_VERSION == 150)
+#  include <string.h>
+#endif
 
 /* #################### IMPORTs ############################# */
 IMPORT Can_GlobalType Can_Global;
@@ -114,6 +119,36 @@ EXPORT void Can_Init(const Can_ConfigType* Config)
 		} while (!hoh->Can_EOL);
 	}
 }
+
+// Unitialize the module
+EXPORT void Can_DeInit()
+{
+  Can_UnitType *canUnit;
+  int configId;
+  const Can_ControllerConfigType *canHwConfig;
+  uint32 ctlrId;
+
+  for (configId=0; configId < CAN_CTRL_CONFIG_CNT; configId++) {
+    canHwConfig = CAN_GET_CONTROLLER_CONFIG(configId);
+    ctlrId = canHwConfig->CanControllerId;
+
+    canUnit = CAN_GET_PRIVATE_DATA(ctlrId);
+    canUnit->state = CANIF_CS_UNINIT;
+
+    Can_DisableControllerInterrupts(ctlrId);
+
+    canUnit->lock_cnt = 0;
+
+    // Clear stats
+    memset(&canUnit->stats, 0, sizeof(Can_StatisticsType));
+  }
+
+  Can_Global.config = NULL;
+  Can_Global.driverState = CAN_UNINIT;
+
+  return;
+}
+
 
 #if(CAN_VERSION_INFO_API == STD_ON )
 EXPORT void Can_GetVersionInfo(Std_VersionInfoType* versioninfo )

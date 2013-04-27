@@ -129,6 +129,7 @@ typedef struct{
 									&Can_Global.canUnit[_controller]
 /* ##############################  FUNCTIONs  ############################## */
 IMPORT void Can_Init(const Can_ConfigType* Config);
+IMPORT void Can_DeInit();
 IMPORT void Can_GetVersionInfo(Std_VersionInfoType* versioninfo);
 IMPORT void Can_InitController(uint8 Controller,const Can_ControllerConfigType* Config);
 IMPORT Can_ReturnType Can_SetControllerMode(uint8 Controller,Can_StateTransitionType Transition);
