@@ -15,12 +15,12 @@
 #define CANTP_DEV_ERROR_DETECT STD_ON
 
 /* CanTp Rx NSdu Id */
-#define CANTP_RX_vEcuC_Pdu0 0
-#define CANTP_RX_vEcuC_Pdu1 1
+#define CANTP_RX_vEcuC_Pdu1 0
+#define CANTP_RX_vEcuC_Pdu2 1
 
 /* CanTp Tx NSdu Id */
-#define CANTP_TX_vEcuC_Pdu0 2
-#define CANTP_TX_vEcuC_Pdu1 3
+#define CANTP_TX_vEcuC_Pdu1 2
+#define CANTP_TX_vEcuC_Pdu2 3
 
 #define USE_CANIF
 

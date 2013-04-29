@@ -344,7 +344,7 @@ const ComSignal_type * const vCom_IPdu3_SignalRefs[] = {
 const ComIPdu_type ComIPdu[] = {
 	{// vCom_IPdu0
 		/* .ComIPduCallout = */ vCom_IPdu0_Callout,
-		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu0,
+		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu1,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
 		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ SEND,
@@ -368,7 +368,7 @@ const ComIPdu_type ComIPdu[] = {
 	},
 	{// vCom_IPdu1
 		/* .ComIPduCallout = */ vCom_IPdu1_Callout,
-		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu0,
+		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu1,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
 		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ RECEIVE,
@@ -392,7 +392,7 @@ const ComIPdu_type ComIPdu[] = {
 	},
 	{// vCom_IPdu2
 		/* .ComIPduCallout = */ vCom_IPdu2_Callout,
-		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu1,
+		/* .ArcIPduOutgoingId = */ PDUR_TX_vEcuC_Pdu2,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
 		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ SEND,
@@ -416,7 +416,7 @@ const ComIPdu_type ComIPdu[] = {
 	},
 	{// vCom_IPdu3
 		/* .ComIPduCallout = */ vCom_IPdu3_Callout,
-		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu1,
+		/* .ArcIPduOutgoingId = */ PDUR_RX_vEcuC_Pdu2,
 		/* .ComIPduSignalProcessing = */ DEFERRED,
 		/* .ComIPduSize = */ 8,
 		/* .ComIPduDirection = */ RECEIVE,

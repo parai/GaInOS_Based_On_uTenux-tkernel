@@ -14,13 +14,13 @@ extern const Com_ConfigType ComConfiguration;
 
 //  COM IPDU Id Defines.
 #define vCom_IPdu0 0
-#define COM_TX_vEcuC_Pdu0 0	/* for vCom_IPdu0 */
+#define COM_TX_vEcuC_Pdu1 0	/* for vCom_IPdu0 */
 #define vCom_IPdu1 1
-#define COM_RX_vEcuC_Pdu0 1	/* for vCom_IPdu1 */
+#define COM_RX_vEcuC_Pdu1 1	/* for vCom_IPdu1 */
 #define vCom_IPdu2 2
-#define COM_TX_vEcuC_Pdu1 2	/* for vCom_IPdu2 */
+#define COM_TX_vEcuC_Pdu2 2	/* for vCom_IPdu2 */
 #define vCom_IPdu3 3
-#define COM_RX_vEcuC_Pdu1 3	/* for vCom_IPdu3 */
+#define COM_RX_vEcuC_Pdu2 3	/* for vCom_IPdu3 */
 
 //General Signal (Group) Id defines
 #define vCom_IPdu0_Signal0 0

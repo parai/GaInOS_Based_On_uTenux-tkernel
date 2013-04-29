@@ -510,7 +510,7 @@ class ComObj():
         fp=open(file, 'w');
         fp.write('#include "Com.h"\n'
                 '#include "Com_Internal.h"\n'
-                '#include <stdlib.h>\n'
+                '//#include <stdlib.h>\n'
                 '#if defined(USE_PDUR)\n'
                 '#include "PduR.h"\n'
                 '#endif\n\n');

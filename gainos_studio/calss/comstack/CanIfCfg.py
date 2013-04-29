@@ -396,7 +396,7 @@ class CanIfObj():
         fp.write('#if defined(USE_CANNM)\n');
         fp.write('#include "CanNm_Cbk.h"\n');
         fp.write('#endif\n');
-        fp.write('#include <stdlib.h>\n\n');
+        fp.write('//#include <stdlib.h>\n\n');
         fp.write('// Imported structs from Can_PBcfg.c\n');
         fp.write('IMPORT const Can_ControllerConfigType Can_ControllerCfgData[];\n');
         fp.write('IMPORT const Can_ConfigSetType Can_ConfigSetData;\n\n');

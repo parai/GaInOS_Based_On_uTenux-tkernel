@@ -22,7 +22,7 @@
 const PduRDestPdu_type vPduR_SrcPath0_PduRDestination[] = {
 	{
 		/* .DataProvision = */ PDUR_NO_PROVISION,
-		/* .DestPduId = */ COM_RX_vEcuC_Pdu0,
+		/* .DestPduId = */ COM_RX_vEcuC_Pdu1,
 		/* .TxBufferRef = */ NULL,
 		/* .DestModule = */ ARC_PDUR_COM
 	},
@@ -35,7 +35,7 @@ const PduRDestPdu_type * const vPduR_SrcPath0_PduRDestinations[] = {
 const PduRDestPdu_type vPduR_SrcPath1_PduRDestination[] = {
 	{
 		/* .DataProvision = */ PDUR_NO_PROVISION,
-		/* .DestPduId = */ COM_RX_vEcuC_Pdu1,
+		/* .DestPduId = */ COM_RX_vEcuC_Pdu2,
 		/* .TxBufferRef = */ NULL,
 		/* .DestModule = */ ARC_PDUR_COM
 	},
@@ -48,7 +48,7 @@ const PduRDestPdu_type * const vPduR_SrcPath1_PduRDestinations[] = {
 const PduRDestPdu_type vPduR_SrcPath2_PduRDestination[] = {
 	{
 		/* .DataProvision = */ PDUR_NO_PROVISION,
-		/* .DestPduId = */ CANIF_TX_vEcuC_Pdu0,
+		/* .DestPduId = */ CANIF_TX_vEcuC_Pdu1,
 		/* .TxBufferRef = */ NULL,
 		/* .DestModule = */ ARC_PDUR_CANIF
 	},
@@ -61,7 +61,7 @@ const PduRDestPdu_type * const vPduR_SrcPath2_PduRDestinations[] = {
 const PduRDestPdu_type vPduR_SrcPath3_PduRDestination[] = {
 	{
 		/* .DataProvision = */ PDUR_NO_PROVISION,
-		/* .DestPduId = */ CANIF_TX_vEcuC_Pdu1,
+		/* .DestPduId = */ CANIF_TX_vEcuC_Pdu2,
 		/* .TxBufferRef = */ NULL,
 		/* .DestModule = */ ARC_PDUR_CANIF
 	},
@@ -75,7 +75,7 @@ const PduRRoutingPath_type vPduR_SrcPath0_PduRRoutingPath = {
 	/* .SduLength = */ 8,
 	/* .TpChunkSize = */0xDEAD,
 	/* .PduRDefaultValue = */{0xDB,NULL},
-	/* .SrcPduId = */ CANIF_RX_vEcuC_Pdu0,
+	/* .SrcPduId = */ CANIF_RX_vEcuC_Pdu1,
 	/* .SrcModule =  */ARC_PDUR_CANIF,
 	/* .PduRDestPdus = */ vPduR_SrcPath0_PduRDestinations
 };
@@ -83,7 +83,7 @@ const PduRRoutingPath_type vPduR_SrcPath1_PduRRoutingPath = {
 	/* .SduLength = */ 8,
 	/* .TpChunkSize = */0xDEAD,
 	/* .PduRDefaultValue = */{0xDB,NULL},
-	/* .SrcPduId = */ CANIF_RX_vEcuC_Pdu1,
+	/* .SrcPduId = */ CANIF_RX_vEcuC_Pdu2,
 	/* .SrcModule =  */ARC_PDUR_CANIF,
 	/* .PduRDestPdus = */ vPduR_SrcPath1_PduRDestinations
 };
@@ -91,7 +91,7 @@ const PduRRoutingPath_type vPduR_SrcPath2_PduRRoutingPath = {
 	/* .SduLength = */ 8,
 	/* .TpChunkSize = */0xDEAD,
 	/* .PduRDefaultValue = */{0xDB,NULL},
-	/* .SrcPduId = */ COM_TX_vEcuC_Pdu0,
+	/* .SrcPduId = */ COM_TX_vEcuC_Pdu1,
 	/* .SrcModule =  */ARC_PDUR_COM,
 	/* .PduRDestPdus = */ vPduR_SrcPath2_PduRDestinations
 };
@@ -99,7 +99,7 @@ const PduRRoutingPath_type vPduR_SrcPath3_PduRRoutingPath = {
 	/* .SduLength = */ 8,
 	/* .TpChunkSize = */0xDEAD,
 	/* .PduRDefaultValue = */{0xDB,NULL},
-	/* .SrcPduId = */ COM_TX_vEcuC_Pdu1,
+	/* .SrcPduId = */ COM_TX_vEcuC_Pdu2,
 	/* .SrcModule =  */ARC_PDUR_COM,
 	/* .PduRDestPdus = */ vPduR_SrcPath3_PduRDestinations
 };
