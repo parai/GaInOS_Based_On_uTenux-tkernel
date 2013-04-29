@@ -54,6 +54,7 @@
 
 #if(MICRO_TENUX_VERSION == 140)
 #  include <libstr.h>
+#  include <tk/syscall.h>
 #else if(MICRO_TENUX_VERSION == 150)
 #  include <string.h>
 #endif
@@ -153,7 +154,7 @@ static const Can_HardwareObjectType * Can_FindHoh( Can_Arc_HTHType hth , uint32*
 {
   const Can_HardwareObjectType *hohObj;
   const Can_ObjectHOHMapType *map;
-  const Can_ControllerConfigType *canHwConfig;
+  //const Can_ControllerConfigType *canHwConfig;
 
   map = &Can_Global.CanHTHMap[hth];
 
@@ -163,7 +164,7 @@ static const Can_HardwareObjectType * Can_FindHoh( Can_Arc_HTHType hth , uint32*
     DET_REPORTERROR(MODULE_ID_CAN, 0, 0x6, CAN_E_PARAM_HANDLE);
   }
 
-  canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[map->CanControllerRef]);
+  //canHwConfig= CAN_GET_CONTROLLER_CONFIG(Can_Global.channelMap[map->CanControllerRef]);
 
   hohObj = map->CanHOHRef;
 
@@ -341,28 +342,45 @@ static void Can_TxIsr(int unit) {
 }
 
 /* ####################### INTERNAL FUNCTIONs ########################### */
+#define INSTALL_HANDLERS(_can_name,_sce,_rx,_tx) 		\
+	do { 												\
+		T_DINT pk_dint;									\
+		pk_dint.intatr = TA_HLNG;						\
+		pk_dint.inthdr = _can_name ## _ErrIsr;			\
+		tk_def_int(_sce+16,&pk_dint);					\
+		pk_dint.inthdr = _can_name ## _RxIsr;			\
+		tk_def_int(_tx+16,&pk_dint);					\
+		pk_dint.inthdr = _can_name ## _TxIsr;			\
+		tk_def_int(_sce+16,&pk_dint);					\
+	} while(0);
+
 EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
 {
-#if 0
-    // Note!
-    // Could install handlers depending on HW objects to trap more errors
-    // in configuration
-    switch( canHwConfig->CanControllerId ) {
-#ifndef STM32F10X_CL
-    case CAN_CTRL_1:
-        INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, USB_LP_CAN1_RX0_IRQn, USB_HP_CAN1_TX_IRQn);	break;
-#else
-    case CAN_CTRL_1:
-        INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, CAN1_RX0_IRQn, CAN1_TX_IRQn);	break;
-    case CAN_CTRL_2:
-        INSTALL_HANDLERS(Can_2, CAN2_SCE_IRQn, CAN2_RX0_IRQn, CAN2_TX_IRQn);	break;
-#endif
-        default:
-        AR_ASERRT(0);
-    }
-#endif
+	int configId;
+	const Can_ControllerConfigType *canHwConfig;
+	for (configId=0; configId < CAN_CTRL_CONFIG_CNT; configId++)
+	{
+		canHwConfig = CAN_GET_CONTROLLER_CONFIG(configId);
+		// Note!
+		// Could install handlers depending on HW objects to trap more errors
+		// in configuration
+		switch( canHwConfig->CanControllerId ) {
+		#ifndef STM32F10X_CL
+		case CAN_CTRL_1:
+			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, USB_LP_CAN1_RX0_IRQn, USB_HP_CAN1_TX_IRQn);	break;
+		#else
+		case CAN_CTRL_1:
+			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, CAN1_RX0_IRQn, CAN1_TX_IRQn);	break;
+		case CAN_CTRL_2:
+			INSTALL_HANDLERS(Can_2, CAN2_SCE_IRQn, CAN2_RX0_IRQn, CAN2_TX_IRQn);	break;
+		#endif
+			default:
+				AR_ASSERT(0);
+		}
+	}
 	return;
 }
+
 EXPORT Std_ReturnType Can_Hw_InitController(uint8 controller,const Can_ControllerConfigType* config)
 {
 	  CAN_HW_t *canHw;
@@ -467,13 +485,13 @@ EXPORT Std_ReturnType Can_Hw_InitController(uint8 controller,const Can_Controlle
 
 	  if(CANINITOK != CAN_Init(canHw,&CAN_InitStructure))
 	  {
-		return;
+		return E_NOT_OK;
 	  }
 
 	  canUnit->state = CANIF_CS_STOPPED;
 	  Can_EnableControllerInterrupts(cId);
 
-	  return;
+	  return E_OK;
 }
 
 EXPORT Can_ReturnType Can_Hw_SetControllerMode(uint8 controller,Can_StateTransitionType transition)

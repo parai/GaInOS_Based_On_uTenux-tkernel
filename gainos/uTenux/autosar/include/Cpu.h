@@ -55,5 +55,4 @@
 #define Irq_Save(_mask)    DI(_mask)
 
 
-
 #endif /* _CPU_H_H_H_ */
