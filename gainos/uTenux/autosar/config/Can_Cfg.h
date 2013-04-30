@@ -10,18 +10,18 @@
 #define CAN_CTRL_CONFIG_CNT 2
 
 /* Info used by CanIF,index of configure in Can_ControllerCfgData[] */
-#define INDEX_OF_CAN_CTRL_1 0
-#define INDEX_OF_CAN_CTRL_2 1
+#define INDEX_OF_CAN_CTRL_0 0
+#define INDEX_OF_CAN_CTRL_1 1
 
 typedef enum {
-	CAN_CTRL_1_vCanHth,
-	CAN_CTRL_2_vCanHth,
+	CAN_CTRL_0_vCanHoh1,
+	CAN_CTRL_1_vCanHoh1,
 	NUM_OF_HTHS
 } Can_Arc_HTHType;
 
 typedef enum {
-	CAN_CTRL_1_vCanHrh,
-	CAN_CTRL_2_vCanHrh,
+	CAN_CTRL_0_vCanHoh0,
+	CAN_CTRL_1_vCanHoh0,
 	NUM_OF_HRHS
 } Can_Arc_HRHType;
 

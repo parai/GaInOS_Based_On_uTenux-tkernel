@@ -49,6 +49,12 @@
 #  include "knl_kernel.h"
 #  include "knl_task.h"
 #  include "tk_flgimpl.h"
+/*
+Note: for uTenux has copy the type define of "FLGCB" from tk_flgimpl.h to 
+tk_flgimpl.c, so you should copy it back.
+*/
+IMPORT FLGCB	knl_flgcb_table[NUM_FLGID]; /* Event flag control block */
+#define get_flgcb(id)	( &knl_flgcb_table[INDEX_FLG(id)] )
 #endif
 /* |------------------+----------------------------------------------------------| */
 /* | Syntax:          | StatusType SetEvent ( TaskType <TaskID>                  | */

@@ -104,7 +104,7 @@ class ComSignal():
                 fp.write('%s, '%(vl));
             fp.write('};\n');
         else:
-            fp.write('const %s %s_InitValue = %s;\n'%(self.ComSignalType.lower(), self.name, self.ComSignalInitValue));
+            fp.write('const %s %s_InitValue = %s;\n'%(str(self.ComSignalType).lower(), self.name, self.ComSignalInitValue));
     def save(self, fp):
         attrib = 'name="%s" '%(self.name);
         attrib += 'ComBitPosition="%s" '%(self.ComBitPosition);
@@ -707,11 +707,15 @@ class ComObj():
         fp.write(str);
         #############Last
         fp.write('const Com_ConfigType ComConfiguration = {\n'
-                '/* .ComConfigurationId = */ 1,\n'
-                '/* .ComIPdu = */ ComIPdu,\n'
-                '/* .ComIPduGroup = */ ComIPduGroup,\n'
-                '/* .ComSignal = */ ComSignal,\n'
-                '/* .ComGroupSignal = */ ComGroupSignal\n'
+                '\t/* .ComConfigurationId = */ 1,\n'
+                '\t/* .ComIPdu = */ ComIPdu,\n'
+                '\t/* .ComIPduGroup = */ ComIPduGroup,\n'
+                '\t/* .ComSignal = */ ComSignal,\n'
+                '#if(COM_N_GROUP_SIGNALS > 0)\n'
+                '\t/* .ComGroupSignal = */ ComGroupSignal\n'
+                '#else\n'
+                '\t/* .ComGroupSignal = */ NULL\n'
+                '#endif\n'
                 '};\n\n');
         ######### Arc Run time need buffers
         str='Com_Arc_IPdu_type Com_Arc_IPdu[] = {\n';

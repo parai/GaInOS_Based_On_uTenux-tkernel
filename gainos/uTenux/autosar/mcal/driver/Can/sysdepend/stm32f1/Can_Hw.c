@@ -57,6 +57,7 @@
 #  include <tk/syscall.h>
 #else if(MICRO_TENUX_VERSION == 150)
 #  include <string.h>
+#  include <tk/tk_syscall.h>
 #endif
 
 

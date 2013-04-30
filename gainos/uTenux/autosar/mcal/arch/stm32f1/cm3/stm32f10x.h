@@ -460,8 +460,12 @@ typedef enum IRQn
 /**
   * @}
   */
+#if(MICRO_TENUX_VERSION == 140)
+#include "_core_cm3.h"
+#else if(MICRO_TENUX_VERSION == 150)
+#include <core_cm3.h> //use if from IAR lib
+#endif
 
-#include "core_cm3.h"
 //#include "system_stm32f10x.h"
 #include <stdint.h>
 

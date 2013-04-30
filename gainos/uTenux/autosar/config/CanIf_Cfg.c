@@ -13,6 +13,8 @@
 #if defined(USE_CANNM)
 #include "CanNm_Cbk.h"
 #endif
+//#include <stdlib.h>
+
 // Imported structs from Can_PBcfg.c
 IMPORT const Can_ControllerConfigType Can_ControllerCfgData[];
 IMPORT const Can_ConfigSetType Can_ConfigSetData;
@@ -23,8 +25,8 @@ void CanIf_User_ErrorNotification(uint8 Controller,Can_Arc_ErrorType Error){}
 
 // Contains the mapping from CanIf-specific Channels to Can Controllers
 const Can_ControllerIdType CanIf_Arc_ChannelToControllerMap[CANIF_CHANNEL_CNT] = {
-	CAN_CTRL_1,	/* vCanIf_Channel0 */
-	CAN_CTRL_2,	/* vCanIf_Channel1 */
+	CAN_CTRL_0,	/* vCanIf_Channel0 */
+	CAN_CTRL_1,	/* vCanIf_Channel1 */
 };
 
 const uint8 CanIf_Arc_ChannelDefaultConfIndex[CANIF_CHANNEL_CNT] = {
@@ -41,13 +43,13 @@ const CanIf_ControllerConfigType CanIfControllerConfig[] = {
 		/*WakeupSupport =*/ CANIF_WAKEUP_SUPPORT_NO_WAKEUP,
 		/*CanIfControllerIdRef =*/ vCanIf_Channel0,
 		/*CanIfDriverNameRef =*/ "FLEXCAN",  // Not used
-		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_1],
+		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_0],
 	},
 	{
 		/*WakeupSupport =*/ CANIF_WAKEUP_SUPPORT_NO_WAKEUP,
 		/*CanIfControllerIdRef =*/ vCanIf_Channel1,
 		/*CanIfDriverNameRef =*/ "FLEXCAN",  // Not used
-		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_2],
+		/*CanIfInitControllerRef =*/ &Can_ControllerCfgData[INDEX_OF_CAN_CTRL_1],
 	},
 };
 
@@ -67,7 +69,7 @@ const CanIf_HthConfigType CanIfHthConfigData_vCanIf_Channel0[]=
 	{
 		/*CanIfHthType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel0,
-		/*CanIfHthIdSymRef =*/ CAN_CTRL_1_vCanHth,
+		/*CanIfHthIdSymRef =*/ CAN_CTRL_0_vCanHoh1,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -78,7 +80,7 @@ const CanIf_HrhConfigType CanIfHrhConfigData_vCanIf_Channel0[]=
 		/*CanIfHrhType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
 		/*CanIfSoftwareFilterHrh =*/ TRUE,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel0,
-		/*CanIfHrhIdSymRef =*/ CAN_CTRL_1_vCanHrh,
+		/*CanIfHrhIdSymRef =*/ CAN_CTRL_0_vCanHoh0,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -88,7 +90,7 @@ const CanIf_HthConfigType CanIfHthConfigData_vCanIf_Channel1[]=
 	{
 		/*CanIfHthType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel1,
-		/*CanIfHthIdSymRef =*/ CAN_CTRL_2_vCanHth,
+		/*CanIfHthIdSymRef =*/ CAN_CTRL_1_vCanHoh1,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -97,9 +99,9 @@ const CanIf_HrhConfigType CanIfHrhConfigData_vCanIf_Channel1[]=
 {
 	{
 		/*CanIfHrhType =*/ CAN_ARC_HANDLE_TYPE_BASIC,
-		/*CanIfSoftwareFilterHrh =*/ TRUE,
+		/*CanIfSoftwareFilterHrh =*/ FALSE,
 		/*CanIfCanControllerIdRef =*/ vCanIf_Channel1,
-		/*CanIfHrhIdSymRef =*/ CAN_CTRL_2_vCanHrh,
+		/*CanIfHrhIdSymRef =*/ CAN_CTRL_1_vCanHoh0,
 		/*CanIf_Arc_EOL =*/ TRUE
 	},
 };
@@ -123,8 +125,8 @@ const CanIf_InitHohConfigType CanIfHohConfigData[] =
 const CanIf_TxPduConfigType CanIfTxPduConfigData[] = 
 {
 	{
-		/*CanIfTxPduId =*/ PDUR_TX_vEcuC_Pdu1,
-		/*CanIfCanTxPduIdCanId =*/ 0,
+		/*CanIfTxPduId =*/ PDUR_TX_vEcuC_Pdu0,
+		/*CanIfCanTxPduIdCanId =*/ 1,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
 #if ( CANIF_READTXPDU_NOTIFY_STATUS_API == STD_ON )
@@ -136,7 +138,7 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 		/*PduIdRef =*/ NULL
 	},
 	{
-		/*CanIfTxPduId =*/ PDUR_TX_vEcuC_Pdu2,
+		/*CanIfTxPduId =*/ PDUR_TX_vEcuC_Pdu1,
 		/*CanIfCanTxPduIdCanId =*/ 0,
 		/*CanIfCanTxPduIdDlc =*/ 8,
 		/*CanIfCanTxPduType =*/ CANIF_PDU_TYPE_STATIC,
@@ -153,7 +155,7 @@ const CanIf_TxPduConfigType CanIfTxPduConfigData[] =
 const CanIf_RxPduConfigType CanIfRxPduConfigData[] = 
 {
 	{
-		/*CanIfCanRxPduId =*/ PDUR_RX_vEcuC_Pdu1,
+		/*CanIfCanRxPduId =*/ PDUR_RX_vEcuC_Pdu0,
 		/*CanIfCanRxPduCanId =*/ 0,
 		/*CanIfCanRxPduDlc =*/ 8,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
@@ -171,8 +173,8 @@ const CanIf_RxPduConfigType CanIfRxPduConfigData[] =
 		/*CanIfCanRxPduCanIdMask =*/ 0x7FF
 	},
 	{
-		/*CanIfCanRxPduId =*/ PDUR_RX_vEcuC_Pdu2,
-		/*CanIfCanRxPduCanId =*/ 0,
+		/*CanIfCanRxPduId =*/ PDUR_RX_vEcuC_Pdu1,
+		/*CanIfCanRxPduCanId =*/ 1,
 		/*CanIfCanRxPduDlc =*/ 8,
 #if ( CANIF_CANPDUID_READDATA_API == STD_ON )
 		/*CanIfReadRxPduData =*/ TRUE,

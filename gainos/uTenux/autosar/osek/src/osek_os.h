@@ -142,6 +142,18 @@ typedef UB OSServiceIdType;
             {'T','A','S','K','\0'},                     \
             TaskStack##TaskName                         \
                 }
+
+/* extend Task Create Method, Use tkernel IMalloc Mechanism */                
+#define GenTaskCreInfoExt(TaskName,Priority,flgid,stksz)   \
+    {                                                   \
+        (VP)flgid,                                      \
+            TA_HLNG|TA_RNG0,                            \
+            &TaskMain##TaskName,                        \
+            Priority,                                   \
+            stksz,                                      \
+            {'T','A','S','K','\0'},                     \
+            NULL                                        \
+                }                
 StatusType ActivateTask ( TaskType xTaskID );
 StatusType TerminateTask( void );
 StatusType ChainTask    ( TaskType xTaskID );

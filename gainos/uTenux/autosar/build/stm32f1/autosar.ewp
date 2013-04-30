@@ -307,6 +307,8 @@
           <state>$PROJ_DIR$/../../diag/Det</state>
           <state>$PROJ_DIR$/../../ecual/EcuM</state>
           <state>$PROJ_DIR$/../../mcal/arch/stm32f1</state>
+          <state>$PROJ_DIR$/../../mcal/arch/stm32f1/cm3</state>
+          <state>$PROJ_DIR$/../../mcal/arch/stm32f1/STM32F10x_StdPeriph_Driver/inc</state>
           <state>$PROJ_DIR$/../../include</state>
           <state>$PROJ_DIR$/../../mcal/driver/Can</state>
           <state>$PROJ_DIR$/../../mcal/driver/Can/sysdepend/stm32f1</state>
@@ -543,7 +545,7 @@
         </option>
         <option>
           <name>AOutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>AMultibyteSupport</name>
@@ -2123,6 +2125,33 @@
     <name>mcal</name>
     <group>
       <name>arch</name>
+      <group>
+        <name>cm3</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\cm3\stm32f10x.h</name>
+        </file>
+      </group>
+      <group>
+        <name>STM32F10x_StdPeriph_Driver</name>
+        <group>
+          <name>inc</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\stm32f10x_can.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h</name>
+          </file>
+        </group>
+        <group>
+          <name>src</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</name>
+          </file>
+        </group>
+      </group>
       <file>
         <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\Platform_Types.h</name>
       </file>

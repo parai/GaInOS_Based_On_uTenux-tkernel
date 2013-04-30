@@ -5,7 +5,7 @@
 
 #define CANIF_VERSION_INFO_API   STD_OFF
 #define CANIF_DEV_ERROR_DETECT   STD_OFF
-#define CANIF_DLC_CHECK          STD_OFF
+#define CANIF_DLC_CHECK          STD_ON
 #define CANIF_MULITPLE_DRIVER_SUPPORT       STD_OFF   // Not supported
 #define CANIF_READRXPDU_DATA_API			 STD_OFF   // Not supported
 #define CANIF_READRXPDU_NOTIFY_STATUS_API	 STD_OFF   // Not supported
@@ -22,11 +22,11 @@
 #define USE_CANTP
 
 /* Tx PduId For CanIF */
-#define CANIF_TX_vEcuC_Pdu1		0
-#define CANIF_TX_vEcuC_Pdu2		1
+#define CANIF_TX_vEcuC_Pdu0		0
+#define CANIF_TX_vEcuC_Pdu1		1
 /* Rx PduId For CanIF */
-#define CANIF_RX_vEcuC_Pdu1		0
-#define CANIF_RX_vEcuC_Pdu2		1
+#define CANIF_RX_vEcuC_Pdu0		0
+#define CANIF_RX_vEcuC_Pdu1		1
 // Identifiers for the elements in CanIfControllerConfig[]
 // This is the ConfigurationIndex in CanIf_InitController()
 typedef enum {
