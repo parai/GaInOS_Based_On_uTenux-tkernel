@@ -139,7 +139,10 @@ EXPORT Can_GlobalType Can_Global =
 /* ####################### LOCAL FUNCTIONs ########################### */
 static uint32 McuE_GetSystemClock(void)
 {
-	return 72000000;  //72MHZ
+	//return 72000000;  //72MHZ
+    RCC_ClocksTypeDef clk;
+    RCC_GetClocksFreq(&clk);
+    return clk.SYSCLK_Frequency;
 }
 
 static CAN_HW_t * GetController(int unit)
@@ -197,6 +200,9 @@ static void Can_GPIO_Configuration(void)
   GPIO_Init(GPIOD, &GPIO_InitStructure);
   
   GPIO_PinRemapConfig(GPIO_Remap2_CAN1 , ENABLE);
+  
+  /* GPIO clock enable */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO |RCC_APB2Periph_GPIOD, ENABLE);
 }
 //-------------------------------------------------------------------
 /**
