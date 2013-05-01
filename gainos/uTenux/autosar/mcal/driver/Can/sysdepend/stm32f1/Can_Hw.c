@@ -48,6 +48,9 @@
 
 #include "stm32f10x.h"
 #include "stm32f10x_can.h"
+#include "stm32f10x_rcc.h"
+#include "stm32f10x_gpio.h"
+#include "misc.h"
 #include "Cpu.h"
 //#include "Mcu.h"
 #include "CanIf_Cbk.h"
@@ -138,11 +141,63 @@ static uint32 McuE_GetSystemClock(void)
 {
 	return 72000000;  //72MHZ
 }
+
 static CAN_HW_t * GetController(int unit)
 {
 	return ((CAN_HW_t *)(CAN1_BASE + unit*0x400));
 }
 
+/**
+  * @brief  Configures the NVIC for CAN.
+  * @param  None
+  * @retval None
+  */
+static void Can_NVIC_Configuration(void)
+{
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* Enable CAN1 RX0 interrupt IRQ channel */
+#ifndef STM32F10X_CL
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
+#else
+  NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
+#endif /* STM32F10X_CL*/
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  
+  /* Enable CAN1 TX interrupt IRQ channel */
+#ifndef STM32F10X_CL
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_TX_IRQn;
+#else
+  NVIC_InitStructure.NVIC_IRQChannel = CAN1_TX_IRQn;
+#endif /* STM32F10X_CL*/
+  NVIC_Init(&NVIC_InitStructure);
+}
+
+/**
+  * @brief  Configures the GPIO.
+  * @param  None
+  * @retval None
+  */
+static void Can_GPIO_Configuration(void)
+{
+  GPIO_InitTypeDef  GPIO_InitStructure;
+  
+  /* Configure CAN pin: RX */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//GPIO_Pin_CAN_RX;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+  /* Configure CAN pin: TX */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;//GPIO_Pin_CAN_TX;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+  GPIO_PinRemapConfig(GPIO_Remap2_CAN1 , ENABLE);
+}
 //-------------------------------------------------------------------
 /**
  * Function that finds the Hoh( HardwareObjectHandle ) from a Hth
@@ -350,15 +405,18 @@ static void Can_TxIsr(int unit) {
 		pk_dint.inthdr = _can_name ## _ErrIsr;			\
 		tk_def_int(_sce+16,&pk_dint);					\
 		pk_dint.inthdr = _can_name ## _RxIsr;			\
-		tk_def_int(_tx+16,&pk_dint);					\
+		tk_def_int(_rx+16,&pk_dint);					\
 		pk_dint.inthdr = _can_name ## _TxIsr;			\
-		tk_def_int(_sce+16,&pk_dint);					\
+		tk_def_int(_tx+16,&pk_dint);					\
 	} while(0);
+
 
 EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
 {
 	int configId;
 	const Can_ControllerConfigType *canHwConfig;
+    Can_NVIC_Configuration();
+    Can_GPIO_Configuration();
 	for (configId=0; configId < CAN_CTRL_CONFIG_CNT; configId++)
 	{
 		canHwConfig = CAN_GET_CONTROLLER_CONFIG(configId);
@@ -368,12 +426,27 @@ EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
 		switch( canHwConfig->CanControllerId ) {
 		#ifndef STM32F10X_CL
 		case CAN_CTRL_1:
-			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, USB_LP_CAN1_RX0_IRQn, USB_HP_CAN1_TX_IRQn);	break;
+        {
+			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, USB_LP_CAN1_RX0_IRQn, USB_HP_CAN1_TX_IRQn);
+            /* CAN1 Periph clock enable */
+            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+            break;
+        }
 		#else
 		case CAN_CTRL_1:
-			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, CAN1_RX0_IRQn, CAN1_TX_IRQn);	break;
+        {
+			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, CAN1_RX0_IRQn, CAN1_TX_IRQn);
+            /* CAN1 Periph clock enable */
+            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+            break;
+        }
 		case CAN_CTRL_2:
-			INSTALL_HANDLERS(Can_2, CAN2_SCE_IRQn, CAN2_RX0_IRQn, CAN2_TX_IRQn);	break;
+        {
+			INSTALL_HANDLERS(Can_2, CAN2_SCE_IRQn, CAN2_RX0_IRQn, CAN2_TX_IRQn);
+            /* CAN2 Periph clock enable */
+            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);
+            break;
+        }
 		#endif
 			default:
 				AR_ASSERT(0);

@@ -2136,7 +2136,13 @@
         <group>
           <name>inc</name>
           <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\misc.h</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\stm32f10x_can.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h</name>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h</name>
@@ -2145,7 +2151,13 @@
         <group>
           <name>src</name>
           <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\misc.c</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</name>
           </file>
           <file>
             <name>$PROJ_DIR$\..\..\mcal\arch\stm32f1\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</name>
