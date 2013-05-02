@@ -70,8 +70,8 @@ class CanCtrlMc9S12dp512():
         self.name = name;
         self.baudrate=250;
         self.propseg=0;
-        self.seg1=13;
-        self.seg2=2;
+        self.seg1=12;
+        self.seg2=1;
         self.hohList=[];
 
 class CanGeneralMc9S12dp512():

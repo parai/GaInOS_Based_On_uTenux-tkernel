@@ -139,10 +139,10 @@ EXPORT Can_GlobalType Can_Global =
 /* ####################### LOCAL FUNCTIONs ########################### */
 static uint32 McuE_GetSystemClock(void)
 {
-	//return 72000000;  //72MHZ
     RCC_ClocksTypeDef clk;
     RCC_GetClocksFreq(&clk);
     return clk.SYSCLK_Frequency;
+    //return clk.PCLK1_Frequency;
 }
 
 static CAN_HW_t * GetController(int unit)
@@ -150,60 +150,6 @@ static CAN_HW_t * GetController(int unit)
 	return ((CAN_HW_t *)(CAN1_BASE + unit*0x400));
 }
 
-/**
-  * @brief  Configures the NVIC for CAN.
-  * @param  None
-  * @retval None
-  */
-static void Can_NVIC_Configuration(void)
-{
-  NVIC_InitTypeDef NVIC_InitStructure;
-
-  /* Enable CAN1 RX0 interrupt IRQ channel */
-#ifndef STM32F10X_CL
-  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
-#else
-  NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
-#endif /* STM32F10X_CL*/
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-  
-  /* Enable CAN1 TX interrupt IRQ channel */
-#ifndef STM32F10X_CL
-  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_TX_IRQn;
-#else
-  NVIC_InitStructure.NVIC_IRQChannel = CAN1_TX_IRQn;
-#endif /* STM32F10X_CL*/
-  NVIC_Init(&NVIC_InitStructure);
-}
-
-/**
-  * @brief  Configures the GPIO.
-  * @param  None
-  * @retval None
-  */
-static void Can_GPIO_Configuration(void)
-{
-  GPIO_InitTypeDef  GPIO_InitStructure;
-  
-  /* Configure CAN pin: RX */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//GPIO_Pin_CAN_RX;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-  GPIO_Init(GPIOD, &GPIO_InitStructure);
-  
-  /* Configure CAN pin: TX */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;//GPIO_Pin_CAN_TX;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_Init(GPIOD, &GPIO_InitStructure);
-  
-  GPIO_PinRemapConfig(GPIO_Remap2_CAN1 , ENABLE);
-  
-  /* GPIO clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO |RCC_APB2Periph_GPIOD, ENABLE);
-}
 //-------------------------------------------------------------------
 /**
  * Function that finds the Hoh( HardwareObjectHandle ) from a Hth
@@ -420,9 +366,15 @@ static void Can_TxIsr(int unit) {
 EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
 {
 	int configId;
+    NVIC_InitTypeDef NVIC_InitStructure;
+    GPIO_InitTypeDef  GPIO_InitStructure;
 	const Can_ControllerConfigType *canHwConfig;
-    Can_NVIC_Configuration();
-    Can_GPIO_Configuration();
+    
+    /* All CAN ISR use the same priority */
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    
 	for (configId=0; configId < CAN_CTRL_CONFIG_CNT; configId++)
 	{
 		canHwConfig = CAN_GET_CONTROLLER_CONFIG(configId);
@@ -434,23 +386,101 @@ EXPORT void Can_Hw_Init(const Can_ConfigType* Config)
 		case CAN_CTRL_1:
         {
 			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, USB_LP_CAN1_RX0_IRQn, USB_HP_CAN1_TX_IRQn);
+            
+            /* GPIO clock enable */
+            RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO |RCC_APB2Periph_GPIOD, ENABLE);
             /* CAN1 Periph clock enable */
             RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+            
+            /* Configure CAN pin: RX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//GPIO_Pin_CAN_RX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+            GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+            /* Configure CAN pin: TX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;//GPIO_Pin_CAN_TX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+            GPIO_Init(GPIOD, &GPIO_InitStructure);
+            /* USE PD0 -->Rx  PD1 -->Tx*/
+            GPIO_PinRemapConfig(GPIO_Remap2_CAN1 , ENABLE);
+            
+            /* Enable CAN1 SCE interrupt IRQ */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN1_SCE_IRQn;
+            NVIC_Init(&NVIC_InitStructure);            
+            /* Enable CAN1 RX0 interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
+            NVIC_Init(&NVIC_InitStructure);
+            /* Enable CAN1 TX interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_TX0_IRQn;
+            NVIC_Init(&NVIC_InitStructure);            
             break;
         }
 		#else
 		case CAN_CTRL_1:
         {
 			INSTALL_HANDLERS(Can_1, CAN1_SCE_IRQn, CAN1_RX0_IRQn, CAN1_TX_IRQn);
+            
+            /* GPIO clock enable */
+            RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO |RCC_APB2Periph_GPIOD, ENABLE);
             /* CAN1 Periph clock enable */
-            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);            
+
+            /* Configure CAN pin: RX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//GPIO_Pin_CAN_RX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+            GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+            /* Configure CAN pin: TX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;//GPIO_Pin_CAN_TX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+            GPIO_Init(GPIOD, &GPIO_InitStructure);
+            /* USE PD0 -->Rx  PD1 -->Tx*/
+            GPIO_PinRemapConfig(GPIO_Remap2_CAN1 , ENABLE);
+            
+            /* Enable CAN1 SCE interrupt IRQ */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN1_SCE_IRQn;
+            NVIC_Init(&NVIC_InitStructure);            
+            /* Enable CAN1 RX0 interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
+            NVIC_Init(&NVIC_InitStructure);
+            /* Enable CAN1 TX interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN1_TX_IRQn;
+            NVIC_Init(&NVIC_InitStructure);                     
             break;
         }
 		case CAN_CTRL_2:
         {
 			INSTALL_HANDLERS(Can_2, CAN2_SCE_IRQn, CAN2_RX0_IRQn, CAN2_TX_IRQn);
+            
+            /* GPIO clock enable */
+            RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO |RCC_APB2Periph_GPIOB, ENABLE);
             /* CAN2 Periph clock enable */
-            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);
+            RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);            
+            
+            /* Configure CAN pin: RX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;//GPIO_Pin_CAN_RX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+            GPIO_Init(GPIOB, &GPIO_InitStructure);
+  
+            /* Configure CAN pin: TX */
+            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;//GPIO_Pin_CAN_TX;
+            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+            GPIO_Init(GPIOB, &GPIO_InitStructure);
+            /* USE PB5 -->Rx  PB6 -->Tx*/
+            GPIO_PinRemapConfig(GPIO_Remap_CAN2 , ENABLE);
+            
+            /* Enable CAN2 SCE interrupt IRQ */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN2_SCE_IRQn;
+            NVIC_Init(&NVIC_InitStructure);
+            /* Enable CAN2 RX0 interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX0_IRQn;
+            NVIC_Init(&NVIC_InitStructure);
+            /* Enable CAN2 TX interrupt IRQ channel */
+            NVIC_InitStructure.NVIC_IRQChannel = CAN2_TX_IRQn;
+            NVIC_Init(&NVIC_InitStructure);                 
             break;
         }
 		#endif

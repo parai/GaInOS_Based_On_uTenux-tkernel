@@ -66,8 +66,8 @@ EXPORT const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		CAN_PROCESS_TYPE_INTERRUPT,
 		250, /* baudrate(kbs) */
 		0, /* propseg(SJW) */
-		13, /* seg1 */
-		2, /* seg2 */
+		12, /* seg1 */
+		1, /* seg2 */
 		CAN_CTRL_0_HOHCfgData,
 		FALSE	/* LoopBack */
 	},
@@ -79,8 +79,8 @@ EXPORT const Can_ControllerConfigType  Can_ControllerCfgData[]=
 		CAN_PROCESS_TYPE_INTERRUPT,
 		250, /* baudrate(kbs) */
 		0, /* propseg(SJW) */
-		13, /* seg1 */
-		2, /* seg2 */
+		12, /* seg1 */
+		1, /* seg2 */
 		CAN_CTRL_1_HOHCfgData,
 		FALSE	/* LoopBack */
 	},
