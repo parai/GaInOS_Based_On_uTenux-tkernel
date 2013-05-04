@@ -350,7 +350,7 @@ EXPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_Controlle
 	// set CAN enable bit, deactivate listen-only mode,
 	// use Bus Clock as clock source and select loop back mode on/off
 	canHw->CTL1 = BM_CANE | BM_CLKSRC | (Config->Can_Loopback ? BM_LOOPB : 0x00);
-
+    
 	// acceptance filters
 	hohObj = canHwConfig->Can_Hoh;
 	--hohObj;
@@ -389,7 +389,7 @@ EXPORT Std_ReturnType Can_Hw_InitController(uint8 Controller,const Can_Controlle
     // TQ = 1/Ftq = (PRESDIV+1)/Fcanclk --> PRESDIV = (TQ * Fcanclk - 1 )
     // TQ is between 8 and 25
     clock = McuE_GetSystemClock()/2;
-
+    
     tqSync = Config->CanControllerPropSeg + 1;
     tq1 = Config->CanControllerSeg1 + 1;
     tq2 = Config->CanControllerSeg2 + 1;
